@@ -1,0 +1,71 @@
+<nz-header class="header">
+    <div class="logo">
+        <a href="#" class="navbar-brand">
+            <div *ngIf="!layoutConfig.collapsed" class="brand-logo">
+                <img src="assets/img/logo.png" alt="App Logo" class="img-responsive">
+            </div>
+            <div *ngIf="layoutConfig.collapsed" class="brand-logo-collapsed">
+                <img src="assets/img/logo-single.png" alt="App Logo" class="img-responsive">
+            </div>
+        </a>
+    </div>
+    <div class="nav-wrapper">
+        <ul class="nav navbar-nav navbar-left">
+            <li>
+                <div class="item" (click)="toggleCollapse()">
+                    <i nz-icon [type]="'menu-unfold'" [theme]="'outline'" *ngIf="layoutConfig.collapsed"></i>
+                    <i nz-icon [type]="'menu-fold'" [theme]="'outline'" *ngIf="!layoutConfig.collapsed"></i>
+                </div>
+            </li>
+            <li *ngIf="userBlockBtnVisible">
+                <div class="item" (click)="toggleUserBlock()">
+                    <i nz-icon [type]="'user'" [theme]="'outline'"></i>
+                </div>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <nz-dropdown [nzPlacement]="'bottomRight'">
+                    <div nz-dropdown class="item">
+                        <nz-badge [nzCount]="99"><i nz-icon [type]="'bell'" [theme]="'outline'"></i></nz-badge>
+                    </div>
+                    <ul nz-menu>
+                        <li nz-menu-item>1st menu item</li>
+                        <li nz-menu-item>2nd menu item</li>
+                        <li nz-menu-divider></li>
+                        <li nz-menu-item nzDisabled>disabled menu item</li>
+                    </ul>
+                </nz-dropdown>
+            </li>
+            <li>
+                <nz-dropdown [nzPlacement]="'bottomRight'">
+                    <div nz-dropdown class="item">
+                        <i nz-icon [type]="'setting'" [theme]="'outline'"></i>
+                    </div>
+                    <ul nz-menu>
+                        <li nz-menu-item (click)="reloadFilterChains()"><i nz-icon [nzType]="'rocket'" [nzTheme]="'outline'"></i>刷新权限</li>
+                        <!--<li nz-menu-item>2nd menu item</li>-->
+                        <!--<li nz-menu-divider></li>-->
+                        <!--<li nz-menu-item nzDisabled>disabled menu item</li>-->
+                    </ul>
+                </nz-dropdown>
+            </li>
+            <li>
+                <nz-dropdown [nzPlacement]="'bottomRight'">
+                    <div nz-dropdown class="item user-dropdown">
+                        <nz-avatar class="user-avatar"
+                                   [nzSrc]="layoutData.userBlock.photo ? layoutData.userBlock.photo : 'assets/img/user/02.jpg'">
+                        </nz-avatar>
+                        <span class="user-name">{{layoutData.userBlock.name}}</span>
+                    </div>
+                    <ul nz-menu>
+                        <li nz-menu-item (click)="goTo('/profile')"><i nz-icon [type]="'user'" [theme]="'outline'"></i>个人设置</li>
+                        <li nz-menu-item (click)="goTo('/profile/password-edit')"><i nz-icon [type]="'key'" [theme]="'outline'"></i>修改密码</li>
+                        <li nz-menu-divider></li>
+                        <li nz-menu-item (click)="logout()"><i nz-icon [type]="'poweroff'" [theme]="'outline'"></i>退出登录</li>
+                    </ul>
+                </nz-dropdown>
+            </li>
+        </ul>
+    </div>
+</nz-header>

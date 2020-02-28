@@ -1,0 +1,19 @@
+.card {
+  padding-left: 40px;
+  padding-right: 40px;
+
+  .card-item {
+    margin-bottom: 20px;
+  }
+}
+
+.ant-avatar {
+  font-size: 1.375rem;
+  margin: 0;
+  width: 48px;
+  height: 48px;
+}
+
+.ant-avatar, .ant-avatar>* {
+  line-height: 44px;
+}

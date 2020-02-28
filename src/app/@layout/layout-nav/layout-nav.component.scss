@@ -1,0 +1,37 @@
+.layout-fixed {
+  height: auto;
+  min-height: 100%;
+  width: 100%;
+  position: relative;
+  overflow-x: hidden;
+
+  .wrapper {
+    margin-top: 60px;
+
+    .content-wrapper {
+      width: 100%;
+      margin-bottom: 60px;
+      background-color: #f5f7fa;
+      border-bottom: 1px solid #cfdbe2;
+
+      .breadcrumb {
+        height: 50px;
+        padding-left: 24px;
+        display: flex;
+        align-items: center;
+        background: #fff;
+        border-bottom: 1px solid #cfdbe2;
+      }
+
+      .content {
+        padding: 24px;
+        min-height: 360px;
+      }
+    }
+  }
+
+  .footer {
+    margin-left: 0;
+  }
+
+}

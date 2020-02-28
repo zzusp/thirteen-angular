@@ -1,0 +1,25 @@
+// 搜索表单布局
+.search-form {
+
+  .form-item {
+    display: flex;
+
+    > nz-form-label {
+      padding: 0 !important;
+    }
+    > nz-form-control{
+      flex: 1;
+      padding: 0 !important;
+    }
+  }
+
+  .form-button {
+    line-height: 40px;
+  }
+
+}
+
+// 按钮组布局
+.button-group {
+
+}

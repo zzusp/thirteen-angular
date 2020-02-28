@@ -1,0 +1,273 @@
+//
+// Tree table
+//
+
+$ui-fg-color: #1890ff;
+$ui-bg-color: #d9d9d9;
+
+@mixin switch-variant($wd, $hg) {
+  & span {
+    width: $wd;
+    height: $hg;
+  }
+
+  & span:after {
+    height: $hg - 2;
+    width: $hg - 2;
+  }
+}
+
+.tree-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  border-radius: 4px 4px 0 0;
+
+
+  .checkbox-column {
+    width: 60px;
+    user-select: none;
+  }
+
+  .tree-table-thead > tr > th,
+  .tree-table-tbody > tr > td {
+    padding: 16px;
+    word-break: break-word;
+  }
+
+  .tree-table-thead {
+    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+
+    tr {
+      display: table-row;
+      vertical-align: inherit;
+      border-color: inherit;
+      transition: all .3s,height 0s;
+
+      th {
+        background: #fafafa;
+        transition: background .3s ease;
+        text-align: left;
+        color: rgba(0,0,0,.85);
+        font-weight: 500;
+        border-bottom: 1px solid #e8e8e8;
+      }
+    }
+  }
+
+  .tree-table-tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+
+    tr {
+      display: table-row;
+      vertical-align: inherit;
+      border-color: inherit;
+      transition: all .3s,height 0s;
+
+      td {
+        border-bottom: 1px solid #e8e8e8;
+        transition: all .3s,border 0s;
+        display: table-cell;
+        vertical-align: inherit;
+      }
+
+      .tree-column {
+        text-align: left !important;
+
+        > label {
+          font-weight: normal;
+          .fa-fw {
+            width: 14px;
+            text-align: left;
+          }
+        }
+      }
+
+      &.active {
+        border-right: 3px solid #1890ff;
+        td {
+          background-color: #e6f7ff;
+          color: #1890ff;
+
+          .tree-table-checkbox {
+            input[type=checkbox]:checked + span {
+              border-color: #ffffff;
+            }
+          }
+
+          a {
+            text-decoration: none;
+            color: #ffffff;
+          }
+
+          span {
+            &:hover {
+              border-color: #ffffff;
+            }
+          }
+
+          app-tree-table-column-template {
+
+          }
+        }
+      }
+
+      &:hover {
+        background-color: #e6f7ff;
+      }
+    }
+
+  }
+
+}
+
+// 空数据显示标签的样式
+.tree-table-placeholder {
+  position: relative;
+  padding: 16px;
+  background: #fff;
+  text-align: center;
+  font-size: 14px;
+  color: rgba(0,0,0,.45);
+  border-bottom: 1px solid #e8e8e8;
+}
+
+// 以下是折叠图标样式
+.tree-table-row-icon,.tree-table-row-indent {
+  cursor: pointer;
+  display: inline-block;
+  width: 17px;
+  height: 17px;
+  text-align: center;
+  line-height: 14px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin-right: 8px;
+}
+
+.icon-expand {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  color: rgb(89, 89, 89) !important;
+
+  &:after {
+    content: '-';
+  }
+}
+
+.icon-collapse {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  color: rgb(89, 89, 89) !important;
+
+  &:after {
+    content: '+';
+  }
+}
+
+// 以下是勾选框的样式
+.tree-table-checkbox {
+  color: rgba(0, 0, 0, .65);
+  white-space: nowrap;
+  cursor: pointer;
+  outline: 0;
+  display: inline-block;
+  line-height: 1;
+  position: relative;
+  vertical-align: middle;
+  top: -.09em;
+
+  input {
+    line-height: normal;
+    position: absolute;
+    left: 0;
+    cursor: pointer;
+    opacity: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 14px;
+    height: 14px;
+  }
+
+  span {
+    position: relative;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
+    background-color: #fff;
+    transition: all .3s;
+    &:focus {
+      border-color: #1890ff;
+    }
+  }
+}
+
+/* Checked state */
+.tree-table-checkbox {
+
+  span:after {
+    -webkit-transform: rotate(45deg) scale(0);
+    transform: rotate(45deg) scale(0);
+    left: 4.57px;
+    top: 1.14px;
+    width: 5.71px;
+    height: 9.14px;
+    border: 2px solid #fff;
+    border-top: 0;
+    border-left: 0;
+    transition: all .1s cubic-bezier(.71,-.46,.88,.6),opacity .1s;
+    opacity: 0;
+  }
+
+  input[type=checkbox]:checked + .fa-check {
+    border-color: $ui-fg-color;
+    background-color: $ui-fg-color;
+    &:after {
+      -webkit-transform: rotate(45deg) scale(1);
+      transform: rotate(45deg) scale(1);
+      border: 2px solid #fff;
+      border-top: 0;
+      border-left: 0;
+      transition: all .2s cubic-bezier(.12,.4,.29,1.46) .1s;
+      opacity: 1;
+      position: absolute;
+      display: table;
+      content: ' ';
+    }
+  }
+
+  input[type=checkbox]:checked + .fa-minus {
+    border-color: $ui-fg-color;
+    background-color: $ui-fg-color;
+    &:after {
+      -webkit-transform: rotate(90deg) scale(1);
+      transform: rotate(90deg) scale(1);
+      border: 0 solid #fff;
+      border-right-width: 2px;
+      transition: all .2s cubic-bezier(.12,.4,.29,1.46) .1s;
+      opacity: 1;
+      position: absolute;
+      display: table;
+      content: ' ';
+    }
+  }
+
+  /* Disable state */
+  input[type=checkbox]:disabled + span,
+  input[type=radio]:disabled + span {
+    border-color: $ui-bg-color !important;
+    background-color: $ui-bg-color !important;
+  }
+
+}

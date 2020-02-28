@@ -1,0 +1,56 @@
+.login-page-wapper {
+  padding: 112px 0 24px;
+  height: 100%;
+  background-color: #f9f9f9;
+
+  .text-center {
+    width: 100%;
+    text-align: center;
+
+    > p {
+      font-size: 26px;
+      font-family: 'cursive';
+      margin-bottom: 1.4%;
+      font-weight: bold;
+      color: #888;
+      margin-top: 0;
+    }
+  }
+
+  .login-form {
+    display: block;
+    width: 368px;
+    margin: 0 auto;
+    border: 1px #ccc solid;
+    padding: 2%;
+    border-radius: 5px;
+    background-color: #fff;
+
+    .login-form-item {
+      font-size: 14px;
+      line-height: 1.5;
+      color: rgba(0, 0, 0, 0.65);
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      margin-bottom: 24px;
+      vertical-align: top;
+    }
+
+    .login-form-button {
+      width: 100%;
+    }
+  }
+
+}
+
+// 重写样式
+.ant-card {
+
+  background: none;
+
+  .ant-card-head {
+    border-bottom: none;
+  }
+}

@@ -1,0 +1,70 @@
+<div nz-row [nzGutter]="32">
+    <div nz-col [nzMd]="24">
+        <nz-card [nzBordered]="false">
+            <form class="search-form">
+                <div nz-row [nzGutter]="32">
+                    <div nz-col [nzMd]="8">
+                        <nz-form-item class="form-item">
+                            <nz-form-label>账号</nz-form-label>
+                            <nz-form-control>
+                                <input id="account" name="account" nz-input placeholder="请输入" [(ngModel)]="params.account">
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                    <div nz-col [nzMd]="8">
+                        <nz-form-item class="form-item">
+                            <nz-form-label>状态</nz-form-label>
+                            <nz-form-control>
+                                <input id="status" name="status" nz-input placeholder="请输入" [(ngModel)]="params.status">
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                    <div nz-col [nzMd]="8">
+                        <div class="form-button">
+                            <button nz-button nzType="primary" (click)="list()" [nzLoading]="false">查询</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <nz-table
+                #rowSelectionTable
+                nzShowSizeChanger
+                [nzFrontPagination]="false"
+                [nzData]="tableData"
+                [nzLoading]="loading"
+                [nzTotal]="total"
+                [(nzPageIndex)]="pageNum"
+                [(nzPageSize)]="pageSize"
+                (nzPageIndexChange)="list()"
+                (nzPageSizeChange)="list()">
+                <thead nzSingleSort>
+                <tr>
+                    <th nzShowSort [(nzSort)]="sortMap.account" (nzSortChange)="sort('account', $event)">账号</th>
+                    <th nzShowSort [(nzSort)]="sortMap.request_path" (nzSortChange)="sort('request_path', $event)">来源路径</th>
+                    <th nzShowSort [(nzSort)]="sortMap.status" (nzSortChange)="sort('status', $event)"><span>状态</span></th>
+                    <th nzShowSort [(nzSort)]="sortMap.login_time" (nzSortChange)="sort('login_time', $event)"><span>登录时间</span></th>
+                    <th><span>操作</span></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let data of tableData">
+                    <td>{{data.account}}</td>
+                    <td>{{data.requestPath}}</td>
+                    <td>{{data.status}}</td>
+                    <td>{{data.loginTime}}</td>
+                    <td>
+                        <a (click)="showDetail(data.id)">详情</a>
+                        <nz-divider *ngIf="perms.delete" nzType="vertical"></nz-divider>
+                        <a *ngIf="perms.delete"
+                           nz-popconfirm
+                           [nzTitle]="global.DELETE_CONFIRM_MSG"
+                           (nzOnConfirm)="confirmDelete(data.id)"
+                           (nzOnCancel)="cancelDelete()"
+                           nzPlacement="topRight">删除</a>
+                    </td>
+                </tr>
+                </tbody>
+            </nz-table>
+        </nz-card>
+    </div>
+</div>

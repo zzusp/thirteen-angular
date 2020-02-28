@@ -1,0 +1,40 @@
+<ul nz-menu [nzTheme]="'light'" [nzMode]="'inline'" [nzInlineCollapsed]="config.collapsed">
+    <div [@userBlockState]="config.userBlockVisible ? 'show' : 'hidden'" class="user-block">
+        <!-- User picture-->
+        <div class="user-block-picture">
+            <div class="user-block-status">
+                <img [src]="data?.userBlock.photo ? data.userBlock.photo : 'assets/img/user/02.jpg'"
+                     alt="Avatar" class="img-thumbnail img-circle">
+                <div class="circle circle-success circle-lg"></div>
+            </div>
+        </div>
+        <!-- Name and Job-->
+        <div class="user-block-info">
+            <span class="user-block-name">Hello, {{data?.userBlock.name}}</span>
+            <span class="user-block-role">{{data?.userBlock.role}}</span>
+        </div>
+    </div>
+    <!-- 受ng-zorro样式影响不能直接使用app-sidebar-menu标签 -->
+    <ng-template ngFor let-menu [ngForOf]="data?.sidebarMenu" let-i="index" let-odd="odd">
+        <li *ngIf="menu?.group" nz-menu-group>
+            <span title>{{menu.name}}</span>
+        </li>
+        <li *ngIf="!menu?.group && !sidebarService.hasChildren(menu)"
+            [ngClass]="{'ant-menu-item-selected': sidebarService.isActive(getUrl(menu))}" nz-menu-item>
+            <a [routerLink]="getUrl(menu)" (click)="onClick($event)">
+                <span>
+                    <i nz-icon [type]="menu?.icon" [theme]="'outline'"></i>
+                    <span class="nav-text">{{menu.name}}</span>
+                </span>
+            </a>
+        </li>
+        <li *ngIf="sidebarService.hasChildren(menu)" [nzOpen]="sidebarService.isOpen(menu)" nz-submenu>
+        <span title>
+            <i nz-icon [type]="menu?.icon" [theme]="'outline'"></i>
+            <span class="nav-text">{{menu.name}}</span>
+        </span>
+            <ul app-sidebar-menu [menuData]="menu.children">
+            </ul>
+        </li>
+    </ng-template>
+</ul>

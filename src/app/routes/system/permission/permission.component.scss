@@ -1,0 +1,51 @@
+:host ::ng-deep .ant-tree {
+  overflow: hidden;
+  margin: 0 -24px;
+  padding: 0 24px;
+
+  li {
+    padding: 4px 0 0 0;
+
+    span.ant-tree-iconEle, span.ant-tree-switcher {
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+    }
+
+    &.ant-tree-treenode-selected > span{
+      color: #fff;
+    }
+  }
+}
+
+.custom-node {
+  cursor: pointer;
+  line-height: 30px;
+  margin-left: 4px;
+  display: inline-block;
+  margin: 0 -1000px;
+  padding: 0 1000px;
+}
+
+.active {
+  background: #1890FF;
+  color: #fff;
+}
+
+.file-name, .folder-name {
+  margin-left: 4px;
+  /* 双击不可选中 */
+  -moz-user-select:none; /* 火狐 */
+  -webkit-user-select:none; /* webkit浏览器 */
+  -ms-user-select:none; /* IE10 */
+  user-select:none;
+}
+
+.file-desc, .folder-desc {
+  padding: 0 8px;
+  display: inline-block;
+  background: #87CEFF;
+  color: #FFFFFF;
+  position: relative;
+  left: 12px;
+}

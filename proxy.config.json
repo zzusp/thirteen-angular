@@ -1,0 +1,18 @@
+{
+
+  "/usr/local/soft/jenkins/thirteen-authority":{
+    "target":"http://127.0.0.1:4200",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite":{
+      "^/usr/local/soft/jenkins/thirteen-authority":"C:/"
+    },
+    "logLevel": "debug"
+  },
+  "/":{
+    "target":"http://127.0.0.1:8769/",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

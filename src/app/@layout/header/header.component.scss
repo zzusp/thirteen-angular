@@ -1,0 +1,134 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  align-items: center;
+  height: 60px;
+  width: 100%;
+  padding: 0 15px;
+  background: #1890ff;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, .2);
+  display: inline-flex;
+  z-index: 100;
+
+  .logo {
+    margin-left: -15px;
+    height: 60px;
+
+    .navbar-brand {
+      display: block;
+
+      .brand-logo,
+      .brand-logo-collapsed {
+        .img-responsive {
+          display: block;
+          max-width: 100%;
+          height: auto;
+          margin: 0 auto;
+        }
+      }
+
+      .brand-logo {
+        width: 200px;
+        padding: 10px 15px;
+      }
+
+      .brand-logo-collapsed {
+        width: 80px;
+        padding: 7px 0;
+      }
+    }
+
+  }
+
+  .nav-wrapper {
+    height: 60px;
+    width: 100%;
+
+    .nav.navbar-nav {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      line-height: 55px;
+      display: inline-block;
+      align-items: center;
+
+      li {
+        display: inline-block;
+        vertical-align: middle;
+        min-width: 50px;
+
+        .item {
+          display: block;
+          border-radius: 2px;
+          text-align: center;
+          line-height: 100%;
+          padding: 8px 2px;
+          min-width: 40px;
+          transition: background-color .3s;
+          cursor: pointer;
+          outline: 0;
+          color: #fff;
+
+          &:hover {
+            background-color: rgba(255, 255, 255, .2)
+          }
+
+          i {
+            font-size: 18px;
+            color: #fff;
+          }
+
+          // 重写徽章样式
+          ::ng-deep .ant-badge-count {
+            height: 18px;
+            min-width: 18px;
+            color: #fff;
+            line-height: 18px;
+            padding: 0;
+            font-size: 75%;
+          }
+
+        }
+      }
+    }
+
+    .nav.navbar-nav.navbar-left {
+      float: left;
+    }
+
+    .nav.navbar-nav.navbar-right {
+      float: right;
+    }
+
+  }
+
+}
+
+// 用户下拉菜单样式
+.user-dropdown {
+  padding: 4px 2px !important;
+
+  // 用户头像样式
+  .user-avatar {
+    margin: 0 10px;
+  }
+  // 用户名称样式
+  .user-name {
+    margin-right: 10px;
+  }
+}
+
+// 下拉菜单样式
+.ant-dropdown-menu {
+  min-width: 160px;
+}
+
+// 该样式导致图标缩小，需重写
+.ant-dropdown-link .anticon:not(.anticon-ellipsis), .ant-dropdown-trigger .anticon:not(.anticon-ellipsis) {
+  display: inline-block;
+  font-size: 12px;
+  font-size: 10px\9;
+  -webkit-transform: scale(1) rotate(0);
+  transform: scale(1) rotate(0);
+}

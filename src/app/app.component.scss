@@ -1,0 +1,67 @@
+// app容器
+.app-container {
+  height: 100%;
+
+  > nz-spin {
+    height: 100%;
+
+    .ant-spin {
+      max-height: unset;
+    }
+    .ant-spin-container {
+      height: 100%;
+    }
+  }
+}
+
+// 搜索表单布局
+.search-form {
+
+  .form-item {
+    display: flex;
+    margin-bottom: 10px !important;
+
+    > nz-form-label {
+      padding: 0 !important;
+    }
+    > nz-form-control{
+      flex: 1;
+      padding: 0 !important;
+    }
+  }
+
+  .form-button {
+    line-height: 40px;
+  }
+
+}
+
+// 按钮组布局
+.button-group {
+  > button {
+    margin-bottom: 10px;
+  }
+}
+
+// 提交表单布局
+.submit-form {
+
+  > nz-form-item {
+
+    > nz-form-label {
+      padding: 0 !important;
+    }
+    > nz-form-control{
+      padding: 0 !important;
+    }
+  }
+
+  .form-button {
+    text-align: center;
+    line-height: 40px;
+    > button {
+      margin: 0 5px;
+    }
+  }
+
+}

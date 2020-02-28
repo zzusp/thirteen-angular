@@ -1,0 +1,76 @@
+<div nz-row [nzGutter]="32">
+    <div nz-col [nzMd]="24">
+        <nz-card [nzBordered]="false">
+            <form class="search-form">
+                <div nz-row [nzGutter]="32">
+                    <div nz-col [nzMd]="8">
+                        <nz-form-item class="form-item">
+                            <nz-form-label>操作名称</nz-form-label>
+                            <nz-form-control>
+                                <input id="account" name="account" nz-input placeholder="请输入" [(ngModel)]="params.operationValue">
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                    <div nz-col [nzMd]="8">
+                        <nz-form-item class="form-item">
+                            <nz-form-label>状态</nz-form-label>
+                            <nz-form-control>
+                                <input id="status" name="status" nz-input placeholder="请输入" [(ngModel)]="params.status">
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                    <div nz-col [nzMd]="8">
+                        <div class="form-button">
+                            <button nz-button nzType="primary" (click)="list()" [nzLoading]="false">查询</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <nz-table
+                #rowSelectionTable
+                nzShowSizeChanger
+                [nzFrontPagination]="false"
+                [nzData]="tableData"
+                [nzLoading]="loading"
+                [nzTotal]="total"
+                [(nzPageIndex)]="pageNum"
+                [(nzPageSize)]="pageSize"
+                (nzPageIndexChange)="list()"
+                (nzPageSizeChange)="list()">
+                <thead nzSingleSort>
+                <tr>
+                    <th nzShowSort [(nzSort)]="sortMap.request_path" (nzSortChange)="sort('request_path', $event)">来源路径</th>
+                    <th nzShowSort [(nzSort)]="sortMap.operation_value" (nzSortChange)="sort('operation_value', $event)">操作名称</th>
+                    <!--<th nzShowSort [(nzSort)]="sortMap.operation_notes" (nzSortChange)="sort('operation_notes', $event)">操作描述</th>-->
+                    <!--<th nzShowSort [(nzSort)]="sortMap.method" (nzSortChange)="sort('method', $event)">方法</th>-->
+                    <th nzShowSort [(nzSort)]="sortMap.status" (nzSortChange)="sort('status', $event)"><span>状态</span></th>
+                    <th nzShowSort [(nzSort)]="sortMap.start_time" (nzSortChange)="sort('start_time', $event)"><span>开始时间</span></th>
+                    <th nzShowSort [(nzSort)]="sortMap.end_time" (nzSortChange)="sort('end_time', $event)"><span>结束时间</span></th>
+                    <th><span>操作</span></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let data of tableData">
+                    <td>{{data.requestPath}}</td>
+                    <td>{{data.operationValue}}</td>
+                    <!--<td>{{data.operationNotes}}</td>-->
+                    <!--<td>{{data.method}}</td>-->
+                    <td>{{data.status}}</td>
+                    <td>{{data.startTime}}</td>
+                    <td>{{data.endTime}}</td>
+                    <td>
+                        <a (click)="showDetail(data.id)">详情</a>
+                        <nz-divider *ngIf="perms.delete" nzType="vertical"></nz-divider>
+                        <a *ngIf="perms.delete"
+                           nz-popconfirm
+                           [nzTitle]="global.DELETE_CONFIRM_MSG"
+                           (nzOnConfirm)="confirmDelete(data.id)"
+                           (nzOnCancel)="cancelDelete()"
+                           nzPlacement="topRight">删除</a>
+                    </td>
+                </tr>
+                </tbody>
+            </nz-table>
+        </nz-card>
+    </div>
+</div>

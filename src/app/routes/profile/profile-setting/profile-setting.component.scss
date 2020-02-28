@@ -1,0 +1,25 @@
+.avatar {
+  > img {
+    height: 128px;
+    width: 128px;
+    // 图片圆形
+    border-radius: 50%;
+  }
+}
+
+.upload {
+  width: 128px;
+  text-align: center;
+  margin-top: 10px;
+  .upload-btn {
+
+  }
+}
+
+.form-button {
+  text-align: unset;
+
+  > button {
+    margin: 0 10px 0 0;
+  }
+}
