@@ -25,4 +25,5 @@ const PAGES_COMPONENT = [
     ...PAGES_COMPONENT
   ]
 })
-export class PagesModule { }
+export class PagesModule {
+}

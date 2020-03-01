@@ -1,6 +1,14 @@
 import {
-  Component, OnInit, ViewChild, ViewContainerRef, TemplateRef, Input, AfterViewInit,
-  EmbeddedViewRef, OnDestroy, HostListener
+  AfterViewInit,
+  Component,
+  EmbeddedViewRef,
+  HostListener,
+  Input,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+  ViewContainerRef
 } from '@angular/core';
 import { TreeTableRowModel } from '../models/tree-table-data.model';
 import { TreeTableService } from '../services/tree-table.service';

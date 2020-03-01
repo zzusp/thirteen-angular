@@ -44,13 +44,13 @@ $ui-bg-color: #d9d9d9;
       display: table-row;
       vertical-align: inherit;
       border-color: inherit;
-      transition: all .3s,height 0s;
+      transition: all .3s, height 0s;
 
       th {
         background: #fafafa;
         transition: background .3s ease;
         text-align: left;
-        color: rgba(0,0,0,.85);
+        color: rgba(0, 0, 0, .85);
         font-weight: 500;
         border-bottom: 1px solid #e8e8e8;
       }
@@ -66,11 +66,11 @@ $ui-bg-color: #d9d9d9;
       display: table-row;
       vertical-align: inherit;
       border-color: inherit;
-      transition: all .3s,height 0s;
+      transition: all .3s, height 0s;
 
       td {
         border-bottom: 1px solid #e8e8e8;
-        transition: all .3s,border 0s;
+        transition: all .3s, border 0s;
         display: table-cell;
         vertical-align: inherit;
       }
@@ -80,6 +80,7 @@ $ui-bg-color: #d9d9d9;
 
         > label {
           font-weight: normal;
+
           .fa-fw {
             width: 14px;
             text-align: left;
@@ -89,6 +90,7 @@ $ui-bg-color: #d9d9d9;
 
       &.active {
         border-right: 3px solid #1890ff;
+
         td {
           background-color: #e6f7ff;
           color: #1890ff;
@@ -132,12 +134,12 @@ $ui-bg-color: #d9d9d9;
   background: #fff;
   text-align: center;
   font-size: 14px;
-  color: rgba(0,0,0,.45);
+  color: rgba(0, 0, 0, .45);
   border-bottom: 1px solid #e8e8e8;
 }
 
 // 以下是折叠图标样式
-.tree-table-row-icon,.tree-table-row-indent {
+.tree-table-row-icon, .tree-table-row-indent {
   cursor: pointer;
   display: inline-block;
   width: 17px;
@@ -207,6 +209,7 @@ $ui-bg-color: #d9d9d9;
     border-radius: 2px;
     background-color: #fff;
     transition: all .3s;
+
     &:focus {
       border-color: #1890ff;
     }
@@ -226,20 +229,21 @@ $ui-bg-color: #d9d9d9;
     border: 2px solid #fff;
     border-top: 0;
     border-left: 0;
-    transition: all .1s cubic-bezier(.71,-.46,.88,.6),opacity .1s;
+    transition: all .1s cubic-bezier(.71, -.46, .88, .6), opacity .1s;
     opacity: 0;
   }
 
   input[type=checkbox]:checked + .fa-check {
     border-color: $ui-fg-color;
     background-color: $ui-fg-color;
+
     &:after {
       -webkit-transform: rotate(45deg) scale(1);
       transform: rotate(45deg) scale(1);
       border: 2px solid #fff;
       border-top: 0;
       border-left: 0;
-      transition: all .2s cubic-bezier(.12,.4,.29,1.46) .1s;
+      transition: all .2s cubic-bezier(.12, .4, .29, 1.46) .1s;
       opacity: 1;
       position: absolute;
       display: table;
@@ -250,12 +254,13 @@ $ui-bg-color: #d9d9d9;
   input[type=checkbox]:checked + .fa-minus {
     border-color: $ui-fg-color;
     background-color: $ui-fg-color;
+
     &:after {
       -webkit-transform: rotate(90deg) scale(1);
       transform: rotate(90deg) scale(1);
       border: 0 solid #fff;
       border-right-width: 2px;
-      transition: all .2s cubic-bezier(.12,.4,.29,1.46) .1s;
+      transition: all .2s cubic-bezier(.12, .4, .29, 1.46) .1s;
       opacity: 1;
       position: absolute;
       display: table;

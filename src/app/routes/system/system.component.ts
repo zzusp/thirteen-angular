@@ -16,9 +16,7 @@ import { Router } from '@angular/router';
 })
 export class SystemComponent implements OnInit {
 
-  /**
-   * 全局常量
-   */
+  /** 全局常量  */
   global: GlobalConstants = GlobalConstants.getInstance();
 
   /**
@@ -60,7 +58,7 @@ export class SystemComponent implements OnInit {
    * @param applications
    * @param id
    */
-  private resetLayout(applications: ApplicationModel[], id: string = GlobalConstants.getInstance().ROOT_PARENT_ID) {
+  private resetLayout(applications: ApplicationModel[], id: string = GlobalConstants.getInstance().ROOT_PARENT_CODE) {
     const layoutData: LayoutData = {
       userBlock: this.userBlock,
       sidebarMenu: applicationToSidebar(applications, id)

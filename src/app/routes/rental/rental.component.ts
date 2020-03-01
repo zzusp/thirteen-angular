@@ -15,9 +15,7 @@ import { Router } from '@angular/router';
 })
 export class RentalComponent implements OnInit {
 
-  /**
-   * 全局常量
-   */
+  /** 全局常量  */
   global: GlobalConstants = GlobalConstants.getInstance();
 
   /**
@@ -27,7 +25,8 @@ export class RentalComponent implements OnInit {
 
   constructor(private loginService: LoginService,
               private layoutService: LayoutService,
-              private router: Router) { }
+              private router: Router) {
+  }
 
   ngOnInit() {
     const result: UserModel = getUserInfo();
@@ -40,7 +39,8 @@ export class RentalComponent implements OnInit {
         name: result.name,
         photo: result.photo,
         role: result.roles.map((role) => {
-          return role.name; }).join('，')
+          return role.name;
+        }).join('，')
       };
       result.applications.forEach((application: ApplicationModel) => {
         if (application.type === this.global.APPLICATION_SERVICE
@@ -57,7 +57,7 @@ export class RentalComponent implements OnInit {
    * @param applications
    * @param id
    */
-  private resetLayout(applications: ApplicationModel[], id: string = GlobalConstants.getInstance().ROOT_PARENT_ID) {
+  private resetLayout(applications: ApplicationModel[], id: string = GlobalConstants.getInstance().ROOT_PARENT_CODE) {
     const layoutData: LayoutData = {
       userBlock: this.userBlock,
       sidebarMenu: applicationToSidebar(applications, id)

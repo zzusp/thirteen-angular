@@ -8,9 +8,9 @@ describe('LayoutNavComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LayoutNavComponent ]
+      declarations: [LayoutNavComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

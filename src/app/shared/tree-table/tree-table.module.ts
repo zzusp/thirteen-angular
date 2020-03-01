@@ -7,8 +7,7 @@ import { TreeTableRowComponent } from './components/tree-table-row.component';
 import { TreeTableColumnComponent } from './components/tree-table-column.component';
 
 // TREETBALE模块
-const TREETBALE_MODULES = [
-];
+const TREETBALE_MODULES = [];
 
 // TREETBALE组件
 const TREETBALE_COMPONENTS = [
@@ -18,8 +17,7 @@ const TREETBALE_COMPONENTS = [
 ];
 
 // TREETBALE指令
-const TREETBALE_DIRECTIVE = [
-];
+const TREETBALE_DIRECTIVE = [];
 
 // TREETBALE服务
 const TREETBALE_PROVIDERS = [
@@ -43,4 +41,5 @@ const TREETBALE_PROVIDERS = [
     ...TREETBALE_PROVIDERS
   ]
 })
-export class TreeTableModule { }
+export class TreeTableModule {
+}

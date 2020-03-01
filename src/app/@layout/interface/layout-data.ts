@@ -1,6 +1,6 @@
 // 布局数据
-import {ApplicationModel} from '../../routes/system/application/application.model';
-import {GlobalConstants} from '../../@core/constant/GlobalConstants';
+import { ApplicationModel } from '../../routes/system/application/application.model';
+import { GlobalConstants } from '../../@core/constant/GlobalConstants';
 
 export interface LayoutData {
   /** 用户信息 */
@@ -37,12 +37,12 @@ export interface SidebarMenuInfo {
  * application list to sidebarMenu
  *
  * @param list
- * @param parentId
+ * @param parentCode
  */
-export function applicationToSidebar(list: ApplicationModel[], parentId: string): SidebarMenuInfo[] {
+export function applicationToSidebar(list: ApplicationModel[], parentCode: string): SidebarMenuInfo[] {
   const result: SidebarMenuInfo[] = [];
   list.forEach((obj, index) => {
-    if (parentId === obj.parentId) {
+    if (parentCode === obj.parentCode) {
       const model: SidebarMenuInfo = {
         name: obj.name,
         icon: obj.icon,
@@ -50,7 +50,7 @@ export function applicationToSidebar(list: ApplicationModel[], parentId: string)
         group: GlobalConstants.getInstance().APPLICATION_HEADING === obj.type
       };
       list.slice(index, 1);
-      model.children = applicationToSidebar(list, obj.id);
+      model.children = applicationToSidebar(list, obj.code);
       result.push(model);
     }
   });

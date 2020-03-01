@@ -4,9 +4,7 @@ import { TemplateRef } from '@angular/core';
  * tree-table单元格的实体类
  */
 export interface TreeTableColumnModel {
-  /**
-   * 标题
-   */
+  /** 标题 */
   title: string;
   /**
    * 标识

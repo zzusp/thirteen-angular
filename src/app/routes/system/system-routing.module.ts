@@ -115,4 +115,5 @@ const routes: Routes = [
     RouterModule
   ]
 })
-export class SystemRoutingModule { }
+export class SystemRoutingModule {
+}

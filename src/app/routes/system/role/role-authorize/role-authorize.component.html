@@ -26,21 +26,21 @@
                 <nz-form-item>
                     <nz-form-label [nzSm]="2" [nzXs]="24" nzRequired>状态</nz-form-label>
                     <nz-form-control [nzSm]="22" [nzXs]="24">
-                        <nz-radio-group formControlName="isActive">
+                        <nz-radio-group formControlName="active">
                             <label nz-radio nzValue="1">启用</label>
                             <label nz-radio nzValue="0">禁用</label>
                         </nz-radio-group>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
-                    <nz-form-label [nzSm]="2" [nzXs]="24" >备注</nz-form-label>
+                    <nz-form-label [nzSm]="2" [nzXs]="24">备注</nz-form-label>
                     <nz-form-control [nzSm]="22" [nzXs]="24">
                         <textarea name="remark" formControlName="remark" nz-input
                                   [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
-                    <nz-form-label [nzSm]="2" [nzXs]="24" >应用权限</nz-form-label>
+                    <nz-form-label [nzSm]="2" [nzXs]="24">应用权限</nz-form-label>
                     <nz-form-control [nzSm]="22" [nzXs]="24">
                         <app-tree-table
                             [config]="config"
@@ -68,9 +68,9 @@
 </ng-template>
 <!-- END row-->
 <!-- START row-->
-<ng-template #rowIsActive let-row>
-    <span *ngIf="row.isActive === global.ACTIVE_ON">启用</span>
-    <span *ngIf="row.isActive === global.ACTIVE_OFF">禁用</span>
+<ng-template #rowactive let-row>
+    <span *ngIf="row.active === global.ACTIVE_ON">启用</span>
+    <span *ngIf="row.active === global.ACTIVE_OFF">禁用</span>
 </ng-template>
 <!-- END row-->
 <!-- START row-->
@@ -81,7 +81,7 @@
                 <label nz-checkbox
                        [nzValue]="permission.id"
                        [ngModel]="permissionIds.includes(permission.id)"
-                        (click)="permissionChange(row, permission.id)">
+                       (click)="permissionChange(row, permission.id)">
                     {{permission.name}}
                 </label>
             </div>

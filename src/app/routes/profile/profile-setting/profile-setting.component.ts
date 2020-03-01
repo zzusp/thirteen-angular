@@ -7,7 +7,7 @@ import { ResponseResultModel } from '../../../@core/net/response-result.model';
 import { DictModel } from '../../system/dict/dict.model';
 import { Location } from '@angular/common';
 import { UserModel } from '../../system/user/user.model';
-import { getUserInfo, setUserInfo } from '../../../@core/util/user-info';
+import { setUserInfo } from '../../../@core/util/user-info';
 import { Router } from '@angular/router';
 import { NzMessageService, UploadXHRArgs } from 'ng-zorro-antd';
 import { HttpEvent, HttpEventType, HttpResponse } from '@angular/common/http';
@@ -16,6 +16,7 @@ import { LoginService } from '../../pages/login/login.service';
 import { applicationToSidebar, LayoutData } from '../../../@layout/interface/layout-data';
 import { LayoutService } from '../../../@layout/@layout.service';
 import { validatePerms } from '../../../@core/util/perms-validators';
+import { DictService } from '../../system/dict/dict.service';
 
 @Component({
   selector: 'app-profile-setting',
@@ -24,25 +25,17 @@ import { validatePerms } from '../../../@core/util/perms-validators';
 })
 export class ProfileSettingComponent implements OnInit {
 
-  /**
-   * 全局常量
-   */
+  /** 全局常量  */
   global: GlobalConstants = GlobalConstants.getInstance();
-  /**
-   * 编辑表单
-   */
+  /** 编辑表单 */
   editForm: FormGroup;
-  /**
-   * 性别下拉框数据
-   */
+  /** 性别下拉框数据 */
   genders: DictModel[];
   /**
    * 用户头像路径
    */
   photo: string;
-  /**
-   * 页面权限校验
-   */
+  /** 页面权限校验  */
   perms = {
     uploadAvatar: false,
     profileSetting: false
@@ -50,32 +43,35 @@ export class ProfileSettingComponent implements OnInit {
   /**
    * 自定义上传方法
    */
-  uploadAvatar: any = (item: UploadXHRArgs) => {};
+  uploadAvatar: any = (item: UploadXHRArgs) => {
+  };
   /**
    * 上传前操作，如校验
    */
-  beforeUpload: any = (file: File) => {};
+  beforeUpload: any = (file: File) => {
+  };
 
-  constructor(private bizTypeService: BizTypeService,
+  constructor(private dictService: DictService,
               private profileService: ProfileService,
               private loginService: LoginService,
               private layoutService: LayoutService,
               private fb: FormBuilder,
               private router: Router,
               private location: Location,
-              private messageService: NzMessageService) { }
+              private messageService: NzMessageService) {
+  }
 
   ngOnInit() {
     this.perms = {
       uploadAvatar: validatePerms(['profile:uploadAvatar']),
       profileSetting: validatePerms(['profile:profileSetting'])
     };
-    const bizTypeReq = this.bizTypeService.getByCode(this.global.BIZ_TYPE_GENDER);
+    const dicteReq = this.dictService.findAllByBizTypeCode(this.global.BIZ_TYPE_GENDER);
     // 发出请求
-    forkJoin([bizTypeReq])
+    forkJoin([dicteReq])
       .subscribe((results: ResponseResultModel[]) => {
-        const bizTypeRes = results[0];
-        this.genders = bizTypeRes.result.dicts;
+        const dictRes = results[0];
+        this.genders = dictRes.result.list;
       });
     // 表单验证
     this.editForm = this.fb.group({
@@ -196,9 +192,10 @@ export class ProfileSettingComponent implements OnInit {
               name: result.name,
               photo: result.photo,
               role: result.roles.map((role) => {
-                return role.name; }).join('，')
+                return role.name;
+              }).join('，')
             },
-            sidebarMenu: applicationToSidebar(result.applications, this.global.ROOT_PARENT_ID)
+            sidebarMenu: applicationToSidebar(result.applications, this.global.ROOT_PARENT_CODE)
           };
           this.layoutService.setLayoutData(layoutData);
           // 更新localStorage中的用户信息

@@ -4,10 +4,13 @@
             <nz-card style="width: 100%;"
                      nzHoverable
                      [nzActions]="[actionSetting]">
-                <nz-skeleton [nzActive]="true" [nzLoading]="false" [nzAvatar]="{size: 'large'}" style="min-height: 80px;">
-                    <nz-card-meta [nzAvatar]="avatarTemplate" [nzTitle]="system.name" [nzDescription]="system.remark"></nz-card-meta>
+                <nz-skeleton [nzActive]="true" [nzLoading]="false" [nzAvatar]="{size: 'large'}"
+                             style="min-height: 80px;">
+                    <nz-card-meta [nzAvatar]="avatarTemplate" [nzTitle]="system.name"
+                                  [nzDescription]="system.remark"></nz-card-meta>
                     <ng-template #avatarTemplate>
-                        <nz-avatar [nzText]="system.name.substr(0, 1)" [ngStyle]="{'background-color': colors[i % 10]}"></nz-avatar>
+                        <nz-avatar [nzText]="system.name.substr(0, 1)"
+                                   [ngStyle]="{'background-color': colors[i % 10]}"></nz-avatar>
                     </ng-template>
                     <ng-template #actionSetting>
                         <!--<i nz-icon type="arrow-right" theme="outline" (click)="goTo(system.id, system.url)"></i>-->

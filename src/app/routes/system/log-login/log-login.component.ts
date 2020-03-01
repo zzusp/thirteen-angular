@@ -6,7 +6,6 @@ import { PagerResultModel } from '../../../@core/net/pager-result.model';
 import { LogLoginService } from './log-login.service';
 import { LogLoginModel } from './log-login.model';
 import { NzMessageService, NzModalRef, NzModalService } from 'ng-zorro-antd';
-import { RoleEditComponent } from '../role/role-edit/role-edit.component';
 import { LogLoginDetailComponent } from './log-login-detail/log-login-detail.component';
 import { validatePerms } from '../../../@core/util/perms-validators';
 
@@ -17,78 +16,65 @@ import { validatePerms } from '../../../@core/util/perms-validators';
 })
 export class LogLoginComponent implements OnInit {
 
-  /**
-   * 全局常量
-   */
+  /** 全局常量  */
   global: GlobalConstants = GlobalConstants.getInstance();
-
-  /**
-   * 查询参数
-   */
+  /** 查询参数  */
   params: any = {
     account: '',
     status: ''
   };
-  /**
-   * 当前页码
-   */
+  /** 当前页码  */
   pageNum: number = 1;
-  /**
-   * 每页显示记录数
-   */
+  /** 每页显示记录数  */
   pageSize: number = 10;
-  /**
-   * 总记录数
-   */
+  /** 总记录数  */
   total: number = 0;
-  /**
-   * 表格数据
-   */
+  /** 表格数据  */
   tableData: LogLoginModel[] = [];
-  /**
-   * 加载动画，默认关闭
-   */
+  /** 加载动画，默认关闭  */
   loading = false;
-  /**
-   * 排序
-   */
+  /** 排序  */
   sortMap = {
     account: null,
-    request_path: null,
+    requestPath: null,
     status: null,
-    login_time: 'desc'
+    loginTime: 'desc'
   };
-  /**
-   * 页面权限校验
-   */
+  /** 页面权限校验  */
   perms = {
     delete: false
   };
 
   constructor(private logLoginService: LogLoginService,
               private nzMessageService: NzMessageService,
-              private modalService: NzModalService) { }
+              private modalService: NzModalService) {
+  }
 
   ngOnInit() {
     this.perms = {
       delete: validatePerms(['logLogin:delete'])
     };
-    this.list();
+    this.findAllByParam();
   }
 
   /**
    * 获取列表信息
    */
-  list(): void {
+  findAllByParam(): void {
     // 加载动画开启
     this.loading = true;
-    const params = new HttpParams()
-      .set('account', this.params.account)
-      .set('status', this.params.status)
-      .set('pageSize', this.pageSize.toString())
-      .set('pageNum', this.pageNum.toString())
-      .set('orderBy', this.getOrderBy());
-    this.logLoginService.list(params).subscribe((res: ResponseResultModel) => {
+    const param = {
+      'criterias': [
+        {'feild': 'account', 'operator': 'like', 'value': this.params.account ? '%' + this.params.account + '%' : null},
+        {'feild': 'status', 'value': this.params.status}
+      ],
+      'page': {
+        'pageSize': this.pageSize,
+        'pageNum': this.pageNum - 1
+      },
+      'sorts': this.getSorts()
+    };
+    this.logLoginService.findAllByParam(new HttpParams().set('param', JSON.stringify(param))).subscribe((res: ResponseResultModel) => {
       // 判断返回结果是否为空或null
       if (res.result) {
         const result: PagerResultModel = res.result;
@@ -112,20 +98,20 @@ export class LogLoginComponent implements OnInit {
         this.sortMap[key] = value;
       }
     }
-    this.list();
+    this.findAllByParam();
   }
 
   /**
    * 获取排序参数
    */
-  getOrderBy(): string {
+  getSorts(): any[] {
     const arr = [];
     for (const key of Object.keys(this.sortMap)) {
       if (this.sortMap[key] != null) {
-        arr.push(key + ' ' + this.sortMap[key].replace('end', ''));
+        arr.push({field: key, orderBy: this.sortMap[key].replace('end', '')});
       }
     }
-    return arr.toString();
+    return arr;
   }
 
   /**
@@ -166,7 +152,7 @@ export class LogLoginComponent implements OnInit {
       if (res.status === 200) {
         this.nzMessageService.success(this.global.DELETE_SUCESS_MSG);
       }
-      this.list();
+      this.findAllByParam();
     });
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 // 手动引入
@@ -13,9 +13,9 @@ import { GroupService } from '../../group/group.service';
 import { RoleService } from '../../role/role.service';
 import { RoleModel } from '../../role/role.model';
 import { listToTree, TreeNode } from '../../../../@core/util/tree-node';
-import {BizTypeService} from '../../biz-type/biz-type.service';
-import {DictModel} from '../../dict/dict.model';
+import { DictModel } from '../../dict/dict.model';
 import { DeptService } from '../../dept/dept.service';
+import { DictService } from '../../dict/dict.service';
 
 @Component({
   selector: 'app-user-edit',
@@ -24,45 +24,25 @@ import { DeptService } from '../../dept/dept.service';
 })
 export class UserEditComponent implements OnInit {
 
-  /**
-   * 全局常量
-   */
+  /** 全局常量  */
   global: GlobalConstants = GlobalConstants.getInstance();
-  /**
-   * 请求
-   */
+  /** 请求 */
   request: (params: any) => Observable<any>;
-  /**
-   * 路由参数
-   */
+  /** 路由参数 */
   routeParams: any = {id: null};
-  /**
-   * 编辑表单
-   */
+  /** 编辑表单 */
   editForm: FormGroup;
-  /**
-   * 标题
-   */
+  /** 标题 */
   title: string;
-  /**
-   * 部门下拉框数据
-   */
+  /** 部门下拉框数据 */
   depts: TreeNode[] = [];
-  /**
-   * 组织架构下拉框数据
-   */
+  /** 组织架构下拉框数据 */
   groups: TreeNode[] = [];
-  /**
-   * 性别下拉框数据
-   */
+  /** 性别下拉框数据 */
   genders: DictModel[];
-  /**
-   * 角色下拉框数据
-   */
+  /** 角色下拉框数据 */
   roles: RoleModel[];
-  /**
-   * 选中的角色ID数组
-   */
+  /** 选中的角色编码数组 */
   selectRoles: string[];
 
   constructor(private route: ActivatedRoute,
@@ -70,25 +50,25 @@ export class UserEditComponent implements OnInit {
               private deptService: DeptService,
               private groupService: GroupService,
               private roleService: RoleService,
-              private bizTypeService: BizTypeService,
+              private dictService: DictService,
               private fb: FormBuilder,
               private location: Location) {
   }
 
   ngOnInit() {
     //  初始化部门下拉框，组织下拉框，角色下拉框
-    const deptReq = this.deptService.listAll();
-    const groupReq = this.groupService.listAll();
-    const bizTypeReq = this.bizTypeService.getByCode(this.global.BIZ_TYPE_GENDER);
+    const deptReq = this.deptService.findAll();
+    const groupReq = this.groupService.findAll();
+    const dictReq = this.dictService.findAllByBizTypeCode(this.global.BIZ_TYPE_GENDER);
     // 发出请求
-    forkJoin(deptReq, groupReq, bizTypeReq)
+    forkJoin(deptReq, groupReq, dictReq)
       .subscribe((results: ResponseResultModel[]) => {
         const deptRes = results[0];
         const groupRes = results[1];
-        const bizTypeRes = results[2];
+        const dictRes = results[2];
         this.depts = listToTree(deptRes.result.list);
         this.groups = listToTree(groupRes.result.list);
-        this.genders = bizTypeRes.result.dicts;
+        this.genders = dictRes.result.list;
       });
     // 表单验证
     this.editForm = this.fb.group({
@@ -111,15 +91,16 @@ export class UserEditComponent implements OnInit {
         Validators.email
       ])],
       photo: [null],
-      isActive: [null, Validators.required],
+      active: [null, Validators.required],
       dept: this.fb.group({
-        id: [null, Validators.required]
+        code: [null, Validators.required]
       }),
       group: this.fb.group({
-        id: [null, Validators.required]
+        code: [null, Validators.required]
       }),
       roles: [[]],
-      remark: [null, Validators.maxLength(250)]
+      remark: [null, Validators.maxLength(250)],
+      version: [null]
     });
     // 获取路由参数
     this.route.paramMap.subscribe((params: ParamMap) => {
@@ -136,7 +117,7 @@ export class UserEditComponent implements OnInit {
   groupChange($event) {
     this.selectRoles = [];
     // 获取用户信息初始化表单
-    this.roleService.listByModel({group: {id: $event}})
+    this.roleService.findAllByGroupCode($event)
       .subscribe((res: ResponseResultModel) => {
         this.roles = res.result.list;
       });
@@ -148,7 +129,7 @@ export class UserEditComponent implements OnInit {
   initSave() {
     // 初始化请求方法
     this.request = (params): Observable<any> => {
-      return this.userService.save(params);
+      return this.userService.insert(params);
     };
     // 设置标题
     this.title = '新增用户信息';
@@ -169,15 +150,16 @@ export class UserEditComponent implements OnInit {
       mobile: null,
       email: null,
       photo: null,
-      isActive: this.global.ACTIVE_ON,
+      active: this.global.ACTIVE_ON,
       dept: {
-        id: null
+        code: null
       },
       group: {
-        id: null
+        code: null
       },
       roles: [],
-      remark: null
+      remark: null,
+      version: null
     });
     this.editForm.get('code').enable();
     this.editForm.get('account').enable();
@@ -194,7 +176,7 @@ export class UserEditComponent implements OnInit {
     // 设置标题
     this.title = '修改用户信息';
     // 获取用户信息初始化表单
-    this.userService.getById(this.routeParams.id)
+    this.userService.findById(this.routeParams.id)
       .subscribe((res: ResponseResultModel) => {
         const model: UserModel = res.result;
         this.editForm.get('code').clearAsyncValidators();
@@ -209,20 +191,21 @@ export class UserEditComponent implements OnInit {
           mobile: model.mobile,
           email: model.email,
           photo: model.photo,
-          isActive: model.isActive,
+          active: model.active,
           dept: {
-            id: model.dept.id
+            code: model.dept.code
           },
           group: {
-            id: model.group.id
+            code: model.group.code
           },
           roles: model.roles,
-          remark: model.remark
+          remark: model.remark,
+          version: model.version
         });
         if (model.roles != null) {
           // 设置已选中的角色
           this.selectRoles = model.roles.map(role => {
-            return role.id;
+            return role.code;
           });
         }
         this.editForm.get('code').disable();
@@ -241,11 +224,11 @@ export class UserEditComponent implements OnInit {
     if (this.editForm.valid) {
       if (this.selectRoles != null) {
         // 设置选中角色
-        this.editForm.get('roles').setValue(this.selectRoles.map(roleId => {
-          return {id: roleId};
+        this.editForm.get('roles').setValue(this.selectRoles.map(roleCode => {
+          return {code: roleCode};
         }));
       }
-      this.request(this.editForm.value).subscribe((res: ResponseResultModel) => {
+      this.request(this.editForm.getRawValue()).subscribe((res: ResponseResultModel) => {
         // 清空表单
         this.editForm.reset();
         // 返回上一页

@@ -5,7 +5,6 @@ import { PagerResultModel } from '../../../@core/net/pager-result.model';
 import { TreeTableConfigModel } from '../../../shared/tree-table/models/tree-table-config.model';
 import { TreeTableColumnModel } from '../../../shared/tree-table/models/tree-table-columns.model';
 import { TreeTableDataModel } from '../../../shared/tree-table/models/tree-table-data.model';
-import { GroupModel } from './group.model';
 import { GroupEditComponent } from './group-edit/group-edit.component';
 import { NzMessageService, NzModalRef, NzModalService } from 'ng-zorro-antd';
 import { GlobalConstants } from '../../../@core/constant/GlobalConstants';
@@ -19,33 +18,19 @@ import { validatePerms } from '../../../@core/util/perms-validators';
 })
 export class GroupComponent implements OnInit {
 
-  /**
-   * 全局常量
-   */
+  /** 全局常量 */
   global: GlobalConstants = GlobalConstants.getInstance();
-  /**
-   * 加载动画，默认关闭
-   */
+  /** 加载动画，默认关闭 */
   loading: boolean;
-  /**
-   * tree-table配置
-   */
+  /** tree-table配置 */
   config: TreeTableConfigModel;
-  /**
-   * tree-table列配置
-   */
+  /** tree-table列配置 */
   columns: TreeTableColumnModel[];
-  /**
-   * tree-table数据源
-   */
+  /** tree-table数据源 */
   data: TreeTableDataModel;
-  /**
-   * 操作
-   */
+  /** 操作 */
   @ViewChild('rowAction', {read: TemplateRef}) rowAction: TemplateRef<any>;
-  /**
-   * 页面权限校验
-   */
+  /** 页面权限校验 */
   perms = {
     save: false,
     update: false,
@@ -94,16 +79,16 @@ export class GroupComponent implements OnInit {
         template: this.rowAction
       });
     }
-    this.list();
+    this.findAll();
   }
 
   /**
    * 获取列表信息
    */
-  list(): void {
+  findAll(): void {
     // 加载动画开启
     this.loading = true;
-    this.groupService.listAll().subscribe((res: ResponseResultModel) => {
+    this.groupService.findAll().subscribe((res: ResponseResultModel) => {
       // 加载动画关闭
       this.loading = false;
       // 判断返回结果是否为空或null
@@ -123,7 +108,7 @@ export class GroupComponent implements OnInit {
     modal.afterClose.subscribe((result) => {
       if (result && result.refresh) {
         // 刷新列表
-        this.list();
+        this.findAll();
       }
     });
   }
@@ -139,7 +124,7 @@ export class GroupComponent implements OnInit {
     modal.afterClose.subscribe((result) => {
       if (result && result.refresh) {
         // 刷新列表
-        this.list();
+        this.findAll();
       }
     });
   }
@@ -173,7 +158,7 @@ export class GroupComponent implements OnInit {
       if (res.status === 200) {
         this.nzMessageService.success(this.global.DELETE_SUCESS_MSG);
       }
-      this.list();
+      this.findAll();
     });
   }
 

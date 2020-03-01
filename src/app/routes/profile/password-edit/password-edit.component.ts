@@ -12,15 +12,14 @@ import { ResponseResultModel } from '../../../@core/net/response-result.model';
 })
 export class PasswordEditComponent implements OnInit {
 
-  /**
-   * 编辑表单
-   */
+  /** 编辑表单 */
   editForm: FormGroup;
 
   constructor(private fb: FormBuilder,
               private profileService: ProfileService,
               private router: Router,
-              private location: Location) { }
+              private location: Location) {
+  }
 
   ngOnInit() {
     // 表单验证

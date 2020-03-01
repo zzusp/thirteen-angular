@@ -26,13 +26,9 @@ import { Location } from '@angular/common';
 })
 export class RoleAuthorizeComponent implements OnInit {
 
-  /**
-   * 全局常量
-   */
+  /** 全局常量  */
   global: GlobalConstants = GlobalConstants.getInstance();
-  /**
-   * 路由参数
-   */
+  /** 路由参数 */
   routeParams: any = {id: null};
   /**
    * tree-table配置
@@ -57,7 +53,7 @@ export class RoleAuthorizeComponent implements OnInit {
   /**
    * 状态
    */
-  @ViewChild('rowIsActive', {read: TemplateRef}) rowIsActive: TemplateRef<any>;
+  @ViewChild('rowActive', {read: TemplateRef}) rowActive: TemplateRef<any>;
   /**
    * 权限
    */
@@ -66,9 +62,7 @@ export class RoleAuthorizeComponent implements OnInit {
    * 权限选项
    */
   permissionIds: string[];
-  /**
-   * 编辑表单
-   */
+  /** 编辑表单 */
   editForm: FormGroup;
 
   constructor(private route: ActivatedRoute,
@@ -77,7 +71,8 @@ export class RoleAuthorizeComponent implements OnInit {
               private permissionService: PermissionService,
               private roleService: RoleService,
               private treeTableService: TreeTableService,
-              private location: Location) { }
+              private location: Location) {
+  }
 
 
   ngOnInit() {
@@ -106,7 +101,7 @@ export class RoleAuthorizeComponent implements OnInit {
       },
       {
         title: '状态',
-        template: this.rowIsActive
+        template: this.rowActive
       },
       {
         title: '权限',
@@ -124,7 +119,7 @@ export class RoleAuthorizeComponent implements OnInit {
       name: [null],
       applications: [[]],
       permissions: [[]],
-      isActive: [null],
+      active: [null],
       remark: [null]
     });
     this.editForm.disable();
@@ -141,8 +136,8 @@ export class RoleAuthorizeComponent implements OnInit {
    */
   initAuthorize() {
     //  初始化应用权限table-tree
-    const applicationReq = this.applicationService.listAll();
-    const permissioneReq = this.permissionService.listAll();
+    const applicationReq = this.applicationService.findAll();
+    const permissioneReq = this.permissionService.findAll();
     forkJoin(applicationReq, permissioneReq)
       .pipe(
         mergeMap((results: ResponseResultModel[]) => {
@@ -174,7 +169,7 @@ export class RoleAuthorizeComponent implements OnInit {
         name: model.name,
         applications: model.applications,
         permissions: model.permissions,
-        isActive: model.isActive,
+        active: model.active,
         remark: model.remark
       });
       if (model.applications) {

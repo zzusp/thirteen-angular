@@ -96,4 +96,5 @@ const routes: Routes = [
     RouterModule
   ]
 })
-export class RentalRoutingModule { }
+export class RentalRoutingModule {
+}

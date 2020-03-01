@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { GlobalConstants } from '../../../@core/constant/GlobalConstants';
 
 @Injectable({
@@ -16,8 +16,8 @@ export class RoleService {
    *
    * @param params
    */
-  save(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysRole/save', params);
+  insert(params: any): Observable<any> {
+    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-role/insert', params);
   }
 
   /**
@@ -26,7 +26,7 @@ export class RoleService {
    * @param params
    */
   update(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysRole/update', params);
+    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-role/update', params);
   }
 
   /**
@@ -34,8 +34,8 @@ export class RoleService {
    *
    * @param id 角色ID
    */
-  getById(id: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysRole/getById', {params: {'id': id}});
+  findById(id: string): Observable<any> {
+    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-role/findById', {params: {'id': id}});
   }
 
   /**
@@ -44,7 +44,7 @@ export class RoleService {
    * @param id 角色ID
    */
   getDetail(id: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysRole/getDetail', {params: {'id': id}});
+    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-role/getDetail', {params: {'id': id}});
   }
 
   /**
@@ -53,7 +53,7 @@ export class RoleService {
    * @param params
    */
   authorize(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysRole/authorize', params);
+    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-role/authorize', params);
   }
 
   /**
@@ -61,22 +61,27 @@ export class RoleService {
    *
    * @param params
    */
-  list(params: any): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysRole/listPage', {params});
+  findAllByParam(params: any): Observable<any> {
+    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-role/findAllByParam', {params});
   }
 
   /**
    * 获取所有角色列表
    */
-  listAll(): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysRole/listAll', {});
+  findAll(): Observable<any> {
+    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-role/findAll', {});
   }
 
   /**
-   * 由实体类获取所有角色列表
+   * 由组织编码获取所有角色列表
    */
-  listByModel(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysRole/listByModel', params);
+  findAllByGroupCode(groupCode: any): Observable<any> {
+    const param = {
+      'criterias': [
+        {'feild': 'groupCode', 'value': groupCode, 'require': true}
+      ]
+    };
+    return this.findAllByParam(new HttpParams().set('param', JSON.stringify(param)));
   }
 
   /**
@@ -85,7 +90,7 @@ export class RoleService {
    * @param code 编码
    */
   checkCode(code: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysRole/checkCode', {params: {'code': code}});
+    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-role/checkCode', {params: {'code': code}});
   }
 
   /**
@@ -94,7 +99,7 @@ export class RoleService {
    * @param id 角色ID
    */
   deleteById(id: string): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysRole/deleteById', {}, {params: {'id': id}});
+    return this.http.delete(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-role/deleteById', {params: {'id': id}});
   }
 
 }

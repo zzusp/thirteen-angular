@@ -11,7 +11,8 @@
                     <ng-template #nzTreeTemplate let-node>
                         <span class="custom-node" [class.active]="activedNode?.key===node.key">
                           <span *ngIf="!node.isLeaf">
-                            <i nz-icon [type]="node.isExpanded ? 'folder-open' : 'folder'" (click)="openFolder(node, $event)"></i>
+                            <i nz-icon [type]="node.isExpanded ? 'folder-open' : 'folder'"
+                               (click)="openFolder(node, $event)"></i>
                             <span class="folder-name">{{node.title}}</span>
                           </span>
                           <span *ngIf="node.isLeaf">
@@ -46,13 +47,16 @@
                     </div>
                     <div nz-col [nzMd]="8">
                         <div class="form-button">
-                            <button nz-button nzType="primary" (click)="list()" [nzLoading]="false">查询</button>
+                            <button nz-button nzType="primary" (click)="findAllByParam()" [nzLoading]="false">查询
+                            </button>
                         </div>
                     </div>
                 </div>
             </form>
             <div class="button-group">
-                <button *ngIf="perms.save" nz-button nzType="primary" (click)="showSave()"><i nz-icon [type]="'plus'" [theme]="'outline'"></i>新增</button>
+                <button *ngIf="perms.save" nz-button nzType="primary" (click)="showSave()"><i nz-icon [type]="'plus'"
+                                                                                              [theme]="'outline'"></i>新增
+                </button>
             </div>
             {{params.types}}
             <nz-table
@@ -64,8 +68,8 @@
                 [nzTotal]="total"
                 [(nzPageIndex)]="pageNum"
                 [(nzPageSize)]="pageSize"
-                (nzPageIndexChange)="list()"
-                (nzPageSizeChange)="list()">
+                (nzPageIndexChange)="findAllByParam()"
+                (nzPageSizeChange)="findAllByParam()">
                 <thead nzSingleSort>
                 <tr>
                     <th nzShowSort [(nzSort)]="sortMap.code" (nzSortChange)="sort('code', $event)">编码</th>
@@ -75,11 +79,12 @@
                     <th nzShowSort [(nzSort)]="sortMap.type"
                         (nzSortChange)="sort('type', $event)"
                         nzShowFilter [nzFilters]="types"
-                        (nzFilterChange)="filter($event, params.isActive)">类型</th>
-                    <th nzShowSort [(nzSort)]="sortMap.is_active"
-                        (nzSortChange)="sort('is_active', $event)"
+                        (nzFilterChange)="filter($event, params.active)">类型
+                    </th>
+                    <th nzShowSort [(nzSort)]="sortMap.active"
+                        (nzSortChange)="sort('active', $event)"
                         nzShowFilter
-                        [nzFilters]="isActives"
+                        [nzFilters]="activeArr"
                         [nzFilterMultiple]="false"
                         (nzFilterChange)="filter(params.types, $event)"><span>状态</span></th>
                     <th *ngIf="perms.update || perms.delete"><span>操作</span></th>
@@ -97,8 +102,8 @@
                         <span *ngIf="data.type === global.PERMISSION_PERMS">需授权</span>
                     </td>
                     <td>
-                        <span *ngIf="data.isActive === global.ACTIVE_ON">启用</span>
-                        <span *ngIf="data.isActive === global.ACTIVE_OFF">禁用</span>
+                        <span *ngIf="data.active === global.ACTIVE_ON">启用</span>
+                        <span *ngIf="data.active === global.ACTIVE_OFF">禁用</span>
                     </td>
                     <td *ngIf="perms.update || perms.delete">
                         <a *ngIf="perms.update" (click)="showUpdate(data.id)">修改</a>

@@ -17,25 +17,15 @@ import { GroupService } from '../../group/group.service';
 })
 export class RoleEditComponent implements OnInit {
 
-  /**
-   * 全局常量
-   */
+  /** 全局常量  */
   global: GlobalConstants = GlobalConstants.getInstance();
-  /**
-   * 请求
-   */
+  /** 请求 */
   request: (params: any) => Observable<any>;
-  /**
-   * 角色ID
-   */
+  /** 角色ID */
   @Input() id: string;
-  /**
-   * 编辑表单
-   */
+  /** 编辑表单 */
   editForm: FormGroup;
-  /**
-   * 组织架构下拉框数据
-   */
+  /** 组织架构下拉框数据 */
   groups: TreeNode[] = [];
 
   constructor(private modal: NzModalRef,
@@ -46,7 +36,7 @@ export class RoleEditComponent implements OnInit {
 
   ngOnInit() {
     //  初始化组织下拉框
-    const groupReq = this.groupService.listAll();
+    const groupReq = this.groupService.findAll();
     // 发出请求
     forkJoin([groupReq])
       .subscribe((results: ResponseResultModel[]) => {
@@ -62,11 +52,12 @@ export class RoleEditComponent implements OnInit {
         Validators.maxLength(50)
       ])],
       name: [null, Validators.required],
-      isActive: [null, Validators.required],
+      active: [null, Validators.required],
       group: this.fb.group({
-        id: [null, Validators.required]
+        code: [null, Validators.required]
       }),
-      remark: [null, Validators.maxLength(250)]
+      remark: [null, Validators.maxLength(250)],
+      version: [null]
     });
     // 所有需加载的资源都已加载完成，初始化表单
     if (this.id !== this.global.INSERT_FLAG) {
@@ -82,7 +73,7 @@ export class RoleEditComponent implements OnInit {
   initSave() {
     // 初始化请求方法
     this.request = (params): Observable<any> => {
-      return this.roleService.save(params);
+      return this.roleService.insert(params);
     };
     // 添加异步验证，验证code是否存在，错误标识 existing
     this.editForm.get('code').setAsyncValidators(abstractValidate((code: string) => {
@@ -93,11 +84,12 @@ export class RoleEditComponent implements OnInit {
       id: null,
       code: null,
       name: null,
-      isActive: this.global.ACTIVE_ON,
+      active: this.global.ACTIVE_ON,
       group: {
-        id: null
+        code: null
       },
-      remark: null
+      remark: null,
+      version: null
     });
     this.editForm.get('code').enable();
   }
@@ -111,7 +103,7 @@ export class RoleEditComponent implements OnInit {
       return this.roleService.update(params);
     };
     // 获取角色信息初始化表单
-    this.roleService.getById(this.id)
+    this.roleService.findById(this.id)
       .subscribe((res: ResponseResultModel) => {
         const model: RoleModel = res.result;
         this.editForm.get('code').clearAsyncValidators();
@@ -120,11 +112,12 @@ export class RoleEditComponent implements OnInit {
           id: model.id,
           code: model.code,
           name: model.name,
-          isActive: model.isActive,
+          active: model.active,
           group: {
-            id: model.group.id
+            code: model.group.code
           },
-          remark: model.remark
+          remark: model.remark,
+          version: model.version
         });
         this.editForm.get('code').disable();
       });
@@ -139,7 +132,7 @@ export class RoleEditComponent implements OnInit {
       this.editForm.controls[key].updateValueAndValidity({onlySelf: true});
     }
     if (this.editForm.valid) {
-      this.request(this.editForm.value).subscribe((res: ResponseResultModel) => {
+      this.request(this.editForm.getRawValue()).subscribe((res: ResponseResultModel) => {
         // 清空表单
         this.editForm.reset();
         // 关闭模态框

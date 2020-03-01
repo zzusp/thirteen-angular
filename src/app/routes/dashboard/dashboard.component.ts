@@ -1,12 +1,12 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {applicationToSidebar, LayoutData} from '../../@layout/interface/layout-data';
-import {LoginService} from '../pages/login/login.service';
-import {LayoutService} from '../../@layout/@layout.service';
-import {UserModel} from '../system/user/user.model';
-import {ApplicationModel} from '../system/application/application.model';
-import {GlobalConstants} from '../../@core/constant/GlobalConstants';
-import {ResponseResultModel} from '../../@core/net/response-result.model';
+import { applicationToSidebar, LayoutData } from '../../@layout/interface/layout-data';
+import { LoginService } from '../pages/login/login.service';
+import { LayoutService } from '../../@layout/@layout.service';
+import { UserModel } from '../system/user/user.model';
+import { ApplicationModel } from '../system/application/application.model';
+import { GlobalConstants } from '../../@core/constant/GlobalConstants';
+import { ResponseResultModel } from '../../@core/net/response-result.model';
 import { setUserInfo } from '../../@core/util/user-info';
 
 @Component({
@@ -16,9 +16,7 @@ import { setUserInfo } from '../../@core/util/user-info';
 })
 export class DashboardComponent implements OnInit {
 
-  /**
-   * 全局常量
-   */
+  /** 全局常量  */
   global: GlobalConstants = GlobalConstants.getInstance();
   /**
    * 用户拥有的应用服务（系统）
@@ -31,7 +29,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(private injector: Injector,
               private loginService: LoginService,
-              private layoutService: LayoutService) { }
+              private layoutService: LayoutService) {
+  }
 
   ngOnInit() {
     // 从服务器段获取到当前用户信息，更新布局数据
@@ -50,9 +49,10 @@ export class DashboardComponent implements OnInit {
                 name: result.name,
                 photo: result.photo,
                 role: result.roles.map((role) => {
-                  return role.name; }).join('，')
+                  return role.name;
+                }).join('，')
               },
-              sidebarMenu: applicationToSidebar(result.applications, this.global.ROOT_PARENT_ID)
+              sidebarMenu: applicationToSidebar(result.applications, this.global.ROOT_PARENT_CODE)
             };
             this.layoutService.setLayoutData(layoutData);
           }

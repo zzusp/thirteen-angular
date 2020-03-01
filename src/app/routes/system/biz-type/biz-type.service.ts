@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {GlobalConstants} from '../../../@core/constant/GlobalConstants';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { GlobalConstants } from '../../../@core/constant/GlobalConstants';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +16,8 @@ export class BizTypeService {
    *
    * @param params
    */
-  save(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysBizType/save', params);
+  insert(params: any): Observable<any> {
+    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-biztype/insert', params);
   }
 
   /**
@@ -26,7 +26,7 @@ export class BizTypeService {
    * @param params
    */
   update(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysBizType/update', params);
+    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-biztype/update', params);
   }
 
   /**
@@ -34,17 +34,8 @@ export class BizTypeService {
    *
    * @param id 业务类型ID
    */
-  getById(id: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysBizType/getById', {params: {'id': id}});
-  }
-
-  /**
-   * 由业务类型编码获取业务类型及其下数据字典的信息
-   *
-   * @param code 业务类型编码
-   */
-  getByCode(code: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysBizType/getByCode', {params: {'code': code}});
+  findById(id: string): Observable<any> {
+    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-biztype/findById', {params: {'id': id}});
   }
 
   /**
@@ -52,15 +43,15 @@ export class BizTypeService {
    *
    * @param params
    */
-  list(params: any): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysBizType/listPage', {params});
+  findAllByParam(params: any): Observable<any> {
+    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-biztype/findAllByParam', {params});
   }
 
   /**
    * 获取所有业务类型列表
    */
-  listAll(): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysBizType/listAll', {});
+  findAll(): Observable<any> {
+    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-biztype/findAll', {});
   }
 
   /**
@@ -69,7 +60,7 @@ export class BizTypeService {
    * @param code 编码
    */
   checkCode(code: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysBizType/checkCode', {params: {'code': code}});
+    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-biztype/checkCode', {params: {'code': code}});
   }
 
   /**
@@ -78,7 +69,7 @@ export class BizTypeService {
    * @param id 业务类型ID
    */
   deleteById(id: string): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysBizType/deleteById', {}, {params: {'id': id}});
+    return this.http.delete(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-biztype/deleteById', {params: {'id': id}});
   }
 
 }

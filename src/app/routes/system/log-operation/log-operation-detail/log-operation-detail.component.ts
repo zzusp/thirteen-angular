@@ -13,17 +13,11 @@ import { LogOperationModel } from '../log-operation.model';
 })
 export class LogOperationDetailComponent implements OnInit {
 
-  /**
-   * 全局常量
-   */
+  /** 全局常量  */
   global: GlobalConstants = GlobalConstants.getInstance();
-  /**
-   * 登录日志ID
-   */
+  /** 登录日志ID */
   @Input() id: string;
-  /**
-   * 编辑表单
-   */
+  /** 编辑表单 */
   editForm: FormGroup;
 
   constructor(private modal: NzModalRef,
@@ -35,8 +29,8 @@ export class LogOperationDetailComponent implements OnInit {
     // 表单验证
     this.editForm = this.fb.group({
       id: [null],
-      userId: [null],
-      applicationId: [null],
+      account: [null],
+      applicationCode: [null],
       requestPath: [null],
       operationValue: [null],
       operationNotes: [null],
@@ -61,14 +55,14 @@ export class LogOperationDetailComponent implements OnInit {
    */
   init() {
     // 获取登录日志信息初始化表单
-    this.logOperationService.getById(this.id)
+    this.logOperationService.findById(this.id)
       .subscribe((res: ResponseResultModel) => {
         const model: LogOperationModel = res.result;
         // 表单重置
         this.editForm.reset({
           id: model.id,
-          userId: model.userId,
-          applicationId: model.applicationId,
+          account: model.account,
+          applicationCode: model.applicationCode,
           requestPath: model.requestPath,
           operationValue: model.operationValue,
           operationNotes: model.operationNotes,

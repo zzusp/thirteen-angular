@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { LayoutConfig } from '../interface/layout-config';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import {LayoutData, SidebarMenuInfo} from '../interface/layout-data';
+import { LayoutData, SidebarMenuInfo } from '../interface/layout-data';
 import { SidebarService } from './sidebar.service';
-import {GlobalConstants} from '../../@core/constant/GlobalConstants';
+import { GlobalConstants } from '../../@core/constant/GlobalConstants';
 
 @Component({
   selector: 'app-sidebar',
@@ -14,7 +14,7 @@ import {GlobalConstants} from '../../@core/constant/GlobalConstants';
       state('show', style({
         opacity: '1.0'
       })),
-      state('hidden',   style({
+      state('hidden', style({
         opacity: '0.0',
         height: '0',
         padding: '0'
@@ -26,9 +26,7 @@ import {GlobalConstants} from '../../@core/constant/GlobalConstants';
 })
 export class SidebarComponent implements OnInit {
 
-  /**
-   * 全局常量
-   */
+  /** 全局常量  */
   global: GlobalConstants = GlobalConstants.getInstance();
   /**
    * 布局配置
@@ -39,7 +37,8 @@ export class SidebarComponent implements OnInit {
    */
   @Input() data: LayoutData;
 
-  constructor(protected sidebarService: SidebarService) { }
+  constructor(protected sidebarService: SidebarService) {
+  }
 
   ngOnInit() {
   }

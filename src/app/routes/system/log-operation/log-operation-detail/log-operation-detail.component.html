@@ -3,15 +3,6 @@
         <nz-card [nzBordered]="false">
             <form nz-form [formGroup]="editForm" class="submit-form">
                 <input type="hidden" name="id" formControlName="id"/>
-                <!--<nz-form-item>-->
-                    <!--<nz-form-label [nzSm]="6" [nzXs]="24">应用</nz-form-label>-->
-                    <!--<nz-form-control [nzSm]="14" [nzXs]="24">-->
-                        <!--<input type="text"-->
-                               <!--name="applicationId"-->
-                               <!--formControlName="applicationId"-->
-                               <!--nz-input>-->
-                    <!--</nz-form-control>-->
-                <!--</nz-form-item>-->
                 <nz-form-item>
                     <nz-form-label [nzSm]="6" [nzXs]="24">来源路径</nz-form-label>
                     <nz-form-control [nzSm]="14" [nzXs]="24">
@@ -49,15 +40,17 @@
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
-                    <nz-form-label [nzSm]="6" [nzXs]="24" >参数</nz-form-label>
+                    <nz-form-label [nzSm]="6" [nzXs]="24">参数</nz-form-label>
                     <nz-form-control [nzSm]="14" [nzXs]="24">
-                        <textarea name="arguments" formControlName="arguments" nz-input [nzAutosize]="{ minRows: 2, maxRows: 10 }"></textarea>
+                        <textarea name="arguments" formControlName="arguments" nz-input
+                                  [nzAutosize]="{ minRows: 2, maxRows: 10 }"></textarea>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
-                    <nz-form-label [nzSm]="6" [nzXs]="24" >结果</nz-form-label>
+                    <nz-form-label [nzSm]="6" [nzXs]="24">结果</nz-form-label>
                     <nz-form-control [nzSm]="14" [nzXs]="24">
-                        <textarea name="result" formControlName="result" nz-input [nzAutosize]="{ minRows: 2, maxRows: 10 }"></textarea>
+                        <textarea name="result" formControlName="result" nz-input
+                                  [nzAutosize]="{ minRows: 2, maxRows: 10 }"></textarea>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
@@ -88,9 +81,10 @@
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
-                    <nz-form-label [nzSm]="6" [nzXs]="24" >信息</nz-form-label>
+                    <nz-form-label [nzSm]="6" [nzXs]="24">信息</nz-form-label>
                     <nz-form-control [nzSm]="14" [nzXs]="24">
-                        <textarea name="message" formControlName="message" nz-input [nzAutosize]="{ minRows: 2, maxRows: 10 }"></textarea>
+                        <textarea name="message" formControlName="message" nz-input
+                                  [nzAutosize]="{ minRows: 2, maxRows: 10 }"></textarea>
                     </nz-form-control>
                 </nz-form-item>
             </form>

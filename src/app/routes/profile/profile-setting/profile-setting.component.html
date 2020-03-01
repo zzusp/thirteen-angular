@@ -26,7 +26,9 @@
                                             [nzCustomRequest]="uploadAvatar"
                                             [nzShowUploadList]="false"
                                             [nzBeforeUpload]="beforeUpload">
-                                            <button nz-button class="upload-btn"><i nz-icon type="upload"></i><span>更换头像</span></button>
+                                            <button nz-button class="upload-btn"><i nz-icon
+                                                                                    type="upload"></i><span>更换头像</span>
+                                            </button>
                                         </nz-upload>
                                     </div>
                                 </div>
@@ -56,16 +58,23 @@
                                                    required
                                                    nz-input
                                                    placeholder="请输入">
-                                            <nz-form-explain *ngIf="editForm.get('name').dirty && editForm.get('name').hasError('required')">姓名不可为空</nz-form-explain>
+                                            <nz-form-explain
+                                                *ngIf="editForm.get('name').dirty && editForm.get('name').hasError('required')">
+                                                姓名不可为空
+                                            </nz-form-explain>
                                         </nz-form-control>
                                     </nz-form-item>
                                     <nz-form-item>
                                         <nz-form-label nzRequired>性别</nz-form-label>
                                         <nz-form-control>
                                             <nz-select formControlName="gender" nzPlaceHolder="请选择" nzAllowClear>
-                                                <nz-option *ngFor="let opt of genders" [nzValue]="opt.id" [nzLabel]="opt.name"></nz-option>
+                                                <nz-option *ngFor="let opt of genders" [nzValue]="opt.id"
+                                                           [nzLabel]="opt.name"></nz-option>
                                             </nz-select>
-                                            <nz-form-explain *ngIf="editForm.get('gender').dirty && editForm.get('gender').hasError('required')">性别不可为空</nz-form-explain>
+                                            <nz-form-explain
+                                                *ngIf="editForm.get('gender').dirty && editForm.get('gender').hasError('required')">
+                                                性别不可为空
+                                            </nz-form-explain>
                                         </nz-form-control>
                                     </nz-form-item>
                                     <nz-form-item>
@@ -77,7 +86,10 @@
                                                    required
                                                    nz-input
                                                    placeholder="请输入">
-                                            <nz-form-explain *ngIf="editForm.get('mobile').dirty && editForm.get('mobile').hasError('required')">手机不可为空</nz-form-explain>
+                                            <nz-form-explain
+                                                *ngIf="editForm.get('mobile').dirty && editForm.get('mobile').hasError('required')">
+                                                手机不可为空
+                                            </nz-form-explain>
                                         </nz-form-control>
                                     </nz-form-item>
                                     <nz-form-item>
@@ -89,8 +101,14 @@
                                                    required
                                                    nz-input
                                                    placeholder="请输入">
-                                            <nz-form-explain *ngIf="editForm.get('email').dirty && editForm.get('email').hasError('required')">邮箱不可为空</nz-form-explain>
-                                            <nz-form-explain *ngIf="editForm.get('email').dirty && editForm.get('email').hasError('email')">邮箱格式有误</nz-form-explain>
+                                            <nz-form-explain
+                                                *ngIf="editForm.get('email').dirty && editForm.get('email').hasError('required')">
+                                                邮箱不可为空
+                                            </nz-form-explain>
+                                            <nz-form-explain
+                                                *ngIf="editForm.get('email').dirty && editForm.get('email').hasError('email')">
+                                                邮箱格式有误
+                                            </nz-form-explain>
                                         </nz-form-control>
                                     </nz-form-item>
                                     <nz-form-item>
@@ -99,7 +117,9 @@
                                         <textarea name="remark" formControlName="remark" nz-input
                                                   [nzAutosize]="{ minRows: 4, maxRows: 6 }"
                                                   placeholder="请用少于250字符描述您自己"></textarea>
-                                            <nz-form-explain *ngIf="editForm.get('remark').hasError('maxlength')">最多250个字符</nz-form-explain>
+                                            <nz-form-explain *ngIf="editForm.get('remark').hasError('maxlength')">
+                                                最多250个字符
+                                            </nz-form-explain>
                                         </nz-form-control>
                                     </nz-form-item>
                                 </div>
@@ -122,7 +142,9 @@
                                     <nz-form-item>
                                         <div class="form-button">
                                             <button nz-button (click)="goBack()">返回</button>
-                                            <button nz-button nzType="primary" (click)="submitForm()" [nzLoading]="false">提交</button>
+                                            <button nz-button nzType="primary" (click)="submitForm()"
+                                                    [nzLoading]="false">提交
+                                            </button>
                                         </div>
                                     </nz-form-item>
                                 </div>

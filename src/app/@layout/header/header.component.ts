@@ -31,7 +31,8 @@ export class HeaderComponent implements OnInit {
   constructor(private layoutService: LayoutService,
               private loginService: LoginService,
               private messageService: NzMessageService,
-              private router: Router) { }
+              private router: Router) {
+  }
 
   ngOnInit() {
     // 获取布局配置

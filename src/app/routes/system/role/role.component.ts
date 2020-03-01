@@ -7,7 +7,6 @@ import { RoleModel } from './role.model';
 import { NzMessageService, NzModalRef, NzModalService } from 'ng-zorro-antd';
 import { RoleEditComponent } from './role-edit/role-edit.component';
 import { GlobalConstants } from '../../../@core/constant/GlobalConstants';
-import { UserService } from '../user/user.service';
 import { Router } from '@angular/router';
 import { validatePerms } from '../../../@core/util/perms-validators';
 
@@ -18,57 +17,35 @@ import { validatePerms } from '../../../@core/util/perms-validators';
 })
 export class RoleComponent implements OnInit {
 
-  /**
-   * 全局常量
-   */
+  /** 全局常量  */
   global: GlobalConstants = GlobalConstants.getInstance();
-
-  /**
-   * 查询参数
-   */
+  /** 查询参数  */
   params: any = {
     code: '',
     name: '',
-    isActive: ''
+    active: ''
   };
-
-  /**
-   * 是否启用
-   */
-  isActives: any[] = [];
-  /**
-   * 当前页码
-   */
+  /** 是否启用  */
+  activeArr: any[] = [];
+  /** 当前页码  */
   pageNum: number = 1;
-  /**
-   * 每页显示记录数
-   */
+  /** 每页显示记录数  */
   pageSize: number = 10;
-  /**
-   * 总记录数
-   */
+  /** 总记录数  */
   total: number = 0;
-  /**
-   * 表格数据
-   */
+  /** 表格数据  */
   tableData: RoleModel[] = [];
-  /**
-   * 加载动画，默认关闭
-   */
+  /** 加载动画，默认关闭  */
   loading = false;
-  /**
-   * 排序
-   */
+  /** 排序  */
   sortMap = {
     code: null,
     name: null,
-    is_active: null,
-    create_time: 'desc',
-    update_time: null
+    active: null,
+    createTime: 'desc',
+    updateTime: null
   };
-  /**
-   * 页面权限校验
-   */
+  /** 页面权限校验  */
   perms = {
     save: false,
     update: false,
@@ -89,26 +66,31 @@ export class RoleComponent implements OnInit {
       delete: validatePerms(['role:delete']),
       authorize: validatePerms(['role:authorize'])
     };
-    this.isActives = [
+    this.activeArr = [
       {text: '启用', value: this.global.ACTIVE_ON},
       {text: '禁用', value: this.global.ACTIVE_OFF}];
-    this.list();
+    this.findAllByParam();
   }
 
   /**
    * 获取列表信息
    */
-  list(): void {
+  findAllByParam(): void {
     // 加载动画开启
     this.loading = true;
-    const params = new HttpParams()
-      .set('code', this.params.code)
-      .set('name', this.params.name)
-      .set('isActive', this.params.isActive)
-      .set('pageSize', this.pageSize.toString())
-      .set('pageNum', this.pageNum.toString())
-      .set('orderBy', this.getOrderBy());
-    this.roleService.list(params).subscribe((res: ResponseResultModel) => {
+    const param = {
+      'criterias': [
+        {'feild': 'code', 'operator': 'like', 'value': this.params.code ? '%' + this.params.code + '%' : null},
+        {'feild': 'name', 'operator': 'like', 'value': this.params.name ? '%' + this.params.name + '%' : null},
+        {'feild': 'active', 'value': this.params.active}
+      ],
+      'page': {
+        'pageSize': this.pageSize,
+        'pageNum': this.pageNum - 1
+      },
+      'sorts': this.getSorts()
+    };
+    this.roleService.findAllByParam(new HttpParams().set('param', JSON.stringify(param))).subscribe((res: ResponseResultModel) => {
       // 判断返回结果是否为空或null
       if (res && res.result) {
         const result: PagerResultModel = res.result;
@@ -123,11 +105,11 @@ export class RoleComponent implements OnInit {
   /**
    * 过滤方法
    *
-   * @param isActive
+   * @param active
    */
-  filter(isActive: string): void {
-    this.params.isActive = !!isActive ? isActive : '';
-    this.list();
+  filter(active: string): void {
+    this.params.active = !!active ? active : '';
+    this.findAllByParam();
   }
 
   /**
@@ -142,20 +124,20 @@ export class RoleComponent implements OnInit {
         this.sortMap[key] = value;
       }
     }
-    this.list();
+    this.findAllByParam();
   }
 
   /**
    * 获取排序参数
    */
-  getOrderBy(): string {
+  getSorts(): any[] {
     const arr = [];
     for (const key of Object.keys(this.sortMap)) {
       if (this.sortMap[key] != null) {
-        arr.push(key + ' ' + this.sortMap[key].replace('end', ''));
+        arr.push({field: key, orderBy: this.sortMap[key].replace('end', '')});
       }
     }
-    return arr.toString();
+    return arr;
   }
 
   /**
@@ -163,18 +145,15 @@ export class RoleComponent implements OnInit {
    */
   showSave() {
     const modal = this.openModel(this.global.INSERT_FLAG, '新增角色信息');
-
     // 模态框打开后回调事件
     modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-
     // 模态框关闭后回调事件
     modal.afterClose.subscribe((result) => {
       if (result && result.refresh) {
         // 刷新列表
-        this.list();
+        this.findAllByParam();
       }
     });
-
     // 延时到模态框实例创建
     window.setTimeout(() => {
       const instance = modal.getContentComponent();
@@ -189,15 +168,13 @@ export class RoleComponent implements OnInit {
    */
   showUpdate(id: string) {
     const modal = this.openModel(id, '修改角色信息');
-
     // 模态框打开后回调事件
     modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-
     // 模态框关闭后回调事件
     modal.afterClose.subscribe((result) => {
       if (result && result.refresh) {
         // 刷新列表
-        this.list();
+        this.findAllByParam();
       }
     });
   }
@@ -240,7 +217,7 @@ export class RoleComponent implements OnInit {
       if (res.status === 200) {
         this.nzMessageService.success(this.global.DELETE_SUCESS_MSG);
       }
-      this.list();
+      this.findAllByParam();
     });
   }
 

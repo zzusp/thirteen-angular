@@ -25,7 +25,8 @@ export class AppComponent implements OnInit {
   constructor(private layoutService: LayoutService,
               private router: Router,
               private activatedRoute: ActivatedRoute,
-              private title: Title) { }
+              private title: Title) {
+  }
 
   ngOnInit(): void {
     // 路由导航开始事件回调

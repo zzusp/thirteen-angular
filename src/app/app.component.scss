@@ -8,6 +8,7 @@
     .ant-spin {
       max-height: unset;
     }
+
     .ant-spin-container {
       height: 100%;
     }
@@ -24,7 +25,8 @@
     > nz-form-label {
       padding: 0 !important;
     }
-    > nz-form-control{
+
+    > nz-form-control {
       flex: 1;
       padding: 0 !important;
     }
@@ -51,7 +53,8 @@
     > nz-form-label {
       padding: 0 !important;
     }
-    > nz-form-control{
+
+    > nz-form-control {
       padding: 0 !important;
     }
   }
@@ -59,6 +62,7 @@
   .form-button {
     text-align: center;
     line-height: 40px;
+
     > button {
       margin: 0 5px;
     }

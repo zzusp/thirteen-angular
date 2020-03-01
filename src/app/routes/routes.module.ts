@@ -27,4 +27,5 @@ const ROUTES_COMPONENT = [
     ...ROUTES_COMPONENT
   ]
 })
-export class RoutesModule { }
+export class RoutesModule {
+}

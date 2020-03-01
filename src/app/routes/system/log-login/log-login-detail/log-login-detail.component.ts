@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { GlobalConstants } from '../../../../@core/constant/GlobalConstants';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { NzModalRef } from 'ng-zorro-antd';
 import { ResponseResultModel } from '../../../../@core/net/response-result.model';
 import { LogLoginService } from '../log-login.service';
@@ -13,17 +13,13 @@ import { LogLoginModel } from '../log-login.model';
 })
 export class LogLoginDetailComponent implements OnInit {
 
-  /**
-   * 全局常量
-   */
+  /** 全局常量  */
   global: GlobalConstants = GlobalConstants.getInstance();
   /**
    * 登录日志ID
    */
   @Input() id: string;
-  /**
-   * 编辑表单
-   */
+  /** 编辑表单 */
   editForm: FormGroup;
 
   constructor(private modal: NzModalRef,
@@ -52,7 +48,7 @@ export class LogLoginDetailComponent implements OnInit {
    */
   init() {
     // 获取登录日志信息初始化表单
-    this.logLoginService.getById(this.id)
+    this.logLoginService.findById(this.id)
       .subscribe((res: ResponseResultModel) => {
         const model: LogLoginModel = res.result;
         // 表单重置

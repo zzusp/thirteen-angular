@@ -12,7 +12,7 @@
       line-height: 30px;
     }
 
-    &.ant-tree-treenode-selected > span{
+    &.ant-tree-treenode-selected > span {
       color: #fff;
     }
   }
@@ -35,10 +35,10 @@
 .file-name, .folder-name {
   margin-left: 4px;
   /* 双击不可选中 */
-  -moz-user-select:none; /* 火狐 */
-  -webkit-user-select:none; /* webkit浏览器 */
-  -ms-user-select:none; /* IE10 */
-  user-select:none;
+  -moz-user-select: none; /* 火狐 */
+  -webkit-user-select: none; /* webkit浏览器 */
+  -ms-user-select: none; /* IE10 */
+  user-select: none;
 }
 
 .file-desc, .folder-desc {

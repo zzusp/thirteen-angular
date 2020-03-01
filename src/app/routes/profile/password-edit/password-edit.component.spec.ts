@@ -8,9 +8,9 @@ describe('PasswordEditComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PasswordEditComponent ]
+      declarations: [PasswordEditComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

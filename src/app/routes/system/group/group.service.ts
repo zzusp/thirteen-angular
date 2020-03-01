@@ -16,8 +16,8 @@ export class GroupService {
    *
    * @param params
    */
-  save(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysGroup/save', params);
+  insert(params: any): Observable<any> {
+    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-group/insert', params);
   }
 
   /**
@@ -26,7 +26,7 @@ export class GroupService {
    * @param params
    */
   update(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysGroup/update', params);
+    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-group/update', params);
   }
 
   /**
@@ -34,8 +34,8 @@ export class GroupService {
    *
    * @param id 组织ID
    */
-  getById(id: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysGroup/getById', {params: {'id': id}});
+  findById(id: string): Observable<any> {
+    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-group/findById', {params: {'id': id}});
   }
 
   /**
@@ -43,15 +43,15 @@ export class GroupService {
    *
    * @param params
    */
-  list(params: any): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysGroup/listPage', {params});
+  findAllByParam(params: any): Observable<any> {
+    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-group/findAllByParam', {params});
   }
 
   /**
    * 获取所有组织列表
    */
-  listAll(): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysGroup/listAll', {});
+  findAll(): Observable<any> {
+    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-group/findAll', {});
   }
 
   /**
@@ -60,7 +60,7 @@ export class GroupService {
    * @param code 编码
    */
   checkCode(code: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysGroup/checkCode', {params: {'code': code}});
+    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-group/checkCode', {params: {'code': code}});
   }
 
   /**
@@ -69,6 +69,6 @@ export class GroupService {
    * @param id 组织ID
    */
   deleteById(id: string): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysGroup/deleteById', {}, {params: {'id': id}});
+    return this.http.delete(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-group/deleteById', {params: {'id': id}});
   }
 }

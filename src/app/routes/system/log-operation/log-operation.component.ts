@@ -16,81 +16,71 @@ import { validatePerms } from '../../../@core/util/perms-validators';
 })
 export class LogOperationComponent implements OnInit {
 
-  /**
-   * 全局常量
-   */
+  /** 全局常量  */
   global: GlobalConstants = GlobalConstants.getInstance();
-
-  /**
-   * 查询参数
-   */
+  /** 查询参数  */
   params: any = {
     operationValue: '',
     status: ''
   };
-  /**
-   * 当前页码
-   */
+  /** 当前页码  */
   pageNum: number = 1;
-  /**
-   * 每页显示记录数
-   */
+  /** 每页显示记录数  */
   pageSize: number = 10;
-  /**
-   * 总记录数
-   */
+  /** 总记录数  */
   total: number = 0;
-  /**
-   * 表格数据
-   */
+  /** 表格数据  */
   tableData: LogOperationModel[] = [];
-  /**
-   * 加载动画，默认关闭
-   */
+  /** 加载动画，默认关闭  */
   loading = false;
-  /**
-   * 排序
-   */
+  /** 排序  */
   sortMap = {
-    request_path: null,
-    operation_value: null,
+    requestPath: null,
+    operationValue: null,
     operation_notes: null,
     method: null,
     status: null,
-    start_time: 'desc',
-    end_time: null
+    startTime: 'desc',
+    endTime: null
   };
-  /**
-   * 页面权限校验
-   */
+  /** 页面权限校验  */
   perms = {
     delete: false
   };
 
   constructor(private logOperationService: LogOperationService,
               private nzMessageService: NzMessageService,
-              private modalService: NzModalService) { }
+              private modalService: NzModalService) {
+  }
 
   ngOnInit() {
     this.perms = {
       delete: validatePerms(['logOperation:delete'])
     };
-    this.list();
+    this.findAllByParam();
   }
 
   /**
    * 获取列表信息
    */
-  list(): void {
+  findAllByParam(): void {
     // 加载动画开启
     this.loading = true;
-    const params = new HttpParams()
-      .set('operationValue', this.params.operationValue)
-      .set('status', this.params.status)
-      .set('pageSize', this.pageSize.toString())
-      .set('pageNum', this.pageNum.toString())
-      .set('orderBy', this.getOrderBy());
-    this.logOperationService.list(params).subscribe((res: ResponseResultModel) => {
+    const param = {
+      'criterias': [
+        {
+          'feild': 'operationValue', 'operator': 'like',
+          'value': this.params.operationValue ? '%' + this.params.operationValue + '%' : null
+        },
+        {'feild': 'status', 'value': this.params.status}
+      ],
+      'page': {
+        'pageSize': this.pageSize,
+        'pageNum': this.pageNum - 1
+      },
+      'sorts': this.getSorts()
+    };
+    this.logOperationService.findAllByParam(new HttpParams().set('param', JSON.stringify(param))).subscribe((res: ResponseResultModel) => {
       // 判断返回结果是否为空或null
       if (res.result) {
         const result: PagerResultModel = res.result;
@@ -114,20 +104,20 @@ export class LogOperationComponent implements OnInit {
         this.sortMap[key] = value;
       }
     }
-    this.list();
+    this.findAllByParam();
   }
 
   /**
    * 获取排序参数
    */
-  getOrderBy(): string {
+  getSorts(): any[] {
     const arr = [];
     for (const key of Object.keys(this.sortMap)) {
       if (this.sortMap[key] != null) {
-        arr.push(key + ' ' + this.sortMap[key].replace('end', ''));
+        arr.push({field: key, orderBy: this.sortMap[key].replace('end', '')});
       }
     }
-    return arr.toString();
+    return arr;
   }
 
   /**
@@ -168,7 +158,7 @@ export class LogOperationComponent implements OnInit {
       if (res.status === 200) {
         this.nzMessageService.success(this.global.DELETE_SUCESS_MSG);
       }
-      this.list();
+      this.findAllByParam();
     });
   }
 

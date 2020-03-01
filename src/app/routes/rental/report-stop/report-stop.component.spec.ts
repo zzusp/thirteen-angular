@@ -8,9 +8,9 @@ describe('ReportStopComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ReportStopComponent ]
+      declarations: [ReportStopComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

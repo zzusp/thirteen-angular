@@ -7,7 +7,8 @@ import { SidebarMenuInfo } from '../interface/layout-data';
 })
 export class SidebarService {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+  }
 
   /**
    * 检查是否有自己子菜单

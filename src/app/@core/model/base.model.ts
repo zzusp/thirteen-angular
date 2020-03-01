@@ -3,9 +3,7 @@
  */
 export class BaseModel {
 
-  /**
-   * 主键ID
-   */
+  /** 主键ID */
   id: string;
 
 }

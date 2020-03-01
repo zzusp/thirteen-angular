@@ -18,13 +18,9 @@ import { listToBaseTree } from '../../../@core/util/tree-node';
 })
 export class DeptComponent implements OnInit {
 
-  /**
-   * 全局常量
-   */
+  /** 全局常量  */
   global: GlobalConstants = GlobalConstants.getInstance();
-  /**
-   * 加载动画，默认关闭
-   */
+  /** 加载动画，默认关闭  */
   loading: boolean;
   /**
    * tree-table配置
@@ -42,9 +38,7 @@ export class DeptComponent implements OnInit {
    * 操作
    */
   @ViewChild('rowAction', {read: TemplateRef}) rowAction: TemplateRef<any>;
-  /**
-   * 页面权限校验
-   */
+  /** 页面权限校验  */
   perms = {
     save: false,
     update: false,
@@ -93,16 +87,16 @@ export class DeptComponent implements OnInit {
         template: this.rowAction
       });
     }
-    this.list();
+    this.findAllByParam();
   }
 
   /**
    * 获取列表信息
    */
-  list(): void {
+  findAllByParam(): void {
     // 加载动画开启
     this.loading = true;
-    this.deptService.listAll().subscribe((res: ResponseResultModel) => {
+    this.deptService.findAll().subscribe((res: ResponseResultModel) => {
       // 加载动画关闭
       this.loading = false;
       // 判断返回结果是否为空或null
@@ -122,7 +116,7 @@ export class DeptComponent implements OnInit {
     modal.afterClose.subscribe((result) => {
       if (result && result.refresh) {
         // 刷新列表
-        this.list();
+        this.findAllByParam();
       }
     });
   }
@@ -138,7 +132,7 @@ export class DeptComponent implements OnInit {
     modal.afterClose.subscribe((result) => {
       if (result && result.refresh) {
         // 刷新列表
-        this.list();
+        this.findAllByParam();
       }
     });
   }
@@ -172,7 +166,7 @@ export class DeptComponent implements OnInit {
       if (res.status === 200) {
         this.nzMessageService.success(this.global.DELETE_SUCESS_MSG);
       }
-      this.list();
+      this.findAllByParam();
     });
   }
 

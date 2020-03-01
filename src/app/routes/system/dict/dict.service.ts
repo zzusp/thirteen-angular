@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {GlobalConstants} from '../../../@core/constant/GlobalConstants';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { GlobalConstants } from '../../../@core/constant/GlobalConstants';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +16,8 @@ export class DictService {
    *
    * @param params
    */
-  save(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysDict/save', params);
+  insert(params: any): Observable<any> {
+    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-dict/insert', params);
   }
 
   /**
@@ -26,7 +26,7 @@ export class DictService {
    * @param params
    */
   update(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysDict/update', params);
+    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-dict/update', params);
   }
 
   /**
@@ -34,8 +34,8 @@ export class DictService {
    *
    * @param id 数据字典ID
    */
-  getById(id: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysDict/getById', {params: {'id': id}});
+  findById(id: string): Observable<any> {
+    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-dict/findById', {params: {'id': id}});
   }
 
   /**
@@ -43,15 +43,27 @@ export class DictService {
    *
    * @param params
    */
-  list(params: any): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysDict/listPage', {params});
+  findAllByParam(params: any): Observable<any> {
+    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-dict/findAllByParam', {params});
   }
 
   /**
    * 获取所有数据字典列表
    */
-  listAll(): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysDict/listAll', {});
+  findAll(): Observable<any> {
+    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-dict/findAll', {});
+  }
+
+  /**
+   * 由业务类型编码获取所有角色列表
+   */
+  findAllByBizTypeCode(bizTypeCode: any): Observable<any> {
+    const param = {
+      'criterias': [
+        {'feild': 'bizTypeCode', 'value': bizTypeCode, 'require': true}
+      ]
+    };
+    return this.findAllByParam(new HttpParams().set('param', JSON.stringify(param)));
   }
 
   /**
@@ -60,7 +72,7 @@ export class DictService {
    * @param code 编码
    */
   checkCode(code: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysDict/checkCode', {params: {'code': code}});
+    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-dict/checkCode', {params: {'code': code}});
   }
 
   /**
@@ -69,6 +81,6 @@ export class DictService {
    * @param id 数据字典ID
    */
   deleteById(id: string): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysDict/deleteById', {}, {params: {'id': id}});
+    return this.http.delete(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-dict/deleteById', {params: {'id': id}});
   }
 }

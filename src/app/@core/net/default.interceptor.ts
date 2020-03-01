@@ -2,14 +2,12 @@
  * 默认HTTP拦截器，其注册细节见 `shared.module.ts`
  */
 import { Injectable, Injector } from '@angular/core';
-import {
-  HttpErrorResponse, HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest, HttpResponse
-} from '@angular/common/http';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { mergeMap, catchError } from 'rxjs/operators';
-import { Observable, of, throwError } from 'rxjs';
+import { catchError, mergeMap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 import { NzModalService } from 'ng-zorro-antd';
-import {getToken} from '../util/user-info';
+import { getToken } from '../util/user-info';
 
 @Injectable()
 export class DefaultInterceptor implements HttpInterceptor {

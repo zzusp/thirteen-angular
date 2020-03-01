@@ -1,6 +1,18 @@
 import {
-  Component, ElementRef, Input, OnInit, ViewEncapsulation,
-  ViewChild, AfterViewInit, EventEmitter, Output, KeyValueChanges, DoCheck, KeyValueDiffer, KeyValueDiffers, OnDestroy
+  AfterViewInit,
+  Component,
+  DoCheck,
+  ElementRef,
+  EventEmitter,
+  Input,
+  KeyValueChanges,
+  KeyValueDiffer,
+  KeyValueDiffers,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+  ViewEncapsulation
 } from '@angular/core';
 import { TreeTableRowModel } from '../models/tree-table-data.model';
 import { TreeTableConfigModel } from '../models/tree-table-config.model';

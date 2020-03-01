@@ -8,9 +8,9 @@ describe('RoleAuthorizeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RoleAuthorizeComponent ]
+      declarations: [RoleAuthorizeComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

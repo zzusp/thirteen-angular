@@ -1,22 +1,23 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {GlobalConstants} from '../../../@core/constant/GlobalConstants';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { GlobalConstants } from '../../../@core/constant/GlobalConstants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApplicationService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   /**
    * 新增模块
    *
    * @param params
    */
-  save(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysApplication/save', params);
+  insert(params: any): Observable<any> {
+    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-application/insert', params);
   }
 
   /**
@@ -25,7 +26,7 @@ export class ApplicationService {
    * @param params
    */
   update(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysApplication/update', params);
+    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-application/update', params);
   }
 
   /**
@@ -33,8 +34,8 @@ export class ApplicationService {
    *
    * @param id 模块ID
    */
-  getById(id: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysApplication/getById', {params: {'id': id}});
+  findById(id: string): Observable<any> {
+    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-application/findById', {params: {'id': id}});
   }
 
   /**
@@ -42,15 +43,15 @@ export class ApplicationService {
    *
    * @param params
    */
-  list(params: any): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysApplication/listPage', {params});
+  findAllByParam(params: any): Observable<any> {
+    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-application/findAllByParam', {params});
   }
 
   /**
    * 获取所有模块列表
    */
-  listAll(): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysApplication/listAll', {});
+  findAll(): Observable<any> {
+    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-application/findAll', {});
   }
 
   /**
@@ -59,7 +60,7 @@ export class ApplicationService {
    * @param code 编码
    */
   checkCode(code: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysApplication/checkCode', {params: {'code': code}});
+    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-application/checkCode', {params: {'code': code}});
   }
 
   /**
@@ -68,7 +69,7 @@ export class ApplicationService {
    * @param id 模块ID
    */
   deleteById(id: string): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysApplication/deleteById', {}, {params: {'id': id}});
+    return this.http.delete(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-application/deleteById', {params: {'id': id}});
   }
 
 }

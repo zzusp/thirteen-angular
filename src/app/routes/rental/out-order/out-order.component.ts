@@ -9,57 +9,40 @@ import { GlobalConstants } from '../../../@core/constant/GlobalConstants';
 })
 export class OutOrderComponent implements OnInit {
 
-  /**
-   * 全局常量
-   */
+  /** 全局常量  */
   global: GlobalConstants = GlobalConstants.getInstance();
 
-  /**
-   * 查询参数
-   */
+  /** 查询参数  */
   params: any = {
     contractCode: '',
     lesseeName: ''
   };
-  /**
-   * 当前页码
-   */
+  /** 当前页码  */
   pageNum: number = 1;
-  /**
-   * 每页显示记录数
-   */
+  /** 每页显示记录数  */
   pageSize: number = 10;
-  /**
-   * 总记录数
-   */
+  /** 总记录数  */
   total: number = 0;
-  /**
-   * 表格数据
-   */
+  /** 表格数据  */
   tableData: any[] = [];
-  /**
-   * 加载动画，默认关闭
-   */
+  /** 加载动画，默认关闭  */
   loading = false;
-  /**
-   * 排序
-   */
+  /** 排序  */
   sortMap = {
     name: null,
     stop_time: 'desc',
-    create_time: 'desc',
-    update_time: null
+    createTime: 'desc',
+    updateTime: null
   };
-  /**
-   * 页面权限校验
-   */
+  /** 页面权限校验  */
   perms = {
     save: false,
     update: false,
     delete: false
   };
 
-  constructor(private nzMessageService: NzMessageService) { }
+  constructor(private nzMessageService: NzMessageService) {
+  }
 
   ngOnInit() {
     this.perms = {
@@ -67,23 +50,23 @@ export class OutOrderComponent implements OnInit {
       update: true,
       delete: true
     };
-    this.list();
+    this.findAllByParam();
   }
 
   /**
    * 获取列表信息
    */
-  list(): void {
+  findAllByParam(): void {
     // 加载动画开启
     // this.loading = true;
     // const params = new HttpParams()
     //   .set('account', this.params.account)
     //   .set('name', this.params.name)
-    //   .set('isActive', this.params.isActive)
+    //   .set('active', this.params.active)
     //   .set('pageSize', this.pageSize.toString())
     //   .set('pageNum', this.pageNum.toString())
     //   .set('orderBy', this.getOrderBy());
-    // this.userService.list(params).subscribe((res: ResponseResultModel) => {
+    // this.userService.findAllByParam(params).subscribe((res: ResponseResultModel) => {
     //   // 判断返回结果是否为空或null
     //   if (res.result) {
     //     const result: PagerResultModel = res.result;
@@ -99,11 +82,11 @@ export class OutOrderComponent implements OnInit {
   /**
    * 过滤方法
    *
-   * @param isActive
+   * @param active
    */
-  filter(isActive: string): void {
-    this.params.isActive = !!isActive ? isActive : '';
-    this.list();
+  filter(active: string): void {
+    this.params.active = !!active ? active : '';
+    this.findAllByParam();
   }
 
   /**
@@ -118,7 +101,7 @@ export class OutOrderComponent implements OnInit {
         this.sortMap[key] = value;
       }
     }
-    this.list();
+    this.findAllByParam();
   }
 
   /**
@@ -177,9 +160,9 @@ export class OutOrderComponent implements OnInit {
     //   this.nzMessageService.remove(msgId);
     //   // 判断返回状态码是否为200（成功状态码）
     //   if (res.status === 200) {
-        this.nzMessageService.success(this.global.DELETE_SUCESS_MSG);
+    this.nzMessageService.success(this.global.DELETE_SUCESS_MSG);
     //   }
-    //   this.list();
+    //   this.findAllByParam();
     // });
   }
 

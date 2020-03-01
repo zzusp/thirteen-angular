@@ -4,53 +4,29 @@ import { TreeTableRowModel } from './tree-table-data.model';
  * tree-table的配置实体类
  */
 export class TreeTableConfigModel {
-  /**
-   * 是否可选中行
-   */
+  /** 是否可选中行 */
   selectable: boolean;
-  /**
-   * 是否可勾选
-   */
+  /** 是否可勾选 */
   checkable: boolean;
-  /**
-   * 展开层级，默认为0
-   */
+  /** 展开层级，默认为0 */
   level: number;
-  /**
-   * 展开时的图标
-   */
+  /** 展开时的图标 */
   iconOpen: string;
-  /**
-   * 折叠时的图标
-   */
+  /** 折叠时的图标 */
   iconClose: string;
-  /**
-   * 自定义样式
-   */
+  /** 自定义样式 */
   styleClass: string;
-  /**
-   * 是否为懒加载
-   */
+  /** 是否为懒加载 */
   lazy: boolean;
-  /**
-   * 选中行时的回调函数
-   */
+  /** 选中行时的回调函数 */
   onSelectChange: TreeTableActionCallback;
-  /**
-   * 勾选时的回调函数
-   */
+  /** 勾选时的回调函数 */
   onCheckChange: TreeTableActionCallback;
-  /**
-   * 折叠时的回调函数
-   */
+  /** 折叠时的回调函数 */
   onCollapsed: TreeTableActionCallback;
-  /**
-   * 展开时的回调函数
-   */
+  /** 展开时的回调函数 */
   onExpanded: TreeTableActionCallback;
-  /**
-   * 懒加载时的回调函数
-   */
+  /** 懒加载时的回调函数 */
   onLazyRender: TreeTableActionCallback;
 
   constructor(fields?: {

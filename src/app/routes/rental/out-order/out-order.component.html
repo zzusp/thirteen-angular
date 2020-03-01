@@ -7,7 +7,8 @@
                         <nz-form-item class="form-item">
                             <nz-form-label>合同编码</nz-form-label>
                             <nz-form-control>
-                                <input id="account" name="account" nz-input placeholder="请输入" [(ngModel)]="params.contractCode">
+                                <input id="account" name="account" nz-input placeholder="请输入"
+                                       [(ngModel)]="params.contractCode">
                             </nz-form-control>
                         </nz-form-item>
                     </div>
@@ -21,13 +22,16 @@
                     </div>
                     <div nz-col [nzMd]="8">
                         <div class="form-button">
-                            <button nz-button nzType="primary" (click)="list()" [nzLoading]="false">查询</button>
+                            <button nz-button nzType="primary" (click)="findAllByParam()" [nzLoading]="false">查询
+                            </button>
                         </div>
                     </div>
                 </div>
             </form>
             <div class="button-group">
-                <button *ngIf="perms.save" nz-button nzType="primary" (click)="showSave()"><i nz-icon [type]="'plus'" [theme]="'outline'"></i>新增</button>
+                <button *ngIf="perms.save" nz-button nzType="primary" (click)="showSave()"><i nz-icon [type]="'plus'"
+                                                                                              [theme]="'outline'"></i>新增
+                </button>
             </div>
             <nz-table
                 #rowSelectionTable
@@ -38,8 +42,8 @@
                 [nzTotal]="total"
                 [(nzPageIndex)]="pageNum"
                 [(nzPageSize)]="pageSize"
-                (nzPageIndexChange)="list()"
-                (nzPageSizeChange)="list()">
+                (nzPageIndexChange)="findAllByParam()"
+                (nzPageSizeChange)="findAllByParam()">
                 <thead nzSingleSort>
                 <tr>
                     <th>合同编号</th>
@@ -56,34 +60,34 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>PT201901309324</td>
-                        <td>十字扣</td>
-                        <td>无</td>
-                        <td>3000</td>
-                        <td>3000</td>
-                        <td>2019-01-30</td>
-                        <td>50</td>
-                        <td>50</td>
-                        <td>50</td>
-                        <td>第三建公司</td>
-                        <td>
-                            <a>修改</a>
-                            <nz-divider nzType="vertical"></nz-divider>
-                            <a nz-popconfirm
-                               [nzTitle]="global.DELETE_CONFIRM_MSG"
-                               (nzOnConfirm)="confirmDelete('0')"
-                               (nzOnCancel)="cancelDelete()"
-                               nzPlacement="topRight">删除</a>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>PT201901309324</td>
+                    <td>十字扣</td>
+                    <td>无</td>
+                    <td>3000</td>
+                    <td>3000</td>
+                    <td>2019-01-30</td>
+                    <td>50</td>
+                    <td>50</td>
+                    <td>50</td>
+                    <td>第三建公司</td>
+                    <td>
+                        <a>修改</a>
+                        <nz-divider nzType="vertical"></nz-divider>
+                        <a nz-popconfirm
+                           [nzTitle]="global.DELETE_CONFIRM_MSG"
+                           (nzOnConfirm)="confirmDelete('0')"
+                           (nzOnCancel)="cancelDelete()"
+                           nzPlacement="topRight">删除</a>
+                    </td>
+                </tr>
                 <!--<tr *ngFor="let data of tableData">-->
                 <!--<td>{{data.account}}</td>-->
                 <!--<td>{{data.name}}</td>-->
                 <!--<td>{{data.email}}</td>-->
                 <!--<td>-->
-                <!--<span *ngIf="data.isActive === global.ACTIVE_ON">启用</span>-->
-                <!--<span *ngIf="data.isActive === global.ACTIVE_OFF">禁用</span>-->
+                <!--<span *ngIf="data.active === global.ACTIVE_ON">启用</span>-->
+                <!--<span *ngIf="data.active === global.ACTIVE_OFF">禁用</span>-->
                 <!--</td>-->
                 <!--<td>{{data.createTime}}</td>-->
                 <!--<td>{{data.updateTime}}</td>-->

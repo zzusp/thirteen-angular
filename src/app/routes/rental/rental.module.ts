@@ -45,4 +45,5 @@ const RENTAL_COMPONENT = [
     ...RENTAL_MODEL_COMPONENT
   ]
 })
-export class RentalModule { }
+export class RentalModule {
+}

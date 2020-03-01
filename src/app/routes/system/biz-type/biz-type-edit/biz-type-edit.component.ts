@@ -1,12 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ResponseResultModel} from '../../../../@core/net/response-result.model';
-import {Observable} from 'rxjs';
-import {BizTypeModel} from '../biz-type.model';
-import {abstractValidate} from '../../../../@core/util/custom-validators';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {GlobalConstants} from '../../../../@core/constant/GlobalConstants';
-import {NzModalRef} from 'ng-zorro-antd';
-import {BizTypeService} from '../biz-type.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { ResponseResultModel } from '../../../../@core/net/response-result.model';
+import { Observable } from 'rxjs';
+import { BizTypeModel } from '../biz-type.model';
+import { abstractValidate } from '../../../../@core/util/custom-validators';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { GlobalConstants } from '../../../../@core/constant/GlobalConstants';
+import { NzModalRef } from 'ng-zorro-antd';
+import { BizTypeService } from '../biz-type.service';
 
 @Component({
   selector: 'app-biz-type-edit',
@@ -15,21 +15,13 @@ import {BizTypeService} from '../biz-type.service';
 })
 export class BizTypeEditComponent implements OnInit {
 
-  /**
-   * 全局常量
-   */
+  /** 全局常量  */
   global: GlobalConstants = GlobalConstants.getInstance();
-  /**
-   * 请求
-   */
+  /** 请求 */
   request: (params: any) => Observable<any>;
-  /**
-   * 业务类型ID
-   */
+  /** 业务类型ID */
   @Input() id: string;
-  /**
-   * 编辑表单
-   */
+  /** 编辑表单 */
   editForm: FormGroup;
 
   constructor(private modal: NzModalRef,
@@ -47,8 +39,9 @@ export class BizTypeEditComponent implements OnInit {
         Validators.maxLength(50)
       ])],
       name: [null, Validators.required],
-      isActive: [null, Validators.required],
-      remark: [null, Validators.maxLength(250)]
+      active: [null, Validators.required],
+      remark: [null, Validators.maxLength(250)],
+      version: [null]
     });
     // 所有需加载的资源都已加载完成，初始化表单
     if (this.id !== this.global.INSERT_FLAG) {
@@ -64,7 +57,7 @@ export class BizTypeEditComponent implements OnInit {
   initSave() {
     // 初始化请求方法
     this.request = (params): Observable<any> => {
-      return this.bizTypeService.save(params);
+      return this.bizTypeService.insert(params);
     };
     // 添加异步验证，验证code是否存在，错误标识 existing
     this.editForm.get('code').setAsyncValidators(abstractValidate((code: string) => {
@@ -75,8 +68,9 @@ export class BizTypeEditComponent implements OnInit {
       id: null,
       code: null,
       name: null,
-      isActive: this.global.ACTIVE_ON,
-      remark: null
+      active: this.global.ACTIVE_ON,
+      remark: null,
+      version: null
     });
     this.editForm.get('code').enable();
   }
@@ -90,7 +84,7 @@ export class BizTypeEditComponent implements OnInit {
       return this.bizTypeService.update(params);
     };
     // 获取业务类型信息初始化表单
-    this.bizTypeService.getById(this.id)
+    this.bizTypeService.findById(this.id)
       .subscribe((res: ResponseResultModel) => {
         const model: BizTypeModel = res.result;
         this.editForm.get('code').clearAsyncValidators();
@@ -99,8 +93,9 @@ export class BizTypeEditComponent implements OnInit {
           id: model.id,
           code: model.code,
           name: model.name,
-          isActive: model.isActive,
-          remark: model.remark
+          active: model.active,
+          remark: model.remark,
+          version: model.version
         });
         this.editForm.get('code').disable();
       });
@@ -115,7 +110,7 @@ export class BizTypeEditComponent implements OnInit {
       this.editForm.controls[key].updateValueAndValidity({onlySelf: true});
     }
     if (this.editForm.valid) {
-      this.request(this.editForm.value).subscribe((res: ResponseResultModel) => {
+      this.request(this.editForm.getRawValue()).subscribe((res: ResponseResultModel) => {
         // 清空表单
         this.editForm.reset();
         // 关闭模态框

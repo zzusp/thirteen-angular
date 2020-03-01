@@ -104,10 +104,12 @@ export class TreeTableService {
     }
     for (const subtree of row.children) {
       if (this.checkable(subtree) && !this.isChecked(subtree)) {
-        isAllChecked = false; break;
+        isAllChecked = false;
+        break;
       }
       if (!this.isAllChildrenChecked(subtree)) {
-        isAllChecked = false; break;
+        isAllChecked = false;
+        break;
       }
     }
     return isAllChecked;
@@ -121,10 +123,12 @@ export class TreeTableService {
     }
     for (const subtree of row.children) {
       if (this.checkable(subtree) && this.isChecked(subtree)) {
-        isAllUnChecked = false; break;
+        isAllUnChecked = false;
+        break;
       }
       if (!this.isAllChildrenUnChecked(subtree)) {
-        isAllUnChecked = false; break;
+        isAllUnChecked = false;
+        break;
       }
     }
     return isAllUnChecked;

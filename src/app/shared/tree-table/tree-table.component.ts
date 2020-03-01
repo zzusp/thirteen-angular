@@ -93,7 +93,9 @@ export class TreeTableComponent implements OnInit {
     let isAllUnChecked = true;
     for (const row of this.data.datas) {
       isAllUnChecked = this.treeTable.isAllChildrenUnChecked(row);
-      if (!isAllUnChecked) { break; }
+      if (!isAllUnChecked) {
+        break;
+      }
     }
     return isAllUnChecked;
   }
@@ -105,7 +107,9 @@ export class TreeTableComponent implements OnInit {
     let isAllChecked = true;
     for (const row of this.data.datas) {
       isAllChecked = this.treeTable.isAllChildrenChecked(row);
-      if (!isAllChecked) { break; }
+      if (!isAllChecked) {
+        break;
+      }
     }
     return isAllChecked;
   }

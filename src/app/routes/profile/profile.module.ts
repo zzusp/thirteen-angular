@@ -23,4 +23,5 @@ const PROFILE_COMPONENT = [
     ProfileRoutingModule
   ]
 })
-export class ProfileModule { }
+export class ProfileModule {
+}

@@ -69,4 +69,5 @@ const SYSTEM_COMPONENT = [
     ...SYSTEM_MODEL_COMPONENT
   ]
 })
-export class SystemModule { }
+export class SystemModule {
+}

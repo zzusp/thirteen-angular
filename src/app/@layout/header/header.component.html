@@ -43,7 +43,9 @@
                         <i nz-icon [type]="'setting'" [theme]="'outline'"></i>
                     </div>
                     <ul nz-menu>
-                        <li nz-menu-item (click)="reloadFilterChains()"><i nz-icon [nzType]="'rocket'" [nzTheme]="'outline'"></i>刷新权限</li>
+                        <li nz-menu-item (click)="reloadFilterChains()"><i nz-icon [nzType]="'rocket'"
+                                                                           [nzTheme]="'outline'"></i>刷新权限
+                        </li>
                         <!--<li nz-menu-item>2nd menu item</li>-->
                         <!--<li nz-menu-divider></li>-->
                         <!--<li nz-menu-item nzDisabled>disabled menu item</li>-->
@@ -59,10 +61,14 @@
                         <span class="user-name">{{layoutData.userBlock.name}}</span>
                     </div>
                     <ul nz-menu>
-                        <li nz-menu-item (click)="goTo('/profile')"><i nz-icon [type]="'user'" [theme]="'outline'"></i>个人设置</li>
-                        <li nz-menu-item (click)="goTo('/profile/password-edit')"><i nz-icon [type]="'key'" [theme]="'outline'"></i>修改密码</li>
+                        <li nz-menu-item (click)="goTo('/profile')"><i nz-icon [type]="'user'" [theme]="'outline'"></i>个人设置
+                        </li>
+                        <li nz-menu-item (click)="goTo('/profile/password-edit')"><i nz-icon [type]="'key'"
+                                                                                     [theme]="'outline'"></i>修改密码
+                        </li>
                         <li nz-menu-divider></li>
-                        <li nz-menu-item (click)="logout()"><i nz-icon [type]="'poweroff'" [theme]="'outline'"></i>退出登录</li>
+                        <li nz-menu-item (click)="logout()"><i nz-icon [type]="'poweroff'" [theme]="'outline'"></i>退出登录
+                        </li>
                     </ul>
                 </nz-dropdown>
             </li>

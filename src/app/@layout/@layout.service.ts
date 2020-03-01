@@ -45,7 +45,8 @@ export class LayoutService {
    */
   protected loadControl = new BehaviorSubject(this.loading);
 
-  constructor() { }
+  constructor() {
+  }
 
   /**
    * 获取布局配置

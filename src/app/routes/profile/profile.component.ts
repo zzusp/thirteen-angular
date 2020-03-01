@@ -14,13 +14,12 @@ import { GlobalConstants } from '../../@core/constant/GlobalConstants';
 })
 export class ProfileComponent implements OnInit {
 
-  /**
-   * 全局常量
-   */
+  /** 全局常量  */
   global: GlobalConstants = GlobalConstants.getInstance();
 
   constructor(private loginService: LoginService,
-              private layoutService: LayoutService) { }
+              private layoutService: LayoutService) {
+  }
 
   ngOnInit() {
     // 从服务器段获取到当前用户信息，更新布局数据
@@ -34,9 +33,10 @@ export class ProfileComponent implements OnInit {
               name: result.name,
               photo: result.photo,
               role: result.roles.map((role) => {
-                return role.name; }).join('，')
+                return role.name;
+              }).join('，')
             },
-            sidebarMenu: applicationToSidebar(result.applications, this.global.ROOT_PARENT_ID)
+            sidebarMenu: applicationToSidebar(result.applications, this.global.ROOT_PARENT_CODE)
           };
           this.layoutService.setLayoutData(layoutData);
           // 更新localStorage中的用户信息

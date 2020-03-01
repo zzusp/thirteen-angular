@@ -35,4 +35,5 @@ const routes: Routes = [
     RouterModule
   ]
 })
-export class ProfileRoutingModule { }
+export class ProfileRoutingModule {
+}

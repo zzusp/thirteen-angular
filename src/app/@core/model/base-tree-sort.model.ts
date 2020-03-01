@@ -5,24 +5,11 @@ import { BaseRecordModel } from './base-record.model';
  */
 export class BaseTreeSortModel extends BaseRecordModel {
 
-  /**
-   * 名称
-   */
-  name: string;
-
-  /**
-   * 排序
-   */
+  /** 排序 */
   sort: number;
-
-  /**
-   * 父节点ID
-   */
-  parentId: string;
-
-  /**
-   * 子节点
-   */
+  /** 父节点编码 */
+  parentCode: string;
+  /** 节点 */
   children: BaseTreeSortModel[];
 
 }

@@ -33,9 +33,7 @@ const SHARED_PROVIDERS = [
 ];
 
 // 公共指令
-const SHARED_DORECTOVES = [
-
-];
+const SHARED_DORECTOVES = [];
 
 @NgModule({
   imports: [

@@ -1,15 +1,14 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {GlobalConstants} from '../../../../@core/constant/GlobalConstants';
-import {Observable} from 'rxjs';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ApplicationModel} from '../../application/application.model';
-import {NzModalRef} from 'ng-zorro-antd';
-import {PermissionService} from '../permission.service';
-import {ApplicationService} from '../../application/application.service';
-import {ResponseResultModel} from '../../../../@core/net/response-result.model';
-import {abstractValidate} from '../../../../@core/util/custom-validators';
-import {PermissionModel} from '../permission.model';
-import {listToTree, TreeNode} from '../../../../@core/util/tree-node';
+import { Component, Input, OnInit } from '@angular/core';
+import { GlobalConstants } from '../../../../@core/constant/GlobalConstants';
+import { Observable } from 'rxjs';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NzModalRef } from 'ng-zorro-antd';
+import { PermissionService } from '../permission.service';
+import { ApplicationService } from '../../application/application.service';
+import { ResponseResultModel } from '../../../../@core/net/response-result.model';
+import { abstractValidate } from '../../../../@core/util/custom-validators';
+import { PermissionModel } from '../permission.model';
+import { listToTree, TreeNode } from '../../../../@core/util/tree-node';
 
 @Component({
   selector: 'app-permission-edit',
@@ -18,29 +17,17 @@ import {listToTree, TreeNode} from '../../../../@core/util/tree-node';
 })
 export class PermissionEditComponent implements OnInit {
 
-  /**
-   * 全局常量
-   */
+  /** 全局常量  */
   global: GlobalConstants = GlobalConstants.getInstance();
-  /**
-   * 请求
-   */
+  /** 请求 */
   request: (params: any) => Observable<any>;
-  /**
-   * 权限ID
-   */
+  /** 权限ID */
   @Input() id: string;
-  /**
-   * 应用ID
-   */
-  @Input() applicationId: string;
-  /**
-   * 编辑表单
-   */
+  /** 应用编码 */
+  @Input() applicationCode: string;
+  /** 编辑表单 */
   editForm: FormGroup;
-  /**
-   * 应用下拉框数据
-   */
+  /** 应用下拉框数据 */
   applications: TreeNode[] = [];
 
   constructor(private modal: NzModalRef,
@@ -52,7 +39,7 @@ export class PermissionEditComponent implements OnInit {
   ngOnInit() {
     this.applications = [];
     // // 初始化应用下拉框
-    this.applicationService.listAll()
+    this.applicationService.findAll()
       .subscribe((res: ResponseResultModel) => {
         this.applications = listToTree(res.result.list);
         // 所有需加载的资源都已加载完成，初始化表单
@@ -72,13 +59,13 @@ export class PermissionEditComponent implements OnInit {
       ])],
       name: [null, Validators.required],
       url: [null, Validators.required],
-      sort: [null, Validators.required],
       type: [null, Validators.required],
-      isActive: [null, Validators.required],
+      active: [null, Validators.required],
       application: this.fb.group({
-        id: [null, Validators.required]
+        code: [null, Validators.required]
       }),
-      remark: [null, Validators.maxLength(250)]
+      remark: [null, Validators.maxLength(250)],
+      version: [null]
     });
   }
 
@@ -88,7 +75,7 @@ export class PermissionEditComponent implements OnInit {
   initSave() {
     // 初始化请求方法
     this.request = (params): Observable<any> => {
-      return this.permissionService.save(params);
+      return this.permissionService.insert(params);
     };
     // 添加异步验证，验证code是否存在，错误标识 existing
     this.editForm.get('code').setAsyncValidators(abstractValidate((code: string) => {
@@ -100,11 +87,11 @@ export class PermissionEditComponent implements OnInit {
       code: null,
       name: null,
       url: null,
-      sort: null,
       type: this.global.PERMISSION_AUTHOR,
-      isActive: this.global.ACTIVE_ON,
-      application: {id: this.applicationId},
-      remark: null
+      active: this.global.ACTIVE_ON,
+      application: {code: this.applicationCode},
+      remark: null,
+      version: null
     });
     this.editForm.get('code').enable();
   }
@@ -118,7 +105,7 @@ export class PermissionEditComponent implements OnInit {
       return this.permissionService.update(params);
     };
     // 获取应用信息初始化表单
-    this.permissionService.getById(this.id)
+    this.permissionService.findById(this.id)
       .subscribe((res: ResponseResultModel) => {
         const model: PermissionModel = res.result;
         this.editForm.get('code').clearAsyncValidators();
@@ -128,11 +115,11 @@ export class PermissionEditComponent implements OnInit {
           code: model.code,
           name: model.name,
           url: model.url,
-          sort: model.sort,
           type: model.type,
-          isActive: model.isActive,
-          application: {id: model.application.id},
-          remark: model.remark
+          active: model.active,
+          application: {code: model.application.code},
+          remark: model.remark,
+          version: model.version
         });
         this.editForm.get('code').disable();
       });
@@ -147,7 +134,7 @@ export class PermissionEditComponent implements OnInit {
       this.editForm.controls[key].updateValueAndValidity({onlySelf: true});
     }
     if (this.editForm.valid) {
-      this.request(this.editForm.value).subscribe((res: ResponseResultModel) => {
+      this.request(this.editForm.getRawValue()).subscribe((res: ResponseResultModel) => {
         // 清空表单
         this.editForm.reset();
         // 关闭模态框

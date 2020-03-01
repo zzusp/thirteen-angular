@@ -1,6 +1,4 @@
-/**
- * 全局常量
- */
+/** 全局常量  */
 export class GlobalConstants {
   /** 懒汉模式 */
   // private static instance: GlobalConstants;
@@ -28,7 +26,7 @@ export class GlobalConstants {
   ACTIVE_OFF = '0';
   ACTIVE_ON = '1';
   /** 根节点父节点ID */
-  ROOT_PARENT_ID = '0';
+  ROOT_PARENT_CODE = 'root';
   /** 新增操作标识 */
   INSERT_FLAG = '0';
   /** 应用类型（0：微服务应用；1：应用接口；2：应用菜单；3：应用菜单组） */
@@ -52,7 +50,8 @@ export class GlobalConstants {
   DELETE_SUCESS_MSG = '删除成功';
   DELETE_LOADING_MSG = '删除中，请稍后';
 
-  private constructor() { }
+  private constructor() {
+  }
 
   /**
    * 获取当前实例

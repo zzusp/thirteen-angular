@@ -16,8 +16,8 @@ export class LogLoginService {
    *
    * @param params
    */
-  save(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysLogLogin/save', params);
+  insert(params: any): Observable<any> {
+    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-log-login/insert', params);
   }
 
   /**
@@ -25,8 +25,8 @@ export class LogLoginService {
    *
    * @param id 登录日志ID
    */
-  getById(id: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysLogLogin/getById', {params: {'id': id}});
+  findById(id: string): Observable<any> {
+    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-log-login/findById', {params: {'id': id}});
   }
 
   /**
@@ -34,8 +34,8 @@ export class LogLoginService {
    *
    * @param params
    */
-  list(params: any): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysLogLogin/listPage', {params});
+  findAllByParam(params: any): Observable<any> {
+    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-log-login/findAllByParam', {params});
   }
 
   /**
@@ -44,6 +44,6 @@ export class LogLoginService {
    * @param id 登录日志ID
    */
   deleteById(id: string): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sysLogLogin/deleteById', {}, {params: {'id': id}});
+    return this.http.delete(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-log-login/deleteById', {params: {'id': id}});
   }
 }

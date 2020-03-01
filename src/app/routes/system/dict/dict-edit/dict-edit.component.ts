@@ -1,14 +1,14 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {GlobalConstants} from '../../../../@core/constant/GlobalConstants';
-import {Observable} from 'rxjs';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {NzModalRef} from 'ng-zorro-antd';
-import {DictService} from '../dict.service';
-import {abstractValidate} from '../../../../@core/util/custom-validators';
-import {ResponseResultModel} from '../../../../@core/net/response-result.model';
-import {DictModel} from '../dict.model';
-import {BizTypeModel} from '../../biz-type/biz-type.model';
-import {BizTypeService} from '../../biz-type/biz-type.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { GlobalConstants } from '../../../../@core/constant/GlobalConstants';
+import { Observable } from 'rxjs';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NzModalRef } from 'ng-zorro-antd';
+import { DictService } from '../dict.service';
+import { abstractValidate } from '../../../../@core/util/custom-validators';
+import { ResponseResultModel } from '../../../../@core/net/response-result.model';
+import { DictModel } from '../dict.model';
+import { BizTypeModel } from '../../biz-type/biz-type.model';
+import { BizTypeService } from '../../biz-type/biz-type.service';
 
 @Component({
   selector: 'app-dict-edit',
@@ -17,25 +17,15 @@ import {BizTypeService} from '../../biz-type/biz-type.service';
 })
 export class DictEditComponent implements OnInit {
 
-  /**
-   * 全局常量
-   */
+  /** 全局常量  */
   global: GlobalConstants = GlobalConstants.getInstance();
-  /**
-   * 请求
-   */
+  /** 请求 */
   request: (params: any) => Observable<any>;
-  /**
-   * 业务类型ID
-   */
+  /** 数据字典ID */
   @Input() id: string;
-  /**
-   * 编辑表单
-   */
+  /** 编辑表单 */
   editForm: FormGroup;
-  /**
-   * 业务类型下拉框数据
-   */
+  /** 业务类型下拉框数据 */
   bizTypes: BizTypeModel[];
 
   constructor(private modal: NzModalRef,
@@ -47,7 +37,7 @@ export class DictEditComponent implements OnInit {
   ngOnInit() {
     this.bizTypes = [];
     // // 初始化业务类型下拉框
-    this.bizTypeService.listAll()
+    this.bizTypeService.findAll()
       .subscribe((res: ResponseResultModel) => {
         this.bizTypes = res.result.list;
         // 所有需加载的资源都已加载完成，初始化表单
@@ -56,7 +46,7 @@ export class DictEditComponent implements OnInit {
         } else {
           this.initSave();
         }
-    });
+      });
     // 表单验证
     this.editForm = this.fb.group({
       id: [null],
@@ -66,11 +56,12 @@ export class DictEditComponent implements OnInit {
         Validators.maxLength(50)
       ])],
       name: [null, Validators.required],
-      isActive: [null, Validators.required],
+      active: [null, Validators.required],
       bizType: this.fb.group({
-        id: [null, Validators.required]
+        code: [null, Validators.required]
       }),
-      remark: [null, Validators.maxLength(250)]
+      remark: [null, Validators.maxLength(250)],
+      version: [null]
     });
   }
 
@@ -80,7 +71,7 @@ export class DictEditComponent implements OnInit {
   initSave() {
     // 初始化请求方法
     this.request = (params): Observable<any> => {
-      return this.dictService.save(params);
+      return this.dictService.insert(params);
     };
     // 添加异步验证，验证code是否存在，错误标识 existing
     this.editForm.get('code').setAsyncValidators(abstractValidate((code: string) => {
@@ -91,9 +82,10 @@ export class DictEditComponent implements OnInit {
       id: null,
       code: null,
       name: null,
-      isActive: this.global.ACTIVE_ON,
-      bizType: {id: null},
-      remark: null
+      active: this.global.ACTIVE_ON,
+      bizType: {code: null},
+      remark: null,
+      version: null
     });
     this.editForm.get('code').enable();
   }
@@ -107,7 +99,7 @@ export class DictEditComponent implements OnInit {
       return this.dictService.update(params);
     };
     // 获取业务类型信息初始化表单
-    this.dictService.getById(this.id)
+    this.dictService.findById(this.id)
       .subscribe((res: ResponseResultModel) => {
         const model: DictModel = res.result;
         this.editForm.get('code').clearAsyncValidators();
@@ -116,9 +108,10 @@ export class DictEditComponent implements OnInit {
           id: model.id,
           code: model.code,
           name: model.name,
-          isActive: model.isActive,
-          bizType: {id: model.bizType.id},
-          remark: model.remark
+          active: model.active,
+          bizType: {code: model.bizType.code},
+          remark: model.remark,
+          version: model.version
         });
         this.editForm.get('code').disable();
       });
@@ -133,7 +126,7 @@ export class DictEditComponent implements OnInit {
       this.editForm.controls[key].updateValueAndValidity({onlySelf: true});
     }
     if (this.editForm.valid) {
-      this.request(this.editForm.value).subscribe((res: ResponseResultModel) => {
+      this.request(this.editForm.getRawValue()).subscribe((res: ResponseResultModel) => {
         // 清空表单
         this.editForm.reset();
         // 关闭模态框

@@ -28,7 +28,8 @@ export class LayoutDefaultComponent implements OnInit {
 
   constructor(private layoutService: LayoutService,
               private login: LoginService,
-              private injector: Injector) { }
+              private injector: Injector) {
+  }
 
   ngOnInit() {
     // 获取布局配置
@@ -67,9 +68,9 @@ export class LayoutDefaultComponent implements OnInit {
         // If have data, go to generate a breadcrumb for it.
         if (child.snapshot.data.hasOwnProperty(NZ_ROUTE_DATA_BREADCRUMB)) {
           const breadcrumb: BreadcrumbOption = {
-            label : child.snapshot.data[ NZ_ROUTE_DATA_BREADCRUMB ] || 'Breadcrumb',
+            label: child.snapshot.data[NZ_ROUTE_DATA_BREADCRUMB] || 'Breadcrumb',
             params: child.snapshot.params,
-            url   : nextUrl
+            url: nextUrl
           };
           breadcrumbs.push(breadcrumb);
         }

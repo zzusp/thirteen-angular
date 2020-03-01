@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SidebarMenuInfo } from '../../interface/layout-data';
 import { SidebarService } from '../sidebar.service';
-import {GlobalConstants} from '../../../@core/constant/GlobalConstants';
+import { GlobalConstants } from '../../../@core/constant/GlobalConstants';
 
 @Component({
   selector: 'app-sidebar-menu, [app-sidebar-menu]',
@@ -10,16 +10,15 @@ import {GlobalConstants} from '../../../@core/constant/GlobalConstants';
 })
 export class SidebarMenuComponent implements OnInit {
 
-  /**
-   * 全局常量
-   */
+  /** 全局常量  */
   global: GlobalConstants = GlobalConstants.getInstance();
   /**
    * 菜单数据
    */
   @Input() menuData: SidebarMenuInfo[];
 
-  constructor(protected sidebarService: SidebarService) { }
+  constructor(protected sidebarService: SidebarService) {
+  }
 
   ngOnInit() {
   }

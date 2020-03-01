@@ -8,9 +8,9 @@ describe('BizTypeEditComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BizTypeEditComponent ]
+      declarations: [BizTypeEditComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -8,9 +8,9 @@ describe('DataDictComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DataDictComponent ]
+      declarations: [DataDictComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
