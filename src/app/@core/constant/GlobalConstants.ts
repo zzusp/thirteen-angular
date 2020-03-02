@@ -10,14 +10,11 @@ export class GlobalConstants {
 
   /** 鉴权中心接口服务器地址 */
   AUTHORIZATION_SERVER = '/api-authorization';
-  AUTHORIZATION_SERVER_CODE = 'authorization';
+  AUTHORIZATION_SERVER_CODE = 'system';
 
   /** 租赁管理系统接口服务器地址 */
   RENTAL_SERVER = '/api-rental';
   RENTAL_SERVER_CODE = 'rental';
-
-  /** 所有应用同一路由前缀（同routes-routing.module.ts中LayoutDefaultComponent的对应的path） */
-  APP_PREFIX = '/app';
 
   /** 删除标记（0：正常；1：删除） */
   DEL_FLAG_NORMAL = '0';

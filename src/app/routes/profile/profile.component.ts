@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ResponseResultModel } from '../../@core/net/response-result.model';
-import { UserModel } from '../system/user/user.model';
+import { UserModel } from '../user/user.model';
 import { applicationToSidebar, LayoutData } from '../../@layout/interface/layout-data';
 import { setUserInfo } from '../../@core/util/user-info';
 import { LoginService } from '../pages/login/login.service';
@@ -9,7 +9,8 @@ import { GlobalConstants } from '../../@core/constant/GlobalConstants';
 
 @Component({
   selector: 'app-profile',
-  template: `<router-outlet></router-outlet>`,
+  template: `
+    <router-outlet></router-outlet>`,
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
@@ -36,7 +37,7 @@ export class ProfileComponent implements OnInit {
                 return role.name;
               }).join('，')
             },
-            sidebarMenu: applicationToSidebar(result.applications, this.global.ROOT_PARENT_CODE)
+            sidebarMenu: applicationToSidebar(result.applications, this.global.AUTHORIZATION_SERVER_CODE)
           };
           this.layoutService.setLayoutData(layoutData);
           // 更新localStorage中的用户信息

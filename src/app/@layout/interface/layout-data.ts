@@ -1,5 +1,5 @@
 // 布局数据
-import { ApplicationModel } from '../../routes/system/application/application.model';
+import { ApplicationModel } from '../../routes/application/application.model';
 import { GlobalConstants } from '../../@core/constant/GlobalConstants';
 
 export interface LayoutData {

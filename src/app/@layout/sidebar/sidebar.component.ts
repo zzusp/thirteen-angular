@@ -28,13 +28,9 @@ export class SidebarComponent implements OnInit {
 
   /** 全局常量  */
   global: GlobalConstants = GlobalConstants.getInstance();
-  /**
-   * 布局配置
-   */
+  /** 布局配置 */
   @Input() config: LayoutConfig;
-  /**
-   * 布局数据
-   */
+  /** 布局数据 */
   @Input() data: LayoutData;
 
   constructor(protected sidebarService: SidebarService) {
@@ -59,7 +55,7 @@ export class SidebarComponent implements OnInit {
    */
   getUrl(menu: SidebarMenuInfo): string {
     if (!!menu && !!menu.url) {
-      return this.global.APP_PREFIX + menu.url;
+      return menu.url;
     } else {
       return '/pages/500';
     }

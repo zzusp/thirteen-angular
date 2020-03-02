@@ -1,8 +1,14 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Injector, OnInit, ViewEncapsulation } from '@angular/core';
 import { LayoutService } from './@layout/@layout.service';
 import { ActivatedRoute, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { filter, map, mergeMap } from 'rxjs/operators';
+import { ResponseResultModel } from './@core/net/response-result.model';
+import { UserModel } from './routes/user/user.model';
+import { applicationToSidebar, LayoutData } from './@layout/interface/layout-data';
+import { setUserInfo } from './@core/util/user-info';
+import { LoginService } from './routes/pages/login/login.service';
+import { GlobalConstants } from './@core/constant/GlobalConstants';
 
 @Component({
   selector: 'app-root',
@@ -12,9 +18,9 @@ import { filter, map, mergeMap } from 'rxjs/operators';
 })
 export class AppComponent implements OnInit {
 
-  /**
-   * 全局加载动画显示标识
-   */
+  /** 全局常量  */
+  global: GlobalConstants = GlobalConstants.getInstance();
+  /** 全局加载动画显示标识 */
   loading: boolean = false;
 
   /**
@@ -23,16 +29,22 @@ export class AppComponent implements OnInit {
    * 声明方法2  @Inject(MailService) private mailService
    */
   constructor(private layoutService: LayoutService,
+              private loginService: LoginService,
+              private injector: Injector,
               private router: Router,
               private activatedRoute: ActivatedRoute,
               private title: Title) {
   }
 
   ngOnInit(): void {
+    this.initRouterEvents();
+    this.initLoading();
+    this.initUserInfo();
+  }
+
+  initRouterEvents() {
     // 路由导航开始事件回调
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationStart)
-    )
+    this.router.events.pipe(filter(event => event instanceof NavigationStart))
       .subscribe((event) => {
         // 全局加载动画开始
         this.layoutService.loadStart();
@@ -48,22 +60,21 @@ export class AppComponent implements OnInit {
         return route;
       }),
       filter(route => route.outlet === 'primary'),
-      mergeMap(route => route.data)
-    )
-      .subscribe((event) => {
-        // 全局加载动画结束
-        this.layoutService.loadEnd();
-        // 动态设置title
-        this.title.setTitle(event['breadcrumb']);
-      });
+      mergeMap(route => route.data)).subscribe((event) => {
+      // 全局加载动画结束
+      this.layoutService.loadEnd();
+      // 动态设置title
+      this.title.setTitle(event['breadcrumb']);
+    });
     // 路由导航开始事件回调
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationError)
-    )
+    this.router.events.pipe(filter(event => event instanceof NavigationError))
       .subscribe((event) => {
         // 全局加载动画结束
         this.layoutService.loadEnd();
       });
+  }
+
+  initLoading() {
     // 获取全局加载动画显示标识
     this.layoutService.getLoading()
       .subscribe((loading: boolean) => {
@@ -71,6 +82,43 @@ export class AppComponent implements OnInit {
           this.loading = loading;
         });
       });
+  }
+
+  initUserInfo() {
+    // 从服务器段获取到当前用户信息，更新布局数据
+    this.loginService.getCurrentUser()
+      .subscribe((res: ResponseResultModel) => {
+        if (res.result) {
+          const result: UserModel = res.result;
+          if (result.applications) {
+            const layoutData: LayoutData = {
+              userBlock: {
+                name: result.name,
+                photo: result.photo,
+                role: result.roles.map((role) => {
+                  return role.name;
+                }).join('，')
+              },
+              sidebarMenu: applicationToSidebar(result.applications, this.global.AUTHORIZATION_SERVER_CODE)
+            };
+            this.layoutService.setLayoutData(layoutData);
+          }
+          // 记录当前用户信息
+          setUserInfo(result);
+        }
+      });
+  }
+
+  /**
+   * 跳转
+   *
+   * @param id 目标应用ID
+   * @param url 目标路径
+   */
+  private goTo(id: string, url: string) {
+    setTimeout(() => {
+      this.injector.get(Router).navigateByUrl(url);
+    });
   }
 
 }

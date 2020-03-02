@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GlobalConstants } from '../../../@core/constant/GlobalConstants';
-import { BizTypeService } from '../../system/biz-type/biz-type.service';
 import { forkJoin, Observable, Observer } from 'rxjs';
 import { ResponseResultModel } from '../../../@core/net/response-result.model';
-import { DictModel } from '../../system/dict/dict.model';
+import { DictModel } from '../../dict/dict.model';
 import { Location } from '@angular/common';
-import { UserModel } from '../../system/user/user.model';
+import { UserModel } from '../../user/user.model';
 import { setUserInfo } from '../../../@core/util/user-info';
 import { Router } from '@angular/router';
 import { NzMessageService, UploadXHRArgs } from 'ng-zorro-antd';
@@ -16,7 +15,7 @@ import { LoginService } from '../../pages/login/login.service';
 import { applicationToSidebar, LayoutData } from '../../../@layout/interface/layout-data';
 import { LayoutService } from '../../../@layout/@layout.service';
 import { validatePerms } from '../../../@core/util/perms-validators';
-import { DictService } from '../../system/dict/dict.service';
+import { DictService } from '../../dict/dict.service';
 
 @Component({
   selector: 'app-profile-setting',
@@ -195,7 +194,7 @@ export class ProfileSettingComponent implements OnInit {
                 return role.name;
               }).join('，')
             },
-            sidebarMenu: applicationToSidebar(result.applications, this.global.ROOT_PARENT_CODE)
+            sidebarMenu: applicationToSidebar(result.applications, this.global.AUTHORIZATION_SERVER_CODE)
           };
           this.layoutService.setLayoutData(layoutData);
           // 更新localStorage中的用户信息

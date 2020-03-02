@@ -13,17 +13,11 @@ import { BreadcrumbOption, NZ_ROUTE_DATA_BREADCRUMB, NzBreadCrumbComponent } fro
 })
 export class LayoutDefaultComponent implements OnInit {
 
-  /**
-   * 布局配置
-   */
+  /** 布局配置 */
   layoutConfig: LayoutConfig;
-  /**
-   * 布局数据
-   */
+  /** 布局数据 */
   layoutData: LayoutData;
-  /**
-   * ng-zorro面包屑组件对象
-   */
+  /** ng-zorro面包屑组件对象 */
   @ViewChild('breadcrumb') breadcrumb: NzBreadCrumbComponent;
 
   constructor(private layoutService: LayoutService,
@@ -64,7 +58,7 @@ export class LayoutDefaultComponent implements OnInit {
         // Only parse components in primary router-outlet (in another word, router-outlet without a specific name).
         // Parse this layer and generate a breadcrumb item.
         const routeURL: string = child.snapshot.url.map(segment => segment.path).join('/');
-        const nextUrl = url + `/${routeURL}`;
+        const nextUrl = routeURL ? url + `/${routeURL}` : routeURL;
         // If have data, go to generate a breadcrumb for it.
         if (child.snapshot.data.hasOwnProperty(NZ_ROUTE_DATA_BREADCRUMB)) {
           const breadcrumb: BreadcrumbOption = {

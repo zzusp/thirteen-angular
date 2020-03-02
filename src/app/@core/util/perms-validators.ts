@@ -1,4 +1,4 @@
-import { UserModel } from '../../routes/system/user/user.model';
+import { UserModel } from '../../routes/user/user.model';
 import { getUserInfo } from './user-info';
 
 /**

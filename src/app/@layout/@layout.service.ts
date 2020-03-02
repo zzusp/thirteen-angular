@@ -11,16 +11,12 @@ import { LayoutData } from './interface/layout-data';
 })
 export class LayoutService {
 
-  /**
-   * 布局配置
-   */
+  /** 布局配置 */
   private layoutConfig: LayoutConfig = {
     collapsed: false,
     userBlockVisible: true
   };
-  /**
-   * 布局数据
-   */
+  /** 布局数据 */
   private layoutData: LayoutData = {
     userBlock: {
       name: 'John',

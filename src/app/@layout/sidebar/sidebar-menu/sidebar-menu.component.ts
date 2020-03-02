@@ -12,9 +12,7 @@ export class SidebarMenuComponent implements OnInit {
 
   /** 全局常量  */
   global: GlobalConstants = GlobalConstants.getInstance();
-  /**
-   * 菜单数据
-   */
+  /** 菜单数据 */
   @Input() menuData: SidebarMenuInfo[];
 
   constructor(protected sidebarService: SidebarService) {
@@ -39,7 +37,7 @@ export class SidebarMenuComponent implements OnInit {
    */
   getUrl(menu: SidebarMenuInfo): string {
     if (!!menu && !!menu.url) {
-      return this.global.APP_PREFIX + menu.url;
+      return menu.url;
     } else {
       return '/pages/500';
     }

@@ -9,37 +9,37 @@ import { TreeTableService } from './services/tree-table.service';
   template: `
     <table class="table table-bordered tree-table">
       <thead class="tree-table-thead">
-        <tr>
-          <th *ngIf="treeTable.checkableAll(config)" class="checkbox-column">
-            <div class="tree-table-checkbox">
-              <label>
-                <input type="checkbox" [checked]="checked">
-                <span class="fa fa-fw"
-                [ngClass]="isAllChildrenChecked() ? 'fa-check' : 'fa-minus'"
-                (click)="checkedChange($event)"></span>
-              </label>
-            </div>
-          </th>
-          <th *ngFor="let column of columns; let i = index; let last = last;">
-            {{column.title}}
-          </th>
-        </tr>
+      <tr>
+        <th *ngIf="treeTable.checkableAll(config)" class="checkbox-column">
+          <div class="tree-table-checkbox">
+            <label>
+              <input type="checkbox" [checked]="checked">
+              <span class="fa fa-fw"
+                    [ngClass]="isAllChildrenChecked() ? 'fa-check' : 'fa-minus'"
+                    (click)="checkedChange($event)"></span>
+            </label>
+          </div>
+        </th>
+        <th *ngFor="let column of columns; let i = index; let last = last;">
+          {{column.title}}
+        </th>
+      </tr>
       </thead>
       <tbody class="tree-table-tbody">
-        <ng-container *ngIf="!!data && !!data.datas">
-          <app-tree-table-row
-            [config]="config"
-            [columns]="columns"
-            *ngFor="let row of data.datas; let i = index; let last = last;"
-            [row]="row"
-            [index]="i"
-            [parentIndex]="0"
-            [level]="0"
-            (checkedState)="subCheckedChange($event)"
-            [isLast]="last"
-            (ngforFinish)="lazyRender($event)">
-          </app-tree-table-row>
-        </ng-container>
+      <ng-container *ngIf="!!data && !!data.datas">
+        <app-tree-table-row
+          [config]="config"
+          [columns]="columns"
+          *ngFor="let row of data.datas; let i = index; let last = last;"
+          [row]="row"
+          [index]="i"
+          [parentIndex]="0"
+          [level]="0"
+          (checkedState)="subCheckedChange($event)"
+          [isLast]="last"
+          (ngforFinish)="lazyRender($event)">
+        </app-tree-table-row>
+      </ng-container>
       </tbody>
     </table>
     <ng-container *ngIf="(!data || !data.datas) && loading === false">

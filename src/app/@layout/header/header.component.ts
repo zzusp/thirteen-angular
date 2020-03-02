@@ -15,13 +15,9 @@ import { NzMessageService } from 'ng-zorro-antd';
 })
 export class HeaderComponent implements OnInit {
 
-  /**
-   * 布局配置
-   */
+  /** 布局配置 */
   layoutConfig: LayoutConfig;
-  /**
-   * 布局数据
-   */
+  /** 布局数据 */
   layoutData: LayoutData;
   /**
    * 显示/隐藏用户信息的按钮是否显示，默认隐藏

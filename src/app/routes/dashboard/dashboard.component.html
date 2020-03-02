@@ -1,23 +1,4 @@
 <div class="content">
     <div class="card" nz-row [nzGutter]="16">
-        <div *ngFor="let system of systems; let i=index;" nz-col [nzSm]="6" [nzXs]="24" class="card-item">
-            <nz-card style="width: 100%;"
-                     nzHoverable
-                     [nzActions]="[actionSetting]">
-                <nz-skeleton [nzActive]="true" [nzLoading]="false" [nzAvatar]="{size: 'large'}"
-                             style="min-height: 80px;">
-                    <nz-card-meta [nzAvatar]="avatarTemplate" [nzTitle]="system.name"
-                                  [nzDescription]="system.remark"></nz-card-meta>
-                    <ng-template #avatarTemplate>
-                        <nz-avatar [nzText]="system.name.substr(0, 1)"
-                                   [ngStyle]="{'background-color': colors[i % 10]}"></nz-avatar>
-                    </ng-template>
-                    <ng-template #actionSetting>
-                        <!--<i nz-icon type="arrow-right" theme="outline" (click)="goTo(system.id, system.url)"></i>-->
-                        <a (click)="goTo(system.id, system.url)">打开</a>
-                    </ng-template>
-                </nz-skeleton>
-            </nz-card>
-        </div>
     </div>
 </div>

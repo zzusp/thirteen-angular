@@ -1,5 +1,5 @@
-import { UserModel } from '../../routes/system/user/user.model';
 import { GlobalConstants } from '../constant/GlobalConstants';
+import { UserModel } from '../../routes/user/user.model';
 
 /**
  * 获取localStorage中的token信息

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ResponseResultModel } from '../net/response-result.model';
-import { UserModel } from '../../routes/system/user/user.model';
+import { UserModel } from '../../routes/user/user.model';
 import { LoginService } from '../../routes/pages/login/login.service';
 
 /**

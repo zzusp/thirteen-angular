@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
  * @returns {ValidatorFn}
  */
 export function validateRegex(name: string, regex: RegExp): ValidatorFn {
-  return (control: AbstractControl): {[key: string]: any} => {
+  return (control: AbstractControl): { [key: string]: any } => {
     // 获取当前控件的内容
     const str = control.value;
     // 如果验证通过则返回 null 否则返回一个对象（包含我们自定义的属性）
