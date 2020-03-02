@@ -10,6 +10,9 @@ import zh from '@angular/common/locales/zh';
 import { IconDefinition } from '@ant-design/icons-angular';
 /** 引入你需要的图标，比如你需要 fill 主题的 AccountBook Alert 和 outline 主题的 Alert，推荐 ✔️ **/
 import { AlertOutline } from '@ant-design/icons-angular/icons';
+import { NgxEchartsModule } from 'ngx-echarts';
+import 'echarts/theme/macarons.js';
+import '../../assets/js/echarts/theme/walden.js';
 // import { AccountBookFill, AlertFill, AlertOutline } from '@ant-design/icons-angular/icons';
 
 const icons: IconDefinition[] = [AlertOutline];
@@ -19,6 +22,8 @@ registerLocaleData(zh);
 const THIRD_MODULES = [
   /** 导入 ng-zorro-antd 模块 **/
   NgZorroAntdModule,
+  /** 导入 ngx-echarts 模块 **/
+  NgxEchartsModule,
   /** 导入 tree-table 模块 **/
   TreeTableModule
 ];

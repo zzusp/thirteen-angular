@@ -1,4 +1,54 @@
 <div class="content">
     <div class="card" nz-row [nzGutter]="16">
+        <div nz-col [nzSm]="12" [nzXs]="24" class="card-item">
+            <nz-spin [nzSpinning]="visitsLoading">
+                <nz-card style="width: 100%;" [nzTitle]="'用户访问量'" [nzExtra]="visitsTemplate">
+                    <div echarts [options]="visitsOption" [theme]="'walden'" class="chart"></div>
+                </nz-card>
+            </nz-spin>
+        </div>
+        <div nz-col [nzSm]="12" [nzXs]="24" class="card-item">
+            <nz-spin [nzSpinning]="distributionLoading">
+                <nz-card style="width: 100%;" [nzTitle]="'访问来源分布'" [nzExtra]="distributionTemplate">
+                    <div echarts [options]="distributionOption" [theme]="'walden'" class="chart"></div>
+                </nz-card>
+            </nz-spin>
+        </div>
     </div>
 </div>
+<ng-template #visitsTemplate>
+    <div style="height: 32px;">
+        <div style="display: inline-block;margin-right: 5px">
+            <nz-radio-group [(ngModel)]="params.type" (ngModelChange)="onTypeChange($event)">
+                <label nz-radio-button [nzValue]="'0'">日</label>
+                <label nz-radio-button [nzValue]="'1'">月</label>
+                <label nz-radio-button [nzValue]="'2'">年</label>
+            </nz-radio-group>
+        </div>
+        <nz-date-picker
+            *ngIf="params.type === '0'"
+            [(ngModel)]="params.timePoint"
+            [nzFormat]="'yyyy-MM-dd'"
+            (ngModelChange)="onDateChange($event)"></nz-date-picker>
+        <nz-month-picker
+            *ngIf="params.type === '1'"
+            [(ngModel)]="params.timePoint"
+            [nzFormat]="'yyyy-MM'"
+            (ngModelChange)="onDateChange($event)"></nz-month-picker>
+        <nz-year-picker
+            *ngIf="params.type === '2'"
+            [(ngModel)]="params.timePoint"
+            [nzFormat]="'yyyy'"
+            (ngModelChange)="onDateChange($event)"></nz-year-picker>
+    </div>
+</ng-template>
+<ng-template #distributionTemplate>
+    <div style="height: 32px;">
+        <button nz-button
+                [nzLoading]="distributionLoading"
+                nzShape="circle"
+                (click)="initDistribution()">
+            <i nz-icon nzType="reload" nzTheme="outline"></i>
+        </button>
+    </div>
+</ng-template>
