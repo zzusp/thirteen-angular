@@ -68,7 +68,7 @@
                                         <nz-form-label nzRequired>性别</nz-form-label>
                                         <nz-form-control>
                                             <nz-select formControlName="gender" nzPlaceHolder="请选择" nzAllowClear>
-                                                <nz-option *ngFor="let opt of genders" [nzValue]="opt.id"
+                                                <nz-option *ngFor="let opt of genders" [nzValue]="opt.code"
                                                            [nzLabel]="opt.name"></nz-option>
                                             </nz-select>
                                             <nz-form-explain

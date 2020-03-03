@@ -2,9 +2,13 @@ import { Component, Injector, OnInit, ViewChild } from '@angular/core';
 import { LayoutConfig } from '../interface/layout-config';
 import { LayoutService } from '../@layout.service';
 import { LoginService } from '../../routes/pages/login/login.service';
-import { LayoutData } from '../interface/layout-data';
+import { applicationToSidebar, LayoutData } from '../interface/layout-data';
 import { ActivatedRoute, PRIMARY_OUTLET } from '@angular/router';
 import { BreadcrumbOption, NZ_ROUTE_DATA_BREADCRUMB, NzBreadCrumbComponent } from 'ng-zorro-antd';
+import { ResponseResultModel } from '../../@core/net/response-result.model';
+import { UserModel } from '../../routes/user/user.model';
+import { setUserInfo } from '../../@core/util/user-info';
+import { GlobalConstants } from '../../@core/constant/GlobalConstants';
 
 @Component({
   selector: 'app-layout-default',
@@ -13,6 +17,8 @@ import { BreadcrumbOption, NZ_ROUTE_DATA_BREADCRUMB, NzBreadCrumbComponent } fro
 })
 export class LayoutDefaultComponent implements OnInit {
 
+  /** 全局常量  */
+  global: GlobalConstants = GlobalConstants.getInstance();
   /** 布局配置 */
   layoutConfig: LayoutConfig;
   /** 布局数据 */
@@ -21,11 +27,12 @@ export class LayoutDefaultComponent implements OnInit {
   @ViewChild('breadcrumb') breadcrumb: NzBreadCrumbComponent;
 
   constructor(private layoutService: LayoutService,
-              private login: LoginService,
+              private loginService: LoginService,
               private injector: Injector) {
   }
 
   ngOnInit() {
+    this.initUserInfo();
     // 获取布局配置
     this.layoutService.getLayoutConfig()
       .subscribe((config: LayoutConfig) => this.layoutConfig = config);
@@ -37,6 +44,31 @@ export class LayoutDefaultComponent implements OnInit {
     // 由激活的路由初始化面包屑
     // （ng-zorro面包屑组件用在子路由中的组件时，需进行如下处理；否则无默认值）
     this.breadcrumb.breadcrumbs = this.getBreadcrumbs(activatedRoute.root);
+  }
+
+  initUserInfo() {
+    // 从服务器段获取到当前用户信息，更新布局数据
+    this.loginService.getCurrentUser()
+      .subscribe((res: ResponseResultModel) => {
+        if (res.result) {
+          const result: UserModel = res.result;
+          if (result.applications) {
+            const layoutData: LayoutData = {
+              userBlock: {
+                name: result.name,
+                photo: result.photo,
+                role: result.roles.map((role) => {
+                  return role.name;
+                }).join('，')
+              },
+              sidebarMenu: applicationToSidebar(result.applications, this.global.AUTHORIZATION_SERVER_CODE)
+            };
+            this.layoutService.setLayoutData(layoutData);
+          }
+          // 记录当前用户信息
+          setUserInfo(result);
+        }
+      });
   }
 
   /**

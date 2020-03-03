@@ -18,8 +18,6 @@ import { GlobalConstants } from './@core/constant/GlobalConstants';
 })
 export class AppComponent implements OnInit {
 
-  /** 全局常量  */
-  global: GlobalConstants = GlobalConstants.getInstance();
   /** 全局加载动画显示标识 */
   loading: boolean = false;
 
@@ -39,7 +37,6 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.initRouterEvents();
     this.initLoading();
-    this.initUserInfo();
   }
 
   initRouterEvents() {
@@ -81,31 +78,6 @@ export class AppComponent implements OnInit {
         setTimeout(() => {
           this.loading = loading;
         });
-      });
-  }
-
-  initUserInfo() {
-    // 从服务器段获取到当前用户信息，更新布局数据
-    this.loginService.getCurrentUser()
-      .subscribe((res: ResponseResultModel) => {
-        if (res.result) {
-          const result: UserModel = res.result;
-          if (result.applications) {
-            const layoutData: LayoutData = {
-              userBlock: {
-                name: result.name,
-                photo: result.photo,
-                role: result.roles.map((role) => {
-                  return role.name;
-                }).join('，')
-              },
-              sidebarMenu: applicationToSidebar(result.applications, this.global.AUTHORIZATION_SERVER_CODE)
-            };
-            this.layoutService.setLayoutData(layoutData);
-          }
-          // 记录当前用户信息
-          setUserInfo(result);
-        }
       });
   }
 

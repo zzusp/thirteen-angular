@@ -30,25 +30,19 @@ export class ProfileSettingComponent implements OnInit {
   editForm: FormGroup;
   /** 性别下拉框数据 */
   genders: DictModel[];
-  /**
-   * 用户头像路径
-   */
+  /** 用户头像路径 */
   photo: string;
   /** 页面权限校验  */
   perms = {
     uploadAvatar: false,
     profileSetting: false
   };
-  /**
-   * 自定义上传方法
-   */
+  /** 自定义上传方法 */
   uploadAvatar: any = (item: UploadXHRArgs) => {
   };
-  /**
-   * 上传前操作，如校验
-   */
+  /** 上传前操作，如校验 */
   beforeUpload: any = (file: File) => {
-  };
+  }
 
   constructor(private dictService: DictService,
               private profileService: ProfileService,
@@ -63,7 +57,7 @@ export class ProfileSettingComponent implements OnInit {
   ngOnInit() {
     this.perms = {
       uploadAvatar: validatePerms(['profile:uploadAvatar']),
-      profileSetting: validatePerms(['profile:profileSetting'])
+      profileSetting: validatePerms(['profile:setting'])
     };
     const dicteReq = this.dictService.findAllByBizTypeCode(this.global.BIZ_TYPE_GENDER);
     // 发出请求
@@ -124,7 +118,10 @@ export class ProfileSettingComponent implements OnInit {
           } else if (event instanceof HttpResponse) {
             // 处理成功
             item.onSuccess(event.body, item.file, event);
-            this.messageService.success('用户头像更新成功');
+            console.log(event);
+            if (event.body['status'] === 200) {
+              this.messageService.success('用户头像更新成功');
+            }
             this.initInfo();
           }
         },

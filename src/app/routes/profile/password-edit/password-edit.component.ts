@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { ProfileService } from '../profile.service';
 import { ResponseResultModel } from '../../../@core/net/response-result.model';
+import { removeToken, removeUserInfo } from '../../../@core/util/user-info';
 
 @Component({
   selector: 'app-password-edit',
@@ -24,14 +25,14 @@ export class PasswordEditComponent implements OnInit {
   ngOnInit() {
     // 表单验证
     this.editForm = this.fb.group({
-      currentPassword: [null, Validators.required],
+      oldPassword: [null, Validators.required],
       newPassword: [null, Validators.required],
-      passwordConfirmation: [null,
+      confirm: [null,
         {updateOn: 'blur'},
         [Validators.required]
       ]
     });
-    this.editForm.get('passwordConfirmation').setValidators(this.validateConfirm('confirm'));
+    this.editForm.get('confirm').setValidators(this.validateConfirm('confirm'));
   }
 
   /**
@@ -47,6 +48,9 @@ export class PasswordEditComponent implements OnInit {
         if (res.status === 200) {
           // 清空表单
           this.editForm.reset();
+          // 清空token和用户信息
+          removeToken();
+          removeUserInfo();
           // 返回上一页
           this.router.navigate(['/pages/login']);
         }

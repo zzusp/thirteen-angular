@@ -5,7 +5,7 @@ import { LayoutData } from '../interface/layout-data';
 import { LoginService } from '../../routes/pages/login/login.service';
 import { ResponseResultModel } from '../../@core/net/response-result.model';
 import { Router } from '@angular/router';
-import { removeUserInfo } from '../../@core/util/user-info';
+import { removeToken, removeUserInfo } from '../../@core/util/user-info';
 import { NzMessageService } from 'ng-zorro-antd';
 
 @Component({
@@ -82,7 +82,8 @@ export class HeaderComponent implements OnInit {
     this.loginService.logout().subscribe((res: ResponseResultModel) => {
       console.log('logout');
     });
-    // 不论退出登录是否成功，清除当前用户信息，返回登录页
+    // 不论退出登录是否成功，清除token和当前用户信息，返回登录页
+    removeToken();
     removeUserInfo();
     this.router.navigate(['/pages/login']);
   }
