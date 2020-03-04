@@ -6,7 +6,7 @@
                 [config]="layoutConfig"
                 [data]="layoutData"></app-sidebar>
         </nz-sider>
-        <nz-content class="content-wrapper">
+        <nz-content class="content-wrapper" [ngClass]="{'collapsed': layoutConfig.collapsed}">
             <nz-breadcrumb #breadcrumb class="breadcrumb" [nzAutoGenerate]="true"></nz-breadcrumb>
             <div class="content">
                 <router-outlet></router-outlet>

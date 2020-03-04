@@ -185,7 +185,7 @@ export class RoleComponent implements OnInit {
    * @param id 角色ID
    */
   showAuthorize(id: string) {
-    this.router.navigate(['/app/system/role-authorize', id]);
+    this.router.navigate(['/system/role-authorize', id]);
   }
 
   /**

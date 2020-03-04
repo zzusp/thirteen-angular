@@ -42,7 +42,7 @@ export class ProfileSettingComponent implements OnInit {
   };
   /** 上传前操作，如校验 */
   beforeUpload: any = (file: File) => {
-  }
+  };
 
   constructor(private dictService: DictService,
               private profileService: ProfileService,

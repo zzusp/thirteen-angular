@@ -79,9 +79,9 @@
         <div>
             <div style="display: inline" *ngFor="let permission of row.permissions;">
                 <label nz-checkbox
-                       [nzValue]="permission.id"
-                       [ngModel]="permissionIds.includes(permission.id)"
-                       (click)="permissionChange(row, permission.id)">
+                       [nzValue]="permission.code"
+                       [ngModel]="permissionCodes.includes(permission.code)"
+                       (ngModelChange)="permissionChange(row, permission.code)">
                     {{permission.name}}
                 </label>
             </div>

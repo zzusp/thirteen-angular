@@ -1,5 +1,5 @@
 .ant-menu-root, .ant-menu-light {
-  margin-bottom: 40px;
+  margin-bottom: 80px;
 
   // 未折叠
   &.ant-menu-inline {
@@ -66,7 +66,7 @@
     // 用户信息块
     .user-block {
       height: 80px;
-      padding: 15px 0;
+      padding: 15px 0 15px 12px;
 
       // 头像
       > .user-block-picture {

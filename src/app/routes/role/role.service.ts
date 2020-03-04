@@ -43,8 +43,8 @@ export class RoleService {
    *
    * @param id 角色ID
    */
-  getDetail(id: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-role/getDetail', {params: {'id': id}});
+  findDetailById(id: string): Observable<any> {
+    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-role/findDetailById', {params: {'id': id}});
   }
 
   /**

@@ -38,9 +38,7 @@ import { SafeHtml } from '@angular/platform-browser';
   styleUrls: ['../tree-table.component.scss']
 })
 export class TreeTableColumnComponent implements OnInit, AfterViewInit, OnDestroy {
-  /**
-   * tree-table配置
-   */
+  /** tree-table配置 */
   @Input() config: TreeTableConfigModel;
   /**
    * 列对象

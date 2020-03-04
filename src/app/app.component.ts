@@ -3,12 +3,7 @@ import { LayoutService } from './@layout/@layout.service';
 import { ActivatedRoute, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { filter, map, mergeMap } from 'rxjs/operators';
-import { ResponseResultModel } from './@core/net/response-result.model';
-import { UserModel } from './routes/user/user.model';
-import { applicationToSidebar, LayoutData } from './@layout/interface/layout-data';
-import { setUserInfo } from './@core/util/user-info';
 import { LoginService } from './routes/pages/login/login.service';
-import { GlobalConstants } from './@core/constant/GlobalConstants';
 
 @Component({
   selector: 'app-root',

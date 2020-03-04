@@ -22,17 +22,11 @@ export class DeptComponent implements OnInit {
   global: GlobalConstants = GlobalConstants.getInstance();
   /** 加载动画，默认关闭  */
   loading: boolean;
-  /**
-   * tree-table配置
-   */
+  /** tree-table配置 */
   config: TreeTableConfigModel;
-  /**
-   * tree-table列配置
-   */
+  /** tree-table列配置 */
   columns: TreeTableColumnModel[];
-  /**
-   * tree-table数据源
-   */
+  /** tree-table数据源 */
   data: TreeTableDataModel;
   /**
    * 操作

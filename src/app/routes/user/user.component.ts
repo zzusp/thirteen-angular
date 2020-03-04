@@ -143,7 +143,7 @@ export class UserComponent implements OnInit {
    * 打开新增页面
    */
   showSave() {
-    this.router.navigate(['/app/system/user-edit', this.global.INSERT_FLAG]);
+    this.router.navigate(['/system/user-edit', this.global.INSERT_FLAG]);
   }
 
   /**
@@ -152,7 +152,7 @@ export class UserComponent implements OnInit {
    * @param id 用户ID
    */
   showUpdate(id: string) {
-    this.router.navigate(['/app/system/user-edit', id]);
+    this.router.navigate(['/system/user-edit', id]);
   }
 
   /**

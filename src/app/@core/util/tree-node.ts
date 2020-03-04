@@ -75,7 +75,8 @@ export function listToTree(list: BaseTreeSortModel[], deep = -1,
  * @param list
  * @param parentCode
  */
-export function listToBaseTree(list: BaseTreeSortModel[], parentCode = GlobalConstants.getInstance().ROOT_PARENT_CODE): BaseTreeSortModel[] {
+export function listToBaseTree(list: BaseTreeSortModel[],
+                               parentCode = GlobalConstants.getInstance().ROOT_PARENT_CODE): BaseTreeSortModel[] {
   const result: BaseTreeSortModel[] = [];
   list.forEach((obj, index) => {
     if (parentCode === obj.parentCode) {

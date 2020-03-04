@@ -43,6 +43,7 @@
       margin-bottom: 60px;
       background-color: #f5f7fa;
       border-bottom: 1px solid #cfdbe2;
+      transition: all .2s;
 
       .breadcrumb {
         // 滚动时悬浮样式
@@ -62,6 +63,10 @@
         margin-top: 50px;
         padding: 24px;
         min-height: 360px;
+      }
+
+      &.collapsed {
+        margin-left: 80px;
       }
     }
   }

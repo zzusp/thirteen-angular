@@ -30,38 +30,22 @@ export class RoleAuthorizeComponent implements OnInit {
   global: GlobalConstants = GlobalConstants.getInstance();
   /** 路由参数 */
   routeParams: any = {id: null};
-  /**
-   * tree-table配置
-   */
+  /** tree-table配置 */
   config: TreeTableConfigModel;
-  /**
-   * tree-table列配置
-   */
+  /** tree-table列配置 */
   columns: TreeTableColumnModel[];
-  /**
-   * tree-table数据源
-   */
+  /** tree-table数据源 */
   data: TreeTableDataModel;
-  /**
-   * 类型
-   */
+  /** 类型 */
   @ViewChild('rowType', {read: TemplateRef}) rowType: TemplateRef<any>;
-  /**
-   * 图标
-   */
+  /** 图标 */
   @ViewChild('rowIcon', {read: TemplateRef}) rowIcon: TemplateRef<any>;
-  /**
-   * 状态
-   */
+  /** 状态 */
   @ViewChild('rowActive', {read: TemplateRef}) rowActive: TemplateRef<any>;
-  /**
-   * 权限
-   */
+  /** 权限 */
   @ViewChild('rowPermission', {read: TemplateRef}) rowPermission: TemplateRef<any>;
-  /**
-   * 权限选项
-   */
-  permissionIds: string[];
+  /** 权限选项 */
+  permissionCodes: string[];
   /** 编辑表单 */
   editForm: FormGroup;
 
@@ -82,11 +66,11 @@ export class RoleAuthorizeComponent implements OnInit {
       level: 1,
       onCheckChange: (row: TreeTableRowModel) => {
         // 使用临时变量，避免双向绑定的变量频繁变化
-        const ids = this.permissionIds;
+        const codes = this.permissionCodes;
         // 取消选中应用时级联取消选中其下的权限
-        this.cascadePermissions(row, ids);
-        // 重新设置已选中的权限ID数组
-        this.permissionIds = [...[], ...ids];
+        this.cascadePermissions(row, codes);
+        // 重新设置已选中的权限编码数组
+        this.permissionCodes = [...[], ...codes];
       }
     });
     // 初始化tree-table列配置
@@ -110,8 +94,8 @@ export class RoleAuthorizeComponent implements OnInit {
     ];
     // 初始化tree-table的数据
     this.data = new TreeTableDataModel([]);
-    // 已选中权限ID数组初始化
-    this.permissionIds = [];
+    // 已选中权限编码数组初始化
+    this.permissionCodes = [];
     // 表单验证
     this.editForm = this.fb.group({
       id: [null],
@@ -148,7 +132,7 @@ export class RoleAuthorizeComponent implements OnInit {
               application.permissions = [];
               if (permissionRes.result) {
                 permissionRes.result.list.forEach((permission: PermissionModel) => {
-                  if (application.id === permission.application.id) {
+                  if (application.code === permission.application.code) {
                     application.permissions.push(permission);
                   }
                 });
@@ -157,7 +141,7 @@ export class RoleAuthorizeComponent implements OnInit {
             // 初始化应用table-tree
             this.data = new TreeTableDataModel(listToBaseTree(applicationRes.result.list));
           }
-          return this.roleService.getDetail(this.routeParams.id);
+          return this.roleService.findDetailById(this.routeParams.id);
         })
       ).subscribe((res: ResponseResultModel) => {
       // 获取角色权限信息初始化表单
@@ -204,25 +188,25 @@ export class RoleAuthorizeComponent implements OnInit {
    * 级联取消自身其下的权限及下级拥有的权限
    *
    * @param row
-   * @param ids
+   * @param codes
    */
-  cascadePermissions(row: TreeTableRowModel, ids: string[]): void {
+  cascadePermissions(row: TreeTableRowModel, codes: string[]): void {
     // 取消选中应用时级联取消选中其下的权限
     if (row['permissions'] && row['permissions'].length > 0) {
       row['permissions'].forEach((permission: PermissionModel) => {
-        // 获取权限ID在已选中权限ID数组中的下标
-        const index = ids.indexOf(permission.id);
+        // 获取权限编码在已选中权限编码数组中的下标
+        const index = codes.indexOf(permission.code);
         if (!row.checked && index >= 0) {
           // 删除指定下标权限
-          ids.splice(index, 1);
+          codes.splice(index, 1);
         } else if (!!row.checked && index < 0) {
-          ids.push(permission.id);
+          codes.push(permission.code);
         }
       });
     }
     if (this.treeTableService.hasChildren(row)) {
       row.children.forEach((r: TreeTableRowModel) => {
-        this.cascadePermissions(r, ids);
+        this.cascadePermissions(r, codes);
       });
     }
   }
@@ -234,14 +218,14 @@ export class RoleAuthorizeComponent implements OnInit {
    * @param value
    */
   permissionChange(row: TreeTableRowModel, value: string): void {
-    // 获取权限ID在已选中权限ID数组中的下标
-    const index = this.permissionIds.indexOf(value);
+    // 获取权限编码在已选中权限编码数组中的下标
+    const index = this.permissionCodes.indexOf(value);
     if (index >= 0) {
       // 删除指定下标权限
-      this.permissionIds.splice(index, 1);
+      this.permissionCodes.splice(index, 1);
     } else {
-      // 添加权限ID到已选中权限ID数组中
-      this.permissionIds.push(value);
+      // 添加权限编码到已选中权限编码数组中
+      this.permissionCodes.push(value);
       // 判断应用是否已勾选，如果未勾选则勾选
       if (!row.checked) {
         row.checked = true;
@@ -259,10 +243,10 @@ export class RoleAuthorizeComponent implements OnInit {
     const temp: string[] = [];
     // 遍历权限数组
     permissions.forEach((permission: PermissionModel) => {
-      temp.push(permission.id);
+      temp.push(permission.code);
     });
-    // 设置已选中的权限ID
-    this.permissionIds = [...[], ...temp];
+    // 设置已选中的权限编码
+    this.permissionCodes = [...[], ...temp];
   }
 
   /**
@@ -274,7 +258,7 @@ export class RoleAuthorizeComponent implements OnInit {
   setTreeTableDefaultValue(items: TreeTableRowModel[], defaultModules: ApplicationModel[]) {
     items.forEach((item: TreeTableRowModel) => {
       defaultModules.forEach((module, index) => {
-        if (item['id'] === module.id) {
+        if (item['code'] === module.code) {
           item.checked = true;
           defaultModules.slice(index, 1);
         }
@@ -290,8 +274,8 @@ export class RoleAuthorizeComponent implements OnInit {
    */
   getCheckedPermission(): any[] {
     const permissions: any[] = [];
-    this.permissionIds.forEach(roleId => {
-      permissions.push({id: roleId});
+    this.permissionCodes.forEach(code => {
+      permissions.push({code: code});
     });
     return permissions;
   }
@@ -301,8 +285,8 @@ export class RoleAuthorizeComponent implements OnInit {
    */
   getCheckedApplication(): any[] {
     const modules: any[] = [];
-    this.treeTableService.getCheckedData(this.data, 'id').forEach(moduleId => {
-      modules.push({id: moduleId});
+    this.treeTableService.getCheckedData(this.data, 'code').forEach(moduleCode => {
+      modules.push({code: moduleCode});
     });
     return modules;
   }
