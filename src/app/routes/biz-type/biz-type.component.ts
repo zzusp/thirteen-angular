@@ -109,6 +109,21 @@ export class BizTypeComponent implements OnInit {
   }
 
   /**
+   * 排序监听
+   *
+   * @param name
+   * @param value
+   */
+  sort(name: string, value: string): void {
+    for (const key of Object.keys(this.sortMap)) {
+      if (key === name) {
+        this.sortMap[key] = value;
+      }
+    }
+    this.findAllByParam();
+  }
+
+  /**
    * 获取排序参数
    */
   getSorts(): any[] {

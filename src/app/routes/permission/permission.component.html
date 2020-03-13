@@ -75,7 +75,6 @@
                     <th nzShowSort [(nzSort)]="sortMap.code" (nzSortChange)="sort('code', $event)">编码</th>
                     <th nzShowSort [(nzSort)]="sortMap.name" (nzSortChange)="sort('name', $event)">名称</th>
                     <th nzShowSort [(nzSort)]="sortMap.url" (nzSortChange)="sort('url', $event)">路径</th>
-                    <th nzShowSort [(nzSort)]="sortMap.sort" (nzSortChange)="sort('sort', $event)">排序</th>
                     <th nzShowSort [(nzSort)]="sortMap.type"
                         (nzSortChange)="sort('type', $event)"
                         nzShowFilter [nzFilters]="types"
@@ -95,7 +94,6 @@
                     <td>{{data.code}}</td>
                     <td>{{data.name}}</td>
                     <td>{{data.url}}</td>
-                    <td>{{data.sort}}</td>
                     <td>
                         <span *ngIf="data.type === global.PERMISSION_LOGIN">需登录</span>
                         <span *ngIf="data.type === global.PERMISSION_AUTHOR">需认证</span>
