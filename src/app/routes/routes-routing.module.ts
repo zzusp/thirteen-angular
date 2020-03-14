@@ -38,7 +38,10 @@ const routes: Routes = [
       },
       {
         path: 'dashboard',
-        component: DashboardComponent
+        component: DashboardComponent,
+        data: {
+          breadcrumb: '仪表盘'
+        }
       },
       {
         path: 'user',
