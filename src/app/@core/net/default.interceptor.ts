@@ -8,6 +8,7 @@ import { catchError, mergeMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { NzModalService } from 'ng-zorro-antd';
 import { getToken } from '../util/user-info';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class DefaultInterceptor implements HttpInterceptor {
@@ -111,14 +112,19 @@ export class DefaultInterceptor implements HttpInterceptor {
     // 获取token
     const token = getToken();
     // 统一加上服务端前缀
+    let url = req.url;
+    if (!url.startsWith('https://') && !url.startsWith('http://')) {
+      url = environment.server_url + url;
+    }
     let newReq;
     if (token) {
       newReq = req.clone({
         // 拦截所有请求，并且在header中增加响应头以及token
-        headers: req.headers.set('Authorization', token)
+        headers: req.headers.set('Authorization', token),
+        url: url
       });
     } else {
-      newReq = req.clone();
+      newReq = req.clone({url: url});
     }
     return next.handle(newReq).pipe(
       mergeMap((event: any) => {
