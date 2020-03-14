@@ -1,0 +1,67 @@
+{
+  "userBlock": {
+    "name": "Aaron",
+    "role": "Designer",
+    "photo": "assets/img/user/02.jpg"
+  },
+  "sidebarMenu": [
+    {
+      "name": "主导航",
+      "group": true
+    },
+    {
+      "name": "仪表盘",
+      "icon": "dashboard",
+      "url": "/dashboard"
+    },
+    {
+      "name": "组织管理",
+      "icon": "team",
+      "url": "/system/group"
+    },
+    {
+      "name": "用户管理",
+      "icon": "user",
+      "url": "/system/user"
+    },
+    {
+      "name": "角色管理",
+      "icon": "idcard",
+      "url": "/system/role"
+    },
+    {
+      "name": "应用管理",
+      "icon": "appstore",
+      "url": "/system/application"
+    },
+    {
+      "name": "权限管理",
+      "icon": "key",
+      "url": "/system/permission"
+    },
+    {
+      "name": "业务类型",
+      "icon": "book",
+      "url": "/system/biz-type"
+    },
+    {
+      "name": "数据字典",
+      "icon": "database",
+      "url": "/system/dict"
+    },
+    {
+      "name": "日志",
+      "group": true
+    },
+    {
+      "name": "登录日志",
+      "icon": "solution",
+      "url": "/system/log-login"
+    },
+    {
+      "name": "操作日志",
+      "icon": "calculator",
+      "url": "/system/log-operation"
+    }
+  ]
+}
