@@ -1,5 +1,5 @@
 {
-  "name": "thirteen=angular",
+  "name": "thirteen-angular",
   "version": "0.0.1",
   "scripts": {
     "ng": "ng",
