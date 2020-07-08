@@ -3,7 +3,7 @@
         <nz-card [nzBordered]="false">
             <div class="button-group">
                 <button *ngIf="perms.save" nz-button nzType="primary" (click)="showSave()">
-                    <i nz-icon [type]="'plus'" [theme]="'outline'"></i>新增
+                    <i nz-icon [nzType]="'plus'" [nzTheme]="'outline'"></i>新增
                 </button>
             </div>
             <nz-spin [nzSpinning]="loading">
@@ -27,7 +27,7 @@
 <!-- END row-->
 <!-- START row-->
 <ng-template #rowIcon let-row>
-    <i nz-icon [type]="row?.icon" [theme]="'outline'"></i>
+    <i nz-icon [nzType]="row?.icon" [nzTheme]="'outline'"></i>
 </ng-template>
 <!-- END row-->
 <!-- START row-->

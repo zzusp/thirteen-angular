@@ -24,21 +24,13 @@ export class LayoutService {
       photo: 'assets/img/user/02.jpg'
     }
   };
-  /**
-   * 全局加载动画显示标识
-   */
+  /** 全局加载动画显示标识 */
   loading: boolean = false;
-  /**
-   * 通过BehaviorSubject设置/获取最新配置，类似广播
-   */
+  /** 通过BehaviorSubject设置/获取最新配置，类似广播 */
   protected configControl = new BehaviorSubject(this.layoutConfig);
-  /**
-   * 通过BehaviorSubject设置/获取最新数据，类似广播
-   */
+  /** 通过BehaviorSubject设置/获取最新数据，类似广播 */
   protected dataControl = new BehaviorSubject(this.layoutData);
-  /**
-   * 通过BehaviorSubject设置/获取最新数据，类似广播
-   */
+  /** 通过BehaviorSubject设置/获取最新数据，类似广播 */
   protected loadControl = new BehaviorSubject(this.loading);
 
   constructor() {

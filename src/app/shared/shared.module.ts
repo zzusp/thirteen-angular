@@ -2,7 +2,30 @@ import { NgModule } from '@angular/core';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgZorroAntdModule, NZ_I18N, NZ_ICONS, zh_CN } from 'ng-zorro-antd';
+import { NZ_I18N, NZ_ICONS, zh_CN } from 'ng-zorro-antd';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { NzAvatarModule } from 'ng-zorro-antd/avatar';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzTimePickerModule } from 'ng-zorro-antd/time-picker';
+import { NzTreeModule } from 'ng-zorro-antd/tree';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
+
 import { RouterModule } from '@angular/router';
 import { DefaultInterceptor } from '../@core/net/default.interceptor';
 import { TreeTableModule } from './tree-table/tree-table.module';
@@ -21,7 +44,28 @@ registerLocaleData(zh);
 // 第三方模块
 const THIRD_MODULES = [
   /** 导入 ng-zorro-antd 模块 **/
-  NgZorroAntdModule,
+  NzAlertModule,
+  NzAvatarModule,
+  NzBadgeModule,
+  NzBreadCrumbModule,
+  NzButtonModule,
+  NzCardModule,
+  NzDatePickerModule,
+  NzDividerModule,
+  NzDropDownModule,
+  NzFormModule,
+  NzIconModule,
+  NzInputModule,
+  NzLayoutModule,
+  NzMessageModule,
+  NzModalModule,
+  NzRadioModule,
+  NzSelectModule,
+  NzSpinModule,
+  NzTableModule,
+  NzTimePickerModule,
+  NzTreeModule,
+  NzUploadModule,
   /** 导入 ngx-echarts 模块 **/
   NgxEchartsModule,
   /** 导入 tree-table 模块 **/

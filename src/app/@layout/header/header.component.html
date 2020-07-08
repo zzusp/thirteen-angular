@@ -13,35 +13,35 @@
         <ul class="nav navbar-nav navbar-left">
             <li>
                 <div class="item" (click)="toggleCollapse()">
-                    <i nz-icon [type]="'menu-unfold'" [theme]="'outline'" *ngIf="layoutConfig.collapsed"></i>
-                    <i nz-icon [type]="'menu-fold'" [theme]="'outline'" *ngIf="!layoutConfig.collapsed"></i>
+                    <i nz-icon [nzType]="'menu-unfold'" [nzTheme]="'outline'" *ngIf="layoutConfig.collapsed"></i>
+                    <i nz-icon [nzType]="'menu-fold'" [nzTheme]="'outline'" *ngIf="!layoutConfig.collapsed"></i>
                 </div>
             </li>
             <li *ngIf="userBlockBtnVisible">
                 <div class="item" (click)="toggleUserBlock()">
-                    <i nz-icon [type]="'user'" [theme]="'outline'"></i>
+                    <i nz-icon [nzType]="'user'" [nzTheme]="'outline'"></i>
                 </div>
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <nz-dropdown [nzPlacement]="'bottomRight'">
-                    <div nz-dropdown class="item">
-                        <nz-badge [nzCount]="99"><i nz-icon [type]="'bell'" [theme]="'outline'"></i></nz-badge>
-                    </div>
+                <div nz-dropdown [nzPlacement]="'bottomRight'" [nzDropdownMenu]="menu" class="item">
+                    <nz-badge [nzCount]="99"><i nz-icon [nzType]="'bell'" [nzTheme]="'outline'"></i></nz-badge>
+                </div>
+                <nz-dropdown-menu #menu="nzDropdownMenu">
                     <ul nz-menu>
                         <li nz-menu-item>1st menu item</li>
                         <li nz-menu-item>2nd menu item</li>
                         <li nz-menu-divider></li>
                         <li nz-menu-item nzDisabled>disabled menu item</li>
                     </ul>
-                </nz-dropdown>
+                </nz-dropdown-menu>
             </li>
             <li>
-                <nz-dropdown [nzPlacement]="'bottomRight'">
-                    <div nz-dropdown class="item">
-                        <i nz-icon [type]="'setting'" [theme]="'outline'"></i>
-                    </div>
+                <div nz-dropdown [nzPlacement]="'bottomRight'" [nzDropdownMenu]="reloadRilterChains" class="item">
+                    <i nz-icon [nzType]="'setting'" [nzTheme]="'outline'"></i>
+                </div>
+                <nz-dropdown-menu #reloadRilterChains="nzDropdownMenu">
                     <ul nz-menu>
                         <li nz-menu-item (click)="reloadFilterChains()"><i nz-icon [nzType]="'rocket'"
                                                                            [nzTheme]="'outline'"></i>刷新权限
@@ -50,27 +50,27 @@
                         <!--<li nz-menu-divider></li>-->
                         <!--<li nz-menu-item nzDisabled>disabled menu item</li>-->
                     </ul>
-                </nz-dropdown>
+                </nz-dropdown-menu>
             </li>
             <li>
-                <nz-dropdown [nzPlacement]="'bottomRight'">
-                    <div nz-dropdown class="item user-dropdown">
-                        <nz-avatar class="user-avatar"
-                                   [nzSrc]="layoutData.userBlock.photo ? layoutData.userBlock.photo : 'assets/img/user/02.jpg'">
-                        </nz-avatar>
-                        <span class="user-name">{{layoutData.userBlock.name}}</span>
-                    </div>
+                <div nz-dropdown [nzPlacement]="'bottomRight'" [nzDropdownMenu]="userBlock" class="item user-dropdown">
+                    <nz-avatar class="user-avatar"
+                               [nzSrc]="layoutData.userBlock.photo ? layoutData.userBlock.photo : 'assets/img/user/02.jpg'">
+                    </nz-avatar>
+                    <span class="user-name">{{layoutData.userBlock.name}}</span>
+                </div>
+                <nz-dropdown-menu #userBlock="nzDropdownMenu">
                     <ul nz-menu>
-                        <li nz-menu-item (click)="goTo('/profile')"><i nz-icon [type]="'user'" [theme]="'outline'"></i>个人设置
+                        <li nz-menu-item (click)="goTo('/profile')"><i nz-icon [nzType]="'user'" [nzTheme]="'outline'"></i>个人设置
                         </li>
-                        <li nz-menu-item (click)="goTo('/profile/password-edit')"><i nz-icon [type]="'key'"
-                                                                                     [theme]="'outline'"></i>修改密码
+                        <li nz-menu-item (click)="goTo('/profile/password-edit')"><i nz-icon [nzType]="'key'"
+                                                                                     [nzTheme]="'outline'"></i>修改密码
                         </li>
                         <li nz-menu-divider></li>
-                        <li nz-menu-item (click)="logout()"><i nz-icon [type]="'poweroff'" [theme]="'outline'"></i>退出登录
+                        <li nz-menu-item (click)="logout()"><i nz-icon [nzType]="'poweroff'" [nzTheme]="'outline'"></i>退出登录
                         </li>
                     </ul>
-                </nz-dropdown>
+                </nz-dropdown-menu>
             </li>
         </ul>
     </div>

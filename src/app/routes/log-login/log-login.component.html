@@ -39,14 +39,14 @@
                 [(nzPageSize)]="pageSize"
                 (nzPageIndexChange)="findAllByParam()"
                 (nzPageSizeChange)="findAllByParam()">
-                <thead nzSingleSort>
+                <thead>
                 <tr>
-                    <th nzShowSort [(nzSort)]="sortMap.account" (nzSortChange)="sort('account', $event)">账号</th>
-                    <th nzShowSort [(nzSort)]="sortMap.requestPath" (nzSortChange)="sort('requestPath', $event)">来源路径
+                    <th nzShowSort [(nzSortOrder)]="sortMap.account" (nzSortChange)="sort('account', $event)">账号</th>
+                    <th nzShowSort [(nzSortOrder)]="sortMap.requestPath" (nzSortChange)="sort('requestPath', $event)">来源路径
                     </th>
-                    <th nzShowSort [(nzSort)]="sortMap.status" (nzSortChange)="sort('status', $event)"><span>状态</span>
+                    <th nzShowSort [(nzSortOrder)]="sortMap.status" (nzSortChange)="sort('status', $event)"><span>状态</span>
                     </th>
-                    <th nzShowSort [(nzSort)]="sortMap.loginTime" (nzSortChange)="sort('loginTime', $event)"><span>登录时间</span>
+                    <th nzShowSort [(nzSortOrder)]="sortMap.loginTime" (nzSortChange)="sort('loginTime', $event)"><span>登录时间</span>
                     </th>
                     <th><span>操作</span></th>
                 </tr>

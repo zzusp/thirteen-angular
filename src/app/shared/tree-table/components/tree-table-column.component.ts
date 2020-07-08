@@ -24,7 +24,7 @@ import { SafeHtml } from '@angular/platform-browser';
       <ng-container #indents></ng-container>
       <span *ngIf="treeTable.hasChildren(rowData) || 
             (treeTable.isLazy(config) && !treeTable.isLeaf(rowData))"
-            [ngClass]="treeTable.getConfigIcon(config, rowData)"
+            [class]="treeTable.getConfigIcon(config, rowData)"
             class="tree-table-row-icon"
             (click)="rowOpen($event)"></span>
     </label>

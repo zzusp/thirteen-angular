@@ -1,10 +1,10 @@
-import { Component, Injector, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Injector, OnInit, ViewChild } from '@angular/core';
 import { LayoutConfig } from '../interface/layout-config';
 import { LayoutService } from '../@layout.service';
 import { LoginService } from '../../routes/pages/login/login.service';
 import { applicationToSidebar, LayoutData } from '../interface/layout-data';
-import { ActivatedRoute, PRIMARY_OUTLET } from '@angular/router';
-import { BreadcrumbOption, NZ_ROUTE_DATA_BREADCRUMB, NzBreadCrumbComponent } from 'ng-zorro-antd';
+import { ActivatedRoute, NavigationEnd, PRIMARY_OUTLET, Router } from '@angular/router';
+import { BreadcrumbOption, NzBreadCrumbComponent } from 'ng-zorro-antd';
 import { ResponseResultModel } from '../../@core/net/response-result.model';
 import { UserModel } from '../../routes/user/user.model';
 import { setUserInfo } from '../../@core/util/user-info';
@@ -15,7 +15,7 @@ import { GlobalConstants } from '../../@core/constant/GlobalConstants';
   templateUrl: './layout-default.component.html',
   styleUrls: ['./layout-default.component.scss']
 })
-export class LayoutDefaultComponent implements OnInit {
+export class LayoutDefaultComponent implements OnInit, AfterViewInit {
 
   /** 全局常量  */
   global: GlobalConstants = GlobalConstants.getInstance();
@@ -28,6 +28,7 @@ export class LayoutDefaultComponent implements OnInit {
 
   constructor(private layoutService: LayoutService,
               private loginService: LoginService,
+              private router: Router,
               private injector: Injector) {
   }
 
@@ -39,6 +40,9 @@ export class LayoutDefaultComponent implements OnInit {
     // 获取布局数据
     this.layoutService.getLayoutData()
       .subscribe((data: LayoutData) => this.layoutData = data);
+  }
+
+  ngAfterViewInit(): void {
     // 获取当前激活的路由
     const activatedRoute = this.injector.get(ActivatedRoute);
     // 由激活的路由初始化面包屑
@@ -80,6 +84,7 @@ export class LayoutDefaultComponent implements OnInit {
    * @param breadcrumbs
    */
   getBreadcrumbs(route: ActivatedRoute, url: string = '', breadcrumbs: BreadcrumbOption[] = []): BreadcrumbOption[] {
+    const ROUTE_DATA_BREADCRUMB: string = "breadcrumb";
     const children: ActivatedRoute[] = route.children;
     // If there's no sub root, then stop the recurse and returns the generated breadcrumbs.
     if (children.length === 0) {
@@ -92,9 +97,9 @@ export class LayoutDefaultComponent implements OnInit {
         const routeURL: string = child.snapshot.url.map(segment => segment.path).join('/');
         const nextUrl = routeURL ? url + `/${routeURL}` : routeURL;
         // If have data, go to generate a breadcrumb for it.
-        if (child.snapshot.data.hasOwnProperty(NZ_ROUTE_DATA_BREADCRUMB)) {
+        if (child.snapshot.data.hasOwnProperty(ROUTE_DATA_BREADCRUMB)) {
           const breadcrumb: BreadcrumbOption = {
-            label: child.snapshot.data[NZ_ROUTE_DATA_BREADCRUMB] || 'Breadcrumb',
+            label: child.snapshot.data[ROUTE_DATA_BREADCRUMB] || 'Breadcrumb',
             params: child.snapshot.params,
             url: nextUrl
           };

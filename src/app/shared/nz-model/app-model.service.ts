@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ConfirmType, ModalOptionsForService, NzModalRef, NzModalService } from 'ng-zorro-antd';
+import { ConfirmType, ModalOptions, NzModalRef, NzModalService } from 'ng-zorro-antd';
 
 /**
  * 重写ng-zorro modal组件的service方法
@@ -20,7 +20,7 @@ export class AppModalService extends NzModalService {
    * @param options
    * @param confirmType
    */
-  confirm<T>(options?: ModalOptionsForService<T>, confirmType?: ConfirmType): NzModalRef<T> {
+  confirm<T>(options?: ModalOptions<T>, confirmType?: ConfirmType): NzModalRef<T> {
     if ('nzFooter' in options) {
       // this.log.warn(`The Confirm-Modal doesn't support "nzFooter", this property will be ignored.`);
     }

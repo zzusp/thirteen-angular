@@ -29,8 +29,8 @@
                 </div>
             </form>
             <div class="button-group">
-                <button *ngIf="perms.save" nz-button nzType="primary" (click)="showSave()"><i nz-icon [type]="'plus'"
-                                                                                              [theme]="'outline'"></i>新增
+                <button *ngIf="perms.save" nz-button nzType="primary" (click)="showSave()"><i nz-icon [nzType]="'plus'"
+                                                                                              [nzTheme]="'outline'"></i>新增
                 </button>
             </div>
             <nz-table
@@ -44,22 +44,22 @@
                 [(nzPageSize)]="pageSize"
                 (nzPageIndexChange)="findAllByParam()"
                 (nzPageSizeChange)="findAllByParam()">
-                <thead nzSingleSort>
+                <thead>
                 <tr>
-                    <th nzShowSort [(nzSort)]="sortMap.account" (nzSortChange)="sort('account', $event)">账号</th>
-                    <th nzShowSort [(nzSort)]="sortMap.name" (nzSortChange)="sort('name', $event)">姓名</th>
+                    <th nzShowSort [(nzSortOrder)]="sortMap.account" (nzSortChange)="sort('account', $event)">账号</th>
+                    <th nzShowSort [(nzSortOrder)]="sortMap.name" (nzSortChange)="sort('name', $event)">姓名</th>
                     <!--<th nzShowFilter [nzFilters]="filterGender" (nzFilterChange)="updateFilter($event)">Gender</th>-->
-                    <th nzShowSort [(nzSort)]="sortMap.email" (nzSortChange)="sort('email', $event)"><span>邮箱</span>
+                    <th nzShowSort [(nzSortOrder)]="sortMap.email" (nzSortChange)="sort('email', $event)"><span>邮箱</span>
                     </th>
-                    <th nzShowSort [(nzSort)]="sortMap.active"
+                    <th nzShowSort [(nzSortOrder)]="sortMap.active"
                         (nzSortChange)="sort('active', $event)"
                         nzShowFilter
                         [nzFilters]="activeArr"
                         [nzFilterMultiple]="false"
                         (nzFilterChange)="filter($event)"><span>状态</span></th>
-                    <th nzShowSort [(nzSort)]="sortMap.createTime" (nzSortChange)="sort('createTime', $event)"><span>添加时间</span>
+                    <th nzShowSort [(nzSortOrder)]="sortMap.createTime" (nzSortChange)="sort('createTime', $event)"><span>添加时间</span>
                     </th>
-                    <th nzShowSort [(nzSort)]="sortMap.updateTime" (nzSortChange)="sort('updateTime', $event)"><span>修改时间</span>
+                    <th nzShowSort [(nzSortOrder)]="sortMap.updateTime" (nzSortChange)="sort('updateTime', $event)"><span>修改时间</span>
                     </th>
                     <th *ngIf="perms.update || perms.delete"><span>操作</span></th>
                 </tr>

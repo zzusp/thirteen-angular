@@ -2,8 +2,8 @@
     <div nz-col [nzMd]="24">
         <nz-card [nzBordered]="false">
             <div class="button-group">
-                <button *ngIf="perms.save" nz-button nzType="primary" (click)="showSave()"><i nz-icon [type]="'plus'"
-                                                                                              [theme]="'outline'"></i>新增
+                <button *ngIf="perms.save" nz-button nzType="primary" (click)="showSave()"><i nz-icon [nzType]="'plus'"
+                                                                                              [nzTheme]="'outline'"></i>新增
                 </button>
             </div>
             <nz-spin [nzSpinning]="loading">

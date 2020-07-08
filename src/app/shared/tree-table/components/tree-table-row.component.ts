@@ -22,7 +22,7 @@ import { TreeTableColumnModel } from '../models/tree-table-columns.model';
 @Component({
   selector: 'app-tree-table-row, [app-tree-table-row]',
   template: `
-    <tr #rowElement [ngClass]="{'active':  treeTable.selectableAll(config) 
+    <tr #rowElement [class]="{'active':  treeTable.selectableAll(config) 
           && treeTable.selectable(row)
            && treeTable.isSelected(row)}"
         (click)="rowSelectedChange($event)">
@@ -35,7 +35,7 @@ import { TreeTableColumnModel } from '../models/tree-table-columns.model';
                    [checked]="treeTable.isChecked(row) && treeTable.checkable(row)"
                    [disabled]="!treeTable.checkable(row)">
             <span class="tree-table-row-icon"
-                  [ngClass]="treeTable.getCheckedIcon(row, config)"></span>
+                  [class]="treeTable.getCheckedIcon(row, config)"></span>
           </label>
         </div>
       </td>

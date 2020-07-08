@@ -15,7 +15,7 @@ import { TreeTableService } from './services/tree-table.service';
             <label>
               <input type="checkbox" [checked]="checked">
               <span class="fa fa-fw"
-                    [ngClass]="isAllChildrenChecked() ? 'fa-check' : 'fa-minus'"
+                    [class]="isAllChildrenChecked() ? 'fa-check' : 'fa-minus'"
                     (click)="checkedChange($event)"></span>
             </label>
           </div>

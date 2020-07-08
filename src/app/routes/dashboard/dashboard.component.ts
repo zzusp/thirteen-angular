@@ -42,9 +42,12 @@ export class DashboardComponent implements OnInit {
     // 初始化日期管道对象
     const datePipe = new DatePipe('en-US');
     // 格式化Date类型
-    this.params.timePoint = datePipe.transform(this.params.timePoint, 'yyyy-MM-dd HH:mm:ss');
+    const params: any = {
+      type: this.params.type,
+      timePoint: datePipe.transform(this.params.timePoint, 'yyyy-MM-dd HH:mm:ss')
+    };
     // 查询访问量
-    this.dashboardService.getVisits(this.params)
+    this.dashboardService.getVisits(params)
       .subscribe((res: ResponseResultModel) => {
         if (res.result) {
           const result: ChartModel = res.result;

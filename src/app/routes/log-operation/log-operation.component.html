@@ -39,20 +39,20 @@
                 [(nzPageSize)]="pageSize"
                 (nzPageIndexChange)="findAllByParam()"
                 (nzPageSizeChange)="findAllByParam()">
-                <thead nzSingleSort>
+                <thead>
                 <tr>
-                    <th nzShowSort [(nzSort)]="sortMap.requestPath" (nzSortChange)="sort('requestPath', $event)">来源路径
+                    <th nzShowSort [(nzSortOrder)]="sortMap.requestPath" (nzSortChange)="sort('requestPath', $event)">来源路径
                     </th>
-                    <th nzShowSort [(nzSort)]="sortMap.operationValue" (nzSortChange)="sort('operationValue', $event)">
+                    <th nzShowSort [(nzSortOrder)]="sortMap.operationValue" (nzSortChange)="sort('operationValue', $event)">
                         操作名称
                     </th>
-                    <!--<th nzShowSort [(nzSort)]="sortMap.operation_notes" (nzSortChange)="sort('operation_notes', $event)">操作描述</th>-->
-                    <!--<th nzShowSort [(nzSort)]="sortMap.method" (nzSortChange)="sort('method', $event)">方法</th>-->
-                    <th nzShowSort [(nzSort)]="sortMap.status" (nzSortChange)="sort('status', $event)"><span>状态</span>
+                    <!--<th nzShowSort [(nzSortOrder)]="sortMap.operation_notes" (nzSortChange)="sort('operation_notes', $event)">操作描述</th>-->
+                    <!--<th nzShowSort [(nzSortOrder)]="sortMap.method" (nzSortChange)="sort('method', $event)">方法</th>-->
+                    <th nzShowSort [(nzSortOrder)]="sortMap.status" (nzSortChange)="sort('status', $event)"><span>状态</span>
                     </th>
-                    <th nzShowSort [(nzSort)]="sortMap.startTime" (nzSortChange)="sort('startTime', $event)">
+                    <th nzShowSort [(nzSortOrder)]="sortMap.startTime" (nzSortChange)="sort('startTime', $event)">
                         <span>开始时间</span></th>
-                    <th nzShowSort [(nzSort)]="sortMap.endTime" (nzSortChange)="sort('endTime', $event)">
+                    <th nzShowSort [(nzSortOrder)]="sortMap.endTime" (nzSortChange)="sort('endTime', $event)">
                         <span>结束时间</span></th>
                     <th><span>操作</span></th>
                 </tr>
