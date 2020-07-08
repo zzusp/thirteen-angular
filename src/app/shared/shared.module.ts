@@ -24,6 +24,7 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzTimePickerModule } from 'ng-zorro-antd/time-picker';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
+import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 
 import { RouterModule } from '@angular/router';
@@ -65,6 +66,7 @@ const THIRD_MODULES = [
   NzTableModule,
   NzTimePickerModule,
   NzTreeModule,
+  NzTreeSelectModule,
   NzUploadModule,
   /** 导入 ngx-echarts 模块 **/
   NgxEchartsModule,
