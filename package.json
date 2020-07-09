@@ -10,7 +10,7 @@
     "build-test": "ng build --prod --configuration=test --build-optimizer",
     "build-test-base": "ng build --base-href ./ --prod --configuration=test --build-optimizer",
     "build-stats-json": "ng build --prod --configuration=production --build-optimizer --stats-json",
-    "bundle-report": "webpack-bundle-analyzer dist/thirteen-angular/stats.json",
+    "bundle-report": "webpack-bundle-analyzer dist/stats.json",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
