@@ -16,7 +16,7 @@
                             <span class="folder-name">{{node.title}}</span>
                           </span>
                           <span *ngIf="node.isLeaf">
-                            <i nz-icon type="file"></i>
+                            <i nz-icon [nzType]="'file'"></i>
                             <span class="file-name">{{node.title}}</span>
                           </span>
                         </span>

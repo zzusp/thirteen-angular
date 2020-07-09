@@ -18,6 +18,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
@@ -60,6 +61,7 @@ const THIRD_MODULES = [
   NzLayoutModule,
   NzMessageModule,
   NzModalModule,
+  NzPopconfirmModule,
   NzRadioModule,
   NzSelectModule,
   NzSpinModule,
