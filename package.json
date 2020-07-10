@@ -11,7 +11,7 @@
     "build-prod-base": "ng build --prod --base-href ./ --configuration=production --aot --build-optimizer",
     "build-test": "ng build --prod --configuration=test --build-optimizer",
     "build-test-base": "ng build --base-href ./ --prod --configuration=test --build-optimizer",
-    "build-jenkins": "ng build --base-href ./ --configuration=jenkins",
+    "build-jenkins": "ng build --configuration=jenkins",
     "build-stats-json": "ng build --prod --configuration=production --build-optimizer --stats-json",
     "bundle-report": "webpack-bundle-analyzer dist/stats.json",
     "test": "ng test",
