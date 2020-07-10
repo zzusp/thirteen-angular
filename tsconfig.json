@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
-    "sourceMap": true,  // false加快92%时编译速度
+    "sourceMap": false,  // false加快92%时编译速度
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
