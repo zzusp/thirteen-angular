@@ -58,10 +58,10 @@
                                                    required
                                                    nz-input
                                                    placeholder="请输入">
-                                            <nz-form-explain
+                                            <ng-container
                                                 *ngIf="editForm.get('name').dirty && editForm.get('name').hasError('required')">
                                                 姓名不可为空
-                                            </nz-form-explain>
+                                            </ng-container>
                                         </nz-form-control>
                                     </nz-form-item>
                                     <nz-form-item>
@@ -71,10 +71,10 @@
                                                 <nz-option *ngFor="let opt of genders" [nzValue]="opt.code"
                                                            [nzLabel]="opt.name"></nz-option>
                                             </nz-select>
-                                            <nz-form-explain
+                                            <ng-container
                                                 *ngIf="editForm.get('gender').dirty && editForm.get('gender').hasError('required')">
                                                 性别不可为空
-                                            </nz-form-explain>
+                                            </ng-container>
                                         </nz-form-control>
                                     </nz-form-item>
                                     <nz-form-item>
@@ -86,10 +86,10 @@
                                                    required
                                                    nz-input
                                                    placeholder="请输入">
-                                            <nz-form-explain
+                                            <ng-container
                                                 *ngIf="editForm.get('mobile').dirty && editForm.get('mobile').hasError('required')">
                                                 手机不可为空
-                                            </nz-form-explain>
+                                            </ng-container>
                                         </nz-form-control>
                                     </nz-form-item>
                                     <nz-form-item>
@@ -101,14 +101,14 @@
                                                    required
                                                    nz-input
                                                    placeholder="请输入">
-                                            <nz-form-explain
+                                            <ng-container
                                                 *ngIf="editForm.get('email').dirty && editForm.get('email').hasError('required')">
                                                 邮箱不可为空
-                                            </nz-form-explain>
-                                            <nz-form-explain
+                                            </ng-container>
+                                            <ng-container
                                                 *ngIf="editForm.get('email').dirty && editForm.get('email').hasError('email')">
                                                 邮箱格式有误
-                                            </nz-form-explain>
+                                            </ng-container>
                                         </nz-form-control>
                                     </nz-form-item>
                                     <nz-form-item>
@@ -117,9 +117,9 @@
                                         <textarea name="remark" formControlName="remark" nz-input
                                                   [nzAutosize]="{ minRows: 4, maxRows: 6 }"
                                                   placeholder="请用少于250字符描述您自己"></textarea>
-                                            <nz-form-explain *ngIf="editForm.get('remark').hasError('maxlength')">
+                                            <ng-container *ngIf="editForm.get('remark').hasError('maxlength')">
                                                 最多250个字符
-                                            </nz-form-explain>
+                                            </ng-container>
                                         </nz-form-control>
                                     </nz-form-item>
                                 </div>

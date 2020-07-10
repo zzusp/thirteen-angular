@@ -35,7 +35,7 @@ import { TreeTableColumnModel } from '../models/tree-table-columns.model';
                    [checked]="treeTable.isChecked(row) && treeTable.checkable(row)"
                    [disabled]="!treeTable.checkable(row)">
             <span class="tree-table-row-icon"
-                  [class]="treeTable.getCheckedIcon(row, config)"></span>
+                  [class]="treeTable.getCheckedIcon(row)"></span>
           </label>
         </div>
       </td>

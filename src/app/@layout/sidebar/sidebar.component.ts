@@ -33,7 +33,7 @@ export class SidebarComponent implements OnInit {
   /** 布局数据 */
   @Input() data: LayoutData;
 
-  constructor(protected sidebarService: SidebarService) {
+  constructor(public sidebarService: SidebarService) {
   }
 
   ngOnInit() {

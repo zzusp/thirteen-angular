@@ -9,6 +9,7 @@ import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
@@ -52,6 +53,7 @@ const THIRD_MODULES = [
   NzBreadCrumbModule,
   NzButtonModule,
   NzCardModule,
+  NzCheckboxModule,
   NzDatePickerModule,
   NzDividerModule,
   NzDropDownModule,

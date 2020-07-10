@@ -15,7 +15,7 @@ export class SidebarMenuComponent implements OnInit {
   /** 菜单数据 */
   @Input() menuData: SidebarMenuInfo[];
 
-  constructor(protected sidebarService: SidebarService) {
+  constructor(public sidebarService: SidebarService) {
   }
 
   ngOnInit() {

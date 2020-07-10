@@ -7,30 +7,35 @@
             </ng-template>
             <div class="login-form">
                 <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()" role="form">
-                    <div nz-form-item class="login-form-item">
-                        <div nz-form-control>
-                            <nz-input-group nzPrefixIcon="anticon anticon-user">
+                    <nz-form-item class="login-form-item">
+                        <nz-form-control [nzErrorTip]="accountErrorTip">
+                            <nz-input-group [nzPrefixIcon]="'user'">
                                 <input nz-input formControlName="account" placeholder="账号" [nzSize]="'large'"
                                        (keyup)="onkeyupBreak()">
                             </nz-input-group>
-                            <nz-form-explain
-                                *ngIf="validateForm.get('account').dirty&&validateForm.get('account').hasError('required')">
-                                账号必填
-                            </nz-form-explain>
-                        </div>
-                    </div>
-                    <div nz-form-item class="login-form-item">
-                        <div nz-form-control>
-                            <nz-input-group nzPrefixIcon="anticon anticon-lock">
+                            <ng-template #accountErrorTip let-control>
+                                <ng-container *ngIf="control.hasError('maxlength')">账号长度不能大于50</ng-container>
+                                <ng-container *ngIf="control.hasError('minlength')">账号长度不能小于3</ng-container>
+                                <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                    账号必填
+                                </ng-container>
+                            </ng-template>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item class="login-form-item">
+                        <nz-form-control [nzErrorTip]="passwordErrorTip">
+                            <nz-input-group nzPrefixIcon="lock">
                                 <input nz-input formControlName="password" placeHolder="密码" type="password"
                                        [nzSize]="'large'" (keyup)="onkeyupBreak()">
                             </nz-input-group>
-                            <nz-form-explain
-                                *ngIf="validateForm.get('password').dirty&&validateForm.get('password').hasError('required')">
-                                密码必填
-                            </nz-form-explain>
-                        </div>
-                    </div>
+                            <ng-template #passwordErrorTip let-control>
+                                <ng-container
+                                    *ngIf="control.dirty && control.hasError('required')">
+                                    密码必填
+                                </ng-container>
+                            </ng-template>
+                        </nz-form-control>
+                    </nz-form-item>
                     <div nz-form-item nz-row class="login-form-item">
                         <div nz-col [nzSpan]="12">
                             <label nz-checkbox formControlName="rememberMe">
