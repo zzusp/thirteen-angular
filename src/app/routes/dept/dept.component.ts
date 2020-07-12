@@ -31,7 +31,7 @@ export class DeptComponent implements OnInit {
   /**
    * 操作
    */
-  @ViewChild('rowAction', {read: TemplateRef}) rowAction: TemplateRef<any>;
+  @ViewChild('rowAction', {read: TemplateRef, static: true}) rowAction: TemplateRef<any>;
   /** 页面权限校验  */
   perms = {
     save: false,

@@ -1,6 +1,6 @@
-# Angular6
+# Angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli).
 
 ## Development server
 
@@ -27,7 +27,16 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
 ## angular更新
-
+```text
 npm uninstall -g @angular/cli
-npm cache verify
+
+npm cache verify --force
+
 npm install -g @angular/cli
+
+npm cache clean --force
+
+npm install --force
+
+E:\software\nodejs\node_global\cnpm install
+```

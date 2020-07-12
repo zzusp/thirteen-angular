@@ -6,7 +6,7 @@
                 <input type="hidden" name="version" formControlName="version"/>
                 <nz-form-item>
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>部门</nz-form-label>
-                    <nz-form-control formGroupName="dept" [nzSm]="14" [nzXs]="24">
+                    <nz-form-control formGroupName="dept" [nzSm]="14" [nzXs]="24" [nzErrorTip]="deptTip">
                         <nz-tree-select
                             formControlName="code"
                             [nzNodes]="depts"
@@ -15,85 +15,92 @@
                             nzShowSearch
                             nzPlaceHolder="请选择">
                         </nz-tree-select>
-                        <ng-container
-                            *ngIf="editForm.get('dept.code').dirty && editForm.get('dept.code').hasError('required')">
-                            部门不可为空
-                        </ng-container>
+                        <ng-template #deptTip let-control>
+                            <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                部门不可为空
+                            </ng-container>
+                        </ng-template>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>组织</nz-form-label>
-                    <nz-form-control formGroupName="group" [nzSm]="14" [nzXs]="24">
+                    <nz-form-control formGroupName="group" [nzSm]="14" [nzXs]="24" [nzErrorTip]="groupTip">
                         <nz-tree-select
                             formControlName="code"
                             [nzNodes]="groups"
                             [nzAllowClear]="true"
                             [nzDefaultExpandAll]="true"
-                            (ngModelChange)="groupChange($event)"
                             nzShowSearch
                             nzPlaceHolder="请选择">
                         </nz-tree-select>
-                        <ng-container
-                            *ngIf="editForm.get('group.code').dirty && editForm.get('group.code').hasError('required')">
-                            组织不可为空
-                        </ng-container>
+                        <ng-template #groupTip let-control>
+                            <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                组织不可为空
+                            </ng-container>
+                        </ng-template>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>编码</nz-form-label>
-                    <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="codeTip">
                         <input type="text"
                                name="code"
                                formControlName="code"
                                required
                                nz-input
                                placeholder="请输入">
-                        <ng-container
-                            *ngIf="editForm.get('code').dirty && editForm.get('code').hasError('required')">编码不可为空
-                        </ng-container>
-                        <ng-container *ngIf="editForm.get('code').hasError('minlength')">编码长度最少为3个字符
-                        </ng-container>
-                        <ng-container *ngIf="editForm.get('code').hasError('maxlength')">编码长度最多为20个字符
-                        </ng-container>
-                        <ng-container *ngIf="editForm.get('code').hasError('existing')">编码已存在</ng-container>
+                        <ng-template #codeTip let-control>
+                            <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                编码不可为空
+                            </ng-container>
+                            <ng-container *ngIf="control.hasError('minlength')">编码长度最少为3个字符
+                            </ng-container>
+                            <ng-container *ngIf="control.hasError('maxlength')">编码长度最多为20个字符
+                            </ng-container>
+                            <ng-container *ngIf="control.hasError('existing')">编码已存在</ng-container>
+                        </ng-template>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>账号</nz-form-label>
-                    <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="accountTip">
                         <input type="text"
                                name="account"
                                formControlName="account"
                                required
                                nz-input
                                placeholder="请输入">
-                        <ng-container
-                            *ngIf="editForm.get('account').dirty && editForm.get('account').hasError('required')">账号不可为空
-                        </ng-container>
-                        <ng-container *ngIf="editForm.get('account').hasError('minlength')">账号长度最少为3个字符
-                        </ng-container>
-                        <ng-container *ngIf="editForm.get('account').hasError('maxlength')">账号长度最多为20个字符
-                        </ng-container>
-                        <ng-container *ngIf="editForm.get('account').hasError('existing')">账号已存在</ng-container>
+                        <ng-template #accountTip let-control>
+                            <ng-template #accountTip let-control>
+                                <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                    账号必填
+                                </ng-container>
+                                <ng-container *ngIf="control.hasError('maxlength')">账号长度不能大于50</ng-container>
+                                <ng-container *ngIf="control.hasError('minlength')">账号长度不能小于3</ng-container>
+                                <ng-container *ngIf="control.hasError('existing')">账号已存在</ng-container>
+                            </ng-template>
+                        </ng-template>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>姓名</nz-form-label>
-                    <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="nameTip">
                         <input type="text"
                                name="name"
                                formControlName="name"
                                required
                                nz-input
                                placeholder="请输入">
-                        <ng-container
-                            *ngIf="editForm.get('name').dirty && editForm.get('name').hasError('required')">姓名不可为空
-                        </ng-container>
+                        <ng-template #nameTip let-control>
+                            <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                姓名不可为空
+                            </ng-container>
+                        </ng-template>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>性别</nz-form-label>
-                    <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="genderTip">
                         <nz-select formControlName="gender" nzPlaceHolder="请选择" nzAllowClear>
                             <nz-option *ngFor="let opt of genders" [nzValue]="opt.code"
                                        [nzLabel]="opt.name"></nz-option>
@@ -108,66 +115,76 @@
                         <!--required-->
                         <!--nz-input-->
                         <!--placeholder="请输入">-->
-                        <ng-container
-                            *ngIf="editForm.get('gender').dirty && editForm.get('gender').hasError('required')">性别不可为空
-                        </ng-container>
+                        <ng-template #genderTip let-control>
+                            <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                性别不可为空
+                            </ng-container>
+                        </ng-template>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>手机</nz-form-label>
-                    <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="mobileTip">
                         <input type="text"
                                name="mobile"
                                formControlName="mobile"
                                required
                                nz-input
                                placeholder="请输入">
-                        <ng-container
-                            *ngIf="editForm.get('mobile').dirty && editForm.get('mobile').hasError('required')">手机不可为空
-                        </ng-container>
+                        <ng-template #mobileTip let-control>
+                            <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                手机不可为空
+                            </ng-container>
+                        </ng-template>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>邮箱</nz-form-label>
-                    <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="emailTip">
                         <input type="text"
                                name="email"
                                formControlName="email"
                                required
                                nz-input
                                placeholder="请输入">
-                        <ng-container
-                            *ngIf="editForm.get('email').dirty && editForm.get('email').hasError('required')">邮箱不可为空
-                        </ng-container>
-                        <ng-container *ngIf="editForm.get('email').dirty && editForm.get('email').hasError('email')">
-                            邮箱格式有误
-                        </ng-container>
+                        <ng-template #emailTip let-control>
+                            <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                邮箱不可为空
+                            </ng-container>
+                            <ng-container *ngIf="control.dirty && control.hasError('email')">
+                                邮箱格式有误
+                            </ng-container>
+                        </ng-template>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>头像</nz-form-label>
-                    <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="photoTip">
                         <input type="text"
                                name="photo"
                                formControlName="photo"
                                required
                                nz-input
                                placeholder="请输入">
-                        <ng-container
-                            *ngIf="editForm.get('photo').dirty && editForm.get('photo').hasError('required')">头像不可为空
-                        </ng-container>
+                        <ng-template #photoTip let-control>
+                            <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                头像不可为空
+                            </ng-container>
+                        </ng-template>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>状态</nz-form-label>
-                    <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="activeTip">
                         <nz-radio-group formControlName="active">
                             <label nz-radio nzValue="1">启用</label>
                             <label nz-radio nzValue="0">禁用</label>
                         </nz-radio-group>
-                        <ng-container
-                            *ngIf="editForm.get('active').dirty && editForm.get('active').hasError('required')">状态不可为空
-                        </ng-container>
+                        <ng-template #activeTip let-control>
+                            <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                状态不可为空
+                            </ng-container>
+                        </ng-template>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
@@ -185,10 +202,12 @@
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label [nzSm]="6" [nzXs]="24">备注</nz-form-label>
-                    <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="remarkTip">
                         <textarea name="remark" formControlName="remark" nz-input
                                   [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
-                        <ng-container *ngIf="editForm.get('remark').hasError('maxlength')">最多250个字符</ng-container>
+                        <ng-template #remarkTip let-control>
+                            <ng-container *ngIf="control.hasError('maxlength')">最多250个字符</ng-container>
+                        </ng-template>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>

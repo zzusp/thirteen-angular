@@ -8,12 +8,12 @@
             <div class="login-form">
                 <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()" role="form">
                     <nz-form-item class="login-form-item">
-                        <nz-form-control [nzErrorTip]="accountErrorTip">
+                        <nz-form-control [nzErrorTip]="accountTip">
                             <nz-input-group [nzPrefixIcon]="'user'">
                                 <input nz-input formControlName="account" placeholder="账号" [nzSize]="'large'"
                                        (keyup)="onkeyupBreak()">
                             </nz-input-group>
-                            <ng-template #accountErrorTip let-control>
+                            <ng-template #accountTip let-control>
                                 <ng-container *ngIf="control.hasError('maxlength')">账号长度不能大于50</ng-container>
                                 <ng-container *ngIf="control.hasError('minlength')">账号长度不能小于3</ng-container>
                                 <ng-container *ngIf="control.dirty && control.hasError('required')">
@@ -23,14 +23,13 @@
                         </nz-form-control>
                     </nz-form-item>
                     <nz-form-item class="login-form-item">
-                        <nz-form-control [nzErrorTip]="passwordErrorTip">
+                        <nz-form-control [nzErrorTip]="passwordTip">
                             <nz-input-group nzPrefixIcon="lock">
                                 <input nz-input formControlName="password" placeHolder="密码" type="password"
                                        [nzSize]="'large'" (keyup)="onkeyupBreak()">
                             </nz-input-group>
-                            <ng-template #passwordErrorTip let-control>
-                                <ng-container
-                                    *ngIf="control.dirty && control.hasError('required')">
+                            <ng-template #passwordTip let-control>
+                                <ng-container *ngIf="control.dirty && control.hasError('required')">
                                     密码必填
                                 </ng-container>
                             </ng-template>

@@ -19,8 +19,9 @@
         <li *ngIf="menu?.group" nz-menu-group>
             <span title>{{menu.name}}</span>
         </li>
-        <li *ngIf="!menu?.group && !sidebarService.hasChildren(menu)"
-            [class]="{'ant-menu-item-selected': sidebarService.isActive(getUrl(menu))}" nz-menu-item>
+        <li nz-menu-item
+            *ngIf="!menu?.group && !sidebarService.hasChildren(menu)"
+            [nzSelected]="sidebarService.isActive(getUrl(menu))">
             <a [routerLink]="getUrl(menu)" (click)="onClick($event)">
                 <span>
                     <i nz-icon [nzType]="menu?.icon" [nzTheme]="'outline'"></i>
@@ -28,7 +29,9 @@
                 </span>
             </a>
         </li>
-        <li *ngIf="sidebarService.hasChildren(menu)" [nzOpen]="sidebarService.isOpen(menu)" nz-submenu>
+        <li nz-submenu
+            *ngIf="sidebarService.hasChildren(menu)"
+            [nzOpen]="sidebarService.isOpen(menu)">
         <span title>
             <i nz-icon [nzType]="menu?.icon" [nzTheme]="'outline'"></i>
             <span class="nav-text">{{menu.name}}</span>

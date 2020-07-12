@@ -3,7 +3,7 @@
         <span title>{{menu.name}}</span>
     </li>
     <li *ngIf="!menu?.group && !sidebarService.hasChildren(menu)"
-        [class]="{'ant-menu-item-selected': sidebarService.isActive(getUrl(menu))}" nz-menu-item>
+        [nzSelected]="sidebarService.isActive(getUrl(menu))" nz-menu-item>
         <a [routerLink]="getUrl(menu)" (click)="onClick($event)">
                 <span>
                     <i nz-icon [nzType]="menu?.icon" [nzTheme]="'outline'"></i>

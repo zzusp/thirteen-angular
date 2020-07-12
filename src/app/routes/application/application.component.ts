@@ -33,7 +33,7 @@ export class ApplicationComponent implements OnInit {
   /** 图标 */
   @ViewChild('rowIcon', {read: TemplateRef}) rowIcon: TemplateRef<any>;
   /** 操作 */
-  @ViewChild('rowAction', {read: TemplateRef}) rowAction: TemplateRef<any>;
+  @ViewChild('rowAction', {read: TemplateRef, static: true}) rowAction: TemplateRef<any>;
   /** 页面权限校验 */
   perms = {
     save: false,

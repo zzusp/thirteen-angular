@@ -1,39 +1,13 @@
 import { BaseTreeSortModel } from '../model/base-tree-sort.model';
 import { GlobalConstants } from '../constant/GlobalConstants';
+import { NzTreeNodeOptions } from 'ng-zorro-antd';
 
 /**
  * tree-table节点
  */
-export interface TreeNode {
-
-  /** 标题 */
-  title: string;
-
-  /**
-   * 标识
-   */
-  key: string;
-
-  /**
-   * 层级
-   */
+export interface TreeNode extends NzTreeNodeOptions {
+  /** 层级 */
   level: number;
-
-  /**
-   * 是否展开
-   */
-  expanded?: boolean;
-
-  /**
-   * 是否为叶节点
-   */
-  isLeaf?: boolean;
-
-  /**
-   * 子节点
-   */
-  children?: TreeNode[];
-
 }
 
 /**

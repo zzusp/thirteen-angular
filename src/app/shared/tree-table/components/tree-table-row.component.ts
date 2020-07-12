@@ -22,7 +22,7 @@ import { TreeTableColumnModel } from '../models/tree-table-columns.model';
 @Component({
   selector: 'app-tree-table-row, [app-tree-table-row]',
   template: `
-    <tr #rowElement [class]="{'active':  treeTable.selectableAll(config) 
+    <tr #rowElement [ngClass]="{'active':  treeTable.selectableAll(config) 
           && treeTable.selectable(row)
            && treeTable.isSelected(row)}"
         (click)="rowSelectedChange($event)">
@@ -35,7 +35,7 @@ import { TreeTableColumnModel } from '../models/tree-table-columns.model';
                    [checked]="treeTable.isChecked(row) && treeTable.checkable(row)"
                    [disabled]="!treeTable.checkable(row)">
             <span class="tree-table-row-icon"
-                  [class]="treeTable.getCheckedIcon(row)"></span>
+                  [ngClass]="treeTable.getCheckedIcon(row)"></span>
           </label>
         </div>
       </td>
@@ -59,8 +59,7 @@ import { TreeTableColumnModel } from '../models/tree-table-columns.model';
         [parentIndex]="index"
         [level]="level + 1"
         (checkedState)="subCheckedChange($event)"
-        [isLast]="last"
-        (ngforFinish)="lazyRender($event)">
+        [isLast]="last">
       </app-tree-table-row>
     </ng-container>
   `,
@@ -91,10 +90,7 @@ export class TreeTableRowComponent implements OnInit, AfterViewInit, DoCheck, On
   }
 
   /*
-  * 注：angular中不推荐去除自定义标签，暂无第二种解决方案替代
-  * */
-
-  /**
+   * 注：angular中不推荐去除自定义标签，暂无第二种解决方案替代
    * wait for the component to render completely
    */
   ngOnInit() {
@@ -130,9 +126,7 @@ export class TreeTableRowComponent implements OnInit, AfterViewInit, DoCheck, On
   }
 
   ngAfterViewInit(): void {
-    /**
-     * 初始化
-     */
+    // 初始化
     setTimeout(() => {
       // 初始化展开状态
       if (this.config.lazy) {
@@ -225,17 +219,6 @@ export class TreeTableRowComponent implements OnInit, AfterViewInit, DoCheck, On
       setTimeout(() => {
         this.checkedState.emit(this.row.checked);
       });
-    }
-  }
-
-  /**
-   * 懒加载下级节点渲染完成事件
-   *
-   * @param $event
-   */
-  lazyRender($event: boolean): void {
-    if (this.config.lazy) {
-      this.config.onLazyRender(this.row, $event);
     }
   }
 

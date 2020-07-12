@@ -51,75 +51,80 @@
                                     </nz-form-item>
                                     <nz-form-item>
                                         <nz-form-label nzRequired>姓名</nz-form-label>
-                                        <nz-form-control>
+                                        <nz-form-control [nzErrorTip]="nameTip">
                                             <input type="text"
                                                    name="name"
                                                    formControlName="name"
                                                    required
                                                    nz-input
                                                    placeholder="请输入">
-                                            <ng-container
-                                                *ngIf="editForm.get('name').dirty && editForm.get('name').hasError('required')">
-                                                姓名不可为空
-                                            </ng-container>
+                                            <ng-template #nameTip let-control>
+                                                <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                                    姓名不可为空
+                                                </ng-container>
+                                            </ng-template>
                                         </nz-form-control>
                                     </nz-form-item>
                                     <nz-form-item>
                                         <nz-form-label nzRequired>性别</nz-form-label>
-                                        <nz-form-control>
+                                        <nz-form-control [nzErrorTip]="genderTip">
                                             <nz-select formControlName="gender" nzPlaceHolder="请选择" nzAllowClear>
                                                 <nz-option *ngFor="let opt of genders" [nzValue]="opt.code"
                                                            [nzLabel]="opt.name"></nz-option>
                                             </nz-select>
-                                            <ng-container
-                                                *ngIf="editForm.get('gender').dirty && editForm.get('gender').hasError('required')">
-                                                性别不可为空
-                                            </ng-container>
+                                            <ng-template #genderTip let-control>
+                                                <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                                    性别不可为空
+                                                </ng-container>
+                                            </ng-template>
                                         </nz-form-control>
                                     </nz-form-item>
                                     <nz-form-item>
                                         <nz-form-label nzRequired>手机</nz-form-label>
-                                        <nz-form-control>
+                                        <nz-form-control [nzErrorTip]="mobileTip">
                                             <input type="text"
                                                    name="mobile"
                                                    formControlName="mobile"
                                                    required
                                                    nz-input
                                                    placeholder="请输入">
-                                            <ng-container
-                                                *ngIf="editForm.get('mobile').dirty && editForm.get('mobile').hasError('required')">
-                                                手机不可为空
-                                            </ng-container>
+                                            <ng-template #mobileTip let-control>
+                                                <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                                    手机不可为空
+                                                </ng-container>
+                                            </ng-template>
                                         </nz-form-control>
                                     </nz-form-item>
                                     <nz-form-item>
                                         <nz-form-label nzRequired>邮箱</nz-form-label>
-                                        <nz-form-control>
+                                        <nz-form-control [nzErrorTip]="emailTip">
                                             <input type="text"
                                                    name="email"
                                                    formControlName="email"
                                                    required
                                                    nz-input
                                                    placeholder="请输入">
-                                            <ng-container
-                                                *ngIf="editForm.get('email').dirty && editForm.get('email').hasError('required')">
-                                                邮箱不可为空
-                                            </ng-container>
-                                            <ng-container
-                                                *ngIf="editForm.get('email').dirty && editForm.get('email').hasError('email')">
-                                                邮箱格式有误
-                                            </ng-container>
+                                            <ng-template #emailTip let-control>
+                                                <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                                    邮箱不可为空
+                                                </ng-container>
+                                                <ng-container *ngIf="control.dirty && control.hasError('email')">
+                                                    邮箱格式有误
+                                                </ng-container>
+                                            </ng-template>
                                         </nz-form-control>
                                     </nz-form-item>
                                     <nz-form-item>
                                         <nz-form-label>简介</nz-form-label>
-                                        <nz-form-control>
+                                        <nz-form-control [nzErrorTip]="remarkTip">
                                         <textarea name="remark" formControlName="remark" nz-input
                                                   [nzAutosize]="{ minRows: 4, maxRows: 6 }"
                                                   placeholder="请用少于250字符描述您自己"></textarea>
-                                            <ng-container *ngIf="editForm.get('remark').hasError('maxlength')">
-                                                最多250个字符
-                                            </ng-container>
+                                            <ng-template #remarkTip let-control>
+                                                <ng-container *ngIf="control.hasError('maxlength')">
+                                                    最多250个字符
+                                                </ng-container>
+                                            </ng-template>
                                         </nz-form-control>
                                     </nz-form-item>
                                 </div>

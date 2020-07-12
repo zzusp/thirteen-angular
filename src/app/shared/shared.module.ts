@@ -25,6 +25,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzTimePickerModule } from 'ng-zorro-antd/time-picker';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
@@ -36,6 +37,13 @@ import zh from '@angular/common/locales/zh';
 import { IconDefinition } from '@ant-design/icons-angular';
 /** 引入你需要的图标，比如你需要 fill 主题的 AccountBook Alert 和 outline 主题的 Alert，推荐 ✔️ **/
 import { AlertOutline } from '@ant-design/icons-angular/icons';
+
+/**
+ * This will import all modules from echarts.
+ * If you only need custom modules,
+ * please refer to [Custom Build] section.
+ */
+import * as echarts from 'echarts';
 import { NgxEchartsModule } from 'ngx-echarts';
 import 'echarts/theme/macarons.js';
 import '../../assets/js/echarts/theme/walden.js';
@@ -69,11 +77,10 @@ const THIRD_MODULES = [
   NzSpinModule,
   NzTableModule,
   NzTimePickerModule,
+  NzToolTipModule,
   NzTreeModule,
   NzTreeSelectModule,
   NzUploadModule,
-  /** 导入 ngx-echarts 模块 **/
-  NgxEchartsModule,
   /** 导入 tree-table 模块 **/
   TreeTableModule
 ];
@@ -96,6 +103,10 @@ const SHARED_DORECTOVES = [];
     FormsModule,
     RouterModule,
     ReactiveFormsModule,
+    /** 导入 ngx-echarts 模块 **/
+    NgxEchartsModule.forRoot({
+      echarts
+    }),
     /** 导入第三方模块 **/
     ...THIRD_MODULES
   ],
@@ -113,6 +124,8 @@ const SHARED_DORECTOVES = [];
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+    /** 导入 ngx-echarts 模块 **/
+    NgxEchartsModule,
     /** third libs **/
     ...THIRD_MODULES,
     /** 公共指令 **/

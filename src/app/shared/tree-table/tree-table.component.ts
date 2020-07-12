@@ -15,7 +15,7 @@ import { TreeTableService } from './services/tree-table.service';
             <label>
               <input type="checkbox" [checked]="checked">
               <span class="fa fa-fw"
-                    [class]="isAllChildrenChecked() ? 'fa-check' : 'fa-minus'"
+                    [ngClass]="isAllChildrenChecked() ? 'fa-check' : 'fa-minus'"
                     (click)="checkedChange($event)"></span>
             </label>
           </div>
@@ -36,8 +36,7 @@ import { TreeTableService } from './services/tree-table.service';
           [parentIndex]="0"
           [level]="0"
           (checkedState)="subCheckedChange($event)"
-          [isLast]="last"
-          (ngforFinish)="lazyRender($event)">
+          [isLast]="last">
         </app-tree-table-row>
       </ng-container>
       </tbody>

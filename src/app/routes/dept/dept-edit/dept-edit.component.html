@@ -18,76 +18,85 @@
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>编码</nz-form-label>
-                    <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="codeTip">
                         <input type="text"
                                name="code"
                                formControlName="code"
                                required
                                nz-input
                                placeholder="请输入">
-                        <ng-container
-                            *ngIf="editForm.get('code').dirty && editForm.get('code').hasError('required')">编码不可为空
-                        </ng-container>
-                        <ng-container *ngIf="editForm.get('code').hasError('minlength')">编码长度最少为3个字符
-                        </ng-container>
-                        <ng-container *ngIf="editForm.get('code').hasError('maxlength')">编码长度最多为20个字符
-                        </ng-container>
-                        <ng-container *ngIf="editForm.get('code').hasError('existing')">编码已存在</ng-container>
+                        <ng-template #codeTip let-control>
+                            <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                编码不可为空
+                            </ng-container>
+                            <ng-container *ngIf="control.hasError('minlength')">编码长度最少为3个字符
+                            </ng-container>
+                            <ng-container *ngIf="control.hasError('maxlength')">编码长度最多为20个字符
+                            </ng-container>
+                            <ng-container *ngIf="control.hasError('existing')">编码已存在</ng-container>
+                        </ng-template>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>名称</nz-form-label>
-                    <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="nameTip">
                         <input type="text"
                                name="name"
                                formControlName="name"
                                required
                                nz-input
                                placeholder="请输入">
-                        <ng-container
-                            *ngIf="editForm.get('name').dirty && editForm.get('name').hasError('required')">名称不可为空
-                        </ng-container>
+                        <ng-template #nameTip let-control>
+                            <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                名称不可为空
+                            </ng-container>
+                        </ng-template>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>简称</nz-form-label>
-                    <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="shortNameTip">
                         <input type="text"
                                name="shortName"
                                formControlName="shortName"
                                required
                                nz-input
                                placeholder="请输入">
-                        <ng-container
-                            *ngIf="editForm.get('shortName').dirty && editForm.get('shortName').hasError('required')">
-                            简称不可为空
-                        </ng-container>
+                        <ng-template #shortNameTip let-control>
+                            <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                简称不可为空
+                            </ng-container>
+                        </ng-template>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>排序</nz-form-label>
-                    <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="sortTip">
                         <input type="text"
                                name="sort"
                                formControlName="sort"
                                required
                                nz-input
                                placeholder="请输入">
-                        <ng-container
-                            *ngIf="editForm.get('sort').dirty && editForm.get('sort').hasError('required')">排序不可为空
-                        </ng-container>
+                        <ng-template #sortTip let-control>
+                            <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                排序不可为空
+                            </ng-container>
+                        </ng-template>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>状态</nz-form-label>
-                    <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="activeTip">
                         <nz-radio-group formControlName="active">
                             <label nz-radio nzValue="1">启用</label>
                             <label nz-radio nzValue="0">禁用</label>
                         </nz-radio-group>
-                        <ng-container
-                            *ngIf="editForm.get('active').dirty && editForm.get('active').hasError('required')">状态不可为空
-                        </ng-container>
+                        <ng-template #activeTip let-control>
+                            <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                状态不可为空
+                            </ng-container>
+                        </ng-template>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
@@ -101,10 +110,12 @@
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label [nzSm]="6" [nzXs]="24">备注</nz-form-label>
-                    <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="remarkTip">
                         <textarea name="remark" formControlName="remark" nz-input
                                   [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
-                        <ng-container *ngIf="editForm.get('remark').hasError('maxlength')">最多250个字符</ng-container>
+                        <ng-template #remarkTip let-control>
+                            <ng-container *ngIf="control.hasError('maxlength')">最多250个字符</ng-container>
+                        </ng-template>
                     </nz-form-control>
                 </nz-form-item>
             </form>

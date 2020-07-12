@@ -23,8 +23,8 @@ import { SafeHtml } from '@angular/platform-browser';
       <!-- 缩进 -->
       <ng-container #indents></ng-container>
       <span *ngIf="treeTable.hasChildren(rowData) || 
-            (treeTable.isLazy(config) && !treeTable.isLeaf(rowData))"
-            [class]="treeTable.getConfigIcon(config, rowData)"
+            (treeTable.isLazy(config) && !lazyLoaded && !treeTable.isLeaf(rowData))"
+            [ngClass]="treeTable.getConfigIcon(config, rowData)"
             class="tree-table-row-icon"
             (click)="rowOpen($event)"></span>
     </label>
@@ -40,44 +40,33 @@ import { SafeHtml } from '@angular/platform-browser';
 export class TreeTableColumnComponent implements OnInit, AfterViewInit, OnDestroy {
   /** tree-table配置 */
   @Input() config: TreeTableConfigModel;
-  /**
-   * 列对象
-   */
+  /** 列对象 */
   @Input() column: TreeTableColumnModel;
-  /**
-   * 层级
-   */
+  /** 层级 */
   @Input() level: number;
-  /**
-   * 是否为第一列
-   */
+  /** 是否为第一列 */
   @Input() isFirst: boolean;
-  /**
-   * 行数据
-   */
+  /** 行数据 */
   @Input() rowData: TreeTableRowModel;
-  /**
-   * 添加模板的目标位置
-   */
-  @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
-  /**
-   * 添加缩进的目标位置
-   */
+  /** 添加模板的目标位置 */
+  @ViewChild('container', {read: ViewContainerRef, static: true}) container: ViewContainerRef;
+  /** 添加缩进的目标位置 */
   @ViewChild('indents', {read: ViewContainerRef}) indents: ViewContainerRef;
-  /**
-   * 缩进
-   */
+  /** 缩进 */
   @ViewChild('indent', {read: TemplateRef}) indent: TemplateRef<any>;
-  /**
-   * 安全的html内容
-   */
+  /** 安全的html内容 */
   safeHtml: SafeHtml;
   view: EmbeddedViewRef<any>;
+  /** 是否懒加载过 */
+  lazyLoaded: boolean;
 
   constructor(public treeTable: TreeTableService) {
   }
 
   ngOnInit() {
+    // 默认没有懒加载过
+    this.lazyLoaded = false;
+    // 判断该列是否为模板列
     if (this.column.template) {
       // 设置模板 $implicit let 模板语法，允许在生成上下文时定义和传递上下文 类似let-row=this.rowData
       this.view = this.container.createEmbeddedView(this.column.template, {
@@ -139,6 +128,11 @@ export class TreeTableColumnComponent implements OnInit, AfterViewInit, OnDestro
     if (this.rowData.open) {
       // 调用配置中的展开监听方法
       this.config.onExpanded(this.rowData);
+      if (this.config.lazy && !this.lazyLoaded) {
+        // 懒加载下级节点渲染完成事件
+        this.config.onLazyRender(this.rowData);
+        this.lazyLoaded = true;
+      }
     } else {
       // 调用配置中的折叠监听方法
       this.config.onCollapsed(this.rowData);

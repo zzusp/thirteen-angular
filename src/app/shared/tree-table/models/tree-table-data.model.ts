@@ -25,32 +25,18 @@ export class TreeTableDataModel {
  * tree-table行对象接口
  */
 export interface TreeTableRowModel {
-  /**
-   * 是否可选中行
-   */
+  /** 是否可选中行 */
   selectable?: boolean;
-  /**
-   * 是否可勾选
-   */
+  /** 是否可勾选 */
   checkable?: boolean;
-  /**
-   * 是否选中
-   */
+  /** 是否选中 */
   selected?: boolean;
-  /**
-   * 是否勾选
-   */
+  /** 是否勾选 */
   checked?: boolean;
-  /**
-   * 是否展开
-   */
+  /** 是否展开 */
   open?: boolean;
-  /**
-   * 是否叶节点
-   */
+  /** 是否叶节点 */
   leaf?: boolean;
-  /**
-   * 子节点
-   */
+  /** 子节点 */
   children?: TreeTableRowModel[];
 }
