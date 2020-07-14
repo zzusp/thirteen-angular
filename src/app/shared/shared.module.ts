@@ -43,7 +43,6 @@ import { AlertOutline } from '@ant-design/icons-angular/icons';
  * If you only need custom modules,
  * please refer to [Custom Build] section.
  */
-import * as echarts from 'echarts';
 import { NgxEchartsModule } from 'ngx-echarts';
 import 'echarts/theme/macarons.js';
 import '../../assets/js/echarts/theme/walden.js';
@@ -81,6 +80,8 @@ const THIRD_MODULES = [
   NzTreeModule,
   NzTreeSelectModule,
   NzUploadModule,
+  /** 导入 ngx-echarts 模块 **/
+  NgxEchartsModule,
   /** 导入 tree-table 模块 **/
   TreeTableModule
 ];
@@ -103,10 +104,6 @@ const SHARED_DORECTOVES = [];
     FormsModule,
     RouterModule,
     ReactiveFormsModule,
-    /** 导入 ngx-echarts 模块 **/
-    NgxEchartsModule.forRoot({
-      echarts
-    }),
     /** 导入第三方模块 **/
     ...THIRD_MODULES
   ],
@@ -124,8 +121,6 @@ const SHARED_DORECTOVES = [];
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    /** 导入 ngx-echarts 模块 **/
-    NgxEchartsModule,
     /** third libs **/
     ...THIRD_MODULES,
     /** 公共指令 **/

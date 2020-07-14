@@ -35,9 +35,9 @@
     "tslib": "^1.13.0",
     "zone.js": "~0.10.3",
     "core-js": "~3.6.5",
-    "echarts": "~4.8.0",
     "ng-zorro-antd": "~9.3.0",
-    "ngx-echarts": "^5.0.0"
+    "echarts": "^4.2.1",
+    "ngx-echarts": "^4.2.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.901.4",
