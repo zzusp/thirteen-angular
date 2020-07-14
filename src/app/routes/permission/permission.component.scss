@@ -1,19 +1,51 @@
 :host ::ng-deep .ant-tree {
   overflow: hidden;
   margin: 0 -24px;
-  padding: 0 24px;
+  padding: 0 12px;
 
-  li {
+  div {
     padding: 4px 0 0 0;
 
-    span.ant-tree-iconEle, span.ant-tree-switcher {
+    .ant-tree-iconEle, .ant-tree-switcher {
       width: 30px;
       height: 30px;
       line-height: 30px;
     }
 
-    &.ant-tree-treenode-selected > span {
+    .ant-tree-treenode {
+      width: 100%;
+      padding: 0 0 4px;
+      transition: all 0.1s;
+      border-radius: 2px;
+
+      &:hover {
+        background: #f5f5f5;
+      }
+    }
+
+    .ant-tree-treenode-selected {
+      background: #1890FF !important;
       color: #fff;
+
+      & > span, & > nz-tree-node-switcher {
+        color: #fff;
+      }
+
+      & > .ant-tree-node-selected {
+        background: #1890FF;
+      }
+    }
+
+    .ant-tree-node-content-wrapper {
+      transition: none;
+    }
+
+    .ant-tree-node-content-wrapper:hover {
+      background-color: unset;
+    }
+
+    .ant-tree-node-content-wrapper {
+      width: 100%;
     }
   }
 }
@@ -23,13 +55,6 @@
   line-height: 30px;
   margin-left: 4px;
   display: inline-block;
-  margin: 0 -1000px;
-  padding: 0 1000px;
-}
-
-.active {
-  background: #1890FF;
-  color: #fff;
 }
 
 .file-name, .folder-name {

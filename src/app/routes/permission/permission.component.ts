@@ -2,14 +2,22 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { GlobalConstants } from '../../@core/constant/GlobalConstants';
 import { PermissionModel } from './permission.model';
 import { PermissionService } from './permission.service';
-import { NzFormatEmitEvent, NzMessageService, NzModalRef, NzModalService, NzTreeComponent, NzTreeNode } from 'ng-zorro-antd';
+import {
+  NzDropdownMenuComponent,
+  NzFormatEmitEvent,
+  NzMessageService,
+  NzModalRef,
+  NzModalService,
+  NzTreeComponent,
+  NzTreeNode
+} from 'ng-zorro-antd';
 import { HttpParams } from '@angular/common/http';
 import { ResponseResultModel } from '../../@core/net/response-result.model';
 import { PagerResultModel } from '../../@core/net/pager-result.model';
 import { PermissionEditComponent } from './permission-edit/permission-edit.component';
 import { validatePerms } from '../../@core/util/perms-validators';
 import { ApplicationService } from '../application/application.service';
-import { listToTree } from '../../@core/util/tree-node';
+import { listToTree, TreeNode } from '../../@core/util/tree-node';
 
 @Component({
   selector: 'app-permission',
@@ -21,11 +29,11 @@ export class PermissionComponent implements OnInit {
   /** 全局常量  */
   global: GlobalConstants = GlobalConstants.getInstance();
   /** 应用树 */
-  @ViewChild('treeApp') treeApp: NzTreeComponent;
+  @ViewChild('applicationTree') applicationTree: NzTreeComponent;
   /** 选中的应用节点 */
   activedNode: NzTreeNode;
   /** 应用树数据 */
-  nodes = [];
+  nodes: TreeNode[] = [];
   /** 查询参数  */
   params: any = {
     code: '',
@@ -112,7 +120,7 @@ export class PermissionComponent implements OnInit {
    * @param data
    * @param $event
    */
-  openFolder(data: NzTreeNode | Required<NzFormatEmitEvent>, $event: any): void {
+  openFolder(data: NzTreeNode | NzFormatEmitEvent, $event): void {
     $event.preventDefault();
     // 阻止事件冒泡
     $event.stopPropagation();
