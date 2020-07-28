@@ -37,13 +37,13 @@ export class RoleAuthorizeComponent implements OnInit {
   /** tree-table数据源 */
   data: TreeTableDataModel;
   /** 类型 */
-  @ViewChild('rowType', {read: TemplateRef}) rowType: TemplateRef<any>;
+  @ViewChild('rowType', {read: TemplateRef, static: true}) rowType: TemplateRef<any>;
   /** 图标 */
-  @ViewChild('rowIcon', {read: TemplateRef}) rowIcon: TemplateRef<any>;
+  @ViewChild('rowIcon', {read: TemplateRef, static: true}) rowIcon: TemplateRef<any>;
   /** 状态 */
-  @ViewChild('rowActive', {read: TemplateRef}) rowActive: TemplateRef<any>;
+  @ViewChild('rowActive', {read: TemplateRef, static: true}) rowActive: TemplateRef<any>;
   /** 权限 */
-  @ViewChild('rowPermission', {read: TemplateRef}) rowPermission: TemplateRef<any>;
+  @ViewChild('rowPermission', {read: TemplateRef, static: true}) rowPermission: TemplateRef<any>;
   /** 权限选项 */
   permissionCodes: string[];
   /** 编辑表单 */
