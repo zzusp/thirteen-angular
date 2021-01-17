@@ -46,6 +46,7 @@ import { AlertOutline } from '@ant-design/icons-angular/icons';
 import { NgxEchartsModule } from 'ngx-echarts';
 import 'echarts/theme/macarons.js';
 import '../../assets/js/echarts/theme/walden.js';
+import { DragulaModule } from 'ng2-dragula';
 // import { AccountBookFill, AlertFill, AlertOutline } from '@ant-design/icons-angular/icons';
 
 const icons: IconDefinition[] = [AlertOutline];
@@ -80,6 +81,7 @@ const THIRD_MODULES = [
   NzTreeModule,
   NzTreeSelectModule,
   NzUploadModule,
+  DragulaModule.forRoot().ngModule,
   /** 导入 ngx-echarts 模块 **/
   NgxEchartsModule,
   /** 导入 tree-table 模块 **/
@@ -88,6 +90,7 @@ const THIRD_MODULES = [
 
 // 公共服务
 const SHARED_PROVIDERS = [
+  DragulaModule.forRoot().providers,
   /** 配置 ng-zorro-antd 国际化 **/
   {provide: NZ_I18N, useValue: zh_CN},
   // { provide: NZ_ICON_DEFAULT_TWOTONE_COLOR, useValue: '#00ff00' }, // 不提供的话，即为 Ant Design 的主题蓝色

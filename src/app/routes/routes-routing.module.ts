@@ -17,6 +17,7 @@ import { BizTypeComponent } from './biz-type/biz-type.component';
 import { DictComponent } from './dict/dict.component';
 import { LogLoginComponent } from './log-login/log-login.component';
 import { LogOperationComponent } from './log-operation/log-operation.component';
+import { DmTableComponent } from './dm-table/dm-table.component';
 
 const routes: Routes = [
   {
@@ -125,6 +126,13 @@ const routes: Routes = [
         component: LogOperationComponent,
         data: {
           breadcrumb: '操作日志'
+        }
+      },
+      {
+        path: 'dm-table',
+        component: DmTableComponent,
+        data: {
+          breadcrumb: '表配置'
         }
       }
     ]

@@ -25,6 +25,7 @@ import { LogLoginDetailComponent } from './log-login/log-login-detail/log-login-
 import { LogOperationDetailComponent } from './log-operation/log-operation-detail/log-operation-detail.component';
 import { DeptComponent } from './dept/dept.component';
 import { DeptEditComponent } from './dept/dept-edit/dept-edit.component';
+import { DmTableComponent } from './dm-table/dm-table.component';
 
 // 权限管理系统下所有需动态加载的子组件（弹出框等）
 const SYSTEM_MODEL_COMPONENT = [
@@ -55,6 +56,7 @@ const ROUTES_COMPONENT = [
   PermissionComponent,
   LogLoginComponent,
   LogOperationComponent,
+  DmTableComponent,
   ...SYSTEM_MODEL_COMPONENT
 ];
 
