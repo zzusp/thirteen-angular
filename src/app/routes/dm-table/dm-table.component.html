@@ -21,7 +21,7 @@
                     </div>
                     <div nz-col [nzMd]="8">
                         <div class="form-button">
-                            <button nz-button nzType="primary" (click)="findAllByParam()" [nzLoading]="false">
+                            <button nz-button nzType="primary" (click)="findAllBySpecification()" [nzLoading]="false">
                                 查询
                             </button>
                         </div>
@@ -42,8 +42,8 @@
                 [nzTotal]="total"
                 [(nzPageIndex)]="pageNum"
                 [(nzPageSize)]="pageSize"
-                (nzPageIndexChange)="findAllByParam()"
-                (nzPageSizeChange)="findAllByParam()">
+                (nzPageIndexChange)="findAllBySpecification()"
+                (nzPageSizeChange)="findAllBySpecification()">
                 <thead>
                 <tr>
                     <th nzShowSort [(nzSortOrder)]="sortMap.code" (nzSortChange)="sort('code', $event)">编码</th>
@@ -51,7 +51,7 @@
                     <th nzShowSort [(nzSortOrder)]="sortMap.status"
                         (nzSortChange)="sort('status', $event)"
                         nzShowFilter
-                        [nzFilters]="activeArr"
+                        [nzFilters]="statusArr"
                         [nzFilterMultiple]="false"
                         (nzFilterChange)="filter($event)"><span>状态</span></th>
                     <th nzShowSort [(nzSortOrder)]="sortMap.createTime" (nzSortChange)="sort('createTime', $event)"><span>添加时间</span>
@@ -90,51 +90,51 @@
     </div>
 </div>
 
-<div nz-row [nzGutter]="32">
-    <div nz-col [nzMd]="24">
-        <nz-card [nzBordered]="false">
-            <form nz-form class="submit-form" dragula="DRAGULA_FACTS">
-                <input type="hidden" name="id" formControlName="id"/>
-                <input type="hidden" name="version" formControlName="version"/>
-                <nz-form-item>
-                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>编码</nz-form-label>
-                    <nz-form-control [nzSm]="14" [nzXs]="24">
-                        <input type="text"
-                               name="code"
-                               formControlName="code"
-                               required
-                               nz-input
-                               placeholder="请输入">
-                    </nz-form-control>
-                </nz-form-item>
-                <nz-form-item>
-                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>名称</nz-form-label>
-                    <nz-form-control [nzSm]="14" [nzXs]="24">
-                        <input type="text"
-                               name="name"
-                               formControlName="name"
-                               required
-                               nz-input
-                               placeholder="请输入">
-                    </nz-form-control>
-                </nz-form-item>
-                <nz-form-item>
-                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>状态</nz-form-label>
-                    <nz-form-control [nzSm]="14" [nzXs]="24">
-                        <nz-radio-group formControlName="active">
-                            <label nz-radio nzValue="1">启用</label>
-                            <label nz-radio nzValue="0">禁用</label>
-                        </nz-radio-group>
-                    </nz-form-control>
-                </nz-form-item>
-                <nz-form-item>
-                    <nz-form-label [nzSm]="6" [nzXs]="24">备注</nz-form-label>
-                    <nz-form-control [nzSm]="14" [nzXs]="24">
-                        <textarea name="remark" formControlName="remark" nz-input
-                                  [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
-                    </nz-form-control>
-                </nz-form-item>
-            </form>
-        </nz-card>
-    </div>
-</div>
+<!--<div nz-row [nzGutter]="32">-->
+<!--    <div nz-col [nzMd]="24">-->
+<!--        <nz-card [nzBordered]="false">-->
+<!--            <form nz-form class="submit-form" dragula="DRAGULA_FACTS">-->
+<!--                <input type="hidden" name="id" formControlName="id"/>-->
+<!--                <input type="hidden" name="version" formControlName="version"/>-->
+<!--                <nz-form-item>-->
+<!--                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>编码</nz-form-label>-->
+<!--                    <nz-form-control [nzSm]="14" [nzXs]="24">-->
+<!--                        <input type="text"-->
+<!--                               name="code"-->
+<!--                               formControlName="code"-->
+<!--                               required-->
+<!--                               nz-input-->
+<!--                               placeholder="请输入">-->
+<!--                    </nz-form-control>-->
+<!--                </nz-form-item>-->
+<!--                <nz-form-item>-->
+<!--                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>名称</nz-form-label>-->
+<!--                    <nz-form-control [nzSm]="14" [nzXs]="24">-->
+<!--                        <input type="text"-->
+<!--                               name="name"-->
+<!--                               formControlName="name"-->
+<!--                               required-->
+<!--                               nz-input-->
+<!--                               placeholder="请输入">-->
+<!--                    </nz-form-control>-->
+<!--                </nz-form-item>-->
+<!--                <nz-form-item>-->
+<!--                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>状态</nz-form-label>-->
+<!--                    <nz-form-control [nzSm]="14" [nzXs]="24">-->
+<!--                        <nz-radio-group formControlName="active">-->
+<!--                            <label nz-radio nzValue="1">启用</label>-->
+<!--                            <label nz-radio nzValue="0">禁用</label>-->
+<!--                        </nz-radio-group>-->
+<!--                    </nz-form-control>-->
+<!--                </nz-form-item>-->
+<!--                <nz-form-item>-->
+<!--                    <nz-form-label [nzSm]="6" [nzXs]="24">备注</nz-form-label>-->
+<!--                    <nz-form-control [nzSm]="14" [nzXs]="24">-->
+<!--                        <textarea name="remark" formControlName="remark" nz-input-->
+<!--                                  [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>-->
+<!--                    </nz-form-control>-->
+<!--                </nz-form-item>-->
+<!--            </form>-->
+<!--        </nz-card>-->
+<!--    </div>-->
+<!--</div>-->

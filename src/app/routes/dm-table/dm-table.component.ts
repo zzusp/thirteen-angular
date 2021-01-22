@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { DragulaService } from 'ng2-dragula';
 import { GlobalConstants } from "../../@core/constant/GlobalConstants";
 import { DmTableModel } from "./dm-table.model";
+import {DmTableService} from "./dm-table.service";
+import {HttpParams} from "@angular/common/http";
+import {ResponseResultModel} from "../../@core/net/response-result.model";
+import {PagerResultModel} from "../../@core/net/pager-result.model";
 
 @Component({
   selector: 'app-dm-table',
@@ -16,10 +20,10 @@ export class DmTableComponent implements OnInit {
   params: any = {
     code: '',
     name: '',
-    active: ''
+    status: ''
   };
   /** 是否启用  */
-  activeArr: any[] = [];
+  statusArr: any[] = [];
   /** 当前页码  */
   pageNum: number = 1;
   /** 每页显示记录数  */
@@ -39,49 +43,54 @@ export class DmTableComponent implements OnInit {
     updateTime: null
   };
 
-  constructor(private dragulaService: DragulaService) {
+  constructor(private dmTableService: DmTableService, private dragulaService: DragulaService) {
     // use these if you want
 
-    this.dragulaService.createGroup("VAMPIRES", {
-      // ...
-    });
-
-    this.dragulaService.dropModel("VAMPIRES").subscribe(args => {
-      console.log(args);
-    });
+    // this.dragulaService.createGroup("VAMPIRES", {
+    //   // ...
+    // });
+    //
+    // this.dragulaService.dropModel("VAMPIRES").subscribe(args => {
+    //   console.log(args);
+    // });
   }
 
   ngOnInit(): void {
+    this.statusArr = [
+      {text: '启用', value: this.global.ACTIVE_ON},
+      {text: '禁用', value: this.global.ACTIVE_OFF}];
+    this.findAllBySpecification();
   }
 
   /**
    * 获取列表信息
    */
-  findAllByParam(): void {
-    // // 加载动画开启
-    // this.loading = true;
-    // const param = {
-    //   'criterias': [
-    //     {'feild': 'code', 'operator': 'like', 'value': this.params.code ? '%' + this.params.code + '%' : null},
-    //     {'feild': 'name', 'operator': 'like', 'value': this.params.name ? '%' + this.params.name + '%' : null},
-    //     {'feild': 'active', 'value': this.params.active}
-    //   ],
-    //   'page': {
-    //     'pageSize': this.pageSize,
-    //     'pageNum': this.pageNum - 1
-    //   },
-    //   'sorts': this.getSorts()
-    // };
-    // this.bizTypeService.findAllByParam(new HttpParams().set('param', JSON.stringify(param))).subscribe((res: ResponseResultModel) => {
-    //   // 判断返回结果是否为空或null
-    //   if (res && res.result) {
-    //     const result: PagerResultModel = res.result;
-    //     this.tableData = result.list;
-    //     this.total = result.total;
-    //   }
-    //   // 加载动画关闭
-    //   this.loading = false;
-    // });
+  findAllBySpecification(): void {
+    // 加载动画开启
+    this.loading = true;
+    const param = {
+      'criterias': [
+        {'feild': 'code', 'operator': 'like', 'value': this.params.code ? '%' + this.params.code + '%' : null},
+        {'feild': 'name', 'operator': 'like', 'value': this.params.name ? '%' + this.params.name + '%' : null},
+        {'feild': 'status', 'value': this.params.status}
+      ],
+      'page': {
+        'pageSize': this.pageSize,
+        'pageNum': this.pageNum - 1
+      },
+      'sorts': this.getSorts()
+    };
+    this.dmTableService.findAllBySpecification(new HttpParams().set('param', JSON.stringify(param)))
+      .subscribe((res: ResponseResultModel) => {
+      // 判断返回结果是否为空或null
+      if (res && res.result) {
+        const result: PagerResultModel = res.result;
+        this.tableData = result.list;
+        this.total = result.total;
+      }
+      // 加载动画关闭
+      this.loading = false;
+    });
   }
 
   /**
@@ -91,7 +100,7 @@ export class DmTableComponent implements OnInit {
    */
   filter(active: string): void {
     this.params.active = !!active ? active : '';
-    this.findAllByParam();
+    this.findAllBySpecification();
   }
 
   /**
@@ -106,7 +115,7 @@ export class DmTableComponent implements OnInit {
         this.sortMap[key] = value;
       }
     }
-    this.findAllByParam();
+    this.findAllBySpecification();
   }
 
   /**

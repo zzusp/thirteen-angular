@@ -10,6 +10,8 @@ export class GlobalConstants {
 
   /** 鉴权中心接口服务器地址 */
   AUTHORIZATION_SERVER = '/api-authorization';
+  /** 数据化平台接口服务器地址 */
+  DM_SERVER = '/api-dm';
   AUTHORIZATION_SERVER_CODE = 'system';
 
   /** 租赁管理系统接口服务器地址 */
