@@ -22,6 +22,9 @@ export class GlobalConstants {
   DEL_FLAG_NORMAL = '0';
   DEL_FLAG_DELETE = '1';
   /** 是否启用（0：禁用；1：启用） */
+  STATUS_OFF = 0;
+  STATUS_ON = 1;
+  /** 是否启用（0：禁用；1：启用） */
   ACTIVE_OFF = '0';
   ACTIVE_ON = '1';
   /** 根节点父节点ID */

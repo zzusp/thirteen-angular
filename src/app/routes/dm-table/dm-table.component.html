@@ -28,11 +28,11 @@
                     </div>
                 </div>
             </form>
-<!--            <div class="button-group">-->
-<!--                <button *ngIf="perms.save" nz-button nzType="primary" (click)="showSave()">-->
-<!--                    <i nz-icon [nzType]="'plus'" [nzTheme]="'outline'"></i>新增-->
-<!--                </button>-->
-<!--            </div>-->
+            <div class="button-group">
+                <button *ngIf="perms.save" nz-button nzType="primary" (click)="showSave()">
+                    <i nz-icon [nzType]="'plus'" [nzTheme]="'outline'"></i>新增
+                </button>
+            </div>
             <nz-table
                 #rowSelectionTable
                 nzShowSizeChanger
@@ -59,7 +59,7 @@
                     <th nzShowSort [(nzSortOrder)]="sortMap.updateTime" (nzSortChange)="sort('updateTime', $event)"><span>修改时间</span>
                     </th>
                     <th><span>备注</span></th>
-<!--                    <th *ngIf="perms.update || perms.delete"><span>操作</span></th>-->
+                    <th *ngIf="perms.update || perms.delete"><span>操作</span></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -67,22 +67,22 @@
                     <td>{{data.code}}</td>
                     <td>{{data.name}}</td>
                     <td>
-                        <span *ngIf="data.status === global.ACTIVE_ON">启用</span>
-                        <span *ngIf="data.status === global.ACTIVE_OFF">禁用</span>
+                        <span *ngIf="data.status === global.STATUS_ON">启用</span>
+                        <span *ngIf="data.status === global.STATUS_OFF">禁用</span>
                     </td>
                     <td>{{data.createTime}}</td>
                     <td>{{data.updateTime}}</td>
                     <td>{{data.remark}}</td>
-<!--                    <td *ngIf="perms.update || perms.delete">-->
-<!--                        <a *ngIf="perms.update" (click)="showUpdate(data.id)">修改</a>-->
-<!--                        <nz-divider *ngIf="perms.update && perms.delete" nzType="vertical"></nz-divider>-->
-<!--                        <a *ngIf="perms.delete"-->
-<!--                           nz-popconfirm-->
-<!--                           [nzTitle]="global.DELETE_CONFIRM_MSG"-->
-<!--                           (nzOnConfirm)="confirmDelete(data.id)"-->
-<!--                           (nzOnCancel)="cancelDelete()"-->
-<!--                           nzPlacement="topRight">删除</a>-->
-<!--                    </td>-->
+                    <td *ngIf="perms.update || perms.delete">
+                        <a *ngIf="perms.update" (click)="showUpdate(data.id)">修改</a>
+                        <nz-divider *ngIf="perms.update && perms.delete" nzType="vertical"></nz-divider>
+                        <a *ngIf="perms.delete"
+                           nz-popconfirm
+                           [nzTitle]="global.DELETE_CONFIRM_MSG"
+                           (nzOnConfirm)="confirmDelete(data.id)"
+                           (nzOnCancel)="cancelDelete()"
+                           nzPlacement="topRight">删除</a>
+                    </td>
                 </tr>
                 </tbody>
             </nz-table>

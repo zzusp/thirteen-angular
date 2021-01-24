@@ -6,6 +6,10 @@ import {DmTableService} from "./dm-table.service";
 import {HttpParams} from "@angular/common/http";
 import {ResponseResultModel} from "../../@core/net/response-result.model";
 import {PagerResultModel} from "../../@core/net/pager-result.model";
+import { DictService } from '../dict/dict.service';
+import { NzMessageService, NzModalRef, NzModalService } from 'ng-zorro-antd';
+import { DictEditComponent } from '../dict/dict-edit/dict-edit.component';
+import { DmTableEditComponent } from './dm-table-edit/dm-table-edit.component';
 
 @Component({
   selector: 'app-dm-table',
@@ -42,8 +46,16 @@ export class DmTableComponent implements OnInit {
     createTime: 'desc',
     updateTime: null
   };
+  /** 页面权限校验  */
+  perms = {
+    save: true,
+    update: true,
+    delete: true
+  };
 
-  constructor(private dmTableService: DmTableService, private dragulaService: DragulaService) {
+  constructor(private dmTableService: DmTableService,
+              private nzMessageService: NzMessageService,
+              private modalService: NzModalService) {
     // use these if you want
 
     // this.dragulaService.createGroup("VAMPIRES", {
@@ -70,9 +82,9 @@ export class DmTableComponent implements OnInit {
     this.loading = true;
     const param = {
       'criterias': [
-        {'feild': 'code', 'operator': 'like', 'value': this.params.code ? '%' + this.params.code + '%' : null},
-        {'feild': 'name', 'operator': 'like', 'value': this.params.name ? '%' + this.params.name + '%' : null},
-        {'feild': 'status', 'value': this.params.status}
+        {'field': 'code', 'operator': 'like', 'value': this.params.code ? '%' + this.params.code + '%' : null},
+        {'field': 'name', 'operator': 'like', 'value': this.params.name ? '%' + this.params.name + '%' : null},
+        {'field': 'status', 'value': this.params.status}
       ],
       'page': {
         'pageSize': this.pageSize,
@@ -80,7 +92,7 @@ export class DmTableComponent implements OnInit {
       },
       'sorts': this.getSorts()
     };
-    this.dmTableService.findAllBySpecification(new HttpParams().set('param', JSON.stringify(param)))
+    this.dmTableService.findAllBySpecification(param)
       .subscribe((res: ResponseResultModel) => {
       // 判断返回结果是否为空或null
       if (res && res.result) {
@@ -96,10 +108,10 @@ export class DmTableComponent implements OnInit {
   /**
    * 过滤方法
    *
-   * @param active
+   * @param status
    */
-  filter(active: string): void {
-    this.params.active = !!active ? active : '';
+  filter(status: string): void {
+    this.params.status = !!status ? status : '';
     this.findAllBySpecification();
   }
 
@@ -142,6 +154,115 @@ export class DmTableComponent implements OnInit {
       }
     }
     return arr.toString();
+  }
+
+  /**
+   * 打开新增页面
+   */
+  showSave() {
+    const modal = this.openModel(this.global.INSERT_FLAG, '新增表信息');
+
+    // 模态框打开后回调事件
+    modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
+
+    // 模态框关闭后回调事件
+    modal.afterClose.subscribe((result) => {
+      if (result && result.refresh) {
+        // 刷新列表
+        this.findAllBySpecification();
+      }
+    });
+
+    // 延时到模态框实例创建
+    window.setTimeout(() => {
+      const instance = modal.getContentComponent();
+      instance.title = 'sub title is changed';
+    }, 2000);
+  }
+
+  /**
+   * 打开修改页面
+   *
+   * @param id 数据字典ID
+   */
+  showUpdate(id: string) {
+    const modal = this.openModel(id, '修改表信息');
+
+    // 模态框打开后回调事件
+    modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
+
+    // 模态框关闭后回调事件
+    modal.afterClose.subscribe((result) => {
+      if (result && result.refresh) {
+        // 刷新列表
+        this.findAllBySpecification();
+      }
+    });
+  }
+
+  /**
+   * 删除前确认
+   *
+   * @param id 用户ID
+   */
+  confirmDelete(id: string): void {
+    this.deleteById(id);
+  }
+
+  /**
+   * 取消删除事件回调
+   */
+  cancelDelete(): void {
+    this.nzMessageService.info(this.global.DELETE_CANTER_MSG);
+  }
+
+  /**
+   * 由ID删除数据字典信息
+   *
+   * @param id 数据字典ID
+   */
+  deleteById(id: string) {
+    const msgId = this.nzMessageService.loading(this.global.DELETE_LOADING_MSG).messageId;
+    this.dmTableService.deleteById(id).subscribe((res: ResponseResultModel) => {
+      this.nzMessageService.remove(msgId);
+      // 判断返回状态码是否为200（成功状态码）
+      if (res.status === 200) {
+        this.nzMessageService.success(this.global.DELETE_SUCESS_MSG);
+      }
+      this.findAllBySpecification();
+    });
+  }
+
+  /**
+   * 打开模态框
+   *
+   * @param id 数据字典ID
+   * @param title 模态框标题
+   */
+  openModel(id: string, title: string): NzModalRef {
+    return this.modalService.create({
+      nzTitle: title,
+      nzContent: DmTableEditComponent,
+      nzWidth: 1200,
+      nzComponentParams: {
+        id: id
+      },
+      nzFooter: [
+        {
+          label: '返回',
+          onClick: (componentInstance) => {
+            componentInstance.destroyModal();
+          }
+        },
+        {
+          label: '提交',
+          type: 'primary',
+          onClick: (componentInstance) => {
+            componentInstance.submitForm();
+          }
+        }
+      ]
+    });
   }
 
 }

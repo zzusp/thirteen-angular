@@ -1,0 +1,130 @@
+<div nz-row [nzGutter]="32">
+    <!-- 表信息修改表单 -->
+    <div nz-col [nzMd]="8" [ngStyle]="{'border-right': '1px solid #f0f0f0'}">
+        <nz-card [nzBordered]="false">
+            <form nz-form [formGroup]="editForm" class="submit-form">
+                <input type="hidden" name="id" formControlName="id"/>
+                <input type="hidden" name="version" formControlName="version"/>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>表编码</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="codeTip">
+                        <input type="text"
+                               name="code"
+                               formControlName="code"
+                               required
+                               nz-input
+                               placeholder="请输入">
+                        <ng-template #codeTip let-control>
+                            <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                编码不可为空
+                            </ng-container>
+                            <ng-container *ngIf="control.hasError('minlength')">编码长度最少为3个字符
+                            </ng-container>
+                            <ng-container *ngIf="control.hasError('maxlength')">编码长度最多为20个字符
+                            </ng-container>
+                            <ng-container *ngIf="control.hasError('existing')">编码已存在</ng-container>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>表名称</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="nameTip">
+                        <input type="text"
+                               name="name"
+                               formControlName="name"
+                               required
+                               nz-input
+                               placeholder="请输入">
+                        <ng-template #nameTip let-control>
+                            <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                名称不可为空
+                            </ng-container>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>表状态</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="statusTip">
+                        <nz-radio-group formControlName="status">
+                            <label nz-radio [nzValue]="1">启用</label>
+                            <label nz-radio [nzValue]="0">禁用</label>
+                        </nz-radio-group>
+                        <ng-template #statusTip let-control>
+                            <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                状态不可为空
+                            </ng-container>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="6" [nzXs]="24">表备注</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="remarkTip">
+                <textarea name="remark" formControlName="remark" nz-input
+                          [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
+                        <ng-template #remarkTip let-control>
+                            <ng-container *ngIf="control.hasError('maxlength')">最多250个字符</ng-container>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+            </form>
+        </nz-card>
+    </div>
+    <!-- 列信息修改表单 -->
+    <div nz-col [nzMd]="16">
+        <nz-card [nzBordered]="false">
+            <nz-table [nzSize]="'small'" [nzData]="columns" [nzFrontPagination]="false" [nzShowPagination]="false">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>列编码</th>
+                    <th>列名</th>
+                    <th>类型</th>
+                    <th>长度</th>
+                    <th>不为空</th>
+                    <th>键</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody [dragula]="'dm-table-edit'" [(dragulaModel)]="columns">
+                <tr *ngFor="let column of columns; let i = index;">
+                    <td><i nz-icon nzType="menu" nzTheme="outline"></i></td>
+                    <td><input type="text" nz-input [(ngModel)]="column.code"/></td>
+                    <td><input type="text" nz-input [(ngModel)]="column.name"/></td>
+                    <td>
+                        <nz-select [(ngModel)]="column.dbType" style="width: 120px">
+                            <nz-option [nzValue]="'CHAR'" [nzLabel]="'CHAR'"></nz-option>
+                            <nz-option [nzValue]="'VARCHAR'" [nzLabel]="'VARCHAR'"></nz-option>
+                            <nz-option [nzValue]="'TEXT'" [nzLabel]="'TEXT'"></nz-option>
+                            <nz-option [nzValue]="'INT'" [nzLabel]="'INT'"></nz-option>
+                            <nz-option [nzValue]="'LONG'" [nzLabel]="'LONG'"></nz-option>
+                            <nz-option [nzValue]="'FLOAT'" [nzLabel]="'FLOAT'"></nz-option>
+                            <nz-option [nzValue]="'DOUBLE'" [nzLabel]="'DOUBLE'"></nz-option>
+                            <nz-option [nzValue]="'DATETIME'" [nzLabel]="'DATETIME'"></nz-option>
+                            <nz-option [nzValue]="'TINYINT'" [nzLabel]="'TINYINT'"></nz-option>
+                        </nz-select></td>
+                    <td><nz-input-number [(ngModel)]="column.length" style="width: 70px"></nz-input-number></td>
+                    <td>
+                        <nz-select [(ngModel)]="column.notNull">
+                            <nz-option [nzValue]="0" [nzLabel]="'否'"></nz-option>
+                            <nz-option [nzValue]="1" [nzLabel]="'是'"></nz-option>
+                        </nz-select>
+                    </td>
+                    <td>
+                        <nz-select [(ngModel)]="column.columnType" style="width: 100px">
+                            <nz-option [nzValue]="0" [nzLabel]="'主键'"></nz-option>
+                            <nz-option [nzValue]="1" [nzLabel]="'逻辑删除'"></nz-option>
+                            <nz-option [nzValue]="2" [nzLabel]="'版本号'"></nz-option>
+                            <nz-option [nzValue]="3" [nzLabel]="'无'"></nz-option>
+                        </nz-select>
+                    </td>
+                    <td><i nz-icon nzType="minus-circle-o" class="dynamic-delete-button" (click)="removeColumn(i)"></i></td>
+                </tr>
+                </tbody>
+            </nz-table>
+            <button nz-button nzType="dashed" style="width: 100%" (click)="addColumn()">
+                <i nz-icon nzType="plus"></i>
+                添加列
+            </button>
+        </nz-card>
+    </div>
+</div>

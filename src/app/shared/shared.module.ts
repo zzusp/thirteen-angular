@@ -16,6 +16,7 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzModalModule } from 'ng-zorro-antd/modal';
@@ -68,6 +69,7 @@ const THIRD_MODULES = [
   NzFormModule,
   NzIconModule,
   NzInputModule,
+  NzInputNumberModule,
   NzLayoutModule,
   NzMessageModule,
   NzModalModule,

@@ -43,7 +43,7 @@ export class DmTableService {
    * @param params
    */
   findAllBySpecification(params: any): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/dmTable/findAllBySpecification', {params});
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmTable/findAllBySpecification', params);
   }
 
   /**

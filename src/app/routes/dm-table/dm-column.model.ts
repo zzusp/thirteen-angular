@@ -34,7 +34,5 @@ export class DmColumnModel {
   remark: string;
   /** 版本号 */
   version: number;
-  /** 删除标志 0：正常；1：删除 */
-  delFlag: string;
 
 }
