@@ -1,6 +1,6 @@
 <div nz-row [nzGutter]="32">
     <!-- 表信息修改表单 -->
-    <div nz-col [nzMd]="8" [ngStyle]="{'border-right': '1px solid #f0f0f0'}">
+    <div nz-col [nzMd]="6" [ngStyle]="{'border-right': '1px solid #f0f0f0'}">
         <nz-card [nzBordered]="false">
             <form nz-form [formGroup]="editForm" class="submit-form">
                 <input type="hidden" name="id" formControlName="id"/>
@@ -70,9 +70,9 @@
         </nz-card>
     </div>
     <!-- 列信息修改表单 -->
-    <div nz-col [nzMd]="16">
+    <div nz-col [nzMd]="18">
         <nz-card [nzBordered]="false">
-            <nz-table [nzSize]="'small'" [nzData]="columns" [nzFrontPagination]="false" [nzShowPagination]="false">
+            <nz-table #basicTable [nzSize]="'small'" [nzData]="columns" [nzFrontPagination]="false" [nzShowPagination]="false">
                 <thead>
                 <tr>
                     <th></th>
@@ -82,12 +82,13 @@
                     <th>长度</th>
                     <th>不为空</th>
                     <th>键</th>
+                    <th [width]="'200px'">说明</th>
                     <th></th>
                 </tr>
                 </thead>
-                <tbody [dragula]="'dm-table-edit'" [(dragulaModel)]="columns">
-                <tr *ngFor="let column of columns; let i = index;">
-                    <td><i nz-icon nzType="menu" nzTheme="outline"></i></td>
+                <tbody [dragula]="dragName">
+                <tr *ngFor="let column of basicTable.data; let i = index;">
+                    <td class="drag-target"><i nz-icon nzType="menu" nzTheme="outline"></i></td>
                     <td><input type="text" nz-input [(ngModel)]="column.code"/></td>
                     <td><input type="text" nz-input [(ngModel)]="column.name"/></td>
                     <td>
@@ -117,6 +118,7 @@
                             <nz-option [nzValue]="3" [nzLabel]="'无'"></nz-option>
                         </nz-select>
                     </td>
+                    <td><textarea nzAutosize nz-input [(ngModel)]="column.remark"></textarea></td>
                     <td><i nz-icon nzType="minus-circle-o" class="dynamic-delete-button" (click)="removeColumn(i)"></i></td>
                 </tr>
                 </tbody>

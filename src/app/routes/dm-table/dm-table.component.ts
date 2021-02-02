@@ -43,7 +43,7 @@ export class DmTableComponent implements OnInit {
     code: null,
     name: null,
     status: null,
-    createTime: 'desc',
+    createTime: 'asc',
     updateTime: null
   };
   /** 页面权限校验  */
@@ -56,15 +56,6 @@ export class DmTableComponent implements OnInit {
   constructor(private dmTableService: DmTableService,
               private nzMessageService: NzMessageService,
               private modalService: NzModalService) {
-    // use these if you want
-
-    // this.dragulaService.createGroup("VAMPIRES", {
-    //   // ...
-    // });
-    //
-    // this.dragulaService.dropModel("VAMPIRES").subscribe(args => {
-    //   console.log(args);
-    // });
   }
 
   ngOnInit(): void {
@@ -103,6 +94,14 @@ export class DmTableComponent implements OnInit {
       // 加载动画关闭
       this.loading = false;
     });
+  }
+
+  /**
+   * 生效（根据最新的表信息，生成新的表结构）
+   */
+  refresh() {
+    this.dmTableService.refresh().subscribe((res: ResponseResultModel) => {
+      });
   }
 
   /**
@@ -160,7 +159,7 @@ export class DmTableComponent implements OnInit {
    * 打开新增页面
    */
   showSave() {
-    const modal = this.openModel(this.global.INSERT_FLAG, '新增表信息');
+    const modal = this.openModel(this.global.INSERT_FLAG, false, '新增表信息');
 
     // 模态框打开后回调事件
     modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
@@ -186,13 +185,34 @@ export class DmTableComponent implements OnInit {
    * @param id 数据字典ID
    */
   showUpdate(id: string) {
-    const modal = this.openModel(id, '修改表信息');
+    const modal = this.openModel(id, false, '修改表信息');
 
     // 模态框打开后回调事件
     modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
 
     // 模态框关闭后回调事件
     modal.afterClose.subscribe((result) => {
+      if (result && result.refresh) {
+        // 刷新列表
+        this.findAllBySpecification();
+      }
+    });
+  }
+
+  /**
+   * 打开拷贝页面
+   *
+   * @param id 数据字典ID
+   */
+  showCopy(id: string) {
+    const modal = this.openModel(id, true, '拷贝表信息');
+
+    // 模态框打开后回调事件
+    modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
+
+    // 模态框关闭后回调事件
+    modal.afterClose.subscribe((result) => {
+      console.log('[afterClose] emitted!')
       if (result && result.refresh) {
         // 刷新列表
         this.findAllBySpecification();
@@ -237,15 +257,17 @@ export class DmTableComponent implements OnInit {
    * 打开模态框
    *
    * @param id 数据字典ID
+   * @param isCopy 是否为拷贝操作
    * @param title 模态框标题
    */
-  openModel(id: string, title: string): NzModalRef {
+  openModel(id: string, isCopy: boolean, title: string): NzModalRef {
     return this.modalService.create({
       nzTitle: title,
       nzContent: DmTableEditComponent,
-      nzWidth: 1200,
+      nzWidth: 1400,
       nzComponentParams: {
-        id: id
+        id: id,
+        isCopy: isCopy
       },
       nzFooter: [
         {

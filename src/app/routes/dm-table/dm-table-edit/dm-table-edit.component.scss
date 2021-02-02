@@ -1,3 +1,15 @@
+/* 拖拽目标 */
+.drag-target {
+
+  i {
+    svg {
+      path {
+        z-index: 9999 !important;
+      }
+    }
+  }
+}
+
 /* in-flight clone */
 .gu-mirror {
   position: fixed !important;

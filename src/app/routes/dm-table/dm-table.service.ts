@@ -11,6 +11,13 @@ export class DmTableService {
   constructor(private http: HttpClient) { }
 
   /**
+   * 生效（根据最新的表信息，生成新的表结构）
+   */
+  refresh(): Observable<any> {
+    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/dm/refresh');
+  }
+
+  /**
    * 新增表信息
    *
    * @param params
