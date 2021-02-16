@@ -17,7 +17,7 @@ export class DictService {
    * @param params
    */
   insert(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-dict/insert', params);
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/sys-dict/insert', params);
   }
 
   /**
@@ -26,7 +26,7 @@ export class DictService {
    * @param params
    */
   update(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-dict/update', params);
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/sys-dict/update', params);
   }
 
   /**
@@ -35,7 +35,7 @@ export class DictService {
    * @param id 数据字典ID
    */
   findById(id: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-dict/findById', {params: {'id': id}});
+    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/sys-dict/findById', {params: {'id': id}});
   }
 
   /**
@@ -44,14 +44,15 @@ export class DictService {
    * @param params
    */
   findAllByParam(params: any): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-dict/findAllByParam', {params});
+    params['table'] = 'auth_dict';
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/findAllByParam', params);
   }
 
   /**
    * 获取所有数据字典列表
    */
   findAll(): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-dict/findAll', {});
+    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/dm/findAll', {});
   }
 
   /**
@@ -60,10 +61,10 @@ export class DictService {
   findAllByBizTypeCode(bizTypeCode: any): Observable<any> {
     const param = {
       'criterias': [
-        {'feild': 'bizTypeCode', 'value': bizTypeCode, 'require': true}
+        {'field': 'bizTypeCode', 'value': bizTypeCode, 'require': true}
       ]
     };
-    return this.findAllByParam(new HttpParams().set('param', JSON.stringify(param)));
+    return this.findAllByParam(param);
   }
 
   /**
@@ -72,7 +73,7 @@ export class DictService {
    * @param code 编码
    */
   checkCode(code: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-dict/checkCode', {params: {'code': code}});
+    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/sys-dict/checkCode', {params: {'code': code}});
   }
 
   /**
@@ -81,6 +82,6 @@ export class DictService {
    * @param id 数据字典ID
    */
   deleteById(id: string): Observable<any> {
-    return this.http.delete(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-dict/deleteById', {params: {'id': id}});
+    return this.http.delete(GlobalConstants.getInstance().DM_SERVER + '/sys-dict/deleteById', {params: {'id': id}});
   }
 }

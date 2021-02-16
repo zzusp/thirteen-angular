@@ -154,11 +154,11 @@ export class PermissionComponent implements OnInit {
     this.loading = true;
     const param = {
       'criterias': [
-        {'feild': 'code', 'operator': 'like', 'value': this.params.code ? '%' + this.params.code + '%' : null},
-        {'feild': 'name', 'operator': 'like', 'value': this.params.name ? '%' + this.params.name + '%' : null},
-        {'feild': 'type', 'operator': 'in', 'values': this.params.types},
-        {'feild': 'active', 'value': this.params.active},
-        {'feild': 'applicationCode', 'value': this.params.applicationCode}
+        {'field': 'code', 'operator': 'like', 'value': this.params.code ? '%' + this.params.code + '%' : null},
+        {'field': 'name', 'operator': 'like', 'value': this.params.name ? '%' + this.params.name + '%' : null},
+        {'field': 'type', 'operator': 'in', 'values': this.params.types},
+        {'field': 'active', 'value': this.params.active},
+        {'field': 'applicationCode', 'value': this.params.applicationCode}
       ],
       'page': {
         'pageSize': this.pageSize,

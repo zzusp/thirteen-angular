@@ -17,7 +17,7 @@ export class LogOperationService {
    * @param params
    */
   insert(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-log-operation/insert', params);
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/sys-log-operation/insert', params);
   }
 
   /**
@@ -26,7 +26,7 @@ export class LogOperationService {
    * @param id 操作日志ID
    */
   findById(id: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-log-operation/findById', {params: {'id': id}});
+    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/sys-log-operation/findById', {params: {'id': id}});
   }
 
   /**
@@ -35,7 +35,7 @@ export class LogOperationService {
    * @param params
    */
   findAllByParam(params: any): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-log-operation/findAllByParam', {params});
+    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/sys-log-operation/findAllByParam', {params});
   }
 
   /**
@@ -44,6 +44,6 @@ export class LogOperationService {
    * @param id 操作日志ID
    */
   deleteById(id: string): Observable<any> {
-    return this.http.delete(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-log-operation/deleteById', {params: {'id': id}});
+    return this.http.delete(GlobalConstants.getInstance().DM_SERVER + '/sys-log-operation/deleteById', {params: {'id': id}});
   }
 }

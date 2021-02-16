@@ -17,28 +17,28 @@ export class LoginService {
    * @param params
    */
   login(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/login', {}, {params: params});
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmLogin/login', {}, {params: params});
   }
 
   /**
    * 登出
    */
   logout(): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/logout', {});
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmLogin/logout', {});
   }
 
   /**
    * 获取当前用户信息
    */
-  getCurrentUser(): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/getCurrentUser');
+  me(): Observable<any> {
+    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/dmLogin/me');
   }
 
   /**
    * 重新加载过滤链
    */
   reloadFilterChains(): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/reloadFilterChains');
+    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/dmLogin/reloadFilterChains');
   }
 
 }

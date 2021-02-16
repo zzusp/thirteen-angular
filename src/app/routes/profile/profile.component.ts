@@ -24,7 +24,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     // 从服务器段获取到当前用户信息，更新布局数据
-    this.loginService.getCurrentUser()
+    this.loginService.me()
       .subscribe((res: ResponseResultModel) => {
         if (res.result) {
           const result: UserModel = res.result;
@@ -37,7 +37,7 @@ export class ProfileComponent implements OnInit {
                 return role.name;
               }).join('，')
             },
-            sidebarMenu: applicationToSidebar(result.applications, this.global.AUTHORIZATION_SERVER_CODE)
+            sidebarMenu: applicationToSidebar(result.apps, this.global.AUTHORIZATION_SERVER_CODE)
           };
           this.layoutService.setLayoutData(layoutData);
           // 更新localStorage中的用户信息

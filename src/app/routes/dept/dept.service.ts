@@ -17,7 +17,21 @@ export class DeptService {
    * @param params
    */
   insert(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-dept/insert', params);
+    const insert = {
+      table: GlobalConstants.getInstance().AUTH_DEPT,
+      model: params,
+      lookups: [{
+        from: GlobalConstants.getInstance().AUTH_DEPT_ROLE,
+        localField: 'code',
+        foreignField: 'deptCode',
+        as: 'deptRoles',
+        unwind: false
+      }],
+      rule: {
+        currentAccount: ['createBy'], currentDateTime: ['createTime']
+      }
+    };
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/insert', insert);
   }
 
   /**
@@ -26,7 +40,21 @@ export class DeptService {
    * @param params
    */
   update(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-dept/update', params);
+    const update = {
+      table: GlobalConstants.getInstance().AUTH_DEPT,
+      model: params,
+      lookups: [{
+        from: GlobalConstants.getInstance().AUTH_DEPT_ROLE,
+        localField: 'code',
+        foreignField: 'deptCode',
+        as: 'deptRoles',
+        unwind: false
+      }],
+      rule: {
+        currentAccount: ['updateBy'], currentDateTime: ['updateTime']
+      }
+    };
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/update', update);
   }
 
   /**
@@ -35,7 +63,21 @@ export class DeptService {
    * @param id 部门ID
    */
   findById(id: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-dept/findById', {params: {'id': id}});
+    const param = {
+      table: GlobalConstants.getInstance().AUTH_DEPT,
+      criterias: [
+        {field: 'id', value: id}
+      ],
+      lookups: [{
+        from: GlobalConstants.getInstance().AUTH_DEPT_ROLE,
+        localField: 'code',
+        foreignField: 'deptCode',
+        as: 'deptRoles',
+        unwind: false
+      }],
+      sorts: [{field: 'orderNum', orderBy: 'ase'}]
+    };
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dm/findOneByParam', param);
   }
 
   /**
@@ -44,14 +86,16 @@ export class DeptService {
    * @param params
    */
   findAllByParam(params: any): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-dept/findAllByParam', {params});
+    params['table'] = GlobalConstants.getInstance().AUTH_DEPT;
+    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/findAllByParam', {params});
   }
 
   /**
    * 获取所有部门列表
    */
   findAll(): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-dept/findAll', {});
+    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/dm/findAll',
+      {params: {'table': GlobalConstants.getInstance().AUTH_DEPT}});
   }
 
   /**
@@ -60,7 +104,13 @@ export class DeptService {
    * @param code 编码
    */
   checkCode(code: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-dept/checkCode', {params: {'code': code}});
+    const params = {
+      'table': GlobalConstants.getInstance().AUTH_DEPT,
+      'criterias': [
+        {'field': 'code', 'value': code}
+      ]
+    };
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/isExist', params);
   }
 
   /**
@@ -69,6 +119,17 @@ export class DeptService {
    * @param id 部门ID
    */
   deleteById(id: string): Observable<any> {
-    return this.http.delete(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-dept/deleteById', {params: {'id': id}});
+    const del = {
+      table: GlobalConstants.getInstance().AUTH_DEPT,
+      id: id,
+      lookups: [{
+        from: GlobalConstants.getInstance().AUTH_DEPT_ROLE,
+        localField: 'code',
+        foreignField: 'deptCode',
+        as: 'deptRoles',
+        unwind: false
+      }]
+    };
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dm/deleteById', del);
   }
 }

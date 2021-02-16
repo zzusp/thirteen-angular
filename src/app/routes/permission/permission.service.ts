@@ -17,7 +17,7 @@ export class PermissionService {
    * @param params
    */
   insert(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-permission/insert', params);
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/sys-permission/insert', params);
   }
 
   /**
@@ -26,7 +26,7 @@ export class PermissionService {
    * @param params
    */
   update(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-permission/update', params);
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/sys-permission/update', params);
   }
 
   /**
@@ -35,7 +35,7 @@ export class PermissionService {
    * @param id 权限ID
    */
   findById(id: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-permission/findById', {params: {'id': id}});
+    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/sys-permission/findById', {params: {'id': id}});
   }
 
   /**
@@ -44,14 +44,14 @@ export class PermissionService {
    * @param params
    */
   findAllByParam(params: any): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-permission/findAllByParam', {params});
+    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/sys-permission/findAllByParam', {params});
   }
 
   /**
    * 获取所有权限列表
    */
   findAll(): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-permission/findAll', {});
+    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/sys-permission/findAll', {});
   }
 
   /**
@@ -60,7 +60,7 @@ export class PermissionService {
    * @param code 编码
    */
   checkCode(code: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-permission/checkCode', {params: {'code': code}});
+    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/sys-permission/checkCode', {params: {'code': code}});
   }
 
   /**
@@ -69,6 +69,6 @@ export class PermissionService {
    * @param id 权限ID
    */
   deleteById(id: string): Observable<any> {
-    return this.http.delete(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-permission/deleteById', {params: {'id': id}});
+    return this.http.delete(GlobalConstants.getInstance().DM_SERVER + '/sys-permission/deleteById', {params: {'id': id}});
   }
 }

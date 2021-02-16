@@ -17,7 +17,7 @@ export class RoleService {
    * @param params
    */
   insert(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-role/insert', params);
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/insert', params);
   }
 
   /**
@@ -26,7 +26,7 @@ export class RoleService {
    * @param params
    */
   update(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-role/update', params);
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/update', params);
   }
 
   /**
@@ -35,7 +35,7 @@ export class RoleService {
    * @param id 角色ID
    */
   findById(id: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-role/findById', {params: {'id': id}});
+    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/dm/findById', {params: {'id': id}});
   }
 
   /**
@@ -44,7 +44,7 @@ export class RoleService {
    * @param id 角色ID
    */
   findDetailById(id: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-role/findDetailById', {params: {'id': id}});
+    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/sys-role/findDetailById', {params: {'id': id}});
   }
 
   /**
@@ -53,7 +53,7 @@ export class RoleService {
    * @param params
    */
   authorize(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-role/authorize', params);
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/sys-role/authorize', params);
   }
 
   /**
@@ -62,14 +62,16 @@ export class RoleService {
    * @param params
    */
   findAllByParam(params: any): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-role/findAllByParam', {params});
+    params['table'] = GlobalConstants.getInstance().AUTH_ROLE;
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dm/findAllByParam', params);
   }
 
   /**
    * 获取所有角色列表
    */
   findAll(): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-role/findAll', {});
+    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/dm/findAll',
+      {params: {'table': GlobalConstants.getInstance().AUTH_ROLE}});
   }
 
   /**
@@ -78,10 +80,10 @@ export class RoleService {
   findAllByGroupCode(groupCode: any): Observable<any> {
     const param = {
       'criterias': [
-        {'feild': 'groupCode', 'value': groupCode, 'require': true}
+        {'field': 'groupCode', 'value': groupCode, 'require': true}
       ]
     };
-    return this.findAllByParam(new HttpParams().set('param', JSON.stringify(param)));
+    return this.findAllByParam(param);
   }
 
   /**
@@ -90,7 +92,13 @@ export class RoleService {
    * @param code 编码
    */
   checkCode(code: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-role/checkCode', {params: {'code': code}});
+    const params = {
+      'table': GlobalConstants.getInstance().AUTH_ROLE,
+      'criterias': [
+        {'field': 'code', 'value': code}
+      ]
+    };
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/isExist', params);
   }
 
   /**
@@ -99,7 +107,7 @@ export class RoleService {
    * @param id 角色ID
    */
   deleteById(id: string): Observable<any> {
-    return this.http.delete(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-role/deleteById', {params: {'id': id}});
+    return this.http.delete(GlobalConstants.getInstance().DM_SERVER + '/dm/deleteById', {params: {'id': id}});
   }
 
 }

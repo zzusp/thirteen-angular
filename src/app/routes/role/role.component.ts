@@ -80,9 +80,9 @@ export class RoleComponent implements OnInit {
     this.loading = true;
     const param = {
       'criterias': [
-        {'feild': 'code', 'operator': 'like', 'value': this.params.code ? '%' + this.params.code + '%' : null},
-        {'feild': 'name', 'operator': 'like', 'value': this.params.name ? '%' + this.params.name + '%' : null},
-        {'feild': 'active', 'value': this.params.active}
+        {'field': 'code', 'operator': 'like', 'value': this.params.code ? '%' + this.params.code + '%' : null},
+        {'field': 'name', 'operator': 'like', 'value': this.params.name ? '%' + this.params.name + '%' : null},
+        {'field': 'active', 'value': this.params.active}
       ],
       'page': {
         'pageSize': this.pageSize,

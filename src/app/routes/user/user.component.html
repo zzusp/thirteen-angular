@@ -52,10 +52,10 @@
                     <!--<th nzShowFilter [nzFilters]="filterGender" (nzFilterChange)="updateFilter($event)">Gender</th>-->
                     <th nzShowSort [(nzSortOrder)]="sortMap.email" (nzSortChange)="sort('email', $event)"><span>邮箱</span>
                     </th>
-                    <th nzShowSort [(nzSortOrder)]="sortMap.active"
-                        (nzSortChange)="sort('active', $event)"
+                    <th nzShowSort [(nzSortOrder)]="sortMap.status"
+                        (nzSortChange)="sort('status', $event)"
                         nzShowFilter
-                        [nzFilters]="activeArr"
+                        [nzFilters]="statusArr"
                         [nzFilterMultiple]="false"
                         (nzFilterChange)="filter($event)"><span>状态</span></th>
                     <th nzShowSort [(nzSortOrder)]="sortMap.createTime" (nzSortChange)="sort('createTime', $event)"><span>添加时间</span>
@@ -71,8 +71,8 @@
                     <td>{{data.name}}</td>
                     <td>{{data.email}}</td>
                     <td>
-                        <span *ngIf="data.active === global.ACTIVE_ON">启用</span>
-                        <span *ngIf="data.active === global.ACTIVE_OFF">禁用</span>
+                        <span *ngIf="data.status == global.STATUS_ON">启用</span>
+                        <span *ngIf="data.status == global.STATUS_OFF">禁用</span>
                     </td>
                     <td>{{data.createTime}}</td>
                     <td>{{data.updateTime}}</td>

@@ -116,7 +116,7 @@ export class PermissionEditComponent implements OnInit {
           name: model.name,
           url: model.url,
           type: model.type,
-          active: model.active,
+          status: model.status,
           application: {code: model.application.code},
           remark: model.remark,
           version: model.version

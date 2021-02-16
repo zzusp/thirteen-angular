@@ -29,7 +29,7 @@ export class DeptEditComponent implements OnInit {
   /** 上级下拉框 */
   depts: TreeNode[] = [];
   /** 角色下拉框数据 */
-  roles: RoleModel[];
+  roleModels: RoleModel[];
   /** 选中的角色编码数组 */
   selectRoles: string[];
 
@@ -40,7 +40,7 @@ export class DeptEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.roles = [];
+    this.roleModels = [];
     // 初始化上级下拉框，角色下拉框
     const deptsReq = this.deptService.findAll();
     const rolesReq = this.roleService.findAll();
@@ -50,7 +50,7 @@ export class DeptEditComponent implements OnInit {
         const deptsRes = results[0];
         const roleRes = results[1];
         this.depts = listToTree(deptsRes.result.list);
-        this.roles = roleRes.result.list;
+        this.roleModels = roleRes.result.list;
         // 所有需加载的资源都已加载完成，初始化表单
         if (this.id !== this.global.INSERT_FLAG) {
           this.initUpdate();
@@ -72,10 +72,10 @@ export class DeptEditComponent implements OnInit {
         Validators.required,
         Validators.maxLength(10),
       ])],
-      sort: [null, Validators.required],
-      active: [null, Validators.required],
-      parentCode: [null],
-      roles: [[]],
+      orderNum: [null, Validators.required],
+      status: [null, Validators.required],
+      pCode: [null],
+      deptRoles: [[]],
       remark: [null, Validators.maxLength(250)],
       version: [null]
     });
@@ -99,10 +99,10 @@ export class DeptEditComponent implements OnInit {
       code: null,
       name: null,
       shortName: null,
-      sort: null,
-      active: this.global.ACTIVE_ON,
-      parentCode: this.global.ROOT_PARENT_CODE,
-      roles: [],
+      orderNum: null,
+      status: this.global.STATUS_ON,
+      pCode: this.global.ROOT_PARENT_CODE,
+      deptRoles: [],
       remark: null,
       version: null
     });
@@ -128,17 +128,17 @@ export class DeptEditComponent implements OnInit {
           code: model.code,
           name: model.name,
           shortName: model.shortName,
-          sort: model.sort,
-          active: model.active,
-          parentCode: model.parentCode,
-          roles: model.roles,
+          orderNum: model.orderNum,
+          status: model.status,
+          pCode: model.pCode,
+          deptRoles: model.deptRoles,
           remark: model.remark,
           version: model.version
         });
-        if (model.roles != null) {
+        if (model.deptRoles != null) {
           // 设置已选中的角色
-          this.selectRoles = model.roles.map(role => {
-            return role.code;
+          this.selectRoles = model.deptRoles.map(role => {
+            return role.roleCode;
           });
         }
         this.editForm.get('code').disable();
@@ -155,14 +155,14 @@ export class DeptEditComponent implements OnInit {
     }
     if (this.editForm.valid) {
       // 判断上级编码是否为null
-      if (this.editForm.get('parentCode').value === null) {
+      if (this.editForm.get('pCode').value === null) {
         // 如果上级编码为null时，设置为根结点编码
-        this.editForm.get('parentCode').setValue(this.global.ROOT_PARENT_CODE);
+        this.editForm.get('pCode').setValue(this.global.ROOT_PARENT_CODE);
       }
       if (this.selectRoles != null) {
         // 设置选中角色
-        this.editForm.get('roles').setValue(this.selectRoles.map(roleCode => {
-          return {code: roleCode};
+        this.editForm.get('deptRoles').setValue(this.selectRoles.map(v => {
+          return {'roleCode': v};
         }));
       }
       this.request(this.editForm.getRawValue()).subscribe((res: ResponseResultModel) => {

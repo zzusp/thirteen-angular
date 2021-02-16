@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { GlobalConstants } from '../../@core/constant/GlobalConstants';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {GlobalConstants} from '../../@core/constant/GlobalConstants';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class UserService {
    * @param params
    */
   insert(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-user/insert', params);
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuthUser/insert', params);
   }
 
   /**
@@ -26,7 +26,7 @@ export class UserService {
    * @param params
    */
   update(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-user/update', params);
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/update', params);
   }
 
   /**
@@ -35,7 +35,8 @@ export class UserService {
    * @param id 用户ID
    */
   findById(id: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-user/findById', {params: {'id': id}});
+    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/dm/findById',
+      {params: {'id': id, 'table': 'auth_user'}});
   }
 
   /**
@@ -44,16 +45,8 @@ export class UserService {
    * @param params
    */
   findAllByParam(params: any): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-user/findAllByParam', {params});
-  }
-
-  /**
-   * 判断编码是否存在
-   *
-   * @param code 编码
-   */
-  checkCode(code: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-user/checkCode', {params: {'code': code}});
+    params['table'] = 'auth_user';
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/findAllByParam', params);
   }
 
   /**
@@ -62,7 +55,13 @@ export class UserService {
    * @param account 账号
    */
   checkAccount(account: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-user/checkAccount', {params: {'account': account}});
+    const params = {
+      'table': 'auth_user',
+      'criterias': [
+        {'field': 'account', 'value': account}
+      ]
+    };
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/isExist', params);
   }
 
   /**
@@ -71,7 +70,7 @@ export class UserService {
    * @param id 用户ID
    */
   deleteById(id: string): Observable<any> {
-    return this.http.delete(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-user/deleteById', {params: {'id': id}});
+    return this.http.delete(GlobalConstants.getInstance().DM_SERVER + '/dm/deleteById', {params: {'id': id}});
   }
 
 }

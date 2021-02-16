@@ -34,7 +34,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'dashboard',
+        redirectTo: 'dm-table',
         pathMatch: 'full'
       },
       {

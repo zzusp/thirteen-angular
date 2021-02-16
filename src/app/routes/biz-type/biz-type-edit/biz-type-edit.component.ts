@@ -93,7 +93,7 @@ export class BizTypeEditComponent implements OnInit {
           id: model.id,
           code: model.code,
           name: model.name,
-          active: model.active,
+          status: model.status,
           remark: model.remark,
           version: model.version
         });

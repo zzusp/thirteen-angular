@@ -15,15 +15,15 @@ export interface TreeNode extends NzTreeNodeOptions {
  *
  * @param list
  * @param deep 默认展开深度 深度等于层级时该层级展开
- * @param parentCode 上级编码
+ * @param pCode 上级编码
  * @param level 层级
  */
 export function listToTree(list: BaseTreeSortModel[], deep = -1,
-                           parentCode = GlobalConstants.getInstance().ROOT_PARENT_CODE, level = 0): TreeNode[] {
+                           pCode = GlobalConstants.getInstance().ROOT_PARENT_CODE, level = 0): TreeNode[] {
   const result: TreeNode[] = [];
   const levelTemp: number = level;
   list.forEach((obj, index) => {
-    if (parentCode === obj.parentCode) {
+    if (pCode === obj.pCode) {
       const model: TreeNode = {
         title: obj.name,
         key: obj.code,
@@ -47,13 +47,13 @@ export function listToTree(list: BaseTreeSortModel[], deep = -1,
  * list转BaseTree
  *
  * @param list
- * @param parentCode
+ * @param pCode
  */
 export function listToBaseTree(list: BaseTreeSortModel[],
-                               parentCode = GlobalConstants.getInstance().ROOT_PARENT_CODE): BaseTreeSortModel[] {
+                               pCode = GlobalConstants.getInstance().ROOT_PARENT_CODE): BaseTreeSortModel[] {
   const result: BaseTreeSortModel[] = [];
   list.forEach((obj, index) => {
-    if (parentCode === obj.parentCode) {
+    if (pCode === obj.pCode) {
       const model = Object.assign({}, obj);
       list.slice(index, 1);
       model.children = listToBaseTree(list, model.code);

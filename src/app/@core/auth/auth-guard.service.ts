@@ -27,14 +27,14 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
 
   checkActive(url: string): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-      this.loginService.getCurrentUser().subscribe((res: ResponseResultModel) => {
+      this.loginService.me().subscribe((res: ResponseResultModel) => {
         const currentUser: UserModel = res.result;
         let canActive = false;
-        if (currentUser !== null && currentUser.applications != null) {
+        if (currentUser !== null && currentUser.apps != null) {
           if (url === '/views') {
             canActive = true;
           } else {
-            for (const application of currentUser.applications) {
+            for (const application of currentUser.apps) {
               if (application.url === url) {
                 canActive = true;
                 break;

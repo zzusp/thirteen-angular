@@ -31,14 +31,14 @@
     "@angular/platform-browser-dynamic": "~9.1.4",
     "@angular/router": "~9.1.4",
     "@angular/upgrade": "~9.1.4",
+    "core-js": "~3.6.5",
+    "echarts": "^4.2.1",
+    "ng-zorro-antd": "~9.3.0",
+    "ng2-dragula": "2.1.1",
+    "ngx-echarts": "^4.2.2",
     "rxjs": "~6.5.3",
     "tslib": "^1.13.0",
-    "zone.js": "~0.10.3",
-    "core-js": "~3.6.5",
-    "ng-zorro-antd": "~9.3.0",
-    "echarts": "^4.2.1",
-    "ngx-echarts": "^4.2.2",
-    "ng2-dragula": "2.1.1"
+    "zone.js": "~0.10.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.901.4",
@@ -47,6 +47,8 @@
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^14.0.22",
+    "fibers": "^5.0.0",
+    "html-webpack-plugin": "^4.3.0",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~5.0.0",
@@ -55,13 +57,11 @@
     "karma-jasmine": "~3.0.1",
     "karma-jasmine-html-reporter": "^1.4.2",
     "lodash": "^4.16.2",
+    "node-sass": "^4.0.0",
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
-    "typescript": "~3.8.3",
-    "node-sass": "^4.0.0",
-    "html-webpack-plugin": "^4.3.0",
-    "fibers": "^5.0.0"
+    "typescript": "~3.8.3"
   },
   "repository": {}
 }

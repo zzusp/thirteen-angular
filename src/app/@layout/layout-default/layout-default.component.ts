@@ -52,11 +52,11 @@ export class LayoutDefaultComponent implements OnInit, AfterViewInit {
 
   initUserInfo() {
     // 从服务器段获取到当前用户信息，更新布局数据
-    this.loginService.getCurrentUser()
+    this.loginService.me()
       .subscribe((res: ResponseResultModel) => {
         if (res.result) {
           const result: UserModel = res.result;
-          if (result.applications) {
+          if (result.apps) {
             const layoutData: LayoutData = {
               userBlock: {
                 name: result.name,
@@ -65,7 +65,7 @@ export class LayoutDefaultComponent implements OnInit, AfterViewInit {
                   return role.name;
                 }).join('，')
               },
-              sidebarMenu: applicationToSidebar(result.applications, this.global.AUTHORIZATION_SERVER_CODE)
+              sidebarMenu: applicationToSidebar(result.apps, this.global.AUTHORIZATION_SERVER_CODE)
             };
             this.layoutService.setLayoutData(layoutData);
           }

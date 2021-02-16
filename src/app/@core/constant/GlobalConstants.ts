@@ -8,8 +8,6 @@ export class GlobalConstants {
   TOKEN = 'token';
   CURRENT_USER = 'current_user';
 
-  /** 鉴权中心接口服务器地址 */
-  AUTHORIZATION_SERVER = '/api-authorization';
   /** 数据化平台接口服务器地址 */
   DM_SERVER = '/api-dm';
   AUTHORIZATION_SERVER_CODE = 'system';
@@ -17,6 +15,18 @@ export class GlobalConstants {
   /** 租赁管理系统接口服务器地址 */
   RENTAL_SERVER = '/api-rental';
   RENTAL_SERVER_CODE = 'rental';
+
+  /** 表名 */
+  AUTH_USER = 'auth_user';
+  AUTH_ROLE = 'auth_role';
+  AUTH_PERMISSION = 'auth_permission';
+  AUTH_GROUP = 'auth_group';
+  AUTH_DEPT = 'auth_dept';
+  AUTH_APP = 'auth_app';
+  AUTH_USER_ROLE = 'auth_user_role';
+  AUTH_DEPT_ROLE = 'auth_dept_role';
+  AUTH_ROLE_PERMISSION = 'auth_role_permission';
+  AUTH_ROLE_APP = 'auth_role_app';
 
   /** 删除标记（0：正常；1：删除） */
   DEL_FLAG_NORMAL = '0';

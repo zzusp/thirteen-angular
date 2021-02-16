@@ -37,12 +37,12 @@ export interface SidebarMenuInfo {
  * application list to sidebarMenu
  *
  * @param list
- * @param parentCode
+ * @param pCode
  */
-export function applicationToSidebar(list: ApplicationModel[], parentCode: string): SidebarMenuInfo[] {
+export function applicationToSidebar(list: ApplicationModel[], pCode: string): SidebarMenuInfo[] {
   const result: SidebarMenuInfo[] = [];
   list.forEach((obj, index) => {
-    if (parentCode === obj.parentCode) {
+    if (pCode === obj.pCode) {
       const model: SidebarMenuInfo = {
         name: obj.name,
         icon: obj.icon,

@@ -5,7 +5,7 @@ import { BaseModel } from './base.model';
 
 export class BaseDeleteModel extends BaseModel {
 
-  /** 主键ID */
+  /** 删除标识 */
   delFlag: string;
 
 }

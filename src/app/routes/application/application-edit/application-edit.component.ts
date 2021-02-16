@@ -61,8 +61,8 @@ export class ApplicationEditComponent implements OnInit {
       icon: [null],
       url: [null],
       sort: [null, Validators.required],
-      active: [null, Validators.required],
-      parentCode: [null],
+      status: [null, Validators.required],
+      pCode: [null],
       remark: [null, Validators.maxLength(250)],
       version: [null]
     });
@@ -98,8 +98,8 @@ export class ApplicationEditComponent implements OnInit {
       icon: null,
       url: null,
       sort: null,
-      active: this.global.ACTIVE_ON,
-      parentCode: this.global.ROOT_PARENT_CODE,
+      status: this.global.ACTIVE_ON,
+      pCode: this.global.ROOT_PARENT_CODE,
       remark: null,
       version: null
     });
@@ -128,8 +128,8 @@ export class ApplicationEditComponent implements OnInit {
           icon: model.icon,
           url: model.url,
           sort: model.sort,
-          active: model.active,
-          parentCode: model.parentCode,
+          status: model.status,
+          pCode: model.pCode,
           remark: model.remark,
           version: model.version
         });
@@ -147,9 +147,9 @@ export class ApplicationEditComponent implements OnInit {
     }
     if (this.editForm.valid) {
       // 判断上级编码是否为null
-      if (this.editForm.get('parentCode').value === null) {
+      if (this.editForm.get('pCode').value === null) {
         // 如果上级编码为null时，设置为根结点编码
-        this.editForm.get('parentCode').setValue(this.global.ROOT_PARENT_CODE);
+        this.editForm.get('pCode').setValue(this.global.ROOT_PARENT_CODE);
       }
       this.request(this.editForm.getRawValue()).subscribe((res: ResponseResultModel) => {
         // 清空表单

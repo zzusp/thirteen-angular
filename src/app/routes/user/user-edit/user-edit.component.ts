@@ -72,12 +72,6 @@ export class UserEditComponent implements OnInit {
       });
     // 表单验证
     this.editForm = this.fb.group({
-      id: [null],
-      code: [null, Validators.compose([
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(50)
-      ])],
       account: [null, Validators.compose([
         Validators.required,
         Validators.minLength(3),
@@ -91,7 +85,7 @@ export class UserEditComponent implements OnInit {
         Validators.email
       ])],
       photo: [null],
-      active: [null, Validators.required],
+      status: [null, Validators.required],
       dept: this.fb.group({
         code: [null, Validators.required]
       }),
@@ -134,23 +128,19 @@ export class UserEditComponent implements OnInit {
     // 设置标题
     this.title = '新增用户信息';
     // 添加异步验证，验证account是否存在，错误标识 existing
-    this.editForm.get('code').setAsyncValidators(abstractValidate((code: string) => {
-      return this.userService.checkCode(code);
-    }));
     this.editForm.get('account').setAsyncValidators(abstractValidate((account: string) => {
       return this.userService.checkAccount(account);
     }));
     // 表单重置
     this.editForm.reset({
       id: null,
-      code: null,
       account: null,
       name: null,
       gender: null,
       mobile: null,
       email: null,
       photo: null,
-      active: this.global.ACTIVE_ON,
+      status: this.global.STATUS_ON,
       dept: {
         code: null
       },
@@ -161,7 +151,6 @@ export class UserEditComponent implements OnInit {
       remark: null,
       version: null
     });
-    this.editForm.get('code').enable();
     this.editForm.get('account').enable();
   }
 
@@ -179,19 +168,17 @@ export class UserEditComponent implements OnInit {
     this.userService.findById(this.routeParams.id)
       .subscribe((res: ResponseResultModel) => {
         const model: UserModel = res.result;
-        this.editForm.get('code').clearAsyncValidators();
         this.editForm.get('account').clearAsyncValidators();
         // 表单重置
         this.editForm.reset({
           id: model.id,
-          code: model.code,
           account: model.account,
           name: model.name,
           gender: model.gender,
           mobile: model.mobile,
           email: model.email,
           photo: model.photo,
-          active: model.active,
+          status: model.status,
           dept: {
             code: model.dept.code
           },
@@ -208,7 +195,6 @@ export class UserEditComponent implements OnInit {
             return role.code;
           });
         }
-        this.editForm.get('code').disable();
         this.editForm.get('account').disable();
       });
   }

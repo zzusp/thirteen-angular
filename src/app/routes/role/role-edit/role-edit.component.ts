@@ -112,7 +112,7 @@ export class RoleEditComponent implements OnInit {
           id: model.id,
           code: model.code,
           name: model.name,
-          active: model.active,
+          status: model.status,
           group: {
             code: model.group.code
           },

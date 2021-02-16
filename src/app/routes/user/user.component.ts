@@ -23,10 +23,10 @@ export class UserComponent implements OnInit {
   params: any = {
     account: null,
     name: null,
-    active: null
+    status: null
   };
   /** 是否启用  */
-  activeArr: any[] = [];
+  statusArr: any[] = [];
   /** 当前页码  */
   pageNum: number = 1;
   /** 每页显示记录数  */
@@ -43,15 +43,15 @@ export class UserComponent implements OnInit {
     name: null,
     gender: null,
     email: null,
-    active: null,
+    status: null,
     createTime: 'desc',
     updateTime: null
   };
   /** 页面权限校验  */
   perms = {
-    save: false,
-    update: false,
-    delete: false
+    save: true,
+    update: true,
+    delete: true
   };
 
   constructor(private userService: UserService,
@@ -60,14 +60,14 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.perms = {
-      save: validatePerms(['user:save']),
-      update: validatePerms(['user:update']),
-      delete: validatePerms(['user:delete'])
-    };
-    this.activeArr = [
-      {text: '启用', value: this.global.ACTIVE_ON},
-      {text: '禁用', value: this.global.ACTIVE_OFF}];
+    // this.perms = {
+    //   save: validatePerms(['user:save']),
+    //   update: validatePerms(['user:update']),
+    //   delete: validatePerms(['user:delete'])
+    // };
+    this.statusArr = [
+      {text: '启用', value: this.global.STATUS_ON},
+      {text: '禁用', value: this.global.STATUS_OFF}];
     this.findAllByParam();
   }
 
@@ -79,9 +79,9 @@ export class UserComponent implements OnInit {
     this.loading = true;
     const param = {
       'criterias': [
-        {'feild': 'account', 'operator': 'like', 'value': this.params.account ? '%' + this.params.account + '%' : null},
-        {'feild': 'name', 'operator': 'like', 'value': this.params.name ? '%' + this.params.name + '%' : null},
-        {'feild': 'active', 'value': this.params.active}
+        {'field': 'account', 'operator': 'like', 'value': this.params.account ? '%' + this.params.account + '%' : null},
+        {'field': 'name', 'operator': 'like', 'value': this.params.name ? '%' + this.params.name + '%' : null},
+        {'field': 'status', 'value': this.params.status}
       ],
       'page': {
         'pageSize': this.pageSize,
@@ -89,7 +89,7 @@ export class UserComponent implements OnInit {
       },
       'sorts': this.getSorts()
     };
-    this.userService.findAllByParam(new HttpParams().set('param', JSON.stringify(param))).subscribe((res: ResponseResultModel) => {
+    this.userService.findAllByParam(param).subscribe((res: ResponseResultModel) => {
       // 判断返回结果是否为空或null
       if (res.result) {
         const result: PagerResultModel = res.result;

@@ -69,10 +69,10 @@ export class LogOperationComponent implements OnInit {
     const param = {
       'criterias': [
         {
-          'feild': 'operationValue', 'operator': 'like',
+          'field': 'operationValue', 'operator': 'like',
           'value': this.params.operationValue ? '%' + this.params.operationValue + '%' : null
         },
-        {'feild': 'status', 'value': this.params.status}
+        {'field': 'status', 'value': this.params.status}
       ],
       'page': {
         'pageSize': this.pageSize,

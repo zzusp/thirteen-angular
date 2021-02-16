@@ -22,10 +22,10 @@ export class DictComponent implements OnInit {
   params: any = {
     code: '',
     name: '',
-    active: ''
+    status: ''
   };
   /** 是否启用  */
-  activeArr: any[] = [];
+  statusArr: any[] = [];
   /** 当前页码  */
   pageNum: number = 1;
   /** 每页显示记录数  */
@@ -40,7 +40,7 @@ export class DictComponent implements OnInit {
   sortMap = {
     code: null,
     name: null,
-    active: null,
+    status: null,
     createTime: 'desc',
     updateTime: null
   };
@@ -62,9 +62,9 @@ export class DictComponent implements OnInit {
       update: validatePerms(['dict:update']),
       delete: validatePerms(['dict:delete'])
     };
-    this.activeArr = [
-      {text: '启用', value: this.global.ACTIVE_ON},
-      {text: '禁用', value: this.global.ACTIVE_OFF}];
+    this.statusArr = [
+      {text: '启用', value: this.global.STATUS_ON},
+      {text: '禁用', value: this.global.STATUS_OFF}];
     this.findAllByParam();
   }
 
@@ -76,9 +76,9 @@ export class DictComponent implements OnInit {
     this.loading = true;
     const param = {
       'criterias': [
-        {'feild': 'code', 'operator': 'like', 'value': this.params.code ? '%' + this.params.code + '%' : null},
-        {'feild': 'name', 'operator': 'like', 'value': this.params.name ? '%' + this.params.name + '%' : null},
-        {'feild': 'active', 'value': this.params.active}
+        {'field': 'code', 'operator': 'like', 'value': this.params.code ? '%' + this.params.code + '%' : null},
+        {'field': 'name', 'operator': 'like', 'value': this.params.name ? '%' + this.params.name + '%' : null},
+        {'field': 'status', 'value': this.params.status}
       ],
       'page': {
         'pageSize': this.pageSize,
@@ -86,7 +86,7 @@ export class DictComponent implements OnInit {
       },
       'sorts': this.getSorts()
     };
-    this.dictService.findAllByParam(new HttpParams().set('param', JSON.stringify(param))).subscribe((res: ResponseResultModel) => {
+    this.dictService.findAllByParam(param).subscribe((res: ResponseResultModel) => {
       // 判断返回结果是否为空或null
       if (res && res.result) {
         const result: PagerResultModel = res.result;
@@ -101,10 +101,10 @@ export class DictComponent implements OnInit {
   /**
    * 过滤方法
    *
-   * @param active
+   * @param status
    */
-  filter(active: string): void {
-    this.params.active = !!active ? active : '';
+  filter(status: string): void {
+    this.params.status = !!status ? status : '';
     this.findAllByParam();
   }
 

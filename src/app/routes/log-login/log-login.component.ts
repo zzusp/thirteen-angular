@@ -65,8 +65,8 @@ export class LogLoginComponent implements OnInit {
     this.loading = true;
     const param = {
       'criterias': [
-        {'feild': 'account', 'operator': 'like', 'value': this.params.account ? '%' + this.params.account + '%' : null},
-        {'feild': 'status', 'value': this.params.status}
+        {'field': 'account', 'operator': 'like', 'value': this.params.account ? '%' + this.params.account + '%' : null},
+        {'field': 'status', 'value': this.params.status}
       ],
       'page': {
         'pageSize': this.pageSize,

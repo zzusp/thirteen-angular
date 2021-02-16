@@ -17,13 +17,13 @@ export class DashboardService {
    * @param params
    */
   getVisits(params: any): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-log-login/getVisits', {params: params});
+    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/sys-log-login/getVisits', {params: params});
   }
 
   /**
    * 获取访问来源分布，即登陆地区分布
    */
   getDistribution(): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-log-login/getDistribution');
+    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/sys-log-login/getDistribution');
   }
 }

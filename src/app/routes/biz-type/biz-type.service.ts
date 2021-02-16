@@ -17,7 +17,7 @@ export class BizTypeService {
    * @param params
    */
   insert(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-biztype/insert', params);
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/sys-biztype/insert', params);
   }
 
   /**
@@ -26,7 +26,7 @@ export class BizTypeService {
    * @param params
    */
   update(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-biztype/update', params);
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/sys-biztype/update', params);
   }
 
   /**
@@ -35,7 +35,7 @@ export class BizTypeService {
    * @param id 业务类型ID
    */
   findById(id: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-biztype/findById', {params: {'id': id}});
+    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/sys-biztype/findById', {params: {'id': id}});
   }
 
   /**
@@ -44,14 +44,14 @@ export class BizTypeService {
    * @param params
    */
   findAllByParam(params: any): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-biztype/findAllByParam', {params});
+    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/sys-biztype/findAllByParam', {params});
   }
 
   /**
    * 获取所有业务类型列表
    */
   findAll(): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-biztype/findAll', {});
+    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/sys-biztype/findAll', {});
   }
 
   /**
@@ -60,7 +60,7 @@ export class BizTypeService {
    * @param code 编码
    */
   checkCode(code: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-biztype/checkCode', {params: {'code': code}});
+    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/sys-biztype/checkCode', {params: {'code': code}});
   }
 
   /**
@@ -69,7 +69,7 @@ export class BizTypeService {
    * @param id 业务类型ID
    */
   deleteById(id: string): Observable<any> {
-    return this.http.delete(GlobalConstants.getInstance().AUTHORIZATION_SERVER + '/sys-biztype/deleteById', {params: {'id': id}});
+    return this.http.delete(GlobalConstants.getInstance().DM_SERVER + '/sys-biztype/deleteById', {params: {'id': id}});
   }
 
 }

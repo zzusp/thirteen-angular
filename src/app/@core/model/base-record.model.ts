@@ -10,7 +10,7 @@ export class BaseRecordModel extends BaseDeleteModel {
   /** 名称 */
   name: string;
   /** 启用标记 0：禁用；1启用 */
-  active: string;
+  status: number;
   /** 创建者 */
   createBy: string;
   /** 创建时间 */

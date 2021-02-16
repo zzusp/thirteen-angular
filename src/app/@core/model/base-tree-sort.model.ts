@@ -8,7 +8,7 @@ export class BaseTreeSortModel extends BaseRecordModel {
   /** 排序 */
   sort: number;
   /** 父节点编码 */
-  parentCode: string;
+  pCode: string;
   /** 节点 */
   children: BaseTreeSortModel[];
 

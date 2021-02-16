@@ -153,7 +153,7 @@ export class RoleAuthorizeComponent implements OnInit {
         name: model.name,
         applications: model.applications,
         permissions: model.permissions,
-        active: model.active,
+        status: model.status,
         remark: model.remark
       });
       if (model.applications) {
