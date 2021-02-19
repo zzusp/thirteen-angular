@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { HttpParams } from '@angular/common/http';
 import { ResponseResultModel } from '../../@core/net/response-result.model';
 import { UserService } from './user.service';
 import { PagerResultModel } from '../../@core/net/pager-result.model';
@@ -49,9 +48,9 @@ export class UserComponent implements OnInit {
   };
   /** 页面权限校验  */
   perms = {
-    save: true,
-    update: true,
-    delete: true
+    save: false,
+    update: false,
+    delete: false
   };
 
   constructor(private userService: UserService,
@@ -60,11 +59,11 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.perms = {
-    //   save: validatePerms(['user:save']),
-    //   update: validatePerms(['user:update']),
-    //   delete: validatePerms(['user:delete'])
-    // };
+    this.perms = {
+      save: validatePerms(['user:save']),
+      update: validatePerms(['user:update']),
+      delete: validatePerms(['user:delete'])
+    };
     this.statusArr = [
       {text: '启用', value: this.global.STATUS_ON},
       {text: '禁用', value: this.global.STATUS_OFF}];
@@ -79,7 +78,11 @@ export class UserComponent implements OnInit {
     this.loading = true;
     const param = {
       'criterias': [
-        {'field': 'account', 'operator': 'like', 'value': this.params.account ? '%' + this.params.account + '%' : null},
+        {
+          'field': 'account',
+          'operator': 'like',
+          'value': this.params.account ? '%' + this.params.account + '%' : null
+        },
         {'field': 'name', 'operator': 'like', 'value': this.params.name ? '%' + this.params.name + '%' : null},
         {'field': 'status', 'value': this.params.status}
       ],

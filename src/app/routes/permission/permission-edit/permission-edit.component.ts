@@ -24,7 +24,7 @@ export class PermissionEditComponent implements OnInit {
   /** 权限ID */
   @Input() id: string;
   /** 应用编码 */
-  @Input() applicationCode: string;
+  @Input() appCode: string;
   /** 编辑表单 */
   editForm: FormGroup;
   /** 应用下拉框数据 */
@@ -60,10 +60,8 @@ export class PermissionEditComponent implements OnInit {
       name: [null, Validators.required],
       url: [null, Validators.required],
       type: [null, Validators.required],
-      active: [null, Validators.required],
-      application: this.fb.group({
-        code: [null, Validators.required]
-      }),
+      status: [null, Validators.required],
+      appCode: [null, Validators.required],
       remark: [null, Validators.maxLength(250)],
       version: [null]
     });
@@ -88,8 +86,8 @@ export class PermissionEditComponent implements OnInit {
       name: null,
       url: null,
       type: this.global.PERMISSION_AUTHOR,
-      active: this.global.ACTIVE_ON,
-      application: {code: this.applicationCode},
+      status: this.global.STATUS_ON,
+      appCode: this.appCode,
       remark: null,
       version: null
     });
@@ -117,7 +115,7 @@ export class PermissionEditComponent implements OnInit {
           url: model.url,
           type: model.type,
           status: model.status,
-          application: {code: model.application.code},
+          appCode: model.appCode,
           remark: model.remark,
           version: model.version
         });

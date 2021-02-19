@@ -8,9 +8,9 @@ describe('DmTableEditComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DmTableEditComponent ]
+      declarations: [DmTableEditComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

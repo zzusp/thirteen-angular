@@ -12,6 +12,8 @@ export class ApplicationModel extends BaseTreeSortModel {
   url: string;
   /** 类型 0：接口模块；1：菜单模块；2：菜单标题 */
   type: string;
+  /** 排序 */
+  orderNum: number;
   /** 应用下权限 */
   permissions: PermissionModel[];
 

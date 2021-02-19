@@ -6,7 +6,7 @@
                 <nz-tree
                     #applicationTree
                     [nzData]="nodes"
-                    (nzClick)="activeNode($event)"
+                    (nzClick)="statusNode($event)"
                     [nzTreeTemplate]="nzTreeTemplate">
                 </nz-tree>
                 <ng-template #nzTreeTemplate let-node>
@@ -79,12 +79,12 @@
                     <th nzShowSort [(nzSortOrder)]="sortMap.type"
                         (nzSortChange)="sort('type', $event)"
                         nzShowFilter [nzFilters]="types"
-                        (nzFilterChange)="filter($event, params.active)">类型
+                        (nzFilterChange)="filter($event, params.status)">类型
                     </th>
-                    <th nzShowSort [(nzSortOrder)]="sortMap.active"
-                        (nzSortChange)="sort('active', $event)"
+                    <th nzShowSort [(nzSortOrder)]="sortMap.status"
+                        (nzSortChange)="sort('status', $event)"
                         nzShowFilter
-                        [nzFilters]="activeArr"
+                        [nzFilters]="statusArr"
                         [nzFilterMultiple]="false"
                         (nzFilterChange)="filter(params.types, $event)"><span>状态</span></th>
                     <th *ngIf="perms.update || perms.delete"><span>操作</span></th>
@@ -101,8 +101,8 @@
                         <span *ngIf="data.type === global.PERMISSION_PERMS">需授权</span>
                     </td>
                     <td>
-                        <span *ngIf="data.active === global.ACTIVE_ON">启用</span>
-                        <span *ngIf="data.active === global.ACTIVE_OFF">禁用</span>
+                        <span *ngIf="data.status === global.STATUS_ON">启用</span>
+                        <span *ngIf="data.status === global.STATUS_OFF">禁用</span>
                     </td>
                     <td *ngIf="perms.update || perms.delete">
                         <a *ngIf="perms.update" (click)="showUpdate(data.id)">修改</a>

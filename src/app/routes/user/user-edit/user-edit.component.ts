@@ -59,19 +59,23 @@ export class UserEditComponent implements OnInit {
     //  初始化部门下拉框，组织下拉框，角色下拉框
     const deptReq = this.deptService.findAll();
     const groupReq = this.groupService.findAll();
+    const roleReq = this.roleService.findAll();
     const dictReq = this.dictService.findAllByBizTypeCode(this.global.BIZ_TYPE_GENDER);
     // 发出请求
-    forkJoin(deptReq, groupReq, dictReq)
+    forkJoin(deptReq, groupReq, roleReq, dictReq)
       .subscribe((results: ResponseResultModel[]) => {
         const deptRes = results[0];
         const groupRes = results[1];
-        const dictRes = results[2];
+        const roleRes = results[2];
+        const dictRes = results[3];
         this.depts = listToTree(deptRes.result.list);
         this.groups = listToTree(groupRes.result.list);
+        this.roles = roleRes.result.list;
         this.genders = dictRes.result.list;
       });
     // 表单验证
     this.editForm = this.fb.group({
+      id: [null],
       account: [null, Validators.compose([
         Validators.required,
         Validators.minLength(3),
@@ -86,13 +90,9 @@ export class UserEditComponent implements OnInit {
       ])],
       photo: [null],
       status: [null, Validators.required],
-      dept: this.fb.group({
-        code: [null, Validators.required]
-      }),
-      group: this.fb.group({
-        code: [null, Validators.required]
-      }),
-      roles: [[]],
+      deptCode: [null, Validators.required],
+      groupCode: [null, Validators.required],
+      userRoles: [[]],
       remark: [null, Validators.maxLength(250)],
       version: [null]
     });
@@ -106,15 +106,6 @@ export class UserEditComponent implements OnInit {
         this.initSave();
       }
     });
-  }
-
-  groupChange($event) {
-    this.selectRoles = [];
-    // 获取用户信息初始化表单
-    this.roleService.findAllByGroupCode($event)
-      .subscribe((res: ResponseResultModel) => {
-        this.roles = res.result.list;
-      });
   }
 
   /**
@@ -141,13 +132,9 @@ export class UserEditComponent implements OnInit {
       email: null,
       photo: null,
       status: this.global.STATUS_ON,
-      dept: {
-        code: null
-      },
-      group: {
-        code: null
-      },
-      roles: [],
+      deptCode: null,
+      groupCode: null,
+      userRoles: [],
       remark: null,
       version: null
     });
@@ -179,20 +166,16 @@ export class UserEditComponent implements OnInit {
           email: model.email,
           photo: model.photo,
           status: model.status,
-          dept: {
-            code: model.dept.code
-          },
-          group: {
-            code: model.group.code
-          },
-          roles: model.roles,
+          deptCode: model.deptCode,
+          groupCode: model.groupCode,
+          userRoles: model.userRoles,
           remark: model.remark,
           version: model.version
         });
-        if (model.roles != null) {
+        if (model.userRoles != null) {
           // 设置已选中的角色
-          this.selectRoles = model.roles.map(role => {
-            return role.code;
+          this.selectRoles = model.userRoles.map(v => {
+            return v.roleCode;
           });
         }
         this.editForm.get('account').disable();
@@ -210,8 +193,8 @@ export class UserEditComponent implements OnInit {
     if (this.editForm.valid) {
       if (this.selectRoles != null) {
         // 设置选中角色
-        this.editForm.get('roles').setValue(this.selectRoles.map(roleCode => {
-          return {code: roleCode};
+        this.editForm.get('userRoles').setValue(this.selectRoles.map(v => {
+          return {roleCode: v};
         }));
       }
       this.request(this.editForm.getRawValue()).subscribe((res: ResponseResultModel) => {

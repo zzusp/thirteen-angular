@@ -8,10 +8,10 @@
             </div>
             <nz-spin [nzSpinning]="loading">
                 <app-tree-table
-                    [config]="config"
-                    [columns]="columns"
-                    [data]="data"
-                    [loading]="loading">
+                        [config]="config"
+                        [columns]="columns"
+                        [data]="data"
+                        [loading]="loading">
                 </app-tree-table>
             </nz-spin>
         </nz-card>
@@ -20,7 +20,7 @@
 <!-- START row-->
 <ng-template #rowAction let-row>
     <a *ngIf="perms.update" style="text-decoration: none;" title="修改" (click)="showUpdate(row.id)">修改<span
-        class="fa fa-fw fa-edit"></span></a>
+            class="fa fa-fw fa-edit"></span></a>
     <nz-divider *ngIf="perms.update && perms.delete" nzType="vertical"></nz-divider>
     <a *ngIf="perms.delete"
        style="text-decoration: none;"

@@ -17,7 +17,14 @@ export class BizTypeService {
    * @param params
    */
   insert(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/sys-biztype/insert', params);
+    const insert = {
+      table: GlobalConstants.getInstance().AUTH_BIZ_TYPE,
+      model: params,
+      rule: {
+        currentAccount: ['createBy'], currentDateTime: ['createTime']
+      }
+    };
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/insert', insert);
   }
 
   /**
@@ -26,7 +33,14 @@ export class BizTypeService {
    * @param params
    */
   update(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/sys-biztype/update', params);
+    const update = {
+      table: GlobalConstants.getInstance().AUTH_BIZ_TYPE,
+      model: params,
+      rule: {
+        currentAccount: ['updateBy'], currentDateTime: ['updateTime']
+      }
+    };
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/update', update);
   }
 
   /**
@@ -35,7 +49,13 @@ export class BizTypeService {
    * @param id 业务类型ID
    */
   findById(id: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/sys-biztype/findById', {params: {'id': id}});
+    const param = {
+      table: GlobalConstants.getInstance().AUTH_BIZ_TYPE,
+      criterias: [
+        {field: 'id', value: id}
+      ]
+    };
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dm/findOneByParam', param);
   }
 
   /**
@@ -44,14 +64,16 @@ export class BizTypeService {
    * @param params
    */
   findAllByParam(params: any): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/sys-biztype/findAllByParam', {params});
+    params['table'] = GlobalConstants.getInstance().AUTH_BIZ_TYPE;
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/findAllByParam', params);
   }
 
   /**
    * 获取所有业务类型列表
    */
   findAll(): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/sys-biztype/findAll', {});
+    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/dm/findAll',
+      {params: {'table': GlobalConstants.getInstance().AUTH_BIZ_TYPE}});
   }
 
   /**
@@ -60,7 +82,13 @@ export class BizTypeService {
    * @param code 编码
    */
   checkCode(code: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/sys-biztype/checkCode', {params: {'code': code}});
+    const params = {
+      'table': GlobalConstants.getInstance().AUTH_BIZ_TYPE,
+      'criterias': [
+        {'field': 'code', 'value': code}
+      ]
+    };
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/isExist', params);
   }
 
   /**
@@ -69,7 +97,18 @@ export class BizTypeService {
    * @param id 业务类型ID
    */
   deleteById(id: string): Observable<any> {
-    return this.http.delete(GlobalConstants.getInstance().DM_SERVER + '/sys-biztype/deleteById', {params: {'id': id}});
+    const del = {
+      table: GlobalConstants.getInstance().AUTH_BIZ_TYPE,
+      id: id,
+      lookups: [{
+        from: GlobalConstants.getInstance().AUTH_DICT,
+        localField: 'code',
+        foreignField: 'bizTypeCode',
+        as: null,
+        unwind: false
+      }]
+    };
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dm/deleteById', del);
   }
 
 }

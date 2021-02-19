@@ -1,7 +1,7 @@
 /**
  * 表配置信息model
  */
-import {DmColumnModel} from "./dm-column.model";
+import { DmColumnModel } from "./dm-column.model";
 
 export class DmTableModel {
 

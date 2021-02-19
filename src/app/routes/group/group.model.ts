@@ -8,6 +8,8 @@ export class GroupModel extends BaseTreeSortModel {
 
   /** 简称 */
   shortName: string;
+  /** 排序 */
+  orderNum: number;
   /** 组织拥有角色信息 */
   roles: RoleModel[];
 

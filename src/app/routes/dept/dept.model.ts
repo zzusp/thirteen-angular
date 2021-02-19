@@ -1,5 +1,4 @@
 import { BaseTreeSortModel } from '../../@core/model/base-tree-sort.model';
-import { RoleModel } from '../role/role.model';
 
 /**
  * 部门model

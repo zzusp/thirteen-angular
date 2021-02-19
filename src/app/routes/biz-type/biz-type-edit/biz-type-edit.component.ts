@@ -39,7 +39,7 @@ export class BizTypeEditComponent implements OnInit {
         Validators.maxLength(50)
       ])],
       name: [null, Validators.required],
-      active: [null, Validators.required],
+      status: [null, Validators.required],
       remark: [null, Validators.maxLength(250)],
       version: [null]
     });
@@ -68,7 +68,7 @@ export class BizTypeEditComponent implements OnInit {
       id: null,
       code: null,
       name: null,
-      active: this.global.ACTIVE_ON,
+      status: this.global.STATUS_ON,
       remark: null,
       version: null
     });

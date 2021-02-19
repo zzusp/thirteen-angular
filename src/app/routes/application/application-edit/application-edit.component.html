@@ -8,12 +8,12 @@
                     <nz-form-label [nzSm]="6" [nzXs]="24">上级</nz-form-label>
                     <nz-form-control [nzSm]="14" [nzXs]="24">
                         <nz-tree-select
-                            formControlName="pCode"
-                            [nzNodes]="applications"
-                            [nzAllowClear]="true"
-                            (ngModelChange)="onChange($event)"
-                            nzShowSearch
-                            nzPlaceHolder="请选择">
+                                formControlName="pCode"
+                                [nzNodes]="applications"
+                                [nzAllowClear]="true"
+                                (ngModelChange)="onChange($event)"
+                                nzShowSearch
+                                nzPlaceHolder="请选择">
                         </nz-tree-select>
                     </nz-form-control>
                 </nz-form-item>
@@ -58,10 +58,10 @@
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>类型</nz-form-label>
                     <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="typeTip">
                         <nz-radio-group formControlName="type">
-                            <label nz-radio nzValue="0">应用服务</label>
-                            <label nz-radio nzValue="1">应用接口</label>
-                            <label nz-radio nzValue="2">应用菜单</label>
-                            <label nz-radio nzValue="3">应用菜单组</label>
+                            <label nz-radio [nzValue]="0">应用服务</label>
+                            <label nz-radio [nzValue]="1">应用接口</label>
+                            <label nz-radio [nzValue]="2">应用菜单</label>
+                            <label nz-radio [nzValue]="3">应用菜单组</label>
                         </nz-radio-group>
                         <ng-template #typeTip let-control>
                             <ng-container *ngIf="control.dirty && control.hasError('required')">
@@ -92,14 +92,14 @@
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>排序</nz-form-label>
-                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="sortTip">
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="orderNumTip">
                         <input type="text"
-                               name="sort"
-                               formControlName="sort"
+                               name="orderNum"
+                               formControlName="orderNum"
                                required
                                nz-input
                                placeholder="请输入">
-                        <ng-template #sortTip let-control>
+                        <ng-template #orderNumTip let-control>
                             <ng-container *ngIf="control.dirty && control.hasError('required')">
                                 排序不可为空
                             </ng-container>
@@ -108,12 +108,12 @@
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>状态</nz-form-label>
-                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="activeTip">
-                        <nz-radio-group formControlName="active">
-                            <label nz-radio nzValue="1">启用</label>
-                            <label nz-radio nzValue="0">禁用</label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="statusTip">
+                        <nz-radio-group formControlName="status">
+                            <label nz-radio [nzValue]="1">启用</label>
+                            <label nz-radio [nzValue]="0">禁用</label>
                         </nz-radio-group>
-                        <ng-template #activeTip let-control>
+                        <ng-template #statusTip let-control>
                             <ng-container *ngIf="control.dirty && control.hasError('required')">
                                 状态不可为空
                             </ng-container>

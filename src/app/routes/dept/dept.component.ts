@@ -34,9 +34,9 @@ export class DeptComponent implements OnInit {
   @ViewChild('rowAction', {read: TemplateRef, static: true}) rowAction: TemplateRef<any>;
   /** 页面权限校验  */
   perms = {
-    save: true,
-    update: true,
-    delete: true
+    save: false,
+    update: false,
+    delete: false
   };
 
   constructor(private deptService: DeptService,
@@ -45,11 +45,11 @@ export class DeptComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.perms = {
-    //   save: validatePerms(['dept:save']),
-    //   update: validatePerms(['dept:update']),
-    //   delete: validatePerms(['dept:delete'])
-    // };
+    this.perms = {
+      save: validatePerms(['dept:save']),
+      update: validatePerms(['dept:update']),
+      delete: validatePerms(['dept:delete'])
+    };
     // 初始化tree-table配置
     this.config = new TreeTableConfigModel({
       level: 2
@@ -70,7 +70,7 @@ export class DeptComponent implements OnInit {
       },
       {
         title: '排序',
-        key: 'sort'
+        key: 'orderNum'
       }
     ];
     // 判断是否显示操作列

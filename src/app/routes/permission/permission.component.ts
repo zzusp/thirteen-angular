@@ -3,15 +3,13 @@ import { GlobalConstants } from '../../@core/constant/GlobalConstants';
 import { PermissionModel } from './permission.model';
 import { PermissionService } from './permission.service';
 import {
-  NzDropdownMenuComponent,
-  NzFormatEmitEvent,
-  NzMessageService,
-  NzModalRef,
-  NzModalService,
-  NzTreeComponent,
-  NzTreeNode
+    NzFormatEmitEvent,
+    NzMessageService,
+    NzModalRef,
+    NzModalService,
+    NzTreeComponent,
+    NzTreeNode
 } from 'ng-zorro-antd';
-import { HttpParams } from '@angular/common/http';
 import { ResponseResultModel } from '../../@core/net/response-result.model';
 import { PagerResultModel } from '../../@core/net/pager-result.model';
 import { PermissionEditComponent } from './permission-edit/permission-edit.component';
@@ -31,7 +29,7 @@ export class PermissionComponent implements OnInit {
   /** 应用树 */
   @ViewChild('applicationTree') applicationTree: NzTreeComponent;
   /** 选中的应用节点 */
-  activedNode: NzTreeNode;
+  statusdNode: NzTreeNode;
   /** 应用树数据 */
   nodes: TreeNode[] = [];
   /** 查询参数  */
@@ -39,13 +37,13 @@ export class PermissionComponent implements OnInit {
     code: '',
     name: '',
     types: [],
-    active: '',
-    applicationCode: ''
+    status: '',
+    appCode: ''
   };
   /** 类型 */
   types: any[] = [];
   /** 是否启用  */
-  activeArr: any[] = [];
+  statusArr: any[] = [];
   /** 当前页码  */
   pageNum: number = 1;
   /** 每页显示记录数  */
@@ -64,7 +62,7 @@ export class PermissionComponent implements OnInit {
     name: null,
     url: null,
     type: null,
-    active: null,
+    status: null,
     createTime: null,
     updateTime: null
   };
@@ -91,9 +89,9 @@ export class PermissionComponent implements OnInit {
       {text: '需登录', value: this.global.PERMISSION_LOGIN},
       {text: '需认证', value: this.global.PERMISSION_AUTHOR},
       {text: '需授权', value: this.global.PERMISSION_PERMS}];
-    this.activeArr = [
-      {text: '启用', value: this.global.ACTIVE_ON},
-      {text: '禁用', value: this.global.ACTIVE_OFF}];
+    this.statusArr = [
+      {text: '启用', value: this.global.STATUS_ON},
+      {text: '禁用', value: this.global.STATUS_OFF}];
     this.listTree();
     this.findAllByParam();
   }
@@ -103,13 +101,13 @@ export class PermissionComponent implements OnInit {
    *
    * @param data
    */
-  activeNode(data: NzFormatEmitEvent): void {
-    if (this.activedNode && this.activedNode.key === data.node.key) {
-      this.activedNode = null;
-      this.params.applicationCode = '';
+  statusNode(data: NzFormatEmitEvent): void {
+    if (this.statusdNode && this.statusdNode.key === data.node.key) {
+      this.statusdNode = null;
+      this.params.appCode = '';
     } else {
-      this.activedNode = data.node;
-      this.params.applicationCode = this.activedNode.key;
+      this.statusdNode = data.node;
+      this.params.appCode = this.statusdNode.key;
     }
     this.findAllByParam();
   }
@@ -157,8 +155,8 @@ export class PermissionComponent implements OnInit {
         {'field': 'code', 'operator': 'like', 'value': this.params.code ? '%' + this.params.code + '%' : null},
         {'field': 'name', 'operator': 'like', 'value': this.params.name ? '%' + this.params.name + '%' : null},
         {'field': 'type', 'operator': 'in', 'values': this.params.types},
-        {'field': 'active', 'value': this.params.active},
-        {'field': 'applicationCode', 'value': this.params.applicationCode}
+        {'field': 'status', 'value': this.params.status},
+        {'field': 'appCode', 'value': this.params.appCode}
       ],
       'page': {
         'pageSize': this.pageSize,
@@ -166,7 +164,7 @@ export class PermissionComponent implements OnInit {
       },
       'sorts': this.getSorts()
     };
-    this.permissionService.findAllByParam(new HttpParams().set('param', JSON.stringify(param))).subscribe((res: ResponseResultModel) => {
+    this.permissionService.findAllByParam(param).subscribe((res: ResponseResultModel) => {
       // 判断返回结果是否为空或null
       if (res && res.result) {
         const result: PagerResultModel = res.result;
@@ -182,11 +180,11 @@ export class PermissionComponent implements OnInit {
    * 过滤方法
    *
    * @param types
-   * @param active
+   * @param status
    */
-  filter(types: string[], active: string): void {
+  filter(types: string[], status: string): void {
     this.params.types = [...types];
-    this.params.active = !!active ? active : '';
+    this.params.status = !!status ? status : '';
     this.findAllByParam();
   }
 
@@ -222,7 +220,7 @@ export class PermissionComponent implements OnInit {
    * 打开新增页面
    */
   showSave() {
-    const modal = this.openModel(this.global.INSERT_FLAG, this.params.applicationCode, '新增权限信息');
+    const modal = this.openModel(this.global.INSERT_FLAG, this.params.appCode, '新增权限信息');
     // 模态框打开后回调事件
     modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
     // 模态框关闭后回调事件
@@ -294,17 +292,17 @@ export class PermissionComponent implements OnInit {
    * 打开模态框
    *
    * @param id 权限ID
-   * @param applicationCode 应用ID
+   * @param appCode 应用ID
    * @param title 模态框标题
    */
-  openModel(id: string, applicationCode: string, title: string): NzModalRef {
+  openModel(id: string, appCode: string, title: string): NzModalRef {
     return this.modalService.create({
       nzTitle: title,
       nzContent: PermissionEditComponent,
       nzWidth: 600,
       nzComponentParams: {
         id: id,
-        applicationCode: applicationCode
+        appCode: appCode
       },
       nzFooter: [
         {

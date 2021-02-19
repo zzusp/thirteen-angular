@@ -6,14 +6,14 @@
                 <input type="hidden" name="version" formControlName="version"/>
                 <nz-form-item>
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>组织</nz-form-label>
-                    <nz-form-control formGroupName="group" [nzSm]="14" [nzXs]="24" [nzErrorTip]="groupTip">
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="groupTip">
                         <nz-tree-select
-                            formControlName="code"
-                            [nzNodes]="groups"
-                            [nzAllowClear]="true"
-                            [nzDefaultExpandAll]="true"
-                            nzShowSearch
-                            nzPlaceHolder="请选择">
+                                formControlName="groupCode"
+                                [nzNodes]="groups"
+                                [nzAllowClear]="true"
+                                [nzDefaultExpandAll]="true"
+                                nzShowSearch
+                                nzPlaceHolder="请选择">
                         </nz-tree-select>
                         <ng-template #groupTip let-control>
                             <ng-container *ngIf="control.dirty && control.hasError('required')">
@@ -61,12 +61,12 @@
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>状态</nz-form-label>
-                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="activeTip">
-                        <nz-radio-group formControlName="active">
-                            <label nz-radio nzValue="1">启用</label>
-                            <label nz-radio nzValue="0">禁用</label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="statusTip">
+                        <nz-radio-group formControlName="status">
+                            <label nz-radio [nzValue]="1">启用</label>
+                            <label nz-radio [nzValue]="0">禁用</label>
                         </nz-radio-group>
-                        <ng-template #activeTip let-control>
+                        <ng-template #statusTip let-control>
                             <ng-container *ngIf="control.dirty && control.hasError('required')">
                                 状态不可为空
                             </ng-container>

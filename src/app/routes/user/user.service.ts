@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {GlobalConstants} from '../../@core/constant/GlobalConstants';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { GlobalConstants } from '../../@core/constant/GlobalConstants';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +26,21 @@ export class UserService {
    * @param params
    */
   update(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/update', params);
+    const update = {
+      table: GlobalConstants.getInstance().AUTH_USER,
+      model: params,
+      lookups: [{
+        from: GlobalConstants.getInstance().AUTH_USER_ROLE,
+        localField: 'account',
+        foreignField: 'account',
+        as: 'userRoles',
+        unwind: false
+      }],
+      rule: {
+        currentAccount: ['updateBy'], currentDateTime: ['updateTime']
+      }
+    };
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/update', update);
   }
 
   /**
@@ -35,8 +49,20 @@ export class UserService {
    * @param id 用户ID
    */
   findById(id: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/dm/findById',
-      {params: {'id': id, 'table': 'auth_user'}});
+    const param = {
+      table: GlobalConstants.getInstance().AUTH_USER,
+      criterias: [
+        {field: 'id', value: id}
+      ],
+      lookups: [{
+        from: GlobalConstants.getInstance().AUTH_USER_ROLE,
+        localField: 'account',
+        foreignField: 'account',
+        as: 'userRoles',
+        unwind: false
+      }]
+    };
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dm/findOneByParam', param);
   }
 
   /**
@@ -45,7 +71,7 @@ export class UserService {
    * @param params
    */
   findAllByParam(params: any): Observable<any> {
-    params['table'] = 'auth_user';
+    params['table'] = GlobalConstants.getInstance().AUTH_USER;
     return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/findAllByParam', params);
   }
 
@@ -56,7 +82,7 @@ export class UserService {
    */
   checkAccount(account: string): Observable<any> {
     const params = {
-      'table': 'auth_user',
+      'table': GlobalConstants.getInstance().AUTH_USER,
       'criterias': [
         {'field': 'account', 'value': account}
       ]
@@ -70,7 +96,18 @@ export class UserService {
    * @param id 用户ID
    */
   deleteById(id: string): Observable<any> {
-    return this.http.delete(GlobalConstants.getInstance().DM_SERVER + '/dm/deleteById', {params: {'id': id}});
+    const del = {
+      table: GlobalConstants.getInstance().AUTH_USER,
+      id: id,
+      lookups: [{
+        from: GlobalConstants.getInstance().AUTH_USER_ROLE,
+        localField: 'account',
+        foreignField: 'account',
+        as: 'userRoles',
+        unwind: false
+      }]
+    };
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dm/deleteById', del);
   }
 
 }

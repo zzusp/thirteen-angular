@@ -5,7 +5,9 @@ import { BaseDeleteModel } from './base-delete.model';
  */
 export class BaseRecordModel extends BaseDeleteModel {
 
-  /** 编号 */
+  /** 应用编码 */
+  appCode: string;
+  /** 编码 */
   code: string;
   /** 名称 */
   name: string;

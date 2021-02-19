@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { GlobalConstants } from '../../@core/constant/GlobalConstants';
 import { BizTypeModel } from './biz-type.model';
 import { NzMessageService, NzModalRef, NzModalService } from 'ng-zorro-antd';
-import { HttpParams } from '@angular/common/http';
 import { ResponseResultModel } from '../../@core/net/response-result.model';
 import { PagerResultModel } from '../../@core/net/pager-result.model';
 import { BizTypeEditComponent } from './biz-type-edit/biz-type-edit.component';
@@ -22,10 +21,10 @@ export class BizTypeComponent implements OnInit {
   params: any = {
     code: '',
     name: '',
-    active: ''
+    status: ''
   };
   /** 是否启用  */
-  activeArr: any[] = [];
+  statusArr: any[] = [];
   /** 当前页码  */
   pageNum: number = 1;
   /** 每页显示记录数  */
@@ -40,7 +39,7 @@ export class BizTypeComponent implements OnInit {
   sortMap = {
     code: null,
     name: null,
-    active: null,
+    status: null,
     createTime: 'desc',
     updateTime: null
   };
@@ -62,9 +61,9 @@ export class BizTypeComponent implements OnInit {
       update: validatePerms(['bizType:update']),
       delete: validatePerms(['bizType:delete'])
     };
-    this.activeArr = [
-      {text: '启用', value: this.global.ACTIVE_ON},
-      {text: '禁用', value: this.global.ACTIVE_OFF}];
+    this.statusArr = [
+      {text: '启用', value: this.global.STATUS_ON},
+      {text: '禁用', value: this.global.STATUS_OFF}];
     this.findAllByParam();
   }
 
@@ -78,7 +77,7 @@ export class BizTypeComponent implements OnInit {
       'criterias': [
         {'field': 'code', 'operator': 'like', 'value': this.params.code ? '%' + this.params.code + '%' : null},
         {'field': 'name', 'operator': 'like', 'value': this.params.name ? '%' + this.params.name + '%' : null},
-        {'field': 'active', 'value': this.params.active}
+        {'field': 'status', 'value': this.params.status}
       ],
       'page': {
         'pageSize': this.pageSize,
@@ -86,7 +85,7 @@ export class BizTypeComponent implements OnInit {
       },
       'sorts': this.getSorts()
     };
-    this.bizTypeService.findAllByParam(new HttpParams().set('param', JSON.stringify(param))).subscribe((res: ResponseResultModel) => {
+    this.bizTypeService.findAllByParam(param).subscribe((res: ResponseResultModel) => {
       // 判断返回结果是否为空或null
       if (res && res.result) {
         const result: PagerResultModel = res.result;
@@ -101,10 +100,10 @@ export class BizTypeComponent implements OnInit {
   /**
    * 过滤方法
    *
-   * @param active
+   * @param status
    */
-  filter(active: string): void {
-    this.params.active = !!active ? active : '';
+  filter(status: string): void {
+    this.params.status = !!status ? status : '';
     this.findAllByParam();
   }
 

@@ -80,7 +80,7 @@ export class ApplicationComponent implements OnInit {
       },
       {
         title: '排序',
-        key: 'sort'
+        key: 'orderNum'
       }
     ];
     // 判断是否显示操作列

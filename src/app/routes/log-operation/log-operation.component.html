@@ -42,14 +42,17 @@
                 (nzPageSizeChange)="findAllByParam()">
                 <thead>
                 <tr>
-                    <th nzShowSort [(nzSortOrder)]="sortMap.requestPath" (nzSortChange)="sort('requestPath', $event)">来源路径
+                    <th nzShowSort [(nzSortOrder)]="sortMap.requestPath" (nzSortChange)="sort('requestPath', $event)">
+                        来源路径
                     </th>
-                    <th nzShowSort [(nzSortOrder)]="sortMap.operationValue" (nzSortChange)="sort('operationValue', $event)">
+                    <th nzShowSort [(nzSortOrder)]="sortMap.operationValue"
+                        (nzSortChange)="sort('operationValue', $event)">
                         操作名称
                     </th>
                     <!--<th nzShowSort [(nzSortOrder)]="sortMap.operation_notes" (nzSortChange)="sort('operation_notes', $event)">操作描述</th>-->
                     <!--<th nzShowSort [(nzSortOrder)]="sortMap.method" (nzSortChange)="sort('method', $event)">方法</th>-->
-                    <th nzShowSort [(nzSortOrder)]="sortMap.status" (nzSortChange)="sort('status', $event)"><span>状态</span>
+                    <th nzShowSort [(nzSortOrder)]="sortMap.status" (nzSortChange)="sort('status', $event)">
+                        <span>状态</span>
                     </th>
                     <th nzShowSort [(nzSortOrder)]="sortMap.startTime" (nzSortChange)="sort('startTime', $event)">
                         <span>开始时间</span></th>

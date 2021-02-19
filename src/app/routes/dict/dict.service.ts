@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { GlobalConstants } from '../../@core/constant/GlobalConstants';
 
@@ -17,7 +17,14 @@ export class DictService {
    * @param params
    */
   insert(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/sys-dict/insert', params);
+    const insert = {
+      table: GlobalConstants.getInstance().AUTH_DICT,
+      model: params,
+      rule: {
+        currentAccount: ['createBy'], currentDateTime: ['createTime']
+      }
+    };
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/insert', insert);
   }
 
   /**
@@ -26,7 +33,14 @@ export class DictService {
    * @param params
    */
   update(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/sys-dict/update', params);
+    const update = {
+      table: GlobalConstants.getInstance().AUTH_DICT,
+      model: params,
+      rule: {
+        currentAccount: ['updateBy'], currentDateTime: ['updateTime']
+      }
+    };
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/update', update);
   }
 
   /**
@@ -35,7 +49,13 @@ export class DictService {
    * @param id 数据字典ID
    */
   findById(id: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/sys-dict/findById', {params: {'id': id}});
+    const param = {
+      table: GlobalConstants.getInstance().AUTH_DICT,
+      criterias: [
+        {field: 'id', value: id}
+      ]
+    };
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dm/findOneByParam', param);
   }
 
   /**
@@ -44,7 +64,14 @@ export class DictService {
    * @param params
    */
   findAllByParam(params: any): Observable<any> {
-    params['table'] = 'auth_dict';
+    params['table'] = GlobalConstants.getInstance().AUTH_DICT;
+    params['lookups'] = [{
+      from: GlobalConstants.getInstance().AUTH_BIZ_TYPE,
+      localField: 'bizTypeCode',
+      foreignField: 'code',
+      as: 'bizType',
+      unwind: true
+    }];
     return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/findAllByParam', params);
   }
 
@@ -52,7 +79,8 @@ export class DictService {
    * 获取所有数据字典列表
    */
   findAll(): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/dm/findAll', {});
+    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/dm/findAll',
+      {params: {'table': GlobalConstants.getInstance().AUTH_DICT}});
   }
 
   /**
@@ -73,7 +101,13 @@ export class DictService {
    * @param code 编码
    */
   checkCode(code: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/sys-dict/checkCode', {params: {'code': code}});
+    const params = {
+      'table': GlobalConstants.getInstance().AUTH_DICT,
+      'criterias': [
+        {'field': 'code', 'value': code}
+      ]
+    };
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/isExist', params);
   }
 
   /**
@@ -82,6 +116,10 @@ export class DictService {
    * @param id 数据字典ID
    */
   deleteById(id: string): Observable<any> {
-    return this.http.delete(GlobalConstants.getInstance().DM_SERVER + '/sys-dict/deleteById', {params: {'id': id}});
+    const del = {
+      table: GlobalConstants.getInstance().AUTH_DICT,
+      id: id
+    };
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dm/deleteById', del);
   }
 }

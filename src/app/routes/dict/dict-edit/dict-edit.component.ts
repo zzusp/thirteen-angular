@@ -56,10 +56,8 @@ export class DictEditComponent implements OnInit {
         Validators.maxLength(50)
       ])],
       name: [null, Validators.required],
-      active: [null, Validators.required],
-      bizType: this.fb.group({
-        code: [null, Validators.required]
-      }),
+      status: [null, Validators.required],
+      bizTypeCode: [null, Validators.required],
       remark: [null, Validators.maxLength(250)],
       version: [null]
     });
@@ -82,8 +80,8 @@ export class DictEditComponent implements OnInit {
       id: null,
       code: null,
       name: null,
-      active: this.global.ACTIVE_ON,
-      bizType: {code: null},
+      status: this.global.STATUS_ON,
+      bizTypeCode: null,
       remark: null,
       version: null
     });
@@ -109,7 +107,7 @@ export class DictEditComponent implements OnInit {
           code: model.code,
           name: model.name,
           status: model.status,
-          bizType: {code: model.bizType.code},
+          bizTypeCode: model.bizType.code,
           remark: model.remark,
           version: model.version
         });

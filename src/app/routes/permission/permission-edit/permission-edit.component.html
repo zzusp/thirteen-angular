@@ -6,18 +6,18 @@
                 <input type="hidden" name="version" formControlName="version"/>
                 <nz-form-item>
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>应用</nz-form-label>
-                    <nz-form-control formGroupName="application" [nzSm]="14" [nzXs]="24" [nzErrorTip]="applicationTip">
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="applicationTip">
                         <nz-tree-select
-                            formControlName="code"
-                            [nzNodes]="applications"
-                            [nzDropdownStyle]="{'max-height':'400px', 'overflow':'auto'}"
-                            [nzAllowClear]="true"
-                            nzShowSearch
-                            nzPlaceHolder="请选择">
+                                formControlName="appCode"
+                                [nzNodes]="applications"
+                                [nzDropdownStyle]="{'max-height':'400px', 'overflow':'auto'}"
+                                [nzAllowClear]="true"
+                                nzShowSearch
+                                nzPlaceHolder="请选择">
                         </nz-tree-select>
                         <ng-template #applicationTip let-control>
                             <ng-container
-                                *ngIf="control.dirty && control.hasError('required')">
+                                    *ngIf="control.dirty && control.hasError('required')">
                                 应用不可为空
                             </ng-container>
                         </ng-template>
@@ -80,9 +80,9 @@
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>类型</nz-form-label>
                     <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="typeTip">
                         <nz-radio-group formControlName="type">
-                            <label nz-radio nzValue="0">需登录</label>
-                            <label nz-radio nzValue="1">需认证</label>
-                            <label nz-radio nzValue="2">需授权</label>
+                            <label nz-radio [nzValue]="0">需登录</label>
+                            <label nz-radio [nzValue]="1">需认证</label>
+                            <label nz-radio [nzValue]="2">需授权</label>
                         </nz-radio-group>
                         <ng-template #typeTip let-control>
                             <ng-container *ngIf="control.dirty && control.hasError('required')">
@@ -93,12 +93,12 @@
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>状态</nz-form-label>
-                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="activeTip">
-                        <nz-radio-group formControlName="active">
-                            <label nz-radio nzValue="1">启用</label>
-                            <label nz-radio nzValue="0">禁用</label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="statusTip">
+                        <nz-radio-group formControlName="status">
+                            <label nz-radio [nzValue]="1">启用</label>
+                            <label nz-radio [nzValue]="0">禁用</label>
                         </nz-radio-group>
-                        <ng-template #activeTip let-control>
+                        <ng-template #statusTip let-control>
                             <ng-container *ngIf="control.dirty && control.hasError('required')">
                                 状态不可为空
                             </ng-container>

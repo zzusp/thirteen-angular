@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {GlobalConstants} from "../../@core/constant/GlobalConstants";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { GlobalConstants } from "../../@core/constant/GlobalConstants";
 
 @Injectable({
   providedIn: 'root'
 })
 export class DmTableService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   /**
    * 生效（根据最新的表信息，生成新的表结构）

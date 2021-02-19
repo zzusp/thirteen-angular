@@ -55,9 +55,11 @@
                         [nzFilters]="statusArr"
                         [nzFilterMultiple]="false"
                         (nzFilterChange)="filter($event)"><span>状态</span></th>
-                    <th nzShowSort [(nzSortOrder)]="sortMap.createTime" (nzSortChange)="sort('createTime', $event)"><span>添加时间</span>
+                    <th nzShowSort [(nzSortOrder)]="sortMap.createTime" (nzSortChange)="sort('createTime', $event)">
+                        <span>添加时间</span>
                     </th>
-                    <th nzShowSort [(nzSortOrder)]="sortMap.updateTime" (nzSortChange)="sort('updateTime', $event)"><span>修改时间</span>
+                    <th nzShowSort [(nzSortOrder)]="sortMap.updateTime" (nzSortChange)="sort('updateTime', $event)">
+                        <span>修改时间</span>
                     </th>
                     <th><span>备注</span></th>
                     <th *ngIf="perms.update || perms.delete"><span>操作</span></th>

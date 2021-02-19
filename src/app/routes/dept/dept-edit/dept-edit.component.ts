@@ -137,8 +137,8 @@ export class DeptEditComponent implements OnInit {
         });
         if (model.deptRoles != null) {
           // 设置已选中的角色
-          this.selectRoles = model.deptRoles.map(role => {
-            return role.roleCode;
+          this.selectRoles = model.deptRoles.map(v => {
+            return v.roleCode;
           });
         }
         this.editForm.get('code').disable();

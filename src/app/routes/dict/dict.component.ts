@@ -3,7 +3,6 @@ import { NzMessageService, NzModalRef, NzModalService } from 'ng-zorro-antd';
 import { DictEditComponent } from './dict-edit/dict-edit.component';
 import { ResponseResultModel } from '../../@core/net/response-result.model';
 import { PagerResultModel } from '../../@core/net/pager-result.model';
-import { HttpParams } from '@angular/common/http';
 import { DictService } from './dict.service';
 import { GlobalConstants } from '../../@core/constant/GlobalConstants';
 import { DictModel } from './dict.model';

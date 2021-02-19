@@ -17,7 +17,14 @@ export class ApplicationService {
    * @param params
    */
   insert(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/sys-application/insert', params);
+    const insert = {
+      table: GlobalConstants.getInstance().AUTH_APP,
+      model: params,
+      rule: {
+        currentAccount: ['createBy'], currentDateTime: ['createTime']
+      }
+    };
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/insert', insert);
   }
 
   /**
@@ -26,7 +33,14 @@ export class ApplicationService {
    * @param params
    */
   update(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/sys-application/update', params);
+    const update = {
+      table: GlobalConstants.getInstance().AUTH_APP,
+      model: params,
+      rule: {
+        currentAccount: ['updateBy'], currentDateTime: ['updateTime']
+      }
+    };
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/update', update);
   }
 
   /**
@@ -35,7 +49,14 @@ export class ApplicationService {
    * @param id 模块ID
    */
   findById(id: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/sys-application/findById', {params: {'id': id}});
+    const param = {
+      table: GlobalConstants.getInstance().AUTH_APP,
+      criterias: [
+        {field: 'id', value: id}
+      ],
+      sorts: [{field: 'orderNum', orderBy: 'asc'}]
+    };
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dm/findOneByParam', param);
   }
 
   /**
@@ -44,14 +65,18 @@ export class ApplicationService {
    * @param params
    */
   findAllByParam(params: any): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/sys-application/findAllByParam', {params});
+    params['table'] = GlobalConstants.getInstance().AUTH_APP;
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/findAllByParam', params);
   }
 
   /**
    * 获取所有模块列表
    */
   findAll(): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/sys-application/findAll', {});
+    const params = {
+      sorts: [{field: 'orderNum', orderBy: 'asc'}]
+    };
+    return this.findAllByParam(params);
   }
 
   /**
@@ -60,7 +85,13 @@ export class ApplicationService {
    * @param code 编码
    */
   checkCode(code: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/sys-application/checkCode', {params: {'code': code}});
+    const params = {
+      'table': GlobalConstants.getInstance().AUTH_APP,
+      'criterias': [
+        {'field': 'code', 'value': code}
+      ]
+    };
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/isExist', params);
   }
 
   /**
@@ -69,7 +100,18 @@ export class ApplicationService {
    * @param id 模块ID
    */
   deleteById(id: string): Observable<any> {
-    return this.http.delete(GlobalConstants.getInstance().DM_SERVER + '/sys-application/deleteById', {params: {'id': id}});
+    const del = {
+      table: GlobalConstants.getInstance().AUTH_APP,
+      id: id,
+      lookups: [{
+        from: GlobalConstants.getInstance().AUTH_ROLE_APP,
+        localField: 'code',
+        foreignField: 'appCode',
+        as: 'appRoles',
+        unwind: false
+      }]
+    };
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dm/deleteById', del);
   }
 
 }

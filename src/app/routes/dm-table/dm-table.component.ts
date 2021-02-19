@@ -1,14 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { DragulaService } from 'ng2-dragula';
 import { GlobalConstants } from "../../@core/constant/GlobalConstants";
 import { DmTableModel } from "./dm-table.model";
-import {DmTableService} from "./dm-table.service";
-import {HttpParams} from "@angular/common/http";
-import {ResponseResultModel} from "../../@core/net/response-result.model";
-import {PagerResultModel} from "../../@core/net/pager-result.model";
-import { DictService } from '../dict/dict.service';
+import { DmTableService } from "./dm-table.service";
+import { ResponseResultModel } from "../../@core/net/response-result.model";
+import { PagerResultModel } from "../../@core/net/pager-result.model";
 import { NzMessageService, NzModalRef, NzModalService } from 'ng-zorro-antd';
-import { DictEditComponent } from '../dict/dict-edit/dict-edit.component';
 import { DmTableEditComponent } from './dm-table-edit/dm-table-edit.component';
 
 @Component({
@@ -60,8 +56,8 @@ export class DmTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.statusArr = [
-      {text: '启用', value: this.global.ACTIVE_ON},
-      {text: '禁用', value: this.global.ACTIVE_OFF}];
+      {text: '启用', value: this.global.STATUS_ON},
+      {text: '禁用', value: this.global.STATUS_OFF}];
     this.findAllBySpecification();
   }
 
@@ -85,15 +81,15 @@ export class DmTableComponent implements OnInit {
     };
     this.dmTableService.findAllBySpecification(param)
       .subscribe((res: ResponseResultModel) => {
-      // 判断返回结果是否为空或null
-      if (res && res.result) {
-        const result: PagerResultModel = res.result;
-        this.tableData = result.list;
-        this.total = result.total;
-      }
-      // 加载动画关闭
-      this.loading = false;
-    });
+        // 判断返回结果是否为空或null
+        if (res && res.result) {
+          const result: PagerResultModel = res.result;
+          this.tableData = result.list;
+          this.total = result.total;
+        }
+        // 加载动画关闭
+        this.loading = false;
+      });
   }
 
   /**
@@ -101,7 +97,7 @@ export class DmTableComponent implements OnInit {
    */
   refresh() {
     this.dmTableService.refresh().subscribe((res: ResponseResultModel) => {
-      });
+    });
   }
 
   /**

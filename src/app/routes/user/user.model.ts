@@ -12,6 +12,10 @@ export class UserModel extends BaseRecordModel {
 
   /** 主键ID */
   id: string;
+  /** 部门编码 */
+  deptCode: string;
+  /** 组织编码 */
+  groupCode: string;
   /** 名称 */
   name: string;
   /** 账号 */
@@ -45,6 +49,7 @@ export class UserModel extends BaseRecordModel {
   /** 用户所属组织信息 */
   group: GroupModel;
   /** 用户拥有角色信息 */
+  userRoles: any[];
   roles: RoleModel[];
   /** 用户拥有应用 */
   apps: ApplicationModel[];

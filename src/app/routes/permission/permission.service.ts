@@ -17,7 +17,14 @@ export class PermissionService {
    * @param params
    */
   insert(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/sys-permission/insert', params);
+    const insert = {
+      table: GlobalConstants.getInstance().AUTH_PERMISSION,
+      model: params,
+      rule: {
+        currentAccount: ['createBy'], currentDateTime: ['createTime']
+      }
+    };
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/insert', insert);
   }
 
   /**
@@ -26,7 +33,14 @@ export class PermissionService {
    * @param params
    */
   update(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/sys-permission/update', params);
+    const update = {
+      table: GlobalConstants.getInstance().AUTH_PERMISSION,
+      model: params,
+      rule: {
+        currentAccount: ['updateBy'], currentDateTime: ['updateTime']
+      }
+    };
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/update', update);
   }
 
   /**
@@ -35,7 +49,14 @@ export class PermissionService {
    * @param id 权限ID
    */
   findById(id: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/sys-permission/findById', {params: {'id': id}});
+    const param = {
+      table: GlobalConstants.getInstance().AUTH_PERMISSION,
+      criterias: [
+        {field: 'id', value: id}
+      ],
+      sorts: [{field: 'orderNum', orderBy: 'asc'}]
+    };
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dm/findOneByParam', param);
   }
 
   /**
@@ -44,14 +65,16 @@ export class PermissionService {
    * @param params
    */
   findAllByParam(params: any): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/sys-permission/findAllByParam', {params});
+    params['table'] = GlobalConstants.getInstance().AUTH_PERMISSION;
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/findAllByParam', params);
   }
 
   /**
    * 获取所有权限列表
    */
   findAll(): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/sys-permission/findAll', {});
+    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/dm/findAll',
+      {params: {'table': GlobalConstants.getInstance().AUTH_PERMISSION}});
   }
 
   /**
@@ -60,7 +83,13 @@ export class PermissionService {
    * @param code 编码
    */
   checkCode(code: string): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/sys-permission/checkCode', {params: {'code': code}});
+    const params = {
+      'table': GlobalConstants.getInstance().AUTH_PERMISSION,
+      'criterias': [
+        {'field': 'code', 'value': code}
+      ]
+    };
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/isExist', params);
   }
 
   /**
@@ -69,6 +98,10 @@ export class PermissionService {
    * @param id 权限ID
    */
   deleteById(id: string): Observable<any> {
-    return this.http.delete(GlobalConstants.getInstance().DM_SERVER + '/sys-permission/deleteById', {params: {'id': id}});
+    const del = {
+      table: GlobalConstants.getInstance().AUTH_PERMISSION,
+      id: id
+    };
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dm/deleteById', del);
   }
 }

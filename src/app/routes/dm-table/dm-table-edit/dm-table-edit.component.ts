@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { GlobalConstants } from '../../../@core/constant/GlobalConstants';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -8,7 +8,7 @@ import { DmTableModel } from '../dm-table.model';
 import { ResponseResultModel } from '../../../@core/net/response-result.model';
 import { abstractValidate } from '../../../@core/util/custom-validators';
 import { DmColumnModel } from '../dm-column.model';
-import {DragulaService} from "ng2-dragula";
+import { DragulaService } from "ng2-dragula";
 
 @Component({
   selector: 'app-dm-table-edit',
@@ -36,7 +36,6 @@ export class DmTableEditComponent implements OnInit, OnDestroy {
               private dmTableService: DmTableService,
               private dragulaService: DragulaService) {
   }
-
 
 
   ngOnInit(): void {
@@ -222,7 +221,7 @@ export class DmTableEditComponent implements OnInit, OnDestroy {
 
   /**
    * 删除一行列信息
-   * 
+   *
    * @param index 行号
    */
   removeColumn(index: number) {

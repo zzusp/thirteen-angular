@@ -52,10 +52,8 @@ export class RoleEditComponent implements OnInit {
         Validators.maxLength(50)
       ])],
       name: [null, Validators.required],
-      active: [null, Validators.required],
-      group: this.fb.group({
-        code: [null, Validators.required]
-      }),
+      status: [null, Validators.required],
+      groupCode: [null, Validators.required],
       remark: [null, Validators.maxLength(250)],
       version: [null]
     });
@@ -84,10 +82,8 @@ export class RoleEditComponent implements OnInit {
       id: null,
       code: null,
       name: null,
-      active: this.global.ACTIVE_ON,
-      group: {
-        code: null
-      },
+      status: this.global.STATUS_ON,
+      groupCode: null,
       remark: null,
       version: null
     });
@@ -113,9 +109,7 @@ export class RoleEditComponent implements OnInit {
           code: model.code,
           name: model.name,
           status: model.status,
-          group: {
-            code: model.group.code
-          },
+          groupCode: model.group.code,
           remark: model.remark,
           version: model.version
         });

@@ -75,7 +75,7 @@ export class DeptService {
         as: 'deptRoles',
         unwind: false
       }],
-      sorts: [{field: 'orderNum', orderBy: 'ase'}]
+      sorts: [{field: 'orderNum', orderBy: 'asc'}]
     };
     return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dm/findOneByParam', param);
   }
@@ -87,7 +87,7 @@ export class DeptService {
    */
   findAllByParam(params: any): Observable<any> {
     params['table'] = GlobalConstants.getInstance().AUTH_DEPT;
-    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/findAllByParam', {params});
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/findAllByParam', params);
   }
 
   /**

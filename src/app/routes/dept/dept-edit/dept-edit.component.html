@@ -8,11 +8,11 @@
                     <nz-form-label [nzSm]="6" [nzXs]="24">上级</nz-form-label>
                     <nz-form-control [nzSm]="14" [nzXs]="24">
                         <nz-tree-select
-                            formControlName="pCode"
-                            [nzNodes]="depts"
-                            [nzAllowClear]="true"
-                            nzShowSearch
-                            nzPlaceHolder="请选择">
+                                formControlName="pCode"
+                                [nzNodes]="depts"
+                                [nzAllowClear]="true"
+                                nzShowSearch
+                                nzPlaceHolder="请选择">
                         </nz-tree-select>
                     </nz-form-control>
                 </nz-form-item>
@@ -104,7 +104,8 @@
                     <nz-form-control [nzSm]="14" [nzXs]="24">
                         <nz-select [(ngModel)]="selectRoles" [ngModelOptions]="{standalone: true}" nzPlaceHolder="请选择"
                                    nzMode="multiple" nzAllowClear>
-                            <nz-option *ngFor="let opt of roleModels" [nzValue]="opt.code" [nzLabel]="opt.name"></nz-option>
+                            <nz-option *ngFor="let opt of roleModels" [nzValue]="opt.code"
+                                       [nzLabel]="opt.name"></nz-option>
                         </nz-select>
                     </nz-form-control>
                 </nz-form-item>

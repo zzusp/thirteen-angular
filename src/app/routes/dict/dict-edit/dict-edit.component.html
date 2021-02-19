@@ -6,8 +6,8 @@
                 <input type="hidden" name="version" formControlName="version"/>
                 <nz-form-item>
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>业务类型</nz-form-label>
-                    <nz-form-control formGroupName="bizType" [nzSm]="14" [nzXs]="24" [nzErrorTip]="bizTypeTip">
-                        <nz-select formControlName="code" nzPlaceHolder="请选择" nzAllowClear>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="bizTypeTip">
+                        <nz-select formControlName="bizTypeCode" nzPlaceHolder="请选择" nzAllowClear>
                             <nz-option *ngFor="let opt of bizTypes" [nzValue]="opt.code"
                                        [nzLabel]="opt.name"></nz-option>
                             <!-- 加载中动画，根据需要添加 -->
@@ -61,12 +61,12 @@
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>状态</nz-form-label>
-                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="activeTip">
-                        <nz-radio-group formControlName="active">
-                            <label nz-radio nzValue="1">启用</label>
-                            <label nz-radio nzValue="0">禁用</label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="statusTip">
+                        <nz-radio-group formControlName="status">
+                            <label nz-radio [nzValue]="1">启用</label>
+                            <label nz-radio [nzValue]="0">禁用</label>
                         </nz-radio-group>
-                        <ng-template #activeTip let-control>
+                        <ng-template #statusTip let-control>
                             <ng-container *ngIf="control.dirty && control.hasError('required')">
                                 状态不可为空
                             </ng-container>

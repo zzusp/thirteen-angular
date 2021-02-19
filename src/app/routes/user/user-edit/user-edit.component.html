@@ -6,14 +6,14 @@
                 <input type="hidden" name="version" formControlName="version"/>
                 <nz-form-item>
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>部门</nz-form-label>
-                    <nz-form-control formGroupName="dept" [nzSm]="14" [nzXs]="24" [nzErrorTip]="deptTip">
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="deptTip">
                         <nz-tree-select
-                            formControlName="code"
-                            [nzNodes]="depts"
-                            [nzAllowClear]="true"
-                            [nzDefaultExpandAll]="true"
-                            nzShowSearch
-                            nzPlaceHolder="请选择">
+                                formControlName="deptCode"
+                                [nzNodes]="depts"
+                                [nzAllowClear]="true"
+                                [nzDefaultExpandAll]="true"
+                                nzShowSearch
+                                nzPlaceHolder="请选择">
                         </nz-tree-select>
                         <ng-template #deptTip let-control>
                             <ng-container *ngIf="control.dirty && control.hasError('required')">
@@ -24,14 +24,14 @@
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>组织</nz-form-label>
-                    <nz-form-control formGroupName="group" [nzSm]="14" [nzXs]="24" [nzErrorTip]="groupTip">
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="groupTip">
                         <nz-tree-select
-                            formControlName="code"
-                            [nzNodes]="groups"
-                            [nzAllowClear]="true"
-                            [nzDefaultExpandAll]="true"
-                            nzShowSearch
-                            nzPlaceHolder="请选择">
+                                formControlName="groupCode"
+                                [nzNodes]="groups"
+                                [nzAllowClear]="true"
+                                [nzDefaultExpandAll]="true"
+                                nzShowSearch
+                                nzPlaceHolder="请选择">
                         </nz-tree-select>
                         <ng-template #groupTip let-control>
                             <ng-container *ngIf="control.dirty && control.hasError('required')">
@@ -167,7 +167,7 @@
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
-                    <nz-form-label formGroupName="roles" [nzSm]="6" [nzXs]="24">角色</nz-form-label>
+                    <nz-form-label formGroupName="userRoles" [nzSm]="6" [nzXs]="24">角色</nz-form-label>
                     <nz-form-control [nzSm]="14" [nzXs]="24">
                         <nz-select [(ngModel)]="selectRoles" [ngModelOptions]="{standalone: true}" nzPlaceHolder="请选择"
                                    nzMode="multiple" nzAllowClear>
