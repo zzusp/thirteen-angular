@@ -22,46 +22,47 @@ import { TreeTableColumnModel } from '../models/tree-table-columns.model';
 @Component({
   selector: 'app-tree-table-row, [app-tree-table-row]',
   template: `
-    <tr #rowElement [ngClass]="{'active':  treeTable.selectableAll(config) 
-          && treeTable.selectable(row)
+      <tr #rowElement [ngClass]="{'active':  treeTable.selectableAll(config) 
+          && treeTable.selectAble(row)
            && treeTable.isSelected(row)}"
-        (click)="rowSelectedChange($event)">
-      <td *ngIf="treeTable.checkableAll(config)"
-          class="checkbox-column"
-          (click)="rowCheckedChange($event)">
-        <div class="tree-table-checkbox">
-          <label>
-            <input type="checkbox"
-                   [checked]="treeTable.isChecked(row) && treeTable.checkable(row)"
-                   [disabled]="!treeTable.checkable(row)">
-            <span class="tree-table-row-icon"
-                  [ngClass]="treeTable.getCheckedIcon(row)"></span>
-          </label>
-        </div>
-      </td>
-      <td *ngFor="let column of columns; index as i; first as isFirst;" class="tree-column" [style.width]="column.width">
-        <app-tree-table-column-template
-          [config]="config"
-          [column]="column"
-          [level]="level"
-          [isFirst]="isFirst"
-          [rowData]="row">
-        </app-tree-table-column-template>
-      </td>
-    </tr>
-    <ng-container *ngIf="treeTable.hasChildren(row) && treeTable.isOpen(row)">
-      <app-tree-table-row
-        [config]="config"
-        [columns]="columns"
-        *ngFor="let row of row.children; let i = index; let last = last;"
-        [row]="row"
-        [index]="i"
-        [parentIndex]="index"
-        [level]="level + 1"
-        (checkedState)="subCheckedChange($event)"
-        [isLast]="last">
-      </app-tree-table-row>
-    </ng-container>
+          (click)="rowSelectedChange($event)">
+          <td *ngIf="treeTable.checkableAll(config)"
+              class="checkbox-column"
+              (click)="rowCheckedChange($event)">
+              <div class="tree-table-checkbox">
+                  <label>
+                      <input type="checkbox"
+                             [checked]="treeTable.isChecked(row) && treeTable.checkAble(row)"
+                             [disabled]="!treeTable.checkAble(row)">
+                      <span class="tree-table-row-icon"
+                            [ngClass]="treeTable.getCheckedIcon(row)"></span>
+                  </label>
+              </div>
+          </td>
+          <td *ngFor="let column of columns; index as i; first as isFirst;" class="tree-column"
+              [style.width]="column.width">
+              <app-tree-table-column-template
+                      [config]="config"
+                      [column]="column"
+                      [level]="level"
+                      [isFirst]="isFirst"
+                      [rowData]="row">
+              </app-tree-table-column-template>
+          </td>
+      </tr>
+      <ng-container *ngIf="treeTable.hasChildren(row) && treeTable.isOpen(row)">
+          <app-tree-table-row
+                  [config]="config"
+                  [columns]="columns"
+                  *ngFor="let row of row.children; let i = index; let last = last;"
+                  [row]="row"
+                  [index]="i"
+                  [parentIndex]="index"
+                  [level]="level + 1"
+                  (checkedState)="subCheckedChange($event)"
+                  [isLast]="last">
+          </app-tree-table-row>
+      </ng-container>
   `,
   styleUrls: ['../tree-table.component.scss'],
   encapsulation: ViewEncapsulation.None
@@ -159,7 +160,7 @@ export class TreeTableRowComponent implements OnInit, AfterViewInit, DoCheck, On
     $event.preventDefault();
     // 阻止事件冒泡
     $event.stopPropagation();
-    if (!this.treeTable.selectable(this.row) ||
+    if (!this.treeTable.selectAble(this.row) ||
       !this.treeTable.selectableAll(this.config)) {
       return;
     }
@@ -179,7 +180,7 @@ export class TreeTableRowComponent implements OnInit, AfterViewInit, DoCheck, On
     $event.preventDefault();
     // 阻止事件冒泡
     $event.stopPropagation();
-    if (!this.treeTable.checkable(this.row) ||
+    if (!this.treeTable.checkAble(this.row) ||
       !this.treeTable.checkableAll(this.config)) {
       return;
     }

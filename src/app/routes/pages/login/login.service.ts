@@ -38,7 +38,7 @@ export class LoginService {
    * 重新加载过滤链
    */
   reloadFilterChains(): Observable<any> {
-    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/dmLogin/reloadFilterChains');
+    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/reloadFilterChains');
   }
 
 }

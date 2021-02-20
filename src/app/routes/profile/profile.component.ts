@@ -10,7 +10,7 @@ import { GlobalConstants } from '../../@core/constant/GlobalConstants';
 @Component({
   selector: 'app-profile',
   template: `
-    <router-outlet></router-outlet>`,
+      <router-outlet></router-outlet>`,
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {

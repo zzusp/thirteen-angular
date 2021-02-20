@@ -38,7 +38,6 @@ import zh from '@angular/common/locales/zh';
 import { IconDefinition } from '@ant-design/icons-angular';
 /** 引入你需要的图标，比如你需要 fill 主题的 AccountBook Alert 和 outline 主题的 Alert，推荐 ✔️ **/
 import { AlertOutline } from '@ant-design/icons-angular/icons';
-
 /**
  * This will import all modules from echarts.
  * If you only need custom modules,

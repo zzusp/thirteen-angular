@@ -53,14 +53,7 @@ export class RoleService {
       table: GlobalConstants.getInstance().AUTH_ROLE,
       criterias: [
         {field: 'id', value: id}
-      ],
-      lookups: [{
-        from: GlobalConstants.getInstance().AUTH_GROUP,
-        localField: 'groupCode',
-        foreignField: 'code',
-        as: 'group',
-        unwind: true
-      }]
+      ]
     };
     return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dm/findOneByParam', param);
   }
@@ -77,11 +70,17 @@ export class RoleService {
         {field: 'id', value: id}
       ],
       lookups: [{
-        from: GlobalConstants.getInstance().AUTH_GROUP,
-        localField: 'groupCode',
-        foreignField: 'code',
-        as: 'group',
-        unwind: true
+        from: GlobalConstants.getInstance().AUTH_ROLE_APP,
+        localField: 'code',
+        foreignField: 'roleCode',
+        as: 'apps',
+        unwind: false
+      }, {
+        from: GlobalConstants.getInstance().AUTH_ROLE_PERMISSION,
+        localField: 'code',
+        foreignField: 'roleCode',
+        as: 'permissions',
+        unwind: false
       }]
     };
     return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dm/findOneByParam', param);
@@ -93,7 +92,7 @@ export class RoleService {
    * @param params
    */
   authorize(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/sys-role/authorize', params);
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuthRole/authorize', params);
   }
 
   /**

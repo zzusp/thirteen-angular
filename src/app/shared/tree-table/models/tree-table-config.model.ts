@@ -5,9 +5,9 @@ import { TreeTableRowModel } from './tree-table-data.model';
  */
 export class TreeTableConfigModel {
   /** 是否可选中行 */
-  selectable: boolean;
+  selectAble: boolean;
   /** 是否可勾选 */
-  checkable: boolean;
+  checkAble: boolean;
   /** 展开层级，默认为0 */
   level: number;
   /** 展开时的图标 */
@@ -30,8 +30,8 @@ export class TreeTableConfigModel {
   onLazyRender: TreeTableActionCallback;
 
   constructor(fields?: {
-    selectable?: boolean;
-    checkable?: boolean;
+    selectAble?: boolean;
+    checkAble?: boolean;
     level?: number;
     iconOpen?: string;
     iconClose?: string;
@@ -45,8 +45,8 @@ export class TreeTableConfigModel {
     onLazyRender?: TreeTableActionCallback;
   }) {
     const defaultConfig = {
-      selectable: false,
-      checkable: false,
+      selectAble: false,
+      checkAble: false,
       level: 0,
       iconOpen: 'icon-expand',
       iconClose: 'icon-collapse',
@@ -63,8 +63,8 @@ export class TreeTableConfigModel {
       onLazyRender: () => {
       }
     }, realConfig = {...defaultConfig, ...fields};
-    this.selectable = realConfig.selectable;
-    this.checkable = realConfig.checkable;
+    this.selectAble = realConfig.selectAble;
+    this.checkAble = realConfig.checkAble;
     this.level = realConfig.level;
     this.iconOpen = realConfig.iconOpen;
     this.iconClose = realConfig.iconClose;

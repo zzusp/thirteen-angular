@@ -1,12 +1,12 @@
-import { BaseRecordModel } from './base-record.model';
+import { BaseModel } from "./base.model";
 
 /**
  * 上下级结构的model的基类
  */
-export class BaseTreeSortModel extends BaseRecordModel {
+export class BaseTreeSortModel extends BaseModel {
 
   /** 排序 */
-  sort: number;
+  orderNum: number;
   /** 父节点编码 */
   pCode: string;
   /** 节点 */

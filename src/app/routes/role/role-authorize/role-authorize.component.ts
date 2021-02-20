@@ -41,7 +41,7 @@ export class RoleAuthorizeComponent implements OnInit {
   /** 图标 */
   @ViewChild('rowIcon', {read: TemplateRef, static: true}) rowIcon: TemplateRef<any>;
   /** 状态 */
-  @ViewChild('rowActive', {read: TemplateRef, static: true}) rowActive: TemplateRef<any>;
+  @ViewChild('rowStatus', {read: TemplateRef, static: true}) rowStatus: TemplateRef<any>;
   /** 权限 */
   @ViewChild('rowPermission', {read: TemplateRef, static: true}) rowPermission: TemplateRef<any>;
   /** 权限选项 */
@@ -51,7 +51,7 @@ export class RoleAuthorizeComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private fb: FormBuilder,
-              private applicationService: ApplicationService,
+              private appService: ApplicationService,
               private permissionService: PermissionService,
               private roleService: RoleService,
               private treeTableService: TreeTableService,
@@ -62,7 +62,7 @@ export class RoleAuthorizeComponent implements OnInit {
   ngOnInit() {
     // 初始化tree-table配置
     this.config = new TreeTableConfigModel({
-      checkable: true,
+      checkAble: true,
       level: 1,
       onCheckChange: (row: TreeTableRowModel) => {
         // 使用临时变量，避免双向绑定的变量频繁变化
@@ -85,7 +85,7 @@ export class RoleAuthorizeComponent implements OnInit {
       },
       {
         title: '状态',
-        template: this.rowActive
+        template: this.rowStatus
       },
       {
         title: '权限',
@@ -101,9 +101,9 @@ export class RoleAuthorizeComponent implements OnInit {
       id: [null],
       code: [null],
       name: [null],
-      applications: [[]],
+      apps: [[]],
       permissions: [[]],
-      active: [null],
+      status: [null],
       remark: [null]
     });
     this.editForm.disable();
@@ -120,26 +120,26 @@ export class RoleAuthorizeComponent implements OnInit {
    */
   initAuthorize() {
     //  初始化应用权限table-tree
-    const applicationReq = this.applicationService.findAll();
+    const appReq = this.appService.findAll();
     const permissioneReq = this.permissionService.findAll();
-    forkJoin(applicationReq, permissioneReq)
+    forkJoin(appReq, permissioneReq)
       .pipe(
         mergeMap((results: ResponseResultModel[]) => {
-          const applicationRes = results[0];
+          const appRes = results[0];
           const permissionRes = results[1];
-          if (applicationRes.result) {
-            applicationRes.result.list.forEach((application: ApplicationModel) => {
-              application.permissions = [];
+          if (appRes.result) {
+            appRes.result.list.forEach((app: ApplicationModel) => {
+              app.permissions = [];
               if (permissionRes.result) {
                 permissionRes.result.list.forEach((permission: PermissionModel) => {
-                  if (application.code === permission.application.code) {
-                    application.permissions.push(permission);
+                  if (app.code === permission.appCode) {
+                    app.permissions.push(permission);
                   }
                 });
               }
             });
             // 初始化应用table-tree
-            this.data = new TreeTableDataModel(listToBaseTree(applicationRes.result.list));
+            this.data = new TreeTableDataModel(listToBaseTree(appRes.result.list));
           }
           return this.roleService.findDetailById(this.routeParams.id);
         })
@@ -151,25 +151,30 @@ export class RoleAuthorizeComponent implements OnInit {
         id: model.id,
         code: model.code,
         name: model.name,
-        applications: model.applications,
+        apps: model.apps,
         permissions: model.permissions,
         status: model.status,
         remark: model.remark
       });
-      if (model.applications) {
-        // 设置treeTable的默认值
-        this.setTreeTableDefaultValue(this.data.datas, model.applications);
-      }
-      if (model.permissions) {
-        //  设置权限默认值
-        this.setCheckedPermission(model.permissions);
+      if ("admin" === model.code) {
+        this.setTreeTableAllChecked(this.data.datas);
+
+      } else {
+        if (model.apps) {
+          // 设置treeTable的默认值
+          this.setTreeTableDefaultValue(this.data.datas, model.apps);
+        }
+        if (model.permissions) {
+          //  设置权限默认值
+          this.setCheckedPermission(model.permissions);
+        }
       }
     });
   }
 
   // 表单提交（授权）
   submitForm() {
-    this.editForm.get('applications').setValue(this.getCheckedApplication());
+    this.editForm.get('apps').setValue(this.getCheckedApplication());
     this.editForm.get('permissions').setValue(this.getCheckedPermission());
     this.roleService.authorize(this.editForm.value).subscribe((res: ResponseResultModel) => {
       // 清空表单
@@ -193,14 +198,14 @@ export class RoleAuthorizeComponent implements OnInit {
   cascadePermissions(row: TreeTableRowModel, codes: string[]): void {
     // 取消选中应用时级联取消选中其下的权限
     if (row['permissions'] && row['permissions'].length > 0) {
-      row['permissions'].forEach((permission: PermissionModel) => {
+      row['permissions'].forEach((v: any) => {
         // 获取权限编码在已选中权限编码数组中的下标
-        const index = codes.indexOf(permission.code);
+        const index = codes.indexOf(v.code);
         if (!row.checked && index >= 0) {
           // 删除指定下标权限
           codes.splice(index, 1);
         } else if (!!row.checked && index < 0) {
-          codes.push(permission.code);
+          codes.push(v.code);
         }
       });
     }
@@ -236,17 +241,38 @@ export class RoleAuthorizeComponent implements OnInit {
   /**
    * 设置选中权限
    *
-   * @param permissions 权限数组
+   * @param rolePermissions 角色权限数组
    */
-  setCheckedPermission(permissions: PermissionModel[]): void {
+  setCheckedPermission(rolePermissions: any[]): void {
     // 使用临时变量，用来存储已设置过的权限，避免双向绑定的变量频繁变化
     const temp: string[] = [];
     // 遍历权限数组
-    permissions.forEach((permission: PermissionModel) => {
-      temp.push(permission.code);
+    rolePermissions.forEach((v: any) => {
+      temp.push(v.permissionCode);
     });
     // 设置已选中的权限编码
-    this.permissionCodes = [...[], ...temp];
+    this.permissionCodes = [...this.permissionCodes, ...temp];
+  }
+
+  /**
+   * 设置tree-table默认全部勾选
+   *
+   * @param items
+   */
+  setTreeTableAllChecked(items: TreeTableRowModel[]) {
+    items.forEach((item: TreeTableRowModel) => {
+      item.checked = true;
+      if (item['permissions'] != null) {
+        let rolePermissions = [];
+        item['permissions'].forEach(v => {
+          rolePermissions.push({permissionCode: v['code']})
+        })
+        this.setCheckedPermission(rolePermissions);
+      }
+      if (item.children && item.children.length > 0) {
+        this.setTreeTableAllChecked(item.children);
+      }
+    });
   }
 
   /**
@@ -255,12 +281,12 @@ export class RoleAuthorizeComponent implements OnInit {
    * @param items
    * @param defaultModules
    */
-  setTreeTableDefaultValue(items: TreeTableRowModel[], defaultModules: ApplicationModel[]) {
+  setTreeTableDefaultValue(items: TreeTableRowModel[], defaultModules: any[]) {
     items.forEach((item: TreeTableRowModel) => {
       defaultModules.forEach((module, index) => {
-        if (item['code'] === module.code) {
+        if (item['code'] === module.appCode) {
           item.checked = true;
-          defaultModules.slice(index, 1);
+          defaultModules.splice(index, 1);
         }
         if (item.children && item.children.length > 0) {
           this.setTreeTableDefaultValue(item.children, defaultModules);
@@ -274,8 +300,8 @@ export class RoleAuthorizeComponent implements OnInit {
    */
   getCheckedPermission(): any[] {
     const permissions: any[] = [];
-    this.permissionCodes.forEach(code => {
-      permissions.push({code: code});
+    this.permissionCodes.forEach(v => {
+      permissions.push({permissionCode: v});
     });
     return permissions;
   }
@@ -286,7 +312,7 @@ export class RoleAuthorizeComponent implements OnInit {
   getCheckedApplication(): any[] {
     const modules: any[] = [];
     this.treeTableService.getCheckedData(this.data, 'code').forEach(moduleCode => {
-      modules.push({code: moduleCode});
+      modules.push({appCode: moduleCode});
     });
     return modules;
   }

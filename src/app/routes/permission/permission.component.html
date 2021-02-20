@@ -109,10 +109,10 @@
                         <nz-divider *ngIf="perms.update && perms.delete" nzType="vertical"></nz-divider>
                         <a *ngIf="perms.delete"
                            nz-popconfirm
-                           [nzTitle]="global.DELETE_CONFIRM_MSG"
+                           [nzPopconfirmTitle]="global.DELETE_CONFIRM_MSG"
                            (nzOnConfirm)="confirmDelete(data.id)"
                            (nzOnCancel)="cancelDelete()"
-                           nzPlacement="topRight">删除</a>
+                           nzPopconfirmPlacement="topRight">删除</a>
                     </td>
                 </tr>
                 </tbody>

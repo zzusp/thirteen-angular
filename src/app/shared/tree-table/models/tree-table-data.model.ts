@@ -6,8 +6,8 @@ export class TreeTableDataModel {
 
   constructor(datas: any[]) {
     const defaultItem: TreeTableRowModel = {
-      selectable: true,
-      checkable: true,
+      selectAble: true,
+      checkAble: true,
       selected: false,
       checked: false,
       leaf: false
@@ -26,9 +26,9 @@ export class TreeTableDataModel {
  */
 export interface TreeTableRowModel {
   /** 是否可选中行 */
-  selectable?: boolean;
+  selectAble?: boolean;
   /** 是否可勾选 */
-  checkable?: boolean;
+  checkAble?: boolean;
   /** 是否选中 */
   selected?: boolean;
   /** 是否勾选 */

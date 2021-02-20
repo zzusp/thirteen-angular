@@ -17,7 +17,21 @@ export class UserService {
    * @param params
    */
   insert(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuthUser/insert', params);
+    const insert = {
+      table: GlobalConstants.getInstance().AUTH_USER,
+      model: params,
+      lookups: [{
+        from: GlobalConstants.getInstance().AUTH_USER_ROLE,
+        localField: 'account',
+        foreignField: 'account',
+        as: 'userRoles',
+        unwind: false
+      }],
+      rule: {
+        currentAccount: ['createBy'], currentDateTime: ['createTime']
+      }
+    };
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuthUser/insert', insert);
   }
 
   /**

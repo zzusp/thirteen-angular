@@ -41,18 +41,20 @@ export interface SidebarMenuInfo {
  */
 export function applicationToSidebar(list: ApplicationModel[], pCode: string): SidebarMenuInfo[] {
   const result: SidebarMenuInfo[] = [];
-  list.forEach((obj, index) => {
-    if (pCode === obj.pCode) {
-      const model: SidebarMenuInfo = {
-        name: obj.name,
-        icon: obj.icon,
-        url: obj.url,
-        group: GlobalConstants.getInstance().APPLICATION_HEADING === obj.type
-      };
-      list.slice(index, 1);
-      model.children = applicationToSidebar(list, obj.code);
-      result.push(model);
-    }
-  });
+  if (!!list) {
+    const temp = [...list];
+    temp.forEach((obj, index) => {
+      if (pCode === obj.pCode) {
+        const model: SidebarMenuInfo = {
+          name: obj.name,
+          icon: obj.icon,
+          url: obj.url,
+          group: GlobalConstants.getInstance().APPLICATION_HEADING === obj.type
+        };
+        model.children = applicationToSidebar(temp, obj.code);
+        result.push(model);
+      }
+    });
+  }
   return result;
 }

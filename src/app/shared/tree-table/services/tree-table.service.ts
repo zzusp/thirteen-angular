@@ -18,12 +18,12 @@ export class TreeTableService {
 
   // 检查是否可选中，默认true
   selectableAll(config: TreeTableConfigModel): boolean {
-    return config.selectable;
+    return config.selectAble;
   }
 
   // 检查是否可勾选,默认false
   checkableAll(config: TreeTableConfigModel): boolean {
-    return config.checkable;
+    return config.checkAble;
   }
 
   getData(row: any, propertyName: string): string {
@@ -61,13 +61,13 @@ export class TreeTableService {
   }
 
   // 检查是否可单选
-  selectable(row: TreeTableRowModel): boolean {
-    return row.selectable;
+  selectAble(row: TreeTableRowModel): boolean {
+    return row.selectAble;
   }
 
   // 检查是否可多选
-  checkable(row: TreeTableRowModel): boolean {
-    return !!row.checkable;
+  checkAble(row: TreeTableRowModel): boolean {
+    return !!row.checkAble;
   }
 
   // 检查是否有需要模板显示的列
@@ -100,10 +100,10 @@ export class TreeTableService {
   isAllChildrenChecked(row: TreeTableRowModel): boolean {
     let isAllChecked = true;
     if (!this.hasChildren(row)) {
-      return this.checkable(row) ? row.checked : true;
+      return this.checkAble(row) ? row.checked : true;
     }
     for (const subtree of row.children) {
-      if (this.checkable(subtree) && !this.isChecked(subtree)) {
+      if (this.checkAble(subtree) && !this.isChecked(subtree)) {
         isAllChecked = false;
         break;
       }
@@ -119,10 +119,10 @@ export class TreeTableService {
   isAllChildrenUnChecked(row: TreeTableRowModel): boolean {
     let isAllUnChecked = true;
     if (!this.hasChildren(row)) {
-      return this.checkable(row) ? !row.checked : true;
+      return this.checkAble(row) ? !row.checked : true;
     }
     for (const subtree of row.children) {
-      if (this.checkable(subtree) && this.isChecked(subtree)) {
+      if (this.checkAble(subtree) && this.isChecked(subtree)) {
         isAllUnChecked = false;
         break;
       }
@@ -160,11 +160,11 @@ export class TreeTableService {
   // 递归遍历所有节点数据
   recursiveTreeData(rows: TreeTableRowModel[], type: string, key?: string) {
     for (const subrow of rows) {
-      if (type === 'select' && this.isSelected(subrow) && this.selectable(subrow)) {
+      if (type === 'select' && this.isSelected(subrow) && this.selectAble(subrow)) {
         this._selectedRow = subrow;
         this._selectedData = subrow[key];
       }
-      if (type === 'check' && this.isChecked(subrow) && this.checkable(subrow)) {
+      if (type === 'check' && this.isChecked(subrow) && this.checkAble(subrow)) {
         this._checkedRows.push(subrow);
         this._checkedDatas.push(subrow[key]);
       }

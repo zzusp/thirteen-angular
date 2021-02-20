@@ -6,13 +6,12 @@ import { ResponseResultModel } from '../../../@core/net/response-result.model';
 import { DictModel } from '../../dict/dict.model';
 import { Location } from '@angular/common';
 import { UserModel } from '../../user/user.model';
-import { setUserInfo } from '../../../@core/util/user-info';
+import { getUserInfo } from '../../../@core/util/user-info';
 import { Router } from '@angular/router';
 import { NzMessageService, UploadXHRArgs } from 'ng-zorro-antd';
 import { HttpEvent, HttpEventType, HttpResponse } from '@angular/common/http';
 import { ProfileService } from '../profile.service';
 import { LoginService } from '../../pages/login/login.service';
-import { applicationToSidebar, LayoutData } from '../../../@layout/interface/layout-data';
 import { LayoutService } from '../../../@layout/@layout.service';
 import { validatePerms } from '../../../@core/util/perms-validators';
 import { DictService } from '../../dict/dict.service';
@@ -69,11 +68,6 @@ export class ProfileSettingComponent implements OnInit {
     // 表单验证
     this.editForm = this.fb.group({
       id: [null],
-      code: [null, Validators.compose([
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(50)
-      ])],
       account: [null, Validators.compose([
         Validators.required,
         Validators.minLength(3),
@@ -88,7 +82,6 @@ export class ProfileSettingComponent implements OnInit {
       ])],
       remark: [null, Validators.maxLength(250)]
     });
-    this.editForm.get('code').disable();
     this.editForm.get('account').disable();
     this.initInfo();
     this.initUpload();
@@ -164,40 +157,19 @@ export class ProfileSettingComponent implements OnInit {
    * 初始化信息
    */
   initInfo() {
-    // 从服务器段获取到当前用户信息，更新布局数据
-    this.loginService.me()
-      .subscribe((res: ResponseResultModel) => {
-        if (res.result) {
-          const result: UserModel = res.result;
-          // 表单重置
-          this.editForm.reset({
-            id: result.id,
-            code: result.code,
-            account: result.account,
-            name: result.name,
-            gender: result.gender,
-            mobile: result.mobile,
-            email: result.email,
-            remark: result.remark
-          });
-          // 设置头像路径
-          this.photo = result.photo;
-          // 更新布局数据
-          const layoutData: LayoutData = {
-            userBlock: {
-              name: result.name,
-              photo: result.photo,
-              role: result.roles.map((role) => {
-                return role.name;
-              }).join('，')
-            },
-            sidebarMenu: applicationToSidebar(result.apps, this.global.AUTHORIZATION_SERVER_CODE)
-          };
-          this.layoutService.setLayoutData(layoutData);
-          // 更新localStorage中的用户信息
-          setUserInfo(result);
-        }
-      });
+    const result: UserModel = getUserInfo();
+    // 表单重置
+    this.editForm.reset({
+      id: result.id,
+      account: result.account,
+      name: result.name,
+      gender: result.gender,
+      mobile: result.mobile,
+      email: result.email,
+      remark: result.remark
+    });
+    // 设置头像路径
+    this.photo = result.photo;
   }
 
   /**

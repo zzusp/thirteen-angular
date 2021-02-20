@@ -1,17 +1,15 @@
-import { BaseRecordModel } from '../../@core/model/base-record.model';
 import { GroupModel } from '../group/group.model';
 import { RoleModel } from '../role/role.model';
 import { ApplicationModel } from '../application/application.model';
 import { PermissionModel } from '../permission/permission.model';
 import { DeptModel } from '../dept/dept.model';
+import { BaseModel } from "../../@core/model/base.model";
 
 /**
  * 用户model
  */
-export class UserModel extends BaseRecordModel {
+export class UserModel extends BaseModel {
 
-  /** 主键ID */
-  id: string;
   /** 部门编码 */
   deptCode: string;
   /** 组织编码 */
@@ -48,8 +46,9 @@ export class UserModel extends BaseRecordModel {
   dept: DeptModel;
   /** 用户所属组织信息 */
   group: GroupModel;
-  /** 用户拥有角色信息 */
+  /** 用户角色关联 */
   userRoles: any[];
+  /** 用户拥有角色信息 */
   roles: RoleModel[];
   /** 用户拥有应用 */
   apps: ApplicationModel[];

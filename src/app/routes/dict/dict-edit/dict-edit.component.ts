@@ -107,7 +107,7 @@ export class DictEditComponent implements OnInit {
           code: model.code,
           name: model.name,
           status: model.status,
-          bizTypeCode: model.bizType.code,
+          bizTypeCode: model.bizTypeCode,
           remark: model.remark,
           version: model.version
         });

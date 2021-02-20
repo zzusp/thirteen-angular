@@ -17,7 +17,7 @@ export class ProfileService {
    * @param params
    */
   uploadAvatar(params: any): Observable<HttpEvent<any>> {
-    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/profile/uploadAvatar', params,
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuthUser/uploadAvatar', params,
       {observe: 'events', reportProgress: true});
   }
 
@@ -27,7 +27,7 @@ export class ProfileService {
    * @param params
    */
   profileSetting(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/profile/profileSetting', params);
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuthUser/profileSetting', params);
   }
 
   /**
@@ -36,6 +36,6 @@ export class ProfileService {
    * @param params
    */
   passwordEdit(params: any): Observable<any> {
-    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/profile/passwordEdit', {}, {params: params});
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuthUser/passwordEdit', {}, {params: params});
   }
 }

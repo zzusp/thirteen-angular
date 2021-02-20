@@ -3,7 +3,7 @@ import { LayoutConfig } from '../interface/layout-config';
 import { LayoutService } from '../@layout.service';
 import { LoginService } from '../../routes/pages/login/login.service';
 import { applicationToSidebar, LayoutData } from '../interface/layout-data';
-import { ActivatedRoute, NavigationEnd, PRIMARY_OUTLET, Router } from '@angular/router';
+import { ActivatedRoute, PRIMARY_OUTLET, Router } from '@angular/router';
 import { BreadcrumbOption, NzBreadCrumbComponent } from 'ng-zorro-antd';
 import { ResponseResultModel } from '../../@core/net/response-result.model';
 import { UserModel } from '../../routes/user/user.model';
@@ -61,7 +61,7 @@ export class LayoutDefaultComponent implements OnInit, AfterViewInit {
               userBlock: {
                 name: result.name,
                 photo: result.photo,
-                role: result.roles.map((role) => {
+                role: !result.roles ? '' : result.roles.map((role) => {
                   return role.name;
                 }).join('，')
               },

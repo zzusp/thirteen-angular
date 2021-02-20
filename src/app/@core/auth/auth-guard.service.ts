@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ResponseResultModel } from '../net/response-result.model';
 import { UserModel } from '../../routes/user/user.model';
 import { LoginService } from '../../routes/pages/login/login.service';
+import { getUserInfo } from "../util/user-info";
 
 /**
  * 路由守卫，访问权限认证
@@ -27,26 +27,24 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
 
   checkActive(url: string): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-      this.loginService.me().subscribe((res: ResponseResultModel) => {
-        const currentUser: UserModel = res.result;
-        let canActive = false;
-        if (currentUser !== null && currentUser.apps != null) {
-          if (url === '/views') {
-            canActive = true;
-          } else {
-            for (const application of currentUser.apps) {
-              if (application.url === url) {
-                canActive = true;
-                break;
-              }
+      const currentUser: UserModel = getUserInfo();
+      let canActive = false;
+      if (currentUser !== null && currentUser.apps != null) {
+        if (url === '/views') {
+          canActive = true;
+        } else {
+          for (const application of currentUser.apps) {
+            if (application.url === url) {
+              canActive = true;
+              break;
             }
           }
         }
-        if (!canActive) {
-          this.router.navigate(['/pages/404']);
-        }
-        resolve(canActive);
-      });
+      }
+      if (!canActive) {
+        this.router.navigate(['/pages/404']);
+      }
+      resolve(canActive);
     });
   }
 

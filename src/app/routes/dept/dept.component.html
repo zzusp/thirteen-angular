@@ -26,10 +26,10 @@
        style="text-decoration: none;"
        title="删除"
        nz-popconfirm
-       [nzTitle]="global.DELETE_CONFIRM_MSG"
+       [nzPopconfirmTitle]="global.DELETE_CONFIRM_MSG"
        (nzOnConfirm)="confirmDelete(row.id)"
        (nzOnCancel)="cancelDelete()"
-       nzPlacement="topRight">
+       nzPopconfirmPlacement="topRight">
         删除<span class="fa fa-fw fa-trash-o"></span>
     </a>
 </ng-template>

@@ -12,7 +12,7 @@
             <nz-card [nzBordered]="false">
                 <div nz-row [nzGutter]="32" style="display: flex;justify-content: center;align-items: center;">
                     <div nz-col [nzMd]="16" [nzXXl]="14">
-                        <form [formGroup]="editForm" class="form-validate submit-form">
+                        <form nz-form [formGroup]="editForm" [nzLayout]="'vertical'" class="form-validate submit-form">
                             <div nz-row [nzGutter]="32">
                                 <div nz-col [nzMd]="8">
                                     <h2>头像</h2>
@@ -26,8 +26,9 @@
                                                 [nzCustomRequest]="uploadAvatar"
                                                 [nzShowUploadList]="false"
                                                 [nzBeforeUpload]="beforeUpload">
-                                            <button nz-button class="upload-btn"><i nz-icon
-                                                                                    type="upload"></i><span>更换头像</span>
+                                            <button nz-button class="upload-btn">
+                                                <i nz-icon [nzType]="'upload'"
+                                                   [nzTheme]="'outline'"></i><span>更换头像</span>
                                             </button>
                                         </nz-upload>
                                     </div>
@@ -40,10 +41,11 @@
                                 </div>
                                 <div nz-col [nzMd]="8">
                                     <nz-form-item>
-                                        <nz-form-label nzRequired>编码</nz-form-label>
+                                        <nz-form-label nzRequired>账号</nz-form-label>
                                         <nz-form-control>
                                             <input type="text"
-                                                   formControlName="code"
+                                                   name="account"
+                                                   formControlName="account"
                                                    required
                                                    nz-input
                                                    placeholder="请输入">
@@ -117,27 +119,14 @@
                                     <nz-form-item>
                                         <nz-form-label>简介</nz-form-label>
                                         <nz-form-control [nzErrorTip]="remarkTip">
-                                        <textarea name="remark" formControlName="remark" nz-input
-                                                  [nzAutosize]="{ minRows: 4, maxRows: 6 }"
-                                                  placeholder="请用少于250字符描述您自己"></textarea>
+                                            <textarea name="remark" formControlName="remark" nz-input
+                                                      [nzAutosize]="{ minRows: 4, maxRows: 6 }"
+                                                      placeholder="请用少于250字符描述您自己"></textarea>
                                             <ng-template #remarkTip let-control>
                                                 <ng-container *ngIf="control.hasError('maxlength')">
                                                     最多250个字符
                                                 </ng-container>
                                             </ng-template>
-                                        </nz-form-control>
-                                    </nz-form-item>
-                                </div>
-                                <div nz-col [nzMd]="8">
-                                    <nz-form-item>
-                                        <nz-form-label nzRequired>账号</nz-form-label>
-                                        <nz-form-control>
-                                            <input type="text"
-                                                   name="account"
-                                                   formControlName="account"
-                                                   required
-                                                   nz-input
-                                                   placeholder="请输入">
                                         </nz-form-control>
                                     </nz-form-item>
                                 </div>

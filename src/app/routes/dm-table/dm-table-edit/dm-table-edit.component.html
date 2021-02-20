@@ -89,7 +89,7 @@
                 </thead>
                 <tbody [dragula]="dragName">
                 <tr *ngFor="let column of basicTable.data; let i = index;">
-                    <td class="drag-target"><i nz-icon nzType="menu" nzTheme="outline"></i></td>
+                    <td class="drag-target"><i nz-icon [nzType]="'menu'" [nzTheme]="'outline'"></i></td>
                     <td><input type="text" nz-input [(ngModel)]="column.code"/></td>
                     <td><input type="text" nz-input [(ngModel)]="column.name"/></td>
                     <td>
