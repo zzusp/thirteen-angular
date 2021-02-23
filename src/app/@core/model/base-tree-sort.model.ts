@@ -5,6 +5,10 @@ import { BaseModel } from "./base.model";
  */
 export class BaseTreeSortModel extends BaseModel {
 
+  /** 编码 */
+  code: string;
+  /** 名称 */
+  name: string;
   /** 排序 */
   orderNum: number;
   /** 父节点编码 */

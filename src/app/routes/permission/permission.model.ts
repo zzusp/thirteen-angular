@@ -6,6 +6,8 @@ import { BaseModel } from "../../@core/model/base.model";
  */
 export class PermissionModel extends BaseModel {
 
+  /** 应用编码 */
+  appCode: string;
   /** 编码 */
   code: string;
   /** 名称 */
