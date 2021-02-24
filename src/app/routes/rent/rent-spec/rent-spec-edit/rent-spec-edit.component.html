@@ -22,8 +22,7 @@
                 <nz-form-item>
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>类别品名</nz-form-label>
                     <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="rentCategoryTip">
-                        <nz-select formControlName="categoryCode" nzPlaceHolder="请选择" nzAllowClear
-                                   (ngModelChange)="itemCategoryChange($event)">
+                        <nz-select formControlName="categoryCode" nzPlaceHolder="请选择" nzAllowClear>
                             <nz-option *ngFor="let opt of rentCategorys" [nzValue]="opt.code"
                                        [nzLabel]="opt.name"></nz-option>
                         </nz-select>
