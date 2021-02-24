@@ -1,17 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { GlobalConstants } from "../../../../@core/constant/GlobalConstants";
-import { Observable } from "rxjs";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { NzModalRef } from "ng-zorro-antd";
-import { RentItemService } from "../rent-item.service";
-import { abstractValidate } from "../../../../@core/util/custom-validators";
-import { ResponseResultModel } from "../../../../@core/net/response-result.model";
-import { BizTypeModel } from "../../../biz-type/biz-type.model";
+import { GlobalConstants } from '../../../../@core/constant/GlobalConstants';
+import { Observable } from 'rxjs';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NzModalRef } from 'ng-zorro-antd';
+import { RentItemService } from '../rent-item.service';
+import { abstractValidate } from '../../../../@core/util/custom-validators';
+import { ResponseResultModel } from '../../../../@core/net/response-result.model';
+import { RentItemModel } from '../rent-item.model';
 
 @Component({
   selector: 'app-rent-item-edit',
   templateUrl: './rent-item-edit.component.html',
-  styleUrls: ['./rent-item-edit.component.css']
+  styleUrls: ['./rent-item-edit.component.scss']
 })
 export class RentItemEditComponent implements OnInit {
 
@@ -26,7 +26,8 @@ export class RentItemEditComponent implements OnInit {
 
   constructor(private modal: NzModalRef,
               private fb: FormBuilder,
-              private rentItemService: RentItemService) { }
+              private rentItemService: RentItemService) {
+  }
 
   ngOnInit() {
     // 表单验证
@@ -83,7 +84,7 @@ export class RentItemEditComponent implements OnInit {
     // 获取业务类型信息初始化表单
     this.rentItemService.findById(this.id)
       .subscribe((res: ResponseResultModel) => {
-        const model: BizTypeModel = res.result;
+        const model: RentItemModel = res.result;
         this.editForm.get('code').clearAsyncValidators();
         // 表单重置
         this.editForm.reset({

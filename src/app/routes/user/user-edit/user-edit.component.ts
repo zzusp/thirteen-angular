@@ -62,7 +62,7 @@ export class UserEditComponent implements OnInit {
     const roleReq = this.roleService.findAll();
     const dictReq = this.dictService.findAllByBizTypeCode(this.global.BIZ_TYPE_GENDER);
     // 发出请求
-    forkJoin(deptReq, groupReq, roleReq, dictReq)
+    forkJoin([deptReq, groupReq, roleReq, dictReq])
       .subscribe((results: ResponseResultModel[]) => {
         const deptRes = results[0];
         const groupRes = results[1];

@@ -29,6 +29,13 @@ import { DmTableComponent } from './dm-table/dm-table.component';
 import { DmTableEditComponent } from './dm-table/dm-table-edit/dm-table-edit.component';
 import { RentItemComponent } from './rent/rent-item/rent-item.component';
 import { RentItemEditComponent } from './rent/rent-item/rent-item-edit/rent-item-edit.component';
+import { RentCategoryComponent } from './rent/rent-category/rent-category.component';
+import { RentSpecComponent } from './rent/rent-spec/rent-spec.component';
+import { RentBaseInfoComponent } from './rent/rent-base-info/rent-base-info.component';
+import { RentContractComponent } from './rent/rent-contract/rent-contract.component';
+import { RentRenterComponent } from './rent/rent-renter/rent-renter.component';
+import { RentCategoryEditComponent } from './rent/rent-category/rent-category-edit/rent-category-edit.component';
+import { RentSpecEditComponent } from './rent/rent-spec/rent-spec-edit/rent-spec-edit.component';
 
 // 权限管理系统下所有需动态加载的子组件（弹出框等）
 const SYSTEM_MODEL_COMPONENT = [
@@ -46,7 +53,9 @@ const SYSTEM_MODEL_COMPONENT = [
 
 // 租赁系统下所有需动态加载的子组件（弹出框等）
 const RENT_MODEL_COMPONENT = [
-  RentItemEditComponent
+  RentItemEditComponent,
+  RentCategoryEditComponent,
+  RentSpecEditComponent
 ];
 
 // routes下所有组件
@@ -67,6 +76,11 @@ const ROUTES_COMPONENT = [
   LogOperationComponent,
   DmTableComponent,
   RentItemComponent,
+  RentCategoryComponent,
+  RentSpecComponent,
+  RentBaseInfoComponent,
+  RentContractComponent,
+  RentRenterComponent,
   ...SYSTEM_MODEL_COMPONENT,
   ...RENT_MODEL_COMPONENT
 ];

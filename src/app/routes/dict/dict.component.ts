@@ -40,7 +40,7 @@ export class DictComponent implements OnInit {
     code: null,
     name: null,
     status: null,
-    createTime: 'desc',
+    createTime: 'descend',
     updateTime: null
   };
   /** 页面权限校验  */

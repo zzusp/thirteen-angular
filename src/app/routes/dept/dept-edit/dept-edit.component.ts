@@ -45,7 +45,7 @@ export class DeptEditComponent implements OnInit {
     const deptsReq = this.deptService.findAll();
     const rolesReq = this.roleService.findAll();
     // 发出请求
-    forkJoin(deptsReq, rolesReq)
+    forkJoin([deptsReq, rolesReq])
       .subscribe((results: ResponseResultModel[]) => {
         const deptsRes = results[0];
         const roleRes = results[1];

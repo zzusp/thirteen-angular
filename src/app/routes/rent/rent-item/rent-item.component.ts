@@ -1,18 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalConstants } from "../../../@core/constant/GlobalConstants";
-import { BizTypeModel } from "../../biz-type/biz-type.model";
-import { RentItemService } from "./rent-item.service";
-import { BizTypeService } from "../../biz-type/biz-type.service";
-import { NzMessageService, NzModalRef, NzModalService } from "ng-zorro-antd";
-import { ResponseResultModel } from "../../../@core/net/response-result.model";
-import { PagerResultModel } from "../../../@core/net/pager-result.model";
-import { BizTypeEditComponent } from "../../biz-type/biz-type-edit/biz-type-edit.component";
-import { RentItemEditComponent } from "./rent-item-edit/rent-item-edit.component";
+import { GlobalConstants } from '../../../@core/constant/GlobalConstants';
+import { RentItemService } from './rent-item.service';
+import { NzMessageService, NzModalRef, NzModalService } from 'ng-zorro-antd';
+import { ResponseResultModel } from '../../../@core/net/response-result.model';
+import { PagerResultModel } from '../../../@core/net/pager-result.model';
+import { RentItemEditComponent } from './rent-item-edit/rent-item-edit.component';
+import { RentItemModel } from './rent-item.model';
 
 @Component({
   selector: 'app-rent-item',
   templateUrl: './rent-item.component.html',
-  styleUrls: ['./rent-item.component.css']
+  styleUrls: ['./rent-item.component.scss']
 })
 export class RentItemComponent implements OnInit {
 
@@ -24,8 +22,6 @@ export class RentItemComponent implements OnInit {
     name: '',
     status: ''
   };
-  /** 是否启用  */
-  statusArr: any[] = [];
   /** 当前页码  */
   pageNum: number = 1;
   /** 每页显示记录数  */
@@ -33,7 +29,7 @@ export class RentItemComponent implements OnInit {
   /** 总记录数  */
   total: number = 0;
   /** 表格数据  */
-  tableData: BizTypeModel[] = [];
+  tableData: RentItemModel[] = [];
   /** 加载动画，默认关闭  */
   loading = false;
   /** 排序  */
@@ -49,10 +45,11 @@ export class RentItemComponent implements OnInit {
     update: true,
     delete: true
   };
-  
+
   constructor(private rentItemService: RentItemService,
               private nzMessageService: NzMessageService,
-              private modalService: NzModalService) { }
+              private modalService: NzModalService) {
+  }
 
   ngOnInit(): void {
     this.findAllByParam();

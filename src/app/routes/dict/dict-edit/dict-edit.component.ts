@@ -36,7 +36,7 @@ export class DictEditComponent implements OnInit {
 
   ngOnInit() {
     this.bizTypes = [];
-    // // 初始化业务类型下拉框
+    // 初始化业务类型下拉框
     this.bizTypeService.findAll()
       .subscribe((res: ResponseResultModel) => {
         this.bizTypes = res.result.list;

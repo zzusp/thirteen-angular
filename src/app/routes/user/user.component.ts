@@ -43,7 +43,7 @@ export class UserComponent implements OnInit {
     gender: null,
     email: null,
     status: null,
-    createTime: 'desc',
+    createTime: 'descend',
     updateTime: null
   };
   /** 页面权限校验  */

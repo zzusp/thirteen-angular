@@ -38,7 +38,7 @@ export class PermissionEditComponent implements OnInit {
 
   ngOnInit() {
     this.applications = [];
-    // // 初始化应用下拉框
+    // 初始化应用下拉框
     this.applicationService.findAll()
       .subscribe((res: ResponseResultModel) => {
         this.applications = listToTree(res.result.list);

@@ -31,6 +31,8 @@ export class GlobalConstants {
   AUTH_DICT = 'auth_dict';
   /** 租赁系统表名 */
   RENT_ITEM = 'rent_item';
+  RENT_CATEGORY = 'rent_category';
+  RENT_SPEC = 'rent_spec';
 
   /** 是否启用（0：禁用；1：启用） */
   STATUS_OFF = 0;
@@ -59,6 +61,13 @@ export class GlobalConstants {
   DELETE_CANTER_MSG = '已取消删除操作';
   DELETE_SUCESS_MSG = '删除成功';
   DELETE_LOADING_MSG = '删除中，请稍后';
+
+
+  /** 计量单位 0：元/根；1：元/米；2：元/个；3：元/条 */
+  UNIT_GEN = 0;
+  UNIT_MI = 1;
+  UNIT_GE = 2;
+  UNIT_TIAO = 3;
 
   private constructor() {
   }

@@ -20,6 +20,13 @@ import { LogOperationComponent } from './log-operation/log-operation.component';
 import { DmTableComponent } from './dm-table/dm-table.component';
 import { RentItemComponent } from "./rent/rent-item/rent-item.component";
 import { RentItemEditComponent } from "./rent/rent-item/rent-item-edit/rent-item-edit.component";
+import { RentCategoryComponent } from './rent/rent-category/rent-category.component';
+import { RentSpecComponent } from './rent/rent-spec/rent-spec.component';
+import { RentContractComponent } from './rent/rent-contract/rent-contract.component';
+import { RentRenterComponent } from './rent/rent-renter/rent-renter.component';
+import { RentBaseInfoComponent } from './rent/rent-base-info/rent-base-info.component';
+import { RentCategoryEditComponent } from './rent/rent-category/rent-category-edit/rent-category-edit.component';
+import { RentSpecEditComponent } from './rent/rent-spec/rent-spec-edit/rent-spec-edit.component';
 
 const routes: Routes = [
   {
@@ -178,10 +185,24 @@ const rentRoutes: Routes = [
         pathMatch: 'full'
       },
       {
+        path: 'rent-contract',
+        component: RentContractComponent,
+        data: {
+          breadcrumb: '合同管理'
+        }
+      },
+      {
+        path: 'rent-renter',
+        component: RentRenterComponent,
+        data: {
+          breadcrumb: '仓库或公司'
+        }
+      },
+      {
         path: 'rent-item',
         component: RentItemComponent,
         data: {
-          breadcrumb: '物品类别管理'
+          breadcrumb: '物品类别'
         }
       },
       {
@@ -189,6 +210,41 @@ const rentRoutes: Routes = [
         component: RentItemEditComponent,
         data: {
           breadcrumb: '物品类别编辑'
+        }
+      },
+      {
+        path: 'rent-category',
+        component: RentCategoryComponent,
+        data: {
+          breadcrumb: '类别品名'
+        }
+      },
+      {
+        path: 'rent-category-edit/:id',
+        component: RentCategoryEditComponent,
+        data: {
+          breadcrumb: '类别品名编辑'
+        }
+      },
+      {
+        path: 'rent-spec',
+        component: RentSpecComponent,
+        data: {
+          breadcrumb: '物品规格'
+        }
+      },
+      {
+        path: 'rent-spec-edit/:id',
+        component: RentSpecEditComponent,
+        data: {
+          breadcrumb: '物品规格编辑'
+        }
+      },
+      {
+        path: 'rent-base-info',
+        component: RentBaseInfoComponent,
+        data: {
+          breadcrumb: '系统初始化'
         }
       }
     ]
