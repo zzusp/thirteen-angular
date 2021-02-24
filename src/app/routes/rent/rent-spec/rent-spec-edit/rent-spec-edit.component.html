@@ -1,0 +1,97 @@
+<div nz-row [nzGutter]="32">
+    <div nz-col [nzMd]="24">
+        <nz-card [nzBordered]="false">
+            <form nz-form [formGroup]="editForm" class="submit-form">
+                <input type="hidden" name="id" formControlName="id"/>
+                <input type="hidden" name="version" formControlName="version"/>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>物品种类</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="rentItemTip">
+                        <nz-select formControlName="itemCode" nzPlaceHolder="请选择" nzAllowClear
+                                   (ngModelChange)="itemCodeChange($event)">
+                            <nz-option *ngFor="let opt of rentItems" [nzValue]="opt.code"
+                                       [nzLabel]="opt.name"></nz-option>
+                        </nz-select>
+                        <ng-template #rentItemTip let-control>
+                            <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                物品种类不可为空
+                            </ng-container>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>类别品名</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="rentCategoryTip">
+                        <nz-select formControlName="categoryCode" nzPlaceHolder="请选择" nzAllowClear
+                                   (ngModelChange)="itemCategoryChange($event)">
+                            <nz-option *ngFor="let opt of rentCategorys" [nzValue]="opt.code"
+                                       [nzLabel]="opt.name"></nz-option>
+                        </nz-select>
+                        <ng-template #rentCategoryTip let-control>
+                            <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                类别品名不可为空
+                            </ng-container>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>名称</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="nameTip">
+                        <input type="text"
+                               name="name"
+                               formControlName="name"
+                               required
+                               nz-input
+                               placeholder="请输入">
+                        <ng-template #nameTip let-control>
+                            <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                名称不可为空
+                            </ng-container>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>换算单位</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="unitTip">
+                        <nz-radio-group formControlName="unit">
+                            <label nz-radio [nzValue]="0">元/根</label>
+                            <label nz-radio [nzValue]="1">元/米</label>
+                            <label nz-radio [nzValue]="2">元/个</label>
+                            <label nz-radio [nzValue]="3">元/条</label>
+                        </nz-radio-group>
+                        <ng-template #unitTip let-control>
+                            <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                换算单位不可为空
+                            </ng-container>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>换算数量</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="quantityTip">
+                        <nz-input-number
+                            formControlName="quantity"
+                            required
+                            [nzPrecision]="4"
+                            [nzPlaceHolder]="'请输入'"></nz-input-number>
+                        <ng-template #quantityTip let-control>
+                            <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                换算数量不可为空
+                            </ng-container>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="6" [nzXs]="24">备注</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="remarkTip">
+                        <textarea name="remark" formControlName="remark" nz-input
+                                  [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
+                        <ng-template #remarkTip let-control>
+                            <ng-container *ngIf="control.hasError('maxlength')">最多250个字符</ng-container>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+            </form>
+        </nz-card>
+    </div>
+</div>
