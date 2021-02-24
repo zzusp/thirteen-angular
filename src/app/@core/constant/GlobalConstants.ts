@@ -10,11 +10,11 @@ export class GlobalConstants {
 
   /** 数据化平台接口服务器地址 */
   DM_SERVER = '/api-dm';
-  AUTHORIZATION_SERVER_CODE = 'system';
+  AUTHORIZATION_SERVER_CODE = 'rent';
 
   /** 租赁管理系统接口服务器地址 */
   RENTAL_SERVER = '/api-rental';
-  RENTAL_SERVER_CODE = 'rental';
+  RENTAL_SERVER_CODE = 'rent';
 
   /** 表名 */
   AUTH_USER = 'auth_user';
@@ -29,6 +29,8 @@ export class GlobalConstants {
   AUTH_ROLE_APP = 'auth_role_app';
   AUTH_BIZ_TYPE = 'auth_biz_type';
   AUTH_DICT = 'auth_dict';
+  /** 租赁系统表名 */
+  RENT_ITEM = 'rent_item';
 
   /** 是否启用（0：禁用；1：启用） */
   STATUS_OFF = 0;

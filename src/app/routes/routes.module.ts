@@ -27,6 +27,8 @@ import { DeptComponent } from './dept/dept.component';
 import { DeptEditComponent } from './dept/dept-edit/dept-edit.component';
 import { DmTableComponent } from './dm-table/dm-table.component';
 import { DmTableEditComponent } from './dm-table/dm-table-edit/dm-table-edit.component';
+import { RentItemComponent } from './rent/rent-item/rent-item.component';
+import { RentItemEditComponent } from './rent/rent-item/rent-item-edit/rent-item-edit.component';
 
 // 权限管理系统下所有需动态加载的子组件（弹出框等）
 const SYSTEM_MODEL_COMPONENT = [
@@ -40,6 +42,11 @@ const SYSTEM_MODEL_COMPONENT = [
   LogLoginDetailComponent,
   LogOperationDetailComponent,
   DmTableEditComponent
+];
+
+// 租赁系统下所有需动态加载的子组件（弹出框等）
+const RENT_MODEL_COMPONENT = [
+  RentItemEditComponent
 ];
 
 // routes下所有组件
@@ -59,7 +66,9 @@ const ROUTES_COMPONENT = [
   LogLoginComponent,
   LogOperationComponent,
   DmTableComponent,
-  ...SYSTEM_MODEL_COMPONENT
+  RentItemComponent,
+  ...SYSTEM_MODEL_COMPONENT,
+  ...RENT_MODEL_COMPONENT
 ];
 
 @NgModule({
@@ -74,7 +83,8 @@ const ROUTES_COMPONENT = [
     ...ROUTES_COMPONENT
   ],
   entryComponents: [
-    ...SYSTEM_MODEL_COMPONENT
+    ...SYSTEM_MODEL_COMPONENT,
+    ...RENT_MODEL_COMPONENT
   ]
 })
 export class RoutesModule {

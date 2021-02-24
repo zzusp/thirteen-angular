@@ -18,6 +18,8 @@ import { DictComponent } from './dict/dict.component';
 import { LogLoginComponent } from './log-login/log-login.component';
 import { LogOperationComponent } from './log-operation/log-operation.component';
 import { DmTableComponent } from './dm-table/dm-table.component';
+import { RentItemComponent } from "./rent/rent-item/rent-item.component";
+import { RentItemEditComponent } from "./rent/rent-item/rent-item-edit/rent-item-edit.component";
 
 const routes: Routes = [
   {
@@ -157,6 +159,60 @@ const routes: Routes = [
   }
 ];
 
+const rentRoutes: Routes = [
+  {
+    path: '',
+    redirectTo: 'rent',
+    pathMatch: 'full'
+  },
+  {
+    path: 'rent',
+    component: LayoutDefaultComponent,
+    data: {
+      breadcrumb: '首页'
+    },
+    children: [
+      {
+        path: '',
+        redirectTo: 'rent-item',
+        pathMatch: 'full'
+      },
+      {
+        path: 'rent-item',
+        component: RentItemComponent,
+        data: {
+          breadcrumb: '物品类别管理'
+        }
+      },
+      {
+        path: 'rent-item-edit/:id',
+        component: RentItemEditComponent,
+        data: {
+          breadcrumb: '物品类别编辑'
+        }
+      }
+    ]
+  },
+  {
+    path: 'profile',
+    component: LayoutNavComponent,
+    children: [
+      {
+        path: '',
+        component: ProfileComponent,
+        data: {
+          breadcrumb: '个人中心'
+        },
+        loadChildren: './profile/profile.module#ProfileModule'
+      }
+    ]
+  },
+  {
+    path: 'pages',
+    loadChildren: './pages/pages.module#PagesModule'
+  }
+];
+
 const config: ExtraOptions = {
   useHash: true,
 };
@@ -164,7 +220,7 @@ const config: ExtraOptions = {
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forRoot(routes, config)
+    RouterModule.forRoot(rentRoutes, config)
   ],
   declarations: [],
   exports: [

@@ -4,7 +4,7 @@
 // 开发环境变量
 export const environment = {
   production: false,
-  server_url: 'http://127.0.0.1:8769'
+  server_url: 'http://122.152.221.117:8769'
 };
 
 /*
