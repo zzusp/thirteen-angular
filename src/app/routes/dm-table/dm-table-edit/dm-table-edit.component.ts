@@ -207,6 +207,7 @@ export class DmTableEditComponent implements OnInit, OnDestroy {
       name: null,
       dbType: 'VARCHAR',
       length: 50,
+      decimalPoint: 0,
       notNull: 0,
       columnType: 3,
       status: 1,

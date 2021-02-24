@@ -14,6 +14,8 @@ export class DmColumnModel {
   javaType: string;
   /** 字段长度 */
   length: number;
+  /** 小数点 */
+  decimalPoint: number;
   /** 是否不可为NULL 0：可为NULL；1：不可为NULL */
   notNull: number;
   /** 字段类型 0：主键字段；1：逻辑删除字段；2：版本号字段 */

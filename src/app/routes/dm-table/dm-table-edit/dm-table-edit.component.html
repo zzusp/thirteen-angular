@@ -81,6 +81,7 @@
                     <th>列名</th>
                     <th>类型</th>
                     <th>长度</th>
+                    <th>小数点</th>
                     <th>不为空</th>
                     <th>键</th>
                     <th [width]="'200px'">说明</th>
@@ -101,12 +102,17 @@
                             <nz-option [nzValue]="'LONG'" [nzLabel]="'LONG'"></nz-option>
                             <nz-option [nzValue]="'FLOAT'" [nzLabel]="'FLOAT'"></nz-option>
                             <nz-option [nzValue]="'DOUBLE'" [nzLabel]="'DOUBLE'"></nz-option>
+                            <nz-option [nzValue]="'DECIMAL'" [nzLabel]="'DECIMAL'"></nz-option>
+                            <nz-option [nzValue]="'DATE'" [nzLabel]="'DATE'"></nz-option>
                             <nz-option [nzValue]="'DATETIME'" [nzLabel]="'DATETIME'"></nz-option>
                             <nz-option [nzValue]="'TINYINT'" [nzLabel]="'TINYINT'"></nz-option>
                         </nz-select>
                     </td>
                     <td>
                         <nz-input-number [(ngModel)]="column.length" style="width: 70px"></nz-input-number>
+                    </td>
+                    <td>
+                        <nz-input-number [(ngModel)]="column.decimalPoint" style="width: 70px"></nz-input-number>
                     </td>
                     <td>
                         <nz-select [(ngModel)]="column.notNull">
