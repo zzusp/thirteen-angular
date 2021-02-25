@@ -27,6 +27,7 @@ import { RentRenterComponent } from './rent/rent-renter/rent-renter.component';
 import { RentBaseInfoComponent } from './rent/rent-base-info/rent-base-info.component';
 import { RentCategoryEditComponent } from './rent/rent-category/rent-category-edit/rent-category-edit.component';
 import { RentSpecEditComponent } from './rent/rent-spec/rent-spec-edit/rent-spec-edit.component';
+import { RentRenterEditComponent } from "./rent/rent-renter/rent-renter-edit/rent-renter-edit.component";
 
 const routes: Routes = [
   {
@@ -196,6 +197,13 @@ const rentRoutes: Routes = [
         component: RentRenterComponent,
         data: {
           breadcrumb: '仓库或公司'
+        }
+      },
+      {
+        path: 'rent-renter-edit/:id',
+        component: RentRenterEditComponent,
+        data: {
+          breadcrumb: '仓库或公司编辑'
         }
       },
       {

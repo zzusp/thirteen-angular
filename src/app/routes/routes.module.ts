@@ -36,6 +36,8 @@ import { RentContractComponent } from './rent/rent-contract/rent-contract.compon
 import { RentRenterComponent } from './rent/rent-renter/rent-renter.component';
 import { RentCategoryEditComponent } from './rent/rent-category/rent-category-edit/rent-category-edit.component';
 import { RentSpecEditComponent } from './rent/rent-spec/rent-spec-edit/rent-spec-edit.component';
+import { RentRenterEditComponent } from './rent/rent-renter/rent-renter-edit/rent-renter-edit.component';
+import { RentBaseInfoEditComponent } from './rent/rent-base-info/rent-base-info-edit/rent-base-info-edit.component';
 
 // 权限管理系统下所有需动态加载的子组件（弹出框等）
 const SYSTEM_MODEL_COMPONENT = [
@@ -53,6 +55,7 @@ const SYSTEM_MODEL_COMPONENT = [
 
 // 租赁系统下所有需动态加载的子组件（弹出框等）
 const RENT_MODEL_COMPONENT = [
+  RentRenterEditComponent,
   RentItemEditComponent,
   RentCategoryEditComponent,
   RentSpecEditComponent
@@ -94,7 +97,8 @@ const ROUTES_COMPONENT = [
     RoutesRoutingModule
   ],
   declarations: [
-    ...ROUTES_COMPONENT
+    ...ROUTES_COMPONENT,
+    RentBaseInfoEditComponent
   ],
   entryComponents: [
     ...SYSTEM_MODEL_COMPONENT,

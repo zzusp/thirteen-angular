@@ -8,6 +8,7 @@ import { RoleEditComponent } from './role-edit/role-edit.component';
 import { GlobalConstants } from '../../@core/constant/GlobalConstants';
 import { Router } from '@angular/router';
 import { validatePerms } from '../../@core/util/perms-validators';
+import { getSorts } from "../../@core/util/table-sort";
 
 @Component({
   selector: 'app-role',
@@ -87,7 +88,7 @@ export class RoleComponent implements OnInit {
         'pageSize': this.pageSize,
         'pageNum': this.pageNum - 1
       },
-      'sorts': this.getSorts()
+      'sorts': getSorts(this.sortMap)
     };
     this.roleService.findAllByParam(param).subscribe((res: ResponseResultModel) => {
       // 判断返回结果是否为空或null
@@ -124,58 +125,6 @@ export class RoleComponent implements OnInit {
       }
     }
     this.findAllByParam();
-  }
-
-  /**
-   * 获取排序参数
-   */
-  getSorts(): any[] {
-    const arr = [];
-    for (const key of Object.keys(this.sortMap)) {
-      if (this.sortMap[key] != null) {
-        arr.push({field: key, orderBy: this.sortMap[key].replace('end', '')});
-      }
-    }
-    return arr;
-  }
-
-  /**
-   * 打开新增页面
-   */
-  showSave() {
-    const modal = this.openModel(this.global.INSERT_FLAG, '新增角色信息');
-    // 模态框打开后回调事件
-    modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-    // 模态框关闭后回调事件
-    modal.afterClose.subscribe((result) => {
-      if (result && result.refresh) {
-        // 刷新列表
-        this.findAllByParam();
-      }
-    });
-    // 延时到模态框实例创建
-    window.setTimeout(() => {
-      const instance = modal.getContentComponent();
-      instance.title = 'sub title is changed';
-    }, 2000);
-  }
-
-  /**
-   * 打开修改页面
-   *
-   * @param id 角色ID
-   */
-  showUpdate(id: string) {
-    const modal = this.openModel(id, '修改角色信息');
-    // 模态框打开后回调事件
-    modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-    // 模态框关闭后回调事件
-    modal.afterClose.subscribe((result) => {
-      if (result && result.refresh) {
-        // 刷新列表
-        this.findAllByParam();
-      }
-    });
   }
 
   /**
@@ -223,11 +172,11 @@ export class RoleComponent implements OnInit {
   /**
    * 打开模态框
    *
-   * @param id 角色ID
+   * @param id ID
    * @param title 模态框标题
    */
   openModel(id: string, title: string): NzModalRef {
-    return this.modalService.create({
+    const modal = this.modalService.create({
       nzTitle: title,
       nzContent: RoleEditComponent,
       nzWidth: 600,
@@ -250,6 +199,14 @@ export class RoleComponent implements OnInit {
         }
       ]
     });
+    // 模态框关闭后回调事件
+    modal.afterClose.subscribe((result) => {
+      if (result && result.refresh) {
+        // 刷新列表
+        this.findAllByParam();
+      }
+    });
+    return modal;
   }
 
 }

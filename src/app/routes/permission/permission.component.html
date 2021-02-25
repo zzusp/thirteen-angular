@@ -55,7 +55,7 @@
                 </div>
             </form>
             <div class="button-group">
-                <button *ngIf="perms.save" nz-button nzType="primary" (click)="showSave()">
+                <button *ngIf="perms.save" nz-button nzType="primary" (click)="openModel(global.INSERT_FLAG, params.appCode, '新增权限信息')">
                     <i nz-icon [nzType]="'plus'" [nzTheme]="'outline'"></i>新增
                 </button>
             </div>
@@ -105,7 +105,7 @@
                         <span *ngIf="data.status === global.STATUS_OFF">禁用</span>
                     </td>
                     <td *ngIf="perms.update || perms.delete">
-                        <a *ngIf="perms.update" (click)="showUpdate(data.id)">修改</a>
+                        <a *ngIf="perms.update" (click)="openModel(data.id, null, '修改权限信息')">修改</a>
                         <nz-divider *ngIf="perms.update && perms.delete" nzType="vertical"></nz-divider>
                         <a *ngIf="perms.delete"
                            nz-popconfirm

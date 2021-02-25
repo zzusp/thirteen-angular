@@ -112,36 +112,6 @@ export class ApplicationComponent implements OnInit {
   }
 
   /**
-   * 打开新增页面
-   */
-  showSave() {
-    const modal = this.openModel(this.global.INSERT_FLAG, '新增应用信息');
-    // 模态框关闭后回调事件
-    modal.afterClose.subscribe((result) => {
-      if (result && result.refresh) {
-        // 刷新列表
-        this.findAllByParam();
-      }
-    });
-  }
-
-  /**
-   * 打开修改页面
-   *
-   * @param id 模块ID
-   */
-  showUpdate(id: string) {
-    const modal = this.openModel(id, '修改应用信息');
-    // 模态框关闭后回调事件
-    modal.afterClose.subscribe((result) => {
-      if (result && result.refresh) {
-        // 刷新列表
-        this.findAllByParam();
-      }
-    });
-  }
-
-  /**
    * 删除前确认
    *
    * @param id 用户ID
@@ -177,11 +147,11 @@ export class ApplicationComponent implements OnInit {
   /**
    * 打开模态框
    *
-   * @param id 模块ID
+   * @param id ID
    * @param title 模态框标题
    */
   openModel(id: string, title: string): NzModalRef {
-    return this.modalService.create({
+    const modal = this.modalService.create({
       nzTitle: title,
       nzContent: ApplicationEditComponent,
       nzWidth: 600,
@@ -204,6 +174,14 @@ export class ApplicationComponent implements OnInit {
         }
       ]
     });
+    // 模态框关闭后回调事件
+    modal.afterClose.subscribe((result) => {
+      if (result && result.refresh) {
+        // 刷新列表
+        this.findAllByParam();
+      }
+    });
+    return modal;
   }
 
 }

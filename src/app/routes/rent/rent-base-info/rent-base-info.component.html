@@ -1,1 +1,92 @@
-<p>rent-base-info works!</p>
+<div nz-row [nzGutter]="32">
+    <div nz-col [nzMd]="24">
+        <nz-card [nzBordered]="false">
+            <form class="search-form">
+                <div nz-row [nzGutter]="32">
+                    <div nz-col [nzMd]="8">
+                        <nz-form-item class="form-item">
+                            <nz-form-label>用户单位名称</nz-form-label>
+                            <nz-form-control>
+                                <input nz-input placeholder="请输入" [(ngModel)]="params.name">
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                    <div nz-col [nzMd]="8">
+                        <nz-form-item class="form-item">
+                            <nz-form-label>地址</nz-form-label>
+                            <nz-form-control>
+                                <input nz-input placeholder="请输入" [(ngModel)]="params.location">
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                    <div nz-col [nzMd]="8">
+                        <div class="form-button">
+                            <button nz-button nzType="primary" (click)="findAllByParam()" [nzLoading]="false">
+                                查询
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="button-group">
+                <button *ngIf="perms.save" nz-button nzType="primary"
+                        (click)="openModel(global.INSERT_FLAG, '新增系统初始化信息')">
+                    <i nz-icon [nzType]="'plus'" [nzTheme]="'outline'"></i>新增
+                </button>
+            </div>
+            <nz-table
+                #rowSelectionTable
+                nzShowSizeChanger
+                [nzFrontPagination]="false"
+                [nzData]="tableData"
+                [nzLoading]="loading"
+                [nzTotal]="total"
+                [(nzPageIndex)]="pageNum"
+                [(nzPageSize)]="pageSize"
+                (nzPageIndexChange)="findAllByParam()"
+                (nzPageSizeChange)="findAllByParam()">
+                <thead>
+                <tr>
+                    <th nzShowSort [(nzSortOrder)]="sortMap.name" (nzSortChange)="sort('name', $event)">用户单位名称</th>
+                    <th nzShowSort [(nzSortOrder)]="sortMap.name" (nzSortChange)="sort('location', $event)">单位所在地</th>
+                    <th>表尾信息</th>
+                    <th>每月结算日期</th>
+                    <th>租赁期限</th>
+                    <th>计算方式</th>
+                    <th nzShowSort [(nzSortOrder)]="sortMap.createTime" (nzSortChange)="sort('createTime', $event)">
+                        <span>添加时间</span>
+                    </th>
+                    <th nzShowSort [(nzSortOrder)]="sortMap.updateTime" (nzSortChange)="sort('updateTime', $event)">
+                        <span>修改时间</span>
+                    </th>
+                    <th><span>备注</span></th>
+                    <th *ngIf="perms.update || perms.delete"><span>操作</span></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let data of tableData">
+                    <td>{{data.name}}</td>
+                    <td>{{data.location}}</td>
+                    <td>{{data.footerInfo}}</td>
+                    <td>{{data.settlementDay}}</td>
+                    <td>{{data.leaseTerm}}</td>
+                    <td>{{data.computeMode}}</td>
+                    <td>{{data.createTime}}</td>
+                    <td>{{data.updateTime}}</td>
+                    <td>{{data.remark}}</td>
+                    <td *ngIf="perms.update || perms.delete">
+                        <a *ngIf="perms.update" (click)="openModel(data.id, '修改系统初始化信息')">修改</a>
+                        <nz-divider *ngIf="perms.update && perms.delete" nzType="vertical"></nz-divider>
+                        <a *ngIf="perms.delete"
+                           nz-popconfirm
+                           [nzPopconfirmTitle]="global.DELETE_CONFIRM_MSG"
+                           (nzOnConfirm)="confirmDelete(data.id)"
+                           (nzOnCancel)="cancelDelete()"
+                           nzPopconfirmPlacement="topRight">删除</a>
+                    </td>
+                </tr>
+                </tbody>
+            </nz-table>
+        </nz-card>
+    </div>
+</div>

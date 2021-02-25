@@ -30,9 +30,11 @@ export class GlobalConstants {
   AUTH_BIZ_TYPE = 'auth_biz_type';
   AUTH_DICT = 'auth_dict';
   /** 租赁系统表名 */
+  RENT_RENTER = 'rent_renter';
   RENT_ITEM = 'rent_item';
   RENT_CATEGORY = 'rent_category';
   RENT_SPEC = 'rent_spec';
+  RENT_BASE_INFO = 'rent_base_info';
 
   /** 是否启用（0：禁用；1：启用） */
   STATUS_OFF = 0;

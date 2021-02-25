@@ -5,15 +5,7 @@
                 <div nz-row [nzGutter]="32">
                     <div nz-col [nzMd]="8">
                         <nz-form-item class="form-item">
-                            <nz-form-label>编码</nz-form-label>
-                            <nz-form-control>
-                                <input id="code" name="code" nz-input placeholder="请输入" [(ngModel)]="params.code">
-                            </nz-form-control>
-                        </nz-form-item>
-                    </div>
-                    <div nz-col [nzMd]="8">
-                        <nz-form-item class="form-item">
-                            <nz-form-label>名称</nz-form-label>
+                            <nz-form-label>物品种类</nz-form-label>
                             <nz-form-control>
                                 <input id="name" name="name" nz-input placeholder="请输入" [(ngModel)]="params.name">
                             </nz-form-control>
@@ -29,7 +21,7 @@
                 </div>
             </form>
             <div class="button-group">
-                <button *ngIf="perms.save" nz-button nzType="primary" (click)="showSave()">
+                <button *ngIf="perms.save" nz-button nzType="primary" (click)="openModel(global.INSERT_FLAG, '新增物品种类信息')">
                     <i nz-icon [nzType]="'plus'" [nzTheme]="'outline'"></i>新增
                 </button>
             </div>
@@ -46,8 +38,7 @@
                 (nzPageSizeChange)="findAllByParam()">
                 <thead>
                 <tr>
-                    <th nzShowSort [(nzSortOrder)]="sortMap.code" (nzSortChange)="sort('code', $event)">物品编码</th>
-                    <th nzShowSort [(nzSortOrder)]="sortMap.name" (nzSortChange)="sort('name', $event)">物品名称</th>
+                    <th nzShowSort [(nzSortOrder)]="sortMap.name" (nzSortChange)="sort('name', $event)">物品种类</th>
                     <th nzShowSort [(nzSortOrder)]="sortMap.createTime" (nzSortChange)="sort('createTime', $event)">
                         <span>添加时间</span>
                     </th>
@@ -60,13 +51,12 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let data of tableData">
-                    <td>{{data.code}}</td>
                     <td>{{data.name}}</td>
                     <td>{{data.createTime}}</td>
                     <td>{{data.updateTime}}</td>
                     <td>{{data.remark}}</td>
                     <td *ngIf="perms.update || perms.delete">
-                        <a *ngIf="perms.update" (click)="showUpdate(data.id)">修改</a>
+                        <a *ngIf="perms.update" (click)="openModel(data.id, '修改物品种类信息')">修改</a>
                         <nz-divider *ngIf="perms.update && perms.delete" nzType="vertical"></nz-divider>
                         <a *ngIf="perms.delete"
                            nz-popconfirm

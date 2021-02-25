@@ -1,0 +1,84 @@
+<div nz-row [nzGutter]="32">
+    <div nz-col [nzMd]="24">
+        <nz-card [nzBordered]="false">
+            <form nz-form [formGroup]="editForm" class="submit-form">
+                <input type="hidden" name="id" formControlName="id"/>
+                <input type="hidden" name="version" formControlName="version"/>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>仓库或公司</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="nameTip">
+                        <input type="text"
+                               name="name"
+                               formControlName="name"
+                               required
+                               nz-input
+                               placeholder="请输入">
+                        <ng-template #nameTip let-control>
+                            <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                仓库或公司不可为空
+                            </ng-container>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>地址</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="locationTip">
+                        <input type="text"
+                               name="location"
+                               formControlName="location"
+                               required
+                               nz-input
+                               placeholder="请输入">
+                        <ng-template #locationTip let-control>
+                            <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                地址不可为空
+                            </ng-container>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>联系人</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="contactsTip">
+                        <input type="text"
+                               name="contacts"
+                               formControlName="contacts"
+                               required
+                               nz-input
+                               placeholder="请输入">
+                        <ng-template #contactsTip let-control>
+                            <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                联系人不可为空
+                            </ng-container>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>联系电话</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="mobileTip">
+                        <input type="text"
+                               name="mobile"
+                               formControlName="mobile"
+                               required
+                               nz-input
+                               placeholder="请输入">
+                        <ng-template #mobileTip let-control>
+                            <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                联系电话不可为空
+                            </ng-container>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="6" [nzXs]="24">备注</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="remarkTip">
+                        <textarea name="remark" formControlName="remark" nz-input
+                                  [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
+                        <ng-template #remarkTip let-control>
+                            <ng-container *ngIf="control.hasError('maxlength')">最多250个字符</ng-container>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+            </form>
+        </nz-card>
+    </div>
+</div>

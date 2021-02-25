@@ -6,6 +6,9 @@ import { ResponseResultModel } from '../../../@core/net/response-result.model';
 import { PagerResultModel } from '../../../@core/net/pager-result.model';
 import { RentSpecModel } from './rent-spec.model';
 import { RentSpecEditComponent } from './rent-spec-edit/rent-spec-edit.component';
+import { RentCategoryService } from "../rent-category/rent-category.service";
+import { RentCategoryModel } from "../rent-category/rent-category.model";
+import { getSorts } from "../../../@core/util/table-sort";
 
 @Component({
   selector: 'app-rent-spec',
@@ -18,7 +21,7 @@ export class RentSpecComponent implements OnInit {
   global: GlobalConstants = GlobalConstants.getInstance();
   /** 查询参数  */
   params: any = {
-    code: '',
+    categoryCode: '',
     name: ''
   };
   /** 当前页码  */
@@ -40,6 +43,10 @@ export class RentSpecComponent implements OnInit {
     createTime: 'descend',
     updateTime: null
   };
+  /** 类别品名下拉框数据 */
+  rentCategorys: RentCategoryModel[] = [];
+  /** table展示用map */
+  rentCategoryMap: any = {};
   /** 页面权限校验  */
   perms = {
     save: true,
@@ -49,10 +56,17 @@ export class RentSpecComponent implements OnInit {
 
   constructor(private rentSpecService: RentSpecService,
               private nzMessageService: NzMessageService,
-              private modalService: NzModalService) {
+              private modalService: NzModalService,
+              private rentCategoryService: RentCategoryService) {
   }
 
   ngOnInit(): void {
+    // 初始化类别品名下拉框
+    this.rentCategoryService.findAll()
+      .subscribe((res: ResponseResultModel) => {
+        this.rentCategorys = res.result.list;
+        this.rentCategorys.forEach(v => this.rentCategoryMap[v.code] = v.name);
+      });
     this.findAllByParam();
   }
 
@@ -64,14 +78,14 @@ export class RentSpecComponent implements OnInit {
     this.loading = true;
     const param = {
       'criterias': [
-        {'field': 'code', 'operator': 'like', 'value': this.params.code ? '%' + this.params.code + '%' : null},
+        {'field': 'categoryCode', 'value': this.params.categoryCode},
         {'field': 'name', 'operator': 'like', 'value': this.params.name ? '%' + this.params.name + '%' : null},
       ],
       'page': {
         'pageSize': this.pageSize,
         'pageNum': this.pageNum - 1
       },
-      'sorts': this.getSorts()
+      'sorts': getSorts(this.sortMap)
     };
     this.rentSpecService.findAllByParam(param).subscribe((res: ResponseResultModel) => {
       // 判断返回结果是否为空或null
@@ -83,16 +97,6 @@ export class RentSpecComponent implements OnInit {
       // 加载动画关闭
       this.loading = false;
     });
-  }
-
-  /**
-   * 过滤方法
-   *
-   * @param status
-   */
-  filter(status: string): void {
-    this.params.status = !!status ? status : '';
-    this.findAllByParam();
   }
 
   /**
@@ -108,71 +112,6 @@ export class RentSpecComponent implements OnInit {
       }
     }
     this.findAllByParam();
-  }
-
-  /**
-   * 获取排序参数
-   */
-  getSorts(): any[] {
-    const arr = [];
-    for (const key of Object.keys(this.sortMap)) {
-      if (this.sortMap[key] != null) {
-        arr.push({field: key, orderBy: this.sortMap[key].replace('end', '')});
-      }
-    }
-    return arr;
-  }
-
-  /**
-   * 获取排序参数
-   */
-  getOrderBy(): string {
-    const arr = [];
-    for (const key of Object.keys(this.sortMap)) {
-      if (this.sortMap[key] != null) {
-        arr.push(key + ' ' + this.sortMap[key].replace('end', ''));
-      }
-    }
-    return arr.toString();
-  }
-
-  /**
-   * 打开新增页面
-   */
-  showSave() {
-    const modal = this.openModel(this.global.INSERT_FLAG, '新增物品规格信息');
-    // 模态框打开后回调事件
-    modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-    // 模态框关闭后回调事件
-    modal.afterClose.subscribe((result) => {
-      if (result && result.refresh) {
-        // 刷新列表
-        this.findAllByParam();
-      }
-    });
-    // 延时到模态框实例创建
-    window.setTimeout(() => {
-      const instance = modal.getContentComponent();
-      instance.title = 'sub title is changed';
-    }, 2000);
-  }
-
-  /**
-   * 打开修改页面
-   *
-   * @param id ID
-   */
-  showUpdate(id: string) {
-    const modal = this.openModel(id, '修改物品规格信息');
-    // 模态框打开后回调事件
-    modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-    // 模态框关闭后回调事件
-    modal.afterClose.subscribe((result) => {
-      if (result && result.refresh) {
-        // 刷新列表
-        this.findAllByParam();
-      }
-    });
   }
 
   /**
@@ -215,7 +154,7 @@ export class RentSpecComponent implements OnInit {
    * @param title 模态框标题
    */
   openModel(id: string, title: string): NzModalRef {
-    return this.modalService.create({
+    const modal = this.modalService.create({
       nzTitle: title,
       nzContent: RentSpecEditComponent,
       nzWidth: 600,
@@ -238,6 +177,14 @@ export class RentSpecComponent implements OnInit {
         }
       ]
     });
+    // 模态框关闭后回调事件
+    modal.afterClose.subscribe((result) => {
+      if (result && result.refresh) {
+        // 刷新列表
+        this.findAllByParam();
+      }
+    });
+    return modal;
   }
 
 }

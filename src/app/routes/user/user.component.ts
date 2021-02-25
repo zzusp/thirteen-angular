@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { GlobalConstants } from '../../@core/constant/GlobalConstants';
 import { validatePerms } from '../../@core/util/perms-validators';
 import { NzMessageService } from 'ng-zorro-antd';
+import { getSorts } from "../../@core/util/table-sort";
 
 @Component({
   selector: 'app-user',
@@ -90,7 +91,7 @@ export class UserComponent implements OnInit {
         'pageSize': this.pageSize,
         'pageNum': this.pageNum - 1
       },
-      'sorts': this.getSorts()
+      'sorts': getSorts(this.sortMap)
     };
     this.userService.findAllByParam(param).subscribe((res: ResponseResultModel) => {
       // 判断返回结果是否为空或null
@@ -127,19 +128,6 @@ export class UserComponent implements OnInit {
       }
     }
     this.findAllByParam();
-  }
-
-  /**
-   * 获取排序参数
-   */
-  getSorts(): any[] {
-    const arr = [];
-    for (const key of Object.keys(this.sortMap)) {
-      if (this.sortMap[key] != null) {
-        arr.push({field: key, orderBy: this.sortMap[key].replace('end', '')});
-      }
-    }
-    return arr;
   }
 
   /**

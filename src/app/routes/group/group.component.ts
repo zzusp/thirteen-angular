@@ -100,36 +100,6 @@ export class GroupComponent implements OnInit {
   }
 
   /**
-   * 打开新增页面
-   */
-  showSave() {
-    const modal = this.openModel(this.global.INSERT_FLAG, '新增组织信息');
-    // 模态框关闭后回调事件
-    modal.afterClose.subscribe((result) => {
-      if (result && result.refresh) {
-        // 刷新列表
-        this.findAll();
-      }
-    });
-  }
-
-  /**
-   * 打开修改页面
-   *
-   * @param id 组织ID
-   */
-  showUpdate(id: string) {
-    const modal = this.openModel(id, '修改组织信息');
-    // 模态框关闭后回调事件
-    modal.afterClose.subscribe((result) => {
-      if (result && result.refresh) {
-        // 刷新列表
-        this.findAll();
-      }
-    });
-  }
-
-  /**
    * 删除前确认
    *
    * @param id 用户ID
@@ -165,11 +135,11 @@ export class GroupComponent implements OnInit {
   /**
    * 打开模态框
    *
-   * @param id 组织ID
+   * @param id ID
    * @param title 模态框标题
    */
   openModel(id: string, title: string): NzModalRef {
-    return this.modalService.create({
+    const modal = this.modalService.create({
       nzTitle: title,
       nzContent: GroupEditComponent,
       nzWidth: 600,
@@ -192,6 +162,14 @@ export class GroupComponent implements OnInit {
         }
       ]
     });
+    // 模态框关闭后回调事件
+    modal.afterClose.subscribe((result) => {
+      if (result && result.refresh) {
+        // 刷新列表
+        this.findAll();
+      }
+    });
+    return modal;
   }
 
 }

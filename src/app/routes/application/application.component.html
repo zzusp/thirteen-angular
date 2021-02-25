@@ -2,7 +2,7 @@
     <div nz-col [nzMd]="24">
         <nz-card [nzBordered]="false">
             <div class="button-group">
-                <button *ngIf="perms.save" nz-button nzType="primary" (click)="showSave()">
+                <button *ngIf="perms.save" nz-button nzType="primary" (click)="openModel(global.INSERT_FLAG, '新增应用信息')">
                     <i nz-icon [nzType]="'plus'" [nzTheme]="'outline'"></i>新增
                 </button>
             </div>
@@ -32,7 +32,7 @@
 <!-- END row-->
 <!-- START row-->
 <ng-template #rowAction let-row>
-    <a *ngIf="perms.update" style="text-decoration: none;" title="修改" (click)="showUpdate(row.id)">修改<span
+    <a *ngIf="perms.update" style="text-decoration: none;" title="修改" (click)="openModel(row.id, '修改应用信息')">修改<span
             class="fa fa-fw fa-edit"></span></a>
     <nz-divider *ngIf="perms.update && perms.delete" nzType="vertical"></nz-divider>
     <a *ngIf="perms.delete"

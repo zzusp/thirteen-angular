@@ -6,6 +6,10 @@ import { ResponseResultModel } from '../../../@core/net/response-result.model';
 import { PagerResultModel } from '../../../@core/net/pager-result.model';
 import { RentCategoryModel } from './rent-category.model';
 import { RentCategoryEditComponent } from './rent-category-edit/rent-category-edit.component';
+import { RentItemModel } from "../rent-item/rent-item.model";
+import { RentItemService } from "../rent-item/rent-item.service";
+import { RentSpecEditComponent } from "../rent-spec/rent-spec-edit/rent-spec-edit.component";
+import { getSorts } from "../../../@core/util/table-sort";
 
 @Component({
   selector: 'app-rent-category',
@@ -18,7 +22,7 @@ export class RentCategoryComponent implements OnInit {
   global: GlobalConstants = GlobalConstants.getInstance();
   /** 查询参数  */
   params: any = {
-    code: '',
+    itemCode: '',
     name: ''
   };
   /** 当前页码  */
@@ -33,13 +37,16 @@ export class RentCategoryComponent implements OnInit {
   loading = false;
   /** 排序  */
   sortMap = {
-    code: null,
     name: null,
     dailyRent: null,
     unit: null,
     createTime: 'descend',
     updateTime: null
   };
+  /** 物品种类下拉框数据 */
+  rentItems: RentItemModel[] = [];
+  /** table展示用map */
+  rentItemMap: any = {};
   /** 页面权限校验  */
   perms = {
     save: true,
@@ -49,10 +56,17 @@ export class RentCategoryComponent implements OnInit {
 
   constructor(private rentCategoryService: RentCategoryService,
               private nzMessageService: NzMessageService,
-              private modalService: NzModalService) {
+              private modalService: NzModalService,
+              private rentItemService: RentItemService) {
   }
 
   ngOnInit(): void {
+    // 初始化物品种类下拉框
+    this.rentItemService.findAll()
+      .subscribe((res: ResponseResultModel) => {
+        this.rentItems = res.result.list;
+        this.rentItems.forEach(v => this.rentItemMap[v.code] = v.name);
+      });
     this.findAllByParam();
   }
 
@@ -64,14 +78,14 @@ export class RentCategoryComponent implements OnInit {
     this.loading = true;
     const param = {
       'criterias': [
-        {'field': 'code', 'operator': 'like', 'value': this.params.code ? '%' + this.params.code + '%' : null},
+        {'field': 'itemCode', 'value': this.params.itemCode},
         {'field': 'name', 'operator': 'like', 'value': this.params.name ? '%' + this.params.name + '%' : null},
       ],
       'page': {
         'pageSize': this.pageSize,
         'pageNum': this.pageNum - 1
       },
-      'sorts': this.getSorts()
+      'sorts': getSorts(this.sortMap)
     };
     this.rentCategoryService.findAllByParam(param).subscribe((res: ResponseResultModel) => {
       // 判断返回结果是否为空或null
@@ -83,16 +97,6 @@ export class RentCategoryComponent implements OnInit {
       // 加载动画关闭
       this.loading = false;
     });
-  }
-
-  /**
-   * 过滤方法
-   *
-   * @param status
-   */
-  filter(status: string): void {
-    this.params.status = !!status ? status : '';
-    this.findAllByParam();
   }
 
   /**
@@ -108,71 +112,6 @@ export class RentCategoryComponent implements OnInit {
       }
     }
     this.findAllByParam();
-  }
-
-  /**
-   * 获取排序参数
-   */
-  getSorts(): any[] {
-    const arr = [];
-    for (const key of Object.keys(this.sortMap)) {
-      if (this.sortMap[key] != null) {
-        arr.push({field: key, orderBy: this.sortMap[key].replace('end', '')});
-      }
-    }
-    return arr;
-  }
-
-  /**
-   * 获取排序参数
-   */
-  getOrderBy(): string {
-    const arr = [];
-    for (const key of Object.keys(this.sortMap)) {
-      if (this.sortMap[key] != null) {
-        arr.push(key + ' ' + this.sortMap[key].replace('end', ''));
-      }
-    }
-    return arr.toString();
-  }
-
-  /**
-   * 打开新增页面
-   */
-  showSave() {
-    const modal = this.openModel(this.global.INSERT_FLAG, '新增类别品名信息');
-    // 模态框打开后回调事件
-    modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-    // 模态框关闭后回调事件
-    modal.afterClose.subscribe((result) => {
-      if (result && result.refresh) {
-        // 刷新列表
-        this.findAllByParam();
-      }
-    });
-    // 延时到模态框实例创建
-    window.setTimeout(() => {
-      const instance = modal.getContentComponent();
-      instance.title = 'sub title is changed';
-    }, 2000);
-  }
-
-  /**
-   * 打开修改页面
-   *
-   * @param id ID
-   */
-  showUpdate(id: string) {
-    const modal = this.openModel(id, '修改类别品名信息');
-    // 模态框打开后回调事件
-    modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-    // 模态框关闭后回调事件
-    modal.afterClose.subscribe((result) => {
-      if (result && result.refresh) {
-        // 刷新列表
-        this.findAllByParam();
-      }
-    });
   }
 
   /**
@@ -215,7 +154,7 @@ export class RentCategoryComponent implements OnInit {
    * @param title 模态框标题
    */
   openModel(id: string, title: string): NzModalRef {
-    return this.modalService.create({
+    const modal = this.modalService.create({
       nzTitle: title,
       nzContent: RentCategoryEditComponent,
       nzWidth: 600,
@@ -238,5 +177,13 @@ export class RentCategoryComponent implements OnInit {
         }
       ]
     });
+    // 模态框关闭后回调事件
+    modal.afterClose.subscribe((result) => {
+      if (result && result.refresh) {
+        // 刷新列表
+        this.findAllByParam();
+      }
+    });
+    return modal;
   }
 }

@@ -29,7 +29,7 @@
                 </div>
             </form>
             <div class="button-group">
-                <button *ngIf="perms.save" nz-button nzType="primary" (click)="showSave()">
+                <button *ngIf="perms.save" nz-button nzType="primary" (click)="openModel(global.INSERT_FLAG, false, '新增表信息')">
                     <em nz-icon [nzType]="'plus'" [nzTheme]="'outline'"></em>新增
                 </button>
                 <button nz-button nzType="default" (click)="refresh()">
@@ -79,9 +79,9 @@
                     <td>{{data.updateTime}}</td>
                     <td>{{data.remark}}</td>
                     <td *ngIf="perms.update || perms.delete">
-                        <a *ngIf="perms.update" (click)="showCopy(data.id)">拷贝</a>
+                        <a *ngIf="perms.update" (click)="openModel(data.id, true, '拷贝表信息')">拷贝</a>
                         <nz-divider *ngIf="perms.update && perms.delete" nzType="vertical"></nz-divider>
-                        <a *ngIf="perms.update" (click)="showUpdate(data.id)">修改</a>
+                        <a *ngIf="perms.update" (click)="openModel(data.id, false, '修改表信息')">修改</a>
                         <nz-divider *ngIf="perms.update && perms.delete" nzType="vertical"></nz-divider>
                         <a *ngIf="perms.delete"
                            nz-popconfirm

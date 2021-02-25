@@ -7,6 +7,8 @@ import { DictService } from './dict.service';
 import { GlobalConstants } from '../../@core/constant/GlobalConstants';
 import { DictModel } from './dict.model';
 import { validatePerms } from '../../@core/util/perms-validators';
+import { BizTypeEditComponent } from "../biz-type/biz-type-edit/biz-type-edit.component";
+import { getSorts } from "../../@core/util/table-sort";
 
 @Component({
   selector: 'app-dict',
@@ -83,7 +85,7 @@ export class DictComponent implements OnInit {
         'pageSize': this.pageSize,
         'pageNum': this.pageNum - 1
       },
-      'sorts': this.getSorts()
+      'sorts': getSorts(this.sortMap)
     };
     this.dictService.findAllByParam(param).subscribe((res: ResponseResultModel) => {
       // 判断返回结果是否为空或null
@@ -123,63 +125,6 @@ export class DictComponent implements OnInit {
   }
 
   /**
-   * 获取排序参数
-   */
-  getSorts(): any[] {
-    const arr = [];
-    for (const key of Object.keys(this.sortMap)) {
-      if (this.sortMap[key] != null) {
-        arr.push({field: key, orderBy: this.sortMap[key].replace('end', '')});
-      }
-    }
-    return arr;
-  }
-
-  /**
-   * 打开新增页面
-   */
-  showSave() {
-    const modal = this.openModel(this.global.INSERT_FLAG, '新增数据字典信息');
-
-    // 模态框打开后回调事件
-    modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-
-    // 模态框关闭后回调事件
-    modal.afterClose.subscribe((result) => {
-      if (result && result.refresh) {
-        // 刷新列表
-        this.findAllByParam();
-      }
-    });
-
-    // 延时到模态框实例创建
-    window.setTimeout(() => {
-      const instance = modal.getContentComponent();
-      instance.title = 'sub title is changed';
-    }, 2000);
-  }
-
-  /**
-   * 打开修改页面
-   *
-   * @param id 数据字典ID
-   */
-  showUpdate(id: string) {
-    const modal = this.openModel(id, '修改数据字典信息');
-
-    // 模态框打开后回调事件
-    modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-
-    // 模态框关闭后回调事件
-    modal.afterClose.subscribe((result) => {
-      if (result && result.refresh) {
-        // 刷新列表
-        this.findAllByParam();
-      }
-    });
-  }
-
-  /**
    * 删除前确认
    *
    * @param id 用户ID
@@ -215,11 +160,11 @@ export class DictComponent implements OnInit {
   /**
    * 打开模态框
    *
-   * @param id 数据字典ID
+   * @param id ID
    * @param title 模态框标题
    */
   openModel(id: string, title: string): NzModalRef {
-    return this.modalService.create({
+    const modal = this.modalService.create({
       nzTitle: title,
       nzContent: DictEditComponent,
       nzWidth: 600,
@@ -242,6 +187,14 @@ export class DictComponent implements OnInit {
         }
       ]
     });
+    // 模态框关闭后回调事件
+    modal.afterClose.subscribe((result) => {
+      if (result && result.refresh) {
+        // 刷新列表
+        this.findAllByParam();
+      }
+    });
+    return modal;
   }
 
 }

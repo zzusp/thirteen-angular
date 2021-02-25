@@ -6,6 +6,7 @@ import { ResponseResultModel } from "../../@core/net/response-result.model";
 import { PagerResultModel } from "../../@core/net/pager-result.model";
 import { NzMessageService, NzModalRef, NzModalService } from 'ng-zorro-antd';
 import { DmTableEditComponent } from './dm-table-edit/dm-table-edit.component';
+import { getSorts } from "../../@core/util/table-sort";
 
 @Component({
   selector: 'app-dm-table',
@@ -77,7 +78,7 @@ export class DmTableComponent implements OnInit {
         'pageSize': this.pageSize,
         'pageNum': this.pageNum - 1
       },
-      'sorts': this.getSorts()
+      'sorts': getSorts(this.sortMap)
     };
     this.dmTableService.findAllBySpecification(param)
       .subscribe((res: ResponseResultModel) => {
@@ -126,97 +127,6 @@ export class DmTableComponent implements OnInit {
   }
 
   /**
-   * 获取排序参数
-   */
-  getSorts(): any[] {
-    const arr = [];
-    for (const key of Object.keys(this.sortMap)) {
-      if (this.sortMap[key] != null) {
-        arr.push({field: key, orderBy: this.sortMap[key].replace('end', '')});
-      }
-    }
-    return arr;
-  }
-
-  /**
-   * 获取排序参数
-   */
-  getOrderBy(): string {
-    const arr = [];
-    for (const key of Object.keys(this.sortMap)) {
-      if (this.sortMap[key] != null) {
-        arr.push(key + ' ' + this.sortMap[key].replace('end', ''));
-      }
-    }
-    return arr.toString();
-  }
-
-  /**
-   * 打开新增页面
-   */
-  showSave() {
-    const modal = this.openModel(this.global.INSERT_FLAG, false, '新增表信息');
-
-    // 模态框打开后回调事件
-    modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-
-    // 模态框关闭后回调事件
-    modal.afterClose.subscribe((result) => {
-      if (result && result.refresh) {
-        // 刷新列表
-        this.findAllBySpecification();
-      }
-    });
-
-    // 延时到模态框实例创建
-    window.setTimeout(() => {
-      const instance = modal.getContentComponent();
-      instance.title = 'sub title is changed';
-    }, 2000);
-  }
-
-  /**
-   * 打开修改页面
-   *
-   * @param id 数据字典ID
-   */
-  showUpdate(id: string) {
-    const modal = this.openModel(id, false, '修改表信息');
-
-    // 模态框打开后回调事件
-    modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-
-    // 模态框关闭后回调事件
-    modal.afterClose.subscribe((result) => {
-      if (result && result.refresh) {
-        // 刷新列表
-        this.findAllBySpecification();
-      }
-    });
-  }
-
-  /**
-   * 打开拷贝页面
-   *
-   * @param id 数据字典ID
-   */
-  showCopy(id: string) {
-    const modal = this.openModel(id, true, '拷贝表信息');
-
-    // 模态框打开后回调事件
-    modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-
-    // 模态框关闭后回调事件
-    modal.afterClose.subscribe((result) => {
-      console.log('[afterClose] emitted!')
-      if (result && result.refresh) {
-        // 刷新列表
-        this.findAllBySpecification();
-      }
-    });
-  }
-
-  /**
    * 删除前确认
    *
    * @param id 用户ID
@@ -257,7 +167,7 @@ export class DmTableComponent implements OnInit {
    * @param title 模态框标题
    */
   openModel(id: string, isCopy: boolean, title: string): NzModalRef {
-    return this.modalService.create({
+    const modal = this.modalService.create({
       nzTitle: title,
       nzContent: DmTableEditComponent,
       nzWidth: 1400,
@@ -281,6 +191,14 @@ export class DmTableComponent implements OnInit {
         }
       ]
     });
+    // 模态框关闭后回调事件
+    modal.afterClose.subscribe((result) => {
+      if (result && result.refresh) {
+        // 刷新列表
+        this.findAllBySpecification();
+      }
+    });
+    return modal;
   }
 
 }

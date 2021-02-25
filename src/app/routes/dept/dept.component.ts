@@ -10,6 +10,7 @@ import { ResponseResultModel } from '../../@core/net/response-result.model';
 import { validatePerms } from '../../@core/util/perms-validators';
 import { PagerResultModel } from '../../@core/net/pager-result.model';
 import { listToBaseTree } from '../../@core/util/tree-node';
+import { BizTypeEditComponent } from "../biz-type/biz-type-edit/biz-type-edit.component";
 
 @Component({
   selector: 'app-dept',
@@ -102,36 +103,6 @@ export class DeptComponent implements OnInit {
   }
 
   /**
-   * 打开新增页面
-   */
-  showSave() {
-    const modal = this.openModel(this.global.INSERT_FLAG, '新增部门信息');
-    // 模态框关闭后回调事件
-    modal.afterClose.subscribe((result) => {
-      if (result && result.refresh) {
-        // 刷新列表
-        this.findAllByParam();
-      }
-    });
-  }
-
-  /**
-   * 打开修改页面
-   *
-   * @param id 部门ID
-   */
-  showUpdate(id: string) {
-    const modal = this.openModel(id, '修改部门信息');
-    // 模态框关闭后回调事件
-    modal.afterClose.subscribe((result) => {
-      if (result && result.refresh) {
-        // 刷新列表
-        this.findAllByParam();
-      }
-    });
-  }
-
-  /**
    * 删除前确认
    *
    * @param id 用户ID
@@ -167,11 +138,11 @@ export class DeptComponent implements OnInit {
   /**
    * 打开模态框
    *
-   * @param id 部门ID
+   * @param id ID
    * @param title 模态框标题
    */
   openModel(id: string, title: string): NzModalRef {
-    return this.modalService.create({
+    const modal = this.modalService.create({
       nzTitle: title,
       nzContent: DeptEditComponent,
       nzWidth: 600,
@@ -194,6 +165,14 @@ export class DeptComponent implements OnInit {
         }
       ]
     });
+    // 模态框关闭后回调事件
+    modal.afterClose.subscribe((result) => {
+      if (result && result.refresh) {
+        // 刷新列表
+        this.findAllByParam();
+      }
+    });
+    return modal;
   }
 
 }
