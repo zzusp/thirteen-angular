@@ -1,4 +1,4 @@
-import { BaseTreeSortModel } from "../../@core/model/base-tree-sort.model";
+import { BaseTreeSortModel } from '../../@core/model/base-tree-sort.model';
 
 /**
  * 组织model

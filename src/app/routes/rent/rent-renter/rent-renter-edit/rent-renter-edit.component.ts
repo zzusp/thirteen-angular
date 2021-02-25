@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { GlobalConstants } from "../../../../@core/constant/GlobalConstants";
-import { Observable } from "rxjs";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { NzModalRef } from "ng-zorro-antd";
-import { RentRenterService } from "../rent-renter.service";
-import { abstractValidate } from "../../../../@core/util/custom-validators";
-import { ResponseResultModel } from "../../../../@core/net/response-result.model";
-import { RentRenterModel } from "../rent-renter.model";
+import { GlobalConstants } from '../../../../@core/constant/GlobalConstants';
+import { Observable } from 'rxjs';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NzModalRef } from 'ng-zorro-antd';
+import { RentRenterService } from '../rent-renter.service';
+import { abstractValidate } from '../../../../@core/util/custom-validators';
+import { ResponseResultModel } from '../../../../@core/net/response-result.model';
+import { RentRenterModel } from '../rent-renter.model';
 
 @Component({
   selector: 'app-rent-renter-edit',

@@ -56,10 +56,6 @@
                     <th nzShowSort [(nzSortOrder)]="sortMap.createTime" (nzSortChange)="sort('createTime', $event)">
                         <span>添加时间</span>
                     </th>
-                    <th nzShowSort [(nzSortOrder)]="sortMap.updateTime" (nzSortChange)="sort('updateTime', $event)">
-                        <span>修改时间</span>
-                    </th>
-                    <th><span>备注</span></th>
                     <th *ngIf="perms.update || perms.delete"><span>操作</span></th>
                 </tr>
                 </thead>
@@ -68,12 +64,13 @@
                     <td>{{data.name}}</td>
                     <td>{{data.location}}</td>
                     <td>{{data.footerInfo}}</td>
-                    <td>{{data.settlementDay}}</td>
-                    <td>{{data.leaseTerm}}</td>
-                    <td>{{data.computeMode}}</td>
+                    <td>{{data.settlementDay}}日</td>
+                    <td>{{data.leaseTerm}}个月</td>
+                    <td>
+                        <span *ngIf="data.computeMode == global.COMPUTE_MODE_ALL">算头又算尾</span>
+                        <span *ngIf="data.computeMode == global.COMPUTE_MODE_START">算头不算尾</span>
+                    </td>
                     <td>{{data.createTime}}</td>
-                    <td>{{data.updateTime}}</td>
-                    <td>{{data.remark}}</td>
                     <td *ngIf="perms.update || perms.delete">
                         <a *ngIf="perms.update" (click)="openModel(data.id, '修改系统初始化信息')">修改</a>
                         <nz-divider *ngIf="perms.update && perms.delete" nzType="vertical"></nz-divider>

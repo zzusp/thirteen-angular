@@ -8,7 +8,7 @@ import { DmTableModel } from '../dm-table.model';
 import { ResponseResultModel } from '../../../@core/net/response-result.model';
 import { abstractValidate } from '../../../@core/util/custom-validators';
 import { DmColumnModel } from '../dm-column.model';
-import { DragulaService } from "ng2-dragula";
+import { DragulaService } from 'ng2-dragula';
 
 @Component({
   selector: 'app-dm-table-edit',
@@ -214,7 +214,7 @@ export class DmTableEditComponent implements OnInit, OnDestroy {
       javaType: null,
       orderNumber: this.columns.length + 1,
       remark: null
-    }
+    };
     let columns = [...this.columns];
     columns.push(column);
     this.columns = [...columns];

@@ -58,7 +58,8 @@ const RENT_MODEL_COMPONENT = [
   RentRenterEditComponent,
   RentItemEditComponent,
   RentCategoryEditComponent,
-  RentSpecEditComponent
+  RentSpecEditComponent,
+  RentBaseInfoEditComponent
 ];
 
 // routes下所有组件
@@ -97,8 +98,7 @@ const ROUTES_COMPONENT = [
     RoutesRoutingModule
   ],
   declarations: [
-    ...ROUTES_COMPONENT,
-    RentBaseInfoEditComponent
+    ...ROUTES_COMPONENT
   ],
   entryComponents: [
     ...SYSTEM_MODEL_COMPONENT,

@@ -54,16 +54,46 @@
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>每月结算日期</nz-form-label>
-                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="mobileTip">
-                        <input type="text"
-                               name="mobile"
-                               formControlName="mobile"
-                               required
-                               nz-input
-                               placeholder="请输入">
-                        <ng-template #mobileTip let-control>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="settlementDayTip">
+                        <nz-input-group nzAddOnAfter="日">
+                            <nz-input-number
+                                formControlName="settlementDay"
+                                required
+                                [nzPlaceHolder]="'请输入'"></nz-input-number>
+                        </nz-input-group>
+                        <ng-template #settlementDayTip let-control>
                             <ng-container *ngIf="control.dirty && control.hasError('required')">
-                                每月结算日期
+                                每月结算日期不可为空
+                            </ng-container>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>租赁期限</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="leaseTermTip">
+                        <nz-input-group nzAddOnAfter="个月">
+                            <nz-input-number
+                                formControlName="leaseTerm"
+                                required
+                                [nzPlaceHolder]="'请输入'"></nz-input-number>
+                        </nz-input-group>
+                        <ng-template #leaseTermTip let-control>
+                            <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                租赁期限不可为空
+                            </ng-container>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>计算方式</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="computeModeTip">
+                        <nz-radio-group formControlName="computeMode">
+                            <label nz-radio [nzValue]="0">算头又算尾</label>
+                            <label nz-radio [nzValue]="1">算头不算尾</label>
+                        </nz-radio-group>
+                        <ng-template #computeModeTip let-control>
+                            <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                计算方式不可为空
                             </ng-container>
                         </ng-template>
                     </nz-form-control>

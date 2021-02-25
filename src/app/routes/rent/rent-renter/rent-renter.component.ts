@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalConstants } from "../../../@core/constant/GlobalConstants";
-import { RentRenterService } from "./rent-renter.service";
-import { NzMessageService, NzModalRef, NzModalService } from "ng-zorro-antd";
-import { getSorts } from "../../../@core/util/table-sort";
-import { ResponseResultModel } from "../../../@core/net/response-result.model";
-import { PagerResultModel } from "../../../@core/net/pager-result.model";
-import { RentItemEditComponent } from "../rent-item/rent-item-edit/rent-item-edit.component";
-import { RentRenterModel } from "./rent-renter.model";
-import { RentRenterEditComponent } from "./rent-renter-edit/rent-renter-edit.component";
+import { GlobalConstants } from '../../../@core/constant/GlobalConstants';
+import { RentRenterService } from './rent-renter.service';
+import { NzMessageService, NzModalRef, NzModalService } from 'ng-zorro-antd';
+import { getSorts } from '../../../@core/util/table-sort';
+import { ResponseResultModel } from '../../../@core/net/response-result.model';
+import { PagerResultModel } from '../../../@core/net/pager-result.model';
+import { RentRenterModel } from './rent-renter.model';
+import { RentRenterEditComponent } from './rent-renter-edit/rent-renter-edit.component';
 
 @Component({
   selector: 'app-rent-renter',

@@ -1,5 +1,5 @@
 import { PermissionModel } from '../permission/permission.model';
-import { BaseTreeSortModel } from "../../@core/model/base-tree-sort.model";
+import { BaseTreeSortModel } from '../../@core/model/base-tree-sort.model';
 
 /**
  * 应用model

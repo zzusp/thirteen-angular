@@ -7,8 +7,7 @@ import { DictService } from './dict.service';
 import { GlobalConstants } from '../../@core/constant/GlobalConstants';
 import { DictModel } from './dict.model';
 import { validatePerms } from '../../@core/util/perms-validators';
-import { BizTypeEditComponent } from "../biz-type/biz-type-edit/biz-type-edit.component";
-import { getSorts } from "../../@core/util/table-sort";
+import { getSorts } from '../../@core/util/table-sort';
 
 @Component({
   selector: 'app-dict',

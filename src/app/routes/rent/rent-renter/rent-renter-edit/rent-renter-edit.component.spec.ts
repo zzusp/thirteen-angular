@@ -8,9 +8,9 @@ describe('RentRenterEditComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RentRenterEditComponent ]
+      declarations: [RentRenterEditComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -64,7 +64,9 @@ export class GlobalConstants {
   DELETE_SUCESS_MSG = '删除成功';
   DELETE_LOADING_MSG = '删除中，请稍后';
 
-
+  /** 计算方式 0：算头又算尾；1：算头不算尾 */
+  COMPUTE_MODE_ALL = 0;
+  COMPUTE_MODE_START = 1;
   /** 计量单位 0：元/根；1：元/米；2：元/个；3：元/条 */
   UNIT_GEN = 0;
   UNIT_MI = 1;

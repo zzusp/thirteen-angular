@@ -3,7 +3,7 @@ import { RoleModel } from '../role/role.model';
 import { ApplicationModel } from '../application/application.model';
 import { PermissionModel } from '../permission/permission.model';
 import { DeptModel } from '../dept/dept.model';
-import { BaseModel } from "../../@core/model/base.model";
+import { BaseModel } from '../../@core/model/base.model';
 
 /**
  * 用户model

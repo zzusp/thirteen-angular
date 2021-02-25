@@ -156,7 +156,7 @@ export class RoleAuthorizeComponent implements OnInit {
         status: model.status,
         remark: model.remark
       });
-      if ("admin" === model.code) {
+      if ('admin' === model.code) {
         this.setTreeTableAllChecked(this.data.datas);
 
       } else {
@@ -265,8 +265,8 @@ export class RoleAuthorizeComponent implements OnInit {
       if (item['permissions'] != null) {
         let rolePermissions = [];
         item['permissions'].forEach(v => {
-          rolePermissions.push({permissionCode: v['code']})
-        })
+          rolePermissions.push({permissionCode: v['code']});
+        });
         this.setCheckedPermission(rolePermissions);
       }
       if (item.children && item.children.length > 0) {

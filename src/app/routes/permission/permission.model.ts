@@ -1,5 +1,5 @@
 import { ApplicationModel } from '../application/application.model';
-import { BaseModel } from "../../@core/model/base.model";
+import { BaseModel } from '../../@core/model/base.model';
 
 /**
  * 权限model

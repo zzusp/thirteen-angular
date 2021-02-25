@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalConstants } from "../../@core/constant/GlobalConstants";
-import { DmTableModel } from "./dm-table.model";
-import { DmTableService } from "./dm-table.service";
-import { ResponseResultModel } from "../../@core/net/response-result.model";
-import { PagerResultModel } from "../../@core/net/pager-result.model";
+import { GlobalConstants } from '../../@core/constant/GlobalConstants';
+import { DmTableModel } from './dm-table.model';
+import { DmTableService } from './dm-table.service';
+import { ResponseResultModel } from '../../@core/net/response-result.model';
+import { PagerResultModel } from '../../@core/net/pager-result.model';
 import { NzMessageService, NzModalRef, NzModalService } from 'ng-zorro-antd';
 import { DmTableEditComponent } from './dm-table-edit/dm-table-edit.component';
-import { getSorts } from "../../@core/util/table-sort";
+import { getSorts } from '../../@core/util/table-sort';
 
 @Component({
   selector: 'app-dm-table',

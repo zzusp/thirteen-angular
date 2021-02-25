@@ -26,20 +26,20 @@
             </nz-radio-group>
         </div>
         <nz-date-picker
-                *ngIf="params.type === '0'"
-                [(ngModel)]="params.timePoint"
-                [nzFormat]="'yyyy-MM-dd'"
-                (ngModelChange)="onDateChange($event)"></nz-date-picker>
+            *ngIf="params.type === '0'"
+            [(ngModel)]="params.timePoint"
+            [nzFormat]="'yyyy-MM-dd'"
+            (ngModelChange)="onDateChange($event)"></nz-date-picker>
         <nz-month-picker
-                *ngIf="params.type === '1'"
-                [(ngModel)]="params.timePoint"
-                [nzFormat]="'yyyy-MM'"
-                (ngModelChange)="onDateChange($event)"></nz-month-picker>
+            *ngIf="params.type === '1'"
+            [(ngModel)]="params.timePoint"
+            [nzFormat]="'yyyy-MM'"
+            (ngModelChange)="onDateChange($event)"></nz-month-picker>
         <nz-year-picker
-                *ngIf="params.type === '2'"
-                [(ngModel)]="params.timePoint"
-                [nzFormat]="'yyyy'"
-                (ngModelChange)="onDateChange($event)"></nz-year-picker>
+            *ngIf="params.type === '2'"
+            [(ngModel)]="params.timePoint"
+            [nzFormat]="'yyyy'"
+            (ngModelChange)="onDateChange($event)"></nz-year-picker>
     </div>
 </ng-template>
 <ng-template #distributionTemplate>

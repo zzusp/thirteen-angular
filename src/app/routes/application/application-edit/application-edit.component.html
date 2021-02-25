@@ -8,12 +8,12 @@
                     <nz-form-label [nzSm]="6" [nzXs]="24">上级</nz-form-label>
                     <nz-form-control [nzSm]="14" [nzXs]="24">
                         <nz-tree-select
-                                formControlName="pCode"
-                                [nzNodes]="applications"
-                                [nzAllowClear]="true"
-                                (ngModelChange)="onChange($event)"
-                                nzShowSearch
-                                nzPlaceHolder="请选择">
+                            formControlName="pCode"
+                            [nzNodes]="applications"
+                            [nzAllowClear]="true"
+                            (ngModelChange)="onChange($event)"
+                            nzShowSearch
+                            nzPlaceHolder="请选择">
                         </nz-tree-select>
                     </nz-form-control>
                 </nz-form-item>

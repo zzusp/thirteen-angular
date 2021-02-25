@@ -18,8 +18,8 @@ import { DictComponent } from './dict/dict.component';
 import { LogLoginComponent } from './log-login/log-login.component';
 import { LogOperationComponent } from './log-operation/log-operation.component';
 import { DmTableComponent } from './dm-table/dm-table.component';
-import { RentItemComponent } from "./rent/rent-item/rent-item.component";
-import { RentItemEditComponent } from "./rent/rent-item/rent-item-edit/rent-item-edit.component";
+import { RentItemComponent } from './rent/rent-item/rent-item.component';
+import { RentItemEditComponent } from './rent/rent-item/rent-item-edit/rent-item-edit.component';
 import { RentCategoryComponent } from './rent/rent-category/rent-category.component';
 import { RentSpecComponent } from './rent/rent-spec/rent-spec.component';
 import { RentContractComponent } from './rent/rent-contract/rent-contract.component';
@@ -27,7 +27,7 @@ import { RentRenterComponent } from './rent/rent-renter/rent-renter.component';
 import { RentBaseInfoComponent } from './rent/rent-base-info/rent-base-info.component';
 import { RentCategoryEditComponent } from './rent/rent-category/rent-category-edit/rent-category-edit.component';
 import { RentSpecEditComponent } from './rent/rent-spec/rent-spec-edit/rent-spec-edit.component';
-import { RentRenterEditComponent } from "./rent/rent-renter/rent-renter-edit/rent-renter-edit.component";
+import { RentRenterEditComponent } from './rent/rent-renter/rent-renter-edit/rent-renter-edit.component';
 
 const routes: Routes = [
   {

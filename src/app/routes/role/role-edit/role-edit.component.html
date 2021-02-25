@@ -8,12 +8,12 @@
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>组织</nz-form-label>
                     <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="groupTip">
                         <nz-tree-select
-                                formControlName="groupCode"
-                                [nzNodes]="groups"
-                                [nzAllowClear]="true"
-                                [nzDefaultExpandAll]="true"
-                                nzShowSearch
-                                nzPlaceHolder="请选择">
+                            formControlName="groupCode"
+                            [nzNodes]="groups"
+                            [nzAllowClear]="true"
+                            [nzDefaultExpandAll]="true"
+                            nzShowSearch
+                            nzPlaceHolder="请选择">
                         </nz-tree-select>
                         <ng-template #groupTip let-control>
                             <ng-container *ngIf="control.dirty && control.hasError('required')">

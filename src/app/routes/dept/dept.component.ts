@@ -10,7 +10,6 @@ import { ResponseResultModel } from '../../@core/net/response-result.model';
 import { validatePerms } from '../../@core/util/perms-validators';
 import { PagerResultModel } from '../../@core/net/pager-result.model';
 import { listToBaseTree } from '../../@core/util/tree-node';
-import { BizTypeEditComponent } from "../biz-type/biz-type-edit/biz-type-edit.component";
 
 @Component({
   selector: 'app-dept',

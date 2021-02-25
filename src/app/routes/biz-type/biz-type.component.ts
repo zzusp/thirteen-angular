@@ -7,7 +7,7 @@ import { PagerResultModel } from '../../@core/net/pager-result.model';
 import { BizTypeEditComponent } from './biz-type-edit/biz-type-edit.component';
 import { BizTypeService } from './biz-type.service';
 import { validatePerms } from '../../@core/util/perms-validators';
-import { getSorts } from "../../@core/util/table-sort";
+import { getSorts } from '../../@core/util/table-sort';
 
 @Component({
   selector: 'app-biz-type',

@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { GlobalConstants } from '../../@core/constant/GlobalConstants';
 import { validatePerms } from '../../@core/util/perms-validators';
 import { NzMessageService } from 'ng-zorro-antd';
-import { getSorts } from "../../@core/util/table-sort";
+import { getSorts } from '../../@core/util/table-sort';
 
 @Component({
   selector: 'app-user',

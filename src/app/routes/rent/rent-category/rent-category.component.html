@@ -33,7 +33,8 @@
                 </div>
             </form>
             <div class="button-group">
-                <button *ngIf="perms.save" nz-button nzType="primary" (click)="openModel(global.INSERT_FLAG, '新增类别品名信息')">
+                <button *ngIf="perms.save" nz-button nzType="primary"
+                        (click)="openModel(global.INSERT_FLAG, '新增类别品名信息')">
                     <i nz-icon [nzType]="'plus'" [nzTheme]="'outline'"></i>新增
                 </button>
             </div>
@@ -68,7 +69,7 @@
                 <tr *ngFor="let data of tableData">
                     <td>{{rentItemMap[data.itemCode]}}</td>
                     <td>{{data.name}}</td>
-                    <td>{{data.dailyRent}}</td>
+                    <td>{{data.dailyRent}}元</td>
                     <td>
                         <span *ngIf="data.unit == global.UNIT_GEN">元/根</span>
                         <span *ngIf="data.unit == global.UNIT_MI">元/米</span>

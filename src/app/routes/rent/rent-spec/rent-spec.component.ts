@@ -6,9 +6,9 @@ import { ResponseResultModel } from '../../../@core/net/response-result.model';
 import { PagerResultModel } from '../../../@core/net/pager-result.model';
 import { RentSpecModel } from './rent-spec.model';
 import { RentSpecEditComponent } from './rent-spec-edit/rent-spec-edit.component';
-import { RentCategoryService } from "../rent-category/rent-category.service";
-import { RentCategoryModel } from "../rent-category/rent-category.model";
-import { getSorts } from "../../../@core/util/table-sort";
+import { RentCategoryService } from '../rent-category/rent-category.service';
+import { RentCategoryModel } from '../rent-category/rent-category.model';
+import { getSorts } from '../../../@core/util/table-sort';
 
 @Component({
   selector: 'app-rent-spec',

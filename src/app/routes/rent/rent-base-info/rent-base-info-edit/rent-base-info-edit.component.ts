@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { GlobalConstants } from "../../../../@core/constant/GlobalConstants";
-import { Observable } from "rxjs";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { NzModalRef } from "ng-zorro-antd";
-import { RentBaseInfoService } from "../rent-base-info.service";
-import { abstractValidate } from "../../../../@core/util/custom-validators";
-import { ResponseResultModel } from "../../../../@core/net/response-result.model";
-import { RentBaseInfoModel } from "../rent-base-info.model";
+import { GlobalConstants } from '../../../../@core/constant/GlobalConstants';
+import { Observable } from 'rxjs';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NzModalRef } from 'ng-zorro-antd';
+import { RentBaseInfoService } from '../rent-base-info.service';
+import { abstractValidate } from '../../../../@core/util/custom-validators';
+import { ResponseResultModel } from '../../../../@core/net/response-result.model';
+import { RentBaseInfoModel } from '../rent-base-info.model';
 
 @Component({
   selector: 'app-rent-base-info-edit',
@@ -70,7 +70,7 @@ export class RentBaseInfoEditComponent implements OnInit {
       footerInfo: null,
       settlementDay: null,
       leaseTerm: null,
-      computeMode: null,
+      computeMode: this.global.COMPUTE_MODE_ALL,
       remark: null,
       version: null
     });

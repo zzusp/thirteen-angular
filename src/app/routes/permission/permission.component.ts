@@ -2,21 +2,14 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { GlobalConstants } from '../../@core/constant/GlobalConstants';
 import { PermissionModel } from './permission.model';
 import { PermissionService } from './permission.service';
-import {
-  NzFormatEmitEvent,
-  NzMessageService,
-  NzModalRef,
-  NzModalService,
-  NzTreeComponent,
-  NzTreeNode
-} from 'ng-zorro-antd';
+import { NzFormatEmitEvent, NzMessageService, NzModalRef, NzModalService, NzTreeComponent, NzTreeNode } from 'ng-zorro-antd';
 import { ResponseResultModel } from '../../@core/net/response-result.model';
 import { PagerResultModel } from '../../@core/net/pager-result.model';
 import { PermissionEditComponent } from './permission-edit/permission-edit.component';
 import { validatePerms } from '../../@core/util/perms-validators';
 import { ApplicationService } from '../application/application.service';
 import { listToTree, TreeNode } from '../../@core/util/tree-node';
-import { getSorts } from "../../@core/util/table-sort";
+import { getSorts } from '../../@core/util/table-sort';
 
 @Component({
   selector: 'app-permission',

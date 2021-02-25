@@ -29,7 +29,8 @@
                 </div>
             </form>
             <div class="button-group">
-                <button *ngIf="perms.save" nz-button nzType="primary" (click)="openModel(global.INSERT_FLAG, '新增业务类型信息')">
+                <button *ngIf="perms.save" nz-button nzType="primary"
+                        (click)="openModel(global.INSERT_FLAG, '新增业务类型信息')">
                     <i nz-icon [nzType]="'plus'" [nzTheme]="'outline'"></i>新增
                 </button>
             </div>

@@ -8,7 +8,7 @@ import { RoleEditComponent } from './role-edit/role-edit.component';
 import { GlobalConstants } from '../../@core/constant/GlobalConstants';
 import { Router } from '@angular/router';
 import { validatePerms } from '../../@core/util/perms-validators';
-import { getSorts } from "../../@core/util/table-sort";
+import { getSorts } from '../../@core/util/table-sort';
 
 @Component({
   selector: 'app-role',

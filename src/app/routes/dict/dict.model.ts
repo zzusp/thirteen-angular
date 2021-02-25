@@ -1,5 +1,5 @@
 import { BizTypeModel } from '../biz-type/biz-type.model';
-import { BaseModel } from "../../@core/model/base.model";
+import { BaseModel } from '../../@core/model/base.model';
 
 /**
  * 数据字典model

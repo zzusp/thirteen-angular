@@ -8,16 +8,16 @@
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>应用</nz-form-label>
                     <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="applicationTip">
                         <nz-tree-select
-                                formControlName="appCode"
-                                [nzNodes]="applications"
-                                [nzDropdownStyle]="{'max-height':'400px', 'overflow':'auto'}"
-                                [nzAllowClear]="true"
-                                nzShowSearch
-                                nzPlaceHolder="请选择">
+                            formControlName="appCode"
+                            [nzNodes]="applications"
+                            [nzDropdownStyle]="{'max-height':'400px', 'overflow':'auto'}"
+                            [nzAllowClear]="true"
+                            nzShowSearch
+                            nzPlaceHolder="请选择">
                         </nz-tree-select>
                         <ng-template #applicationTip let-control>
                             <ng-container
-                                    *ngIf="control.dirty && control.hasError('required')">
+                                *ngIf="control.dirty && control.hasError('required')">
                                 应用不可为空
                             </ng-container>
                         </ng-template>

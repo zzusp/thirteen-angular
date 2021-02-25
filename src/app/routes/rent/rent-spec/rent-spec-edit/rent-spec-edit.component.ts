@@ -8,7 +8,6 @@ import { RentCategoryService } from '../../rent-category/rent-category.service';
 import { RentItemService } from '../../rent-item/rent-item.service';
 import { RentSpecService } from '../rent-spec.service';
 import { ResponseResultModel } from '../../../../@core/net/response-result.model';
-import { RentCategoryModel } from '../../rent-category/rent-category.model';
 import { RentSpecModel } from '../rent-spec.model';
 
 @Component({
@@ -28,10 +27,8 @@ export class RentSpecEditComponent implements OnInit {
   editForm: FormGroup;
   /** 物品种类下拉框数据 */
   rentItems: RentItemModel[] = [];
-  /** 类别品名下拉框数据 */
-  rentCategorys: RentCategoryModel[] = [];
   /** 所有类别品名数据 */
-  allRentCategory: RentCategoryModel[] = [];
+  rentCategoryMap: any = {};
 
   constructor(private modal: NzModalRef,
               private fb: FormBuilder,
@@ -50,7 +47,12 @@ export class RentSpecEditComponent implements OnInit {
         const rentItemRes = results[0];
         const rentCategoryRes = results[1];
         this.rentItems = rentItemRes.result.list;
-        this.allRentCategory = rentCategoryRes.result.list;
+        rentCategoryRes.result.list.forEach(v => {
+          if (!this.rentCategoryMap[v.itemCode]) {
+            this.rentCategoryMap[v.itemCode] = [];
+          }
+          this.rentCategoryMap[v.itemCode].push(v);
+        });
       });
     // 表单验证
     this.editForm = this.fb.group({
@@ -72,8 +74,7 @@ export class RentSpecEditComponent implements OnInit {
   }
 
   itemCodeChange($event: string) {
-    this.rentCategorys = this.allRentCategory.filter(v => v.itemCode == $event);
-    console.log(this.rentCategorys);
+    this.editForm.get('categoryCode').setValue(null);
   }
 
   /**

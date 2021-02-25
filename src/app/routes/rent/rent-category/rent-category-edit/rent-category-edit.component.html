@@ -58,12 +58,12 @@
                 <nz-form-item>
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>日租金</nz-form-label>
                     <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="dailyRentTip">
-                        <input type="text"
-                               name="dailyRent"
-                               formControlName="dailyRent"
-                               required
-                               nz-input
-                               placeholder="请输入">
+                        <nz-input-group nzAddOnAfter="元">
+                            <nz-input-number
+                                formControlName="dailyRent"
+                                required
+                                [nzPlaceHolder]="'请输入'"></nz-input-number>
+                        </nz-input-group>
                         <ng-template #dailyRentTip let-control>
                             <ng-container *ngIf="control.dirty && control.hasError('required')">
                                 日租金不可为空

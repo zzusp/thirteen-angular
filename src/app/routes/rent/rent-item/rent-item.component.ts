@@ -6,7 +6,7 @@ import { ResponseResultModel } from '../../../@core/net/response-result.model';
 import { PagerResultModel } from '../../../@core/net/pager-result.model';
 import { RentItemEditComponent } from './rent-item-edit/rent-item-edit.component';
 import { RentItemModel } from './rent-item.model';
-import { getSorts } from "../../../@core/util/table-sort";
+import { getSorts } from '../../../@core/util/table-sort';
 
 @Component({
   selector: 'app-rent-item',

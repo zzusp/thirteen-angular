@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalConstants } from "../../../@core/constant/GlobalConstants";
-import { RentRenterModel } from "../rent-renter/rent-renter.model";
-import { RentBaseInfoModel } from "./rent-base-info.model";
-import { RentBaseInfoService } from "./rent-base-info.service";
-import { RentRenterService } from "../rent-renter/rent-renter.service";
-import { NzMessageService, NzModalRef, NzModalService } from "ng-zorro-antd";
-import { getSorts } from "../../../@core/util/table-sort";
-import { ResponseResultModel } from "../../../@core/net/response-result.model";
-import { PagerResultModel } from "../../../@core/net/pager-result.model";
-import { RentRenterEditComponent } from "../rent-renter/rent-renter-edit/rent-renter-edit.component";
+import { GlobalConstants } from '../../../@core/constant/GlobalConstants';
+import { RentBaseInfoModel } from './rent-base-info.model';
+import { RentBaseInfoService } from './rent-base-info.service';
+import { NzMessageService, NzModalRef, NzModalService } from 'ng-zorro-antd';
+import { getSorts } from '../../../@core/util/table-sort';
+import { ResponseResultModel } from '../../../@core/net/response-result.model';
+import { PagerResultModel } from '../../../@core/net/pager-result.model';
+import { RentBaseInfoEditComponent } from './rent-base-info-edit/rent-base-info-edit.component';
 
 @Component({
   selector: 'app-rent-base-info',
@@ -149,7 +147,7 @@ export class RentBaseInfoComponent implements OnInit {
   openModel(id: string, title: string): NzModalRef {
     const modal = this.modalService.create({
       nzTitle: title,
-      nzContent: RentRenterEditComponent,
+      nzContent: RentBaseInfoEditComponent,
       nzWidth: 600,
       nzComponentParams: {
         id: id

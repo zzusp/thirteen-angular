@@ -1,4 +1,4 @@
-import { BaseModel } from "../../@core/model/base.model";
+import { BaseModel } from '../../@core/model/base.model';
 
 /**
  * 业务类型model
