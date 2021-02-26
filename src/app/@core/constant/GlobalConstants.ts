@@ -31,6 +31,9 @@ export class GlobalConstants {
   AUTH_DICT = 'auth_dict';
   /** 租赁系统表名 */
   RENT_RENTER = 'rent_renter';
+  RENT_CONTRACT = 'rent_contract';
+  RENT_TRANSPORT = 'rent_transport';
+  RENT_TRANSPORT_SPEC = 'rent_transport_spec';
   RENT_ITEM = 'rent_item';
   RENT_CATEGORY = 'rent_category';
   RENT_SPEC = 'rent_spec';
@@ -64,6 +67,9 @@ export class GlobalConstants {
   DELETE_SUCESS_MSG = '删除成功';
   DELETE_LOADING_MSG = '删除中，请稍后';
 
+  /** 合同状态 0：租赁中；1：已结算； */
+  CONTRACT_OPEN = 0;
+  CONTRACT_CLOSE = 1;
   /** 计算方式 0：算头又算尾；1：算头不算尾 */
   COMPUTE_MODE_ALL = 0;
   COMPUTE_MODE_START = 1;

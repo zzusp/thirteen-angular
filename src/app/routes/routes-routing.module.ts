@@ -28,6 +28,7 @@ import { RentBaseInfoComponent } from './rent/rent-base-info/rent-base-info.comp
 import { RentCategoryEditComponent } from './rent/rent-category/rent-category-edit/rent-category-edit.component';
 import { RentSpecEditComponent } from './rent/rent-spec/rent-spec-edit/rent-spec-edit.component';
 import { RentRenterEditComponent } from './rent/rent-renter/rent-renter-edit/rent-renter-edit.component';
+import { RentContractEditComponent } from "./rent/rent-contract/rent-contract-edit/rent-contract-edit.component";
 
 const routes: Routes = [
   {
@@ -190,6 +191,13 @@ const rentRoutes: Routes = [
         component: RentContractComponent,
         data: {
           breadcrumb: '合同管理'
+        }
+      },
+      {
+        path: 'rent-contract-edit/:id',
+        component: RentContractEditComponent,
+        data: {
+          breadcrumb: '合同编辑'
         }
       },
       {
