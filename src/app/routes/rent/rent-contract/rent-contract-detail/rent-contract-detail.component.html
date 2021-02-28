@@ -1,0 +1,144 @@
+<div nz-row [nzGutter]="32">
+    <div nz-col [nzMd]="24">
+        <nz-card [nzBordered]="false">
+            <nz-descriptions nzTitle="合同信息">
+                <nz-descriptions-item nzTitle="承租单位名称">
+                    <a nz-popover
+                       [nzPopoverTitle]="'承租单位信息'"
+                       [nzPopoverTrigger]="'click'"
+                       [nzPopoverPlacement]="'rightTop'"
+                       [nzPopoverContent]="renterTemplate">
+                        {{rentContract?.rentRenter?.name}}
+                    </a>
+                    <ng-template #renterTemplate>
+                        <p>承租单位名称：{{rentContract?.rentRenter?.name}}</p>
+                        <p>承租单位地址：{{rentContract?.rentRenter?.location}}</p>
+                        <p>联系人：{{rentContract?.rentRenter?.contacts}}</p>
+                        <p>联系电话：{{rentContract?.rentRenter?.mobile}}</p>
+                    </ng-template>
+                </nz-descriptions-item>
+                <nz-descriptions-item nzTitle="施工地">{{rentContract?.location}}</nz-descriptions-item>
+                <nz-descriptions-item nzTitle="业务员">{{rentContract?.contacts}}</nz-descriptions-item>
+                <nz-descriptions-item nzTitle="签订日期">{{rentContract?.signDate}}</nz-descriptions-item>
+                <nz-descriptions-item nzTitle="已租天数">{{rentalDays}}天</nz-descriptions-item>
+                <nz-descriptions-item nzTitle="计算方式">
+                    <span *ngIf="rentContract?.computeMode == global.COMPUTE_MODE_ALL">算头又算尾</span>
+                    <span *ngIf="rentContract?.computeMode == global.COMPUTE_MODE_START">算头不算尾</span>
+                </nz-descriptions-item>
+            </nz-descriptions>
+            <nz-divider></nz-divider>
+            <nz-table
+                [nzSize]="'small'"
+                [nzShowPagination]="false"
+                [nzData]="rentContract?.rentCategories">
+                <thead>
+                <tr>
+                    <th>品名</th>
+                    <th>日租金</th>
+                    <th>计量单位</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let data of rentContract?.rentCategories">
+                    <td>{{data.name}}</td>
+                    <td>{{data.dailyRent}}元</td>
+                    <td>
+                        <span *ngIf="data.unit == global.UNIT_GEN">元/根</span>
+                        <span *ngIf="data.unit == global.UNIT_MI">元/米</span>
+                        <span *ngIf="data.unit == global.UNIT_GE">元/个</span>
+                        <span *ngIf="data.unit == global.UNIT_TIAO">元/条</span>
+                    </td>
+                </tr>
+                </tbody>
+            </nz-table>
+        </nz-card>
+    </div>
+</div>
+<div nz-row [nzGutter]="32" style="padding-top: 16px;">
+    <div nz-col [nzMd]="24">
+        <nz-card [nzBordered]="false">
+            <div nz-row [nzGutter]="32">
+                <div nz-col [nzMd]="12">
+                    <p>
+                        <span class="ant-descriptions-title">出库单</span>
+                        <a style="padding-left: 16px;"
+                           (click)="openModel(global.INSERT_FLAG, global.TRANSPORT_OUT, '新增出库单')">
+                            新增出库单
+                        </a>
+                    </p>
+                    <nz-table
+                        [nzSize]="'small'"
+                        [nzShowPagination]="false"
+                        [nzData]="outTransports">
+                        <thead>
+                        <tr>
+                            <th>施工地</th>
+                            <th>承运人</th>
+                            <th>运输日期</th>
+                            <th>运费</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let data of outTransports">
+                            <td>{{data.location}}</td>
+                            <td>{{data.haulier}}</td>
+                            <td>{{data.deliveryDate}}</td>
+                            <td>{{data.carriage ? data.carriage : 0}}元</td>
+                            <td>
+                                <a (click)="openModel(data.id, global.TRANSPORT_OUT, '修改出库单')">修改</a>
+                                <nz-divider nzType="vertical"></nz-divider>
+                                <a nz-popconfirm
+                                   [nzPopconfirmTitle]="global.DELETE_CONFIRM_MSG"
+                                   (nzOnConfirm)="confirmDelete(data.id)"
+                                   (nzOnCancel)="cancelDelete()"
+                                   nzPopconfirmPlacement="topRight">删除</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </nz-table>
+                </div>
+                <div nz-col [nzMd]="12">
+                    <p>
+                        <span class="ant-descriptions-title">入库单</span>
+                        <a style="padding-left: 16px;"
+                           (click)="openModel(global.INSERT_FLAG, global.TRANSPORT_IN, '新增入库单')">
+                            新增入库单
+                        </a>
+                    </p>
+                    <nz-table
+                        [nzSize]="'small'"
+                        [nzShowPagination]="false"
+                        [nzData]="inTransports">
+                        <thead>
+                        <tr>
+                            <th>施工地</th>
+                            <th>承运人</th>
+                            <th>运输日期</th>
+                            <th>运费</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let data of inTransports">
+                            <td>{{data.location}}</td>
+                            <td>{{data.haulier}}</td>
+                            <td>{{data.deliveryDate}}</td>
+                            <td>{{data.carriage ? data.carriage : 0}}元</td>
+                            <td>
+                                <a (click)="openModel(data.id, global.TRANSPORT_IN, '修改入库单')">修改</a>
+                                <nz-divider nzType="vertical"></nz-divider>
+                                <a nz-popconfirm
+                                   [nzPopconfirmTitle]="global.DELETE_CONFIRM_MSG"
+                                   (nzOnConfirm)="confirmDelete(data.id)"
+                                   (nzOnCancel)="cancelDelete()"
+                                   nzPopconfirmPlacement="topRight">删除</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </nz-table>
+                </div>
+            </div>
+        </nz-card>
+    </div>
+</div>

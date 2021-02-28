@@ -1,0 +1,116 @@
+<div nz-row [nzGutter]="32">
+    <div nz-col [nzMd]="24">
+        <nz-card [nzBordered]="false">
+            <form nz-form [formGroup]="editForm" class="submit-form">
+                <input type="hidden" name="id" formControlName="id"/>
+                <input type="hidden" name="version" formControlName="version"/>
+                <input type="hidden" name="remark" formControlName="remark"/>
+                <input type="hidden" name="contractId" formControlName="contractId"/>
+                <input type="hidden" name="rentTransportSpecs" formControlName="rentTransportSpecs"/>
+                <div nz-row [nzGutter]="32">
+                    <div nz-col [nzMd]="12">
+                        <nz-form-item>
+                            <nz-form-label [nzSm]="8" [nzXs]="24">施工地</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <input type="text"
+                                       name="location"
+                                       formControlName="location"
+                                       nz-input
+                                       placeholder="请输入">
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>日期</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="deliveryDateTip">
+                                <nz-date-picker formControlName="deliveryDate" [nzFormat]="dateFormat"></nz-date-picker>
+                                <ng-template #deliveryDateTip let-control>
+                                    <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                        日期不可为空
+                                    </ng-container>
+                                </ng-template>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                    <div nz-col [nzMd]="12">
+                        <nz-form-item>
+                            <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>承运人</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="haulierTip">
+                                <input type="text"
+                                       name="haulier"
+                                       formControlName="haulier"
+                                       required
+                                       nz-input
+                                       placeholder="请输入">
+                                <ng-template #haulierTip let-control>
+                                    <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                        承运人不可为空
+                                    </ng-container>
+                                </ng-template>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label [nzSm]="8" [nzXs]="24">运费</nz-form-label>
+                            <nz-form-control [nzSm]="16" [nzXs]="24">
+                                <nz-input-group nzAddOnAfter="元">
+                                    <nz-input-number
+                                        formControlName="carriage"
+                                        [nzPlaceHolder]="'请输入'"></nz-input-number>
+                                </nz-input-group>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+            </form>
+            <nz-divider></nz-divider>
+            <nz-table [nzSize]="'small'" [nzData]="transportSpecs" [nzFrontPagination]="false"
+                      [nzShowPagination]="false">
+                <thead>
+                <tr>
+                    <th>品名</th>
+                    <th>规格</th>
+                    <th>件数</th>
+                    <th>数量</th>
+                    <th>换算数量</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let data of transportSpecs; let i = index;">
+                    <td>
+                        <nz-select [(ngModel)]="data.categoryId" [ngModelOptions]="{standalone: true}"
+                                   nzPlaceHolder="请选择" nzAllowClear>
+                            <nz-option *ngFor="let opt of rentCategories" [nzValue]="opt.id"
+                                       [nzLabel]="opt.name"></nz-option>
+                        </nz-select>
+                    </td>
+                    <td>
+                        <nz-select
+                            [(ngModel)]="data.specId" [ngModelOptions]="{standalone: true}"
+                            nzPlaceHolder="请选择" nzAllowClear>
+                            <nz-option *ngFor="let opt of rentCategoryMap[data.categoryId] ?
+                                            rentSpcMap[rentCategoryMap[data.categoryId][0].code] : []"
+                                       [nzValue]="opt.id"
+                                       [nzLabel]="opt.name"></nz-option>
+                        </nz-select>
+                    </td>
+                    <td>
+                        <nz-input-number [(ngModel)]="data.num" style="width: 70px"></nz-input-number>
+                    </td>
+                    <td>
+                        {{mul(data.num, getRowQuantity(data.categoryId, data.specId))}}
+                    </td>
+                    <td>{{getRowQuantity(data.categoryId, data.specId)}}</td>
+                    <td>
+                        <i nz-icon nzType="minus-circle-o" class="dynamic-delete-button"
+                           (click)="removeTransportSpec(i)"></i>
+                    </td>
+                </tr>
+                </tbody>
+            </nz-table>
+            <button nz-button nzType="dashed" style="width: 100%" (click)="addTransportSpec()">
+                <i nz-icon nzType="plus"></i>
+                添加记录
+            </button>
+        </nz-card>
+    </div>
+</div>

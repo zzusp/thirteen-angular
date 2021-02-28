@@ -1,0 +1,21 @@
+nz-date-picker {
+  width: 100%;
+}
+
+nz-input-number {
+  width: 100%;
+}
+
+nz-select {
+  width: 100%;
+}
+
+.ant-table-tbody > tr {
+  > td {
+    padding: 4px;
+  }
+}
+
+::ng-deep .ant-table-tbody > tr.ant-table-placeholder {
+  display: none;
+}
