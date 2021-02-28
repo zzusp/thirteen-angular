@@ -1,18 +1,17 @@
 import { BaseModel } from '../../../@core/model/base.model';
-import { RentItemModel } from "../rent-item/rent-item.model";
 
 /**
  * 运输单model
  */
 export class RentTransportModel extends BaseModel {
 
-  /** 承租方ID */
+  /** 合同ID */
   contractId: string;
   /** 承租方施工地 */
   location: string;
   /** 承运人 */
   haulier: string;
-  /** 签订日期 */
+  /** 运输日期 */
   deliveryDate: string;
   /** 运费 */
   carriage: number;
@@ -30,5 +29,7 @@ export class RentTransportModel extends BaseModel {
   remark: string;
   /** 版本号 */
   version: number;
+  /** 运输单与规格关联 */
+  rentTransportSpecs: any[];
 
 }

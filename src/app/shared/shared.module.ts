@@ -30,6 +30,8 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
+import { NzPopoverModule } from 'ng-zorro-antd/popover';
 
 import { RouterModule } from '@angular/router';
 import { DefaultInterceptor } from '../@core/net/default.interceptor';
@@ -82,6 +84,8 @@ const THIRD_MODULES = [
   NzTreeModule,
   NzTreeSelectModule,
   NzUploadModule,
+  NzDescriptionsModule,
+  NzPopoverModule,
   DragulaModule.forRoot().ngModule,
   /** 导入 ngx-echarts 模块 **/
   NgxEchartsModule,

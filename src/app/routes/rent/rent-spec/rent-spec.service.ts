@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { GlobalConstants } from '../../../@core/constant/GlobalConstants';
 
@@ -21,10 +21,10 @@ export class RentSpecService {
       table: GlobalConstants.getInstance().RENT_SPEC,
       model: params,
       rule: {
-        currentAccount: ['account', 'createBy'], currentDateTime: ['createTime']
+        currentAccount: ['createBy'], currentDateTime: ['createTime']
       }
     };
-    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/insert', insert);
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/rent/insert', insert);
   }
 
   /**
@@ -37,10 +37,10 @@ export class RentSpecService {
       table: GlobalConstants.getInstance().RENT_SPEC,
       model: params,
       rule: {
-        currentAccount: ['account', 'updateBy'], currentDateTime: ['updateTime']
+        currentAccount: ['updateBy'], currentDateTime: ['updateTime']
       }
     };
-    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/update', update);
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/rent/update', update);
   }
 
   /**
@@ -55,7 +55,7 @@ export class RentSpecService {
         {field: 'id', value: id}
       ]
     };
-    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dm/findOneByParam', param);
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/rent/findOneByParam', param);
   }
 
   /**
@@ -65,20 +65,15 @@ export class RentSpecService {
    */
   findAllByParam(params: any): Observable<any> {
     params['table'] = GlobalConstants.getInstance().RENT_SPEC;
-    params['criterias'].push({'field': 'account'});
-    params['rule'] = {currentAccount: ['account']};
-    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/findAllByParam', params);
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/rent/findAllByParam', params);
   }
 
   /**
    * 获取所有列表
    */
   findAll(): Observable<any> {
-    const httpParams = new HttpParams().set('table', GlobalConstants.getInstance().RENT_SPEC)
-      .set('criterias', JSON.stringify([{'field': 'account'}]))
-      .set('rule', JSON.stringify({currentAccount: ['account']}));
-    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/dm/findAll',
-      {params: httpParams});
+    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/rent/findAll',
+      {params: {'table': GlobalConstants.getInstance().RENT_SPEC}});
   }
 
   /**
@@ -90,14 +85,10 @@ export class RentSpecService {
     const params = {
       'table': GlobalConstants.getInstance().RENT_SPEC,
       'criterias': [
-        {'field': 'code', 'value': code},
-        {'field': 'account'}
-      ],
-      'rule': {
-        currentAccount: ['account']
-      }
+        {'field': 'code', 'value': code}
+      ]
     };
-    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/isExist', params);
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/rent/isExist', params);
   }
 
   /**

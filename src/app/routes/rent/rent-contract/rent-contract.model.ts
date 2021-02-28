@@ -1,6 +1,7 @@
 import { BaseModel } from '../../../@core/model/base.model';
-import { RentItemModel } from "../rent-item/rent-item.model";
-import { RentTransportModel } from "./rent-transport.model";
+import { RentTransportModel } from '../rent-transport/rent-transport.model';
+import { RentCategoryModel } from '../rent-category/rent-category.model';
+import { RentRenterModel } from '../rent-renter/rent-renter.model';
 
 /**
  * 合同model
@@ -39,8 +40,12 @@ export class RentContractModel extends BaseModel {
   remark: string;
   /** 版本号 */
   version: number;
-  /** 合同中的物品种类集合 */
-  rentItems: RentItemModel[];
+  /** 承租方信息 */
+  rentRenter: RentRenterModel;
+  /** 合同与类别品名关联 */
+  rentContractCategories: any[];
+  /** 合同中的类别品名集合 */
+  rentCategories: RentCategoryModel[];
   /** 合同中的运输单集合 */
   rentTransports: RentTransportModel[];
 

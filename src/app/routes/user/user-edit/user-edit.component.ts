@@ -43,7 +43,7 @@ export class UserEditComponent implements OnInit {
   /** 角色下拉框数据 */
   roles: RoleModel[];
   /** 选中的角色编码数组 */
-  selectRoles: string[];
+  selectedRoles: string[];
 
   constructor(private route: ActivatedRoute,
               private userService: UserService,
@@ -56,7 +56,7 @@ export class UserEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    //  初始化部门下拉框，组织下拉框，角色下拉框
+    // 初始化部门下拉框，组织下拉框，角色下拉框
     const deptReq = this.deptService.findAll();
     const groupReq = this.groupService.findAll();
     const roleReq = this.roleService.findAll();
@@ -174,7 +174,7 @@ export class UserEditComponent implements OnInit {
         });
         if (model.userRoles != null) {
           // 设置已选中的角色
-          this.selectRoles = model.userRoles.map(v => {
+          this.selectedRoles = model.userRoles.map(v => {
             return v.roleCode;
           });
         }
@@ -191,9 +191,9 @@ export class UserEditComponent implements OnInit {
       this.editForm.controls[key].updateValueAndValidity({onlySelf: true});
     }
     if (this.editForm.valid) {
-      if (this.selectRoles != null) {
+      if (this.selectedRoles != null) {
         // 设置选中角色
-        this.editForm.get('userRoles').setValue(this.selectRoles.map(v => {
+        this.editForm.get('userRoles').setValue(this.selectedRoles.map(v => {
           return {roleCode: v};
         }));
       }

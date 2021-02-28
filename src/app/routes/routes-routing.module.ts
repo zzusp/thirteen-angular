@@ -19,16 +19,12 @@ import { LogLoginComponent } from './log-login/log-login.component';
 import { LogOperationComponent } from './log-operation/log-operation.component';
 import { DmTableComponent } from './dm-table/dm-table.component';
 import { RentItemComponent } from './rent/rent-item/rent-item.component';
-import { RentItemEditComponent } from './rent/rent-item/rent-item-edit/rent-item-edit.component';
 import { RentCategoryComponent } from './rent/rent-category/rent-category.component';
 import { RentSpecComponent } from './rent/rent-spec/rent-spec.component';
 import { RentContractComponent } from './rent/rent-contract/rent-contract.component';
 import { RentRenterComponent } from './rent/rent-renter/rent-renter.component';
 import { RentBaseInfoComponent } from './rent/rent-base-info/rent-base-info.component';
-import { RentCategoryEditComponent } from './rent/rent-category/rent-category-edit/rent-category-edit.component';
-import { RentSpecEditComponent } from './rent/rent-spec/rent-spec-edit/rent-spec-edit.component';
-import { RentRenterEditComponent } from './rent/rent-renter/rent-renter-edit/rent-renter-edit.component';
-import { RentContractEditComponent } from "./rent/rent-contract/rent-contract-edit/rent-contract-edit.component";
+import { RentContractDetailComponent } from './rent/rent-contract/rent-contract-detail/rent-contract-detail.component';
 
 const routes: Routes = [
   {
@@ -183,7 +179,7 @@ const rentRoutes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'rent-item',
+        redirectTo: 'rent-contract',
         pathMatch: 'full'
       },
       {
@@ -191,27 +187,22 @@ const rentRoutes: Routes = [
         component: RentContractComponent,
         data: {
           breadcrumb: '合同管理'
-        }
-      },
-      {
-        path: 'rent-contract-edit/:id',
-        component: RentContractEditComponent,
-        data: {
-          breadcrumb: '合同编辑'
-        }
+        },
+        children: [
+          {
+            path: 'detail/:id',
+            component: RentContractDetailComponent,
+            data: {
+              breadcrumb: '合同详情'
+            }
+          },
+        ]
       },
       {
         path: 'rent-renter',
         component: RentRenterComponent,
         data: {
           breadcrumb: '仓库或公司'
-        }
-      },
-      {
-        path: 'rent-renter-edit/:id',
-        component: RentRenterEditComponent,
-        data: {
-          breadcrumb: '仓库或公司编辑'
         }
       },
       {
@@ -222,13 +213,6 @@ const rentRoutes: Routes = [
         }
       },
       {
-        path: 'rent-item-edit/:id',
-        component: RentItemEditComponent,
-        data: {
-          breadcrumb: '物品类别编辑'
-        }
-      },
-      {
         path: 'rent-category',
         component: RentCategoryComponent,
         data: {
@@ -236,24 +220,10 @@ const rentRoutes: Routes = [
         }
       },
       {
-        path: 'rent-category-edit/:id',
-        component: RentCategoryEditComponent,
-        data: {
-          breadcrumb: '类别品名编辑'
-        }
-      },
-      {
         path: 'rent-spec',
         component: RentSpecComponent,
         data: {
           breadcrumb: '物品规格'
-        }
-      },
-      {
-        path: 'rent-spec-edit/:id',
-        component: RentSpecEditComponent,
-        data: {
-          breadcrumb: '物品规格编辑'
         }
       },
       {

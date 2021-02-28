@@ -35,7 +35,7 @@ export class RoleEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    //  初始化组织下拉框
+    // 初始化组织下拉框
     const groupReq = this.groupService.findAll();
     // 发出请求
     forkJoin([groupReq])

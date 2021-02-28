@@ -8,8 +8,10 @@
                 <nz-form-item>
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>承租单位</nz-form-label>
                     <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="rentRenterTip">
-                        <nz-select [(ngModel)]="selectRentRenter" [ngModelOptions]="{standalone: true}" nzPlaceHolder="请选择" nzAllowClear>
-                            <nz-option *ngFor="let opt of rentRenters" [nzValue]="opt.id" [nzLabel]="opt.name"></nz-option>
+                        <nz-select [(ngModel)]="selectRentRenter" [ngModelOptions]="{standalone: true}"
+                                   nzPlaceHolder="请选择" nzAllowClear>
+                            <nz-option *ngFor="let opt of rentRenters" [nzValue]="opt.id"
+                                       [nzLabel]="opt.name"></nz-option>
                         </nz-select>
                         <ng-template #rentRenterTip let-control>
                             <ng-container *ngIf="control.dirty && control.hasError('required')">
@@ -45,9 +47,7 @@
                 <nz-form-item>
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>签订日期</nz-form-label>
                     <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="signDateTip">
-                        <nz-form-control [nzSm]="16" [nzXs]="24">
-                            <nz-date-picker formControlName="signDate" [nzFormat]="dateFormat"></nz-date-picker>
-                        </nz-form-control>
+                        <nz-date-picker formControlName="signDate" [nzFormat]="dateFormat"></nz-date-picker>
                         <ng-template #signDateTip let-control>
                             <ng-container *ngIf="control.dirty && control.hasError('required')">
                                 签订日期不可为空
@@ -70,10 +70,46 @@
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
-                    <div class="form-button">
-                        <button nz-button (click)="goBack()">返回</button>
-                        <button nz-button nzType="primary" (click)="submitForm()" [nzLoading]="false">提交</button>
-                    </div>
+                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>类别品名</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="rentCategoryIdsTip">
+                        <input type="hidden" name="rentContractCategories" formControlName="rentContractCategories"/>
+                        <nz-table
+                            [ngClass]="{'ng-invalid': editForm.get('rentContractCategories').dirty
+                             && editForm.get('rentContractCategories').hasError('required')}"
+                            [nzSize]="'small'"
+                            [nzShowPagination]="false"
+                            [nzData]="rentCategories">
+                            <thead>
+                            <tr>
+                                <th [nzChecked]="selectedCategories.size == rentCategories.length"
+                                    [nzIndeterminate]="indeterminate"
+                                    (nzCheckedChange)="onAllChecked($event)"></th>
+                                <th>品名</th>
+                                <th>日租金</th>
+                                <th>计量单位</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let data of rentCategories">
+                                <td [nzChecked]="selectedCategories.has(data.id)"
+                                    (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
+                                <td>{{data.name}}</td>
+                                <td>{{data.dailyRent}}元</td>
+                                <td>
+                                    <span *ngIf="data.unit == global.UNIT_GEN">元/根</span>
+                                    <span *ngIf="data.unit == global.UNIT_MI">元/米</span>
+                                    <span *ngIf="data.unit == global.UNIT_GE">元/个</span>
+                                    <span *ngIf="data.unit == global.UNIT_TIAO">元/条</span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </nz-table>
+                        <ng-template #rentCategoryIdsTip let-control>
+                            <ng-container *ngIf="control.dirty && control.hasError('required')">
+                                请至少勾选一个类别品名
+                            </ng-container>
+                        </ng-template>
+                    </nz-form-control>
                 </nz-form-item>
             </form>
         </nz-card>

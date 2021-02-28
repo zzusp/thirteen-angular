@@ -1,18 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalConstants } from "../../../@core/constant/GlobalConstants";
-import { RentBaseInfoModel } from "../rent-base-info/rent-base-info.model";
-import { RentContractModel } from "./rent-contract.model";
-import { RentContractService } from "./rent-contract.service";
-import { RentBaseInfoService } from "../rent-base-info/rent-base-info.service";
-import { NzMessageService, NzModalRef, NzModalService } from "ng-zorro-antd";
-import { getSorts } from "../../../@core/util/table-sort";
-import { ResponseResultModel } from "../../../@core/net/response-result.model";
-import { PagerResultModel } from "../../../@core/net/pager-result.model";
-import { RentBaseInfoEditComponent } from "../rent-base-info/rent-base-info-edit/rent-base-info-edit.component";
-import { RentItemModel } from "../rent-item/rent-item.model";
-import { RentRenterModel } from "../rent-renter/rent-renter.model";
-import { RentRenterService } from "../rent-renter/rent-renter.service";
-import { Router } from "@angular/router";
+import { GlobalConstants } from '../../../@core/constant/GlobalConstants';
+import { RentContractModel } from './rent-contract.model';
+import { RentContractService } from './rent-contract.service';
+import { NzMessageService, NzModalRef, NzModalService } from 'ng-zorro-antd';
+import { getSorts } from '../../../@core/util/table-sort';
+import { ResponseResultModel } from '../../../@core/net/response-result.model';
+import { PagerResultModel } from '../../../@core/net/pager-result.model';
+import { RentRenterModel } from '../rent-renter/rent-renter.model';
+import { RentRenterService } from '../rent-renter/rent-renter.service';
+import { Router } from '@angular/router';
+import { RentContractEditComponent } from './rent-contract-edit/rent-contract-edit.component';
 
 @Component({
   selector: 'app-rent-contract',
@@ -54,11 +51,13 @@ export class RentContractComponent implements OnInit {
   perms = {
     save: true,
     update: true,
+    detail: true,
     delete: true
   };
 
   constructor(private rentContractService: RentContractService,
               private nzMessageService: NzMessageService,
+              private modalService: NzModalService,
               private router: Router,
               private rentRenterService: RentRenterService) {
   }
@@ -122,19 +121,19 @@ export class RentContractComponent implements OnInit {
   }
 
   /**
-   * 打开新增页面
+   * 是否隐藏子页面
    */
-  showSave() {
-    this.router.navigate(['/rent/rent-contract-edit', this.global.INSERT_FLAG]);
+  hiddenSubPage(): boolean {
+    return !this.router.isActive('/rent/rent-contract/detail', false);
   }
 
   /**
-   * 打开修改页面
+   * 打开详情页面
    *
-   * @param id 用户ID
+   * @param id 合同ID
    */
-  showUpdate(id: string) {
-    this.router.navigate(['/rent/rent-contract-edit', id]);
+  showDetail(id: string) {
+    this.router.navigate(['/rent/rent-contract/detail', id]);
   }
 
   /**
@@ -168,6 +167,46 @@ export class RentContractComponent implements OnInit {
       }
       this.findAllByParam();
     });
+  }
+
+  /**
+   * 打开模态框
+   *
+   * @param id ID
+   * @param title 模态框标题
+   */
+  openModel(id: string, title: string): NzModalRef {
+    const modal = this.modalService.create({
+      nzTitle: title,
+      nzContent: RentContractEditComponent,
+      nzWidth: 600,
+      nzComponentParams: {
+        id: id
+      },
+      nzFooter: [
+        {
+          label: '返回',
+          onClick: (componentInstance) => {
+            componentInstance.destroyModal();
+          }
+        },
+        {
+          label: '提交',
+          type: 'primary',
+          onClick: (componentInstance) => {
+            componentInstance.submitForm();
+          }
+        }
+      ]
+    });
+    // 模态框关闭后回调事件
+    modal.afterClose.subscribe((result) => {
+      if (result && result.refresh) {
+        // 刷新列表
+        this.findAllByParam();
+      }
+    });
+    return modal;
   }
 
 }

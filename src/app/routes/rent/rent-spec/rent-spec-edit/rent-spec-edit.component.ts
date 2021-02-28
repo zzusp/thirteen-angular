@@ -38,7 +38,7 @@ export class RentSpecEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //  初始化物品种类下拉框，类别品名下拉框
+    // 初始化物品种类下拉框，类别品名下拉框
     const rentItemReq = this.rentItemService.findAll();
     const rentCategoryReq = this.rentCategoryService.findAll();
     // 发出请求
@@ -135,9 +135,9 @@ export class RentSpecEditComponent implements OnInit {
     if (this.editForm.valid) {
       this.request(this.editForm.getRawValue()).subscribe((res: ResponseResultModel) => {
         // 清空表单
-        // this.editForm.reset();
+        this.editForm.reset();
         // 关闭模态框
-        // this.destroyModal(true);
+        this.destroyModal(true);
       });
     }
   }

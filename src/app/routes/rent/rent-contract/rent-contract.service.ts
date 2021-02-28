@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from "@angular/common/http";
-import { Observable } from "rxjs";
-import { GlobalConstants } from "../../../@core/constant/GlobalConstants";
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { GlobalConstants } from '../../../@core/constant/GlobalConstants';
 
 @Injectable({
   providedIn: 'root'
@@ -20,11 +20,18 @@ export class RentContractService {
     const insert = {
       table: GlobalConstants.getInstance().RENT_CONTRACT,
       model: params,
+      lookups: [{
+        from: GlobalConstants.getInstance().RENT_CONTRACT_CATEGORY,
+        localField: 'id',
+        foreignField: 'contractId',
+        as: 'rentContractCategories',
+        unwind: false
+      }],
       rule: {
-        currentAccount: ['account', 'createBy'], currentDateTime: ['createTime']
+        currentAccount: ['createBy'], currentDateTime: ['createTime']
       }
     };
-    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/insert', insert);
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/rent/insert', insert);
   }
 
   /**
@@ -36,26 +43,75 @@ export class RentContractService {
     const update = {
       table: GlobalConstants.getInstance().RENT_CONTRACT,
       model: params,
+      lookups: [{
+        from: GlobalConstants.getInstance().RENT_CONTRACT_CATEGORY,
+        localField: 'id',
+        foreignField: 'contractId',
+        as: 'rentContractCategories',
+        unwind: false
+      }],
       rule: {
-        currentAccount: ['account', 'updateBy'], currentDateTime: ['updateTime']
+        currentAccount: ['updateBy'], currentDateTime: ['updateTime']
       }
     };
-    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/update', update);
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/rent/update', update);
   }
 
   /**
-   * 由ID获取信息
+   * 由ID获取信息级联查询类别品名
    *
    * @param id ID
    */
-  findById(id: string): Observable<any> {
+  findWithCategoryById(id: string): Observable<any> {
     const param = {
       table: GlobalConstants.getInstance().RENT_CONTRACT,
       criterias: [
         {field: 'id', value: id}
-      ]
+      ],
+      lookups: [{
+        from: GlobalConstants.getInstance().RENT_CONTRACT_CATEGORY,
+        localField: 'id',
+        foreignField: 'contractId',
+        as: 'rentContractCategories',
+        unwind: false
+      }]
     };
-    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dm/findOneByParam', param);
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/rent/findOneByParam', param);
+  }
+
+
+  /**
+   * 由ID获取信息级联查询所有关联信息
+   *
+   * @param id ID
+   */
+  findCascadeById(id: string): Observable<any> {
+    const param = {
+      table: GlobalConstants.getInstance().RENT_CONTRACT,
+      criterias: [
+        {field: 'id', value: id}
+      ],
+      lookups: [{
+        from: GlobalConstants.getInstance().RENT_RENTER,
+        localField: 'renterId',
+        foreignField: 'id',
+        as: 'rentRenter',
+        unwind: true
+      }, {
+        from: GlobalConstants.getInstance().RENT_CONTRACT_CATEGORY,
+        localField: 'id',
+        foreignField: 'contractId',
+        as: 'rentContractCategories',
+        unwind: false
+      }, {
+        from: GlobalConstants.getInstance().RENT_TRANSPORT,
+        localField: 'id',
+        foreignField: 'contractId',
+        as: 'rentTransports',
+        unwind: false
+      }]
+    };
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/rent/findOneByParam', param);
   }
 
   /**
@@ -65,50 +121,23 @@ export class RentContractService {
    */
   findAllByParam(params: any): Observable<any> {
     params['table'] = GlobalConstants.getInstance().RENT_CONTRACT;
-    params['criterias'].push({'field': 'account'});
-    params['rule'] = {currentAccount: ['account']};
-    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/findAllByParam', params);
+    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/rent/findAllByParam', params);
   }
 
   /**
    * 获取所有列表
    */
   findAll(): Observable<any> {
-    const httpParams = new HttpParams().set('table', GlobalConstants.getInstance().RENT_CONTRACT)
-      .set('criterias', JSON.stringify([{'field': 'account'}]))
-      .set('rule', JSON.stringify({currentAccount: ['account']}));
-    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/dm/findAll',
-      {params: httpParams});
+    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/rent/findAll',
+      {params: {'table': GlobalConstants.getInstance().RENT_CONTRACT}});
   }
 
   /**
    * 获取所有列表并将关联数据查出
    */
   findAllCascade(): Observable<any> {
-    const httpParams = new HttpParams().set('table', GlobalConstants.getInstance().RENT_CONTRACT)
-      .set('criterias', JSON.stringify([{'field': 'account'}]))
-      .set('rule', JSON.stringify({currentAccount: ['account']}));
-    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/dm/findAll',
-      {params: httpParams});
-  }
-
-  /**
-   * 判断名称是否存在
-   *
-   * @param name 名称
-   */
-  checkName(name: string): Observable<any> {
-    const params = {
-      'table': GlobalConstants.getInstance().RENT_CONTRACT,
-      'criterias': [
-        {'field': 'name', 'value': name},
-        {'field': 'account'}
-      ],
-      'rule': {
-        currentAccount: ['account']
-      }
-    };
-    return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dmAuth/isExist', params);
+    return this.http.get(GlobalConstants.getInstance().DM_SERVER + '/rent/findAll',
+      {params: {'table': GlobalConstants.getInstance().RENT_CONTRACT}});
   }
 
   /**
@@ -119,7 +148,14 @@ export class RentContractService {
   deleteById(id: string): Observable<any> {
     const del = {
       table: GlobalConstants.getInstance().RENT_CONTRACT,
-      id: id
+      id: id,
+      lookups: [{
+        from: GlobalConstants.getInstance().RENT_CONTRACT_CATEGORY,
+        localField: 'id',
+        foreignField: 'contractId',
+        as: 'rentContractCategories',
+        unwind: false
+      }]
     };
     return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dm/deleteById', del);
   }

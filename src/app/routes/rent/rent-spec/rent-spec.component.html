@@ -9,7 +9,7 @@
                             <nz-form-control>
                                 <nz-select [(ngModel)]="params.categoryCode" [ngModelOptions]="{standalone: true}"
                                            nzPlaceHolder="请选择" nzAllowClear>
-                                    <nz-option *ngFor="let opt of rentCategorys" [nzValue]="opt.code"
+                                    <nz-option *ngFor="let opt of rentCategories" [nzValue]="opt.code"
                                                [nzLabel]="opt.name"></nz-option>
                                 </nz-select>
                             </nz-form-control>

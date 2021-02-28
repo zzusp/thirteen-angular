@@ -119,7 +119,7 @@ export class RoleAuthorizeComponent implements OnInit {
    * 初始化授权
    */
   initAuthorize() {
-    //  初始化应用权限table-tree
+    // 初始化应用权限table-tree
     const appReq = this.appService.findAll();
     const permissioneReq = this.permissionService.findAll();
     forkJoin([appReq, permissioneReq])

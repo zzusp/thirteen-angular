@@ -32,6 +32,7 @@ export class GlobalConstants {
   /** 租赁系统表名 */
   RENT_RENTER = 'rent_renter';
   RENT_CONTRACT = 'rent_contract';
+  RENT_CONTRACT_CATEGORY = 'rent_contract_category';
   RENT_TRANSPORT = 'rent_transport';
   RENT_TRANSPORT_SPEC = 'rent_transport_spec';
   RENT_ITEM = 'rent_item';
@@ -70,6 +71,9 @@ export class GlobalConstants {
   /** 合同状态 0：租赁中；1：已结算； */
   CONTRACT_OPEN = 0;
   CONTRACT_CLOSE = 1;
+  /** 运输单类型 0：出库；1：入库； */
+  TRANSPORT_OUT = 0;
+  TRANSPORT_IN = 1;
   /** 计算方式 0：算头又算尾；1：算头不算尾 */
   COMPUTE_MODE_ALL = 0;
   COMPUTE_MODE_START = 1;

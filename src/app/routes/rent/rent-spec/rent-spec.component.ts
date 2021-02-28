@@ -44,7 +44,7 @@ export class RentSpecComponent implements OnInit {
     updateTime: null
   };
   /** 类别品名下拉框数据 */
-  rentCategorys: RentCategoryModel[] = [];
+  rentCategories: RentCategoryModel[] = [];
   /** table展示用map */
   rentCategoryMap: any = {};
   /** 页面权限校验  */
@@ -64,8 +64,8 @@ export class RentSpecComponent implements OnInit {
     // 初始化类别品名下拉框
     this.rentCategoryService.findAll()
       .subscribe((res: ResponseResultModel) => {
-        this.rentCategorys = res.result.list;
-        this.rentCategorys.forEach(v => this.rentCategoryMap[v.code] = v.name);
+        this.rentCategories = res.result.list;
+        this.rentCategories.forEach(v => this.rentCategoryMap[v.code] = v.name);
       });
     this.findAllByParam();
   }

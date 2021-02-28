@@ -36,6 +36,7 @@
     "ng-zorro-antd": "~9.3.0",
     "ng2-dragula": "2.1.1",
     "ngx-echarts": "^4.2.2",
+    "decimal.js": "10.2.1",
     "rxjs": "~6.5.3",
     "tslib": "^1.13.0",
     "zone.js": "~0.10.3"

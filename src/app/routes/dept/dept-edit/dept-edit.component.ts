@@ -31,7 +31,7 @@ export class DeptEditComponent implements OnInit {
   /** 角色下拉框数据 */
   roleModels: RoleModel[];
   /** 选中的角色编码数组 */
-  selectRoles: string[];
+  selectedRoles: string[];
 
   constructor(private modal: NzModalRef,
               private fb: FormBuilder,
@@ -137,7 +137,7 @@ export class DeptEditComponent implements OnInit {
         });
         if (model.deptRoles != null) {
           // 设置已选中的角色
-          this.selectRoles = model.deptRoles.map(v => {
+          this.selectedRoles = model.deptRoles.map(v => {
             return v.roleCode;
           });
         }
@@ -159,9 +159,9 @@ export class DeptEditComponent implements OnInit {
         // 如果上级编码为null时，设置为根结点编码
         this.editForm.get('pCode').setValue(this.global.ROOT_PARENT_CODE);
       }
-      if (this.selectRoles != null) {
+      if (this.selectedRoles != null) {
         // 设置选中角色
-        this.editForm.get('deptRoles').setValue(this.selectRoles.map(v => {
+        this.editForm.get('deptRoles').setValue(this.selectedRoles.map(v => {
           return {'roleCode': v};
         }));
       }

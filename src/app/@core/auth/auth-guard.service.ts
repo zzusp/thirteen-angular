@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterSt
 import { Observable } from 'rxjs';
 import { UserModel } from '../../routes/user/user.model';
 import { LoginService } from '../../routes/pages/login/login.service';
-import { getUserInfo } from "../util/user-info";
+import { getUserInfo } from '../util/user-info';
 
 /**
  * 路由守卫，访问权限认证

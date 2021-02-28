@@ -33,7 +33,7 @@ export class ApplicationEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    //  初始化上级下拉框，角色下拉框
+    // 初始化上级下拉框，角色下拉框
     const applicationReq = this.applicationService.findAll();
     // 发出请求
     forkJoin([applicationReq])

@@ -3,8 +3,8 @@
     <nz-layout class="wrapper">
         <nz-sider class="aside" nzCollapsible [(nzCollapsed)]="layoutConfig.collapsed" [nzTrigger]="null">
             <app-sidebar
-                    [config]="layoutConfig"
-                    [data]="layoutData"></app-sidebar>
+                [config]="layoutConfig"
+                [data]="layoutData"></app-sidebar>
         </nz-sider>
         <nz-content class="content-wrapper" [ngClass]="{'collapsed': layoutConfig.collapsed}">
             <nz-breadcrumb #breadcrumb class="breadcrumb" [nzAutoGenerate]="true"></nz-breadcrumb>

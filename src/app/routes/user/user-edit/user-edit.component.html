@@ -169,7 +169,7 @@
                 <nz-form-item>
                     <nz-form-label formGroupName="userRoles" [nzSm]="6" [nzXs]="24">角色</nz-form-label>
                     <nz-form-control [nzSm]="14" [nzXs]="24">
-                        <nz-select [(ngModel)]="selectRoles" [ngModelOptions]="{standalone: true}" nzPlaceHolder="请选择"
+                        <nz-select [(ngModel)]="selectedRoles" [ngModelOptions]="{standalone: true}" nzPlaceHolder="请选择"
                                    nzMode="multiple" nzAllowClear>
                             <nz-option *ngFor="let opt of roles" [nzValue]="opt.code" [nzLabel]="opt.name"></nz-option>
                             <!-- 加载中动画，根据需要添加 -->

@@ -84,7 +84,7 @@ export class LayoutDefaultComponent implements OnInit, AfterViewInit {
    * @param breadcrumbs
    */
   getBreadcrumbs(route: ActivatedRoute, url: string = '', breadcrumbs: BreadcrumbOption[] = []): BreadcrumbOption[] {
-    const ROUTE_DATA_BREADCRUMB: string = "breadcrumb";
+    const ROUTE_DATA_BREADCRUMB: string = 'breadcrumb';
     const children: ActivatedRoute[] = route.children;
     // If there's no sub root, then stop the recurse and returns the generated breadcrumbs.
     if (children.length === 0) {

@@ -1,4 +1,4 @@
-<div nz-row [nzGutter]="32">
+<div *ngIf="hiddenSubPage()" nz-row [nzGutter]="32">
     <div nz-col [nzMd]="24">
         <nz-card [nzBordered]="false">
             <form class="search-form">
@@ -7,8 +7,10 @@
                         <nz-form-item class="form-item">
                             <nz-form-label>用户单位</nz-form-label>
                             <nz-form-control>
-                                <nz-select [(ngModel)]="params.renterId" [ngModelOptions]="{standalone: true}" nzPlaceHolder="请选择" nzAllowClear>
-                                    <nz-option *ngFor="let opt of rentRenters" [nzValue]="opt.id" [nzLabel]="opt.name"></nz-option>
+                                <nz-select [(ngModel)]="params.renterId" [ngModelOptions]="{standalone: true}"
+                                           nzPlaceHolder="请选择" nzAllowClear>
+                                    <nz-option *ngFor="let opt of rentRenters" [nzValue]="opt.id"
+                                               [nzLabel]="opt.name"></nz-option>
                                 </nz-select>
                             </nz-form-control>
                         </nz-form-item>
@@ -32,7 +34,7 @@
             </form>
             <div class="button-group">
                 <button *ngIf="perms.save" nz-button nzType="primary"
-                        (click)="showSave()">
+                        (click)="openModel(global.INSERT_FLAG, '新增合同信息')">
                     <i nz-icon [nzType]="'plus'" [nzTheme]="'outline'"></i>新增
                 </button>
             </div>
@@ -52,10 +54,13 @@
                     <th>承租单位名称</th>
                     <th nzShowSort [(nzSortOrder)]="sortMap.location" (nzSortChange)="sort('location', $event)">施工地</th>
                     <th nzShowSort [(nzSortOrder)]="sortMap.location" (nzSortChange)="sort('contacts', $event)">业务员</th>
-                    <th nzShowSort [(nzSortOrder)]="sortMap.location" (nzSortChange)="sort('signDate', $event)">签订日期</th>
+                    <th nzShowSort [(nzSortOrder)]="sortMap.location" (nzSortChange)="sort('signDate', $event)">签订日期
+                    </th>
                     <th>计算方式</th>
                     <th>状态</th>
-                    <th nzShowSort [(nzSortOrder)]="sortMap.location" (nzSortChange)="sort('balanceDate', $event)">结算日期</th>
+                    <th nzShowSort [(nzSortOrder)]="sortMap.location" (nzSortChange)="sort('balanceDate', $event)">
+                        结算日期
+                    </th>
                     <th nzShowSort [(nzSortOrder)]="sortMap.createTime" (nzSortChange)="sort('createTime', $event)">
                         <span>添加时间</span>
                     </th>
@@ -83,7 +88,9 @@
                     <td>{{data.balanceDate}}</td>
                     <td>{{data.createTime}}</td>
                     <td *ngIf="perms.update || perms.delete">
-                        <a *ngIf="perms.update" (click)="showUpdate(data.id)">修改</a>
+                        <a *ngIf="perms.update" (click)="openModel(data.id, '修改合同信息')">修改</a>
+                        <nz-divider *ngIf="perms.update && perms.delete" nzType="vertical"></nz-divider>
+                        <a *ngIf="perms.detail" (click)="showDetail(data.id)">详情</a>
                         <nz-divider *ngIf="perms.update && perms.delete" nzType="vertical"></nz-divider>
                         <a *ngIf="perms.delete"
                            nz-popconfirm
@@ -98,3 +105,4 @@
         </nz-card>
     </div>
 </div>
+<router-outlet></router-outlet>
