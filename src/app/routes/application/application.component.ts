@@ -29,9 +29,9 @@ export class ApplicationComponent implements OnInit {
   /** tree-table数据源 */
   data: TreeTableDataModel;
   /** 类型 */
-  @ViewChild('rowType', {read: TemplateRef}) rowType: TemplateRef<any>;
+  @ViewChild('rowType', {read: TemplateRef, static: true}) rowType: TemplateRef<any>;
   /** 图标 */
-  @ViewChild('rowIcon', {read: TemplateRef}) rowIcon: TemplateRef<any>;
+  @ViewChild('rowIcon', {read: TemplateRef, static: true}) rowIcon: TemplateRef<any>;
   /** 操作 */
   @ViewChild('rowAction', {read: TemplateRef, static: true}) rowAction: TemplateRef<any>;
   /** 页面权限校验 */
@@ -41,7 +41,7 @@ export class ApplicationComponent implements OnInit {
     delete: false
   };
 
-  constructor(private applicationSerivce: ApplicationService,
+  constructor(private applicationService: ApplicationService,
               private nzMessageService: NzMessageService,
               private modalService: NzModalService) {
   }
@@ -100,7 +100,7 @@ export class ApplicationComponent implements OnInit {
   findAllByParam(): void {
     // 加载动画开启
     this.loading = true;
-    this.applicationSerivce.findAll().subscribe((res: ResponseResultModel) => {
+    this.applicationService.findAll().subscribe((res: ResponseResultModel) => {
       // 加载动画关闭
       this.loading = false;
       // 判断返回结果是否为空或null
@@ -134,7 +134,7 @@ export class ApplicationComponent implements OnInit {
    */
   deleteById(id: string) {
     const msgId = this.nzMessageService.loading(this.global.DELETE_LOADING_MSG).messageId;
-    this.applicationSerivce.deleteById(id).subscribe((res: ResponseResultModel) => {
+    this.applicationService.deleteById(id).subscribe((res: ResponseResultModel) => {
       this.nzMessageService.remove(msgId);
       // 判断返回状态码是否为200（成功状态码）
       if (res.status === 200) {

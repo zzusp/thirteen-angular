@@ -19,10 +19,10 @@
 </div>
 <!-- START row-->
 <ng-template #rowType let-row>
-    <span *ngIf="row.type === global.APPLICATION_SERVICE">应用服务</span>
-    <span *ngIf="row.type === global.APPLICATION_INTERFACE">应用接口</span>
-    <span *ngIf="row.type === global.APPLICATION_MENU">应用菜单</span>
-    <span *ngIf="row.type === global.APPLICATION_HEADING">应用菜单组</span>
+    <span *ngIf="row?.type === global.APPLICATION_SERVICE">应用服务</span>
+    <span *ngIf="row?.type === global.APPLICATION_INTERFACE">应用接口</span>
+    <span *ngIf="row?.type === global.APPLICATION_MENU">应用菜单</span>
+    <span *ngIf="row?.type === global.APPLICATION_HEADING">应用菜单组</span>
 </ng-template>
 <!-- END row-->
 <!-- START row-->
@@ -40,7 +40,7 @@
        title="删除"
        nz-popconfirm
        [nzPopconfirmTitle]="global.DELETE_CONFIRM_MSG"
-       (nzOnConfirm)="confirmDelete(row.id)"
+       (nzOnConfirm)="confirmDelete(row?.id)"
        (nzOnCancel)="cancelDelete()"
        nzPopconfirmPlacement="topRight">
         删除<span class="fa fa-fw fa-trash-o"></span>

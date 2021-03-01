@@ -40,7 +40,7 @@ export class DmTableComponent implements OnInit {
     code: null,
     name: null,
     status: null,
-    createTime: 'asc',
+    createTime: 'ascend',
     updateTime: null
   };
   /** 页面权限校验  */
