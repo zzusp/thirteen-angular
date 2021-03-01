@@ -155,6 +155,18 @@ export class RentContractService {
         foreignField: 'contractId',
         as: 'rentContractCategories',
         unwind: false
+      }, {
+        from: GlobalConstants.getInstance().RENT_TRANSPORT,
+        localField: 'id',
+        foreignField: 'contractId',
+        as: 'rentTransports',
+        unwind: false
+      }, {
+        from: GlobalConstants.getInstance().RENT_TRANSPORT_SPEC,
+        localField: 'id',
+        foreignField: 'contractId',
+        as: 'rentTransportSpecs',
+        unwind: false
       }]
     };
     return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dm/deleteById', del);

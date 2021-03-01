@@ -21,7 +21,7 @@ export class RentSpecComponent implements OnInit {
   global: GlobalConstants = GlobalConstants.getInstance();
   /** 查询参数  */
   params: any = {
-    categoryCode: '',
+    categoryId: '',
     name: ''
   };
   /** 当前页码  */
@@ -36,7 +36,6 @@ export class RentSpecComponent implements OnInit {
   loading = false;
   /** 排序  */
   sortMap = {
-    code: null,
     name: null,
     unit: null,
     quantity: null,
@@ -65,7 +64,7 @@ export class RentSpecComponent implements OnInit {
     this.rentCategoryService.findAll()
       .subscribe((res: ResponseResultModel) => {
         this.rentCategories = res.result.list;
-        this.rentCategories.forEach(v => this.rentCategoryMap[v.code] = v.name);
+        this.rentCategories.forEach(v => this.rentCategoryMap[v.id] = v.name);
       });
     this.findAllByParam();
   }
@@ -78,7 +77,7 @@ export class RentSpecComponent implements OnInit {
     this.loading = true;
     const param = {
       'criterias': [
-        {'field': 'categoryCode', 'value': this.params.categoryCode},
+        {'field': 'categoryId', 'value': this.params.categoryId},
         {'field': 'name', 'operator': 'like', 'value': this.params.name ? '%' + this.params.name + '%' : null},
       ],
       'page': {

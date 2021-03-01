@@ -7,9 +7,8 @@
                 <nz-form-item>
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>物品种类</nz-form-label>
                     <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="rentItemTip">
-                        <nz-select formControlName="itemCode" nzPlaceHolder="请选择" nzAllowClear
-                                   (ngModelChange)="itemCodeChange($event)">
-                            <nz-option *ngFor="let opt of rentItems" [nzValue]="opt.code"
+                        <nz-select formControlName="itemId" nzPlaceHolder="请选择" nzAllowClear>
+                            <nz-option *ngFor="let opt of rentItems" [nzValue]="opt.id"
                                        [nzLabel]="opt.name"></nz-option>
                         </nz-select>
                         <ng-template #rentItemTip let-control>
@@ -22,9 +21,9 @@
                 <nz-form-item>
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>类别品名</nz-form-label>
                     <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="rentCategoryTip">
-                        <nz-select formControlName="categoryCode" nzPlaceHolder="请选择" nzAllowClear>
-                            <nz-option *ngFor="let opt of rentCategoryMap[editForm.get('itemCode').value]"
-                                       [nzValue]="opt.code"
+                        <nz-select formControlName="categoryId" nzPlaceHolder="请选择" nzAllowClear>
+                            <nz-option *ngFor="let opt of rentCategoryMap[editForm.get('itemId').value]"
+                                       [nzValue]="opt.id"
                                        [nzLabel]="opt.name"></nz-option>
                         </nz-select>
                         <ng-template #rentCategoryTip let-control>

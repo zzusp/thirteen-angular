@@ -7,35 +7,14 @@
                 <nz-form-item>
                     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>物品种类</nz-form-label>
                     <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="rentItemTip">
-                        <nz-select formControlName="itemCode" nzPlaceHolder="请选择" nzAllowClear>
-                            <nz-option *ngFor="let opt of rentItems" [nzValue]="opt.code"
+                        <nz-select formControlName="itemId" nzPlaceHolder="请选择" nzAllowClear>
+                            <nz-option *ngFor="let opt of rentItems" [nzValue]="opt.id"
                                        [nzLabel]="opt.name"></nz-option>
                         </nz-select>
                         <ng-template #rentItemTip let-control>
                             <ng-container *ngIf="control.dirty && control.hasError('required')">
                                 物品种类不可为空
                             </ng-container>
-                        </ng-template>
-                    </nz-form-control>
-                </nz-form-item>
-                <nz-form-item>
-                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>编码</nz-form-label>
-                    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="codeTip">
-                        <input type="text"
-                               name="code"
-                               formControlName="code"
-                               required
-                               nz-input
-                               placeholder="请输入">
-                        <ng-template #codeTip let-control>
-                            <ng-container *ngIf="control.dirty && control.hasError('required')">
-                                编码不可为空
-                            </ng-container>
-                            <ng-container *ngIf="control.hasError('minlength')">编码长度最少为3个字符
-                            </ng-container>
-                            <ng-container *ngIf="control.hasError('maxlength')">编码长度最多为20个字符
-                            </ng-container>
-                            <ng-container *ngIf="control.hasError('existing')">编码已存在</ng-container>
                         </ng-template>
                     </nz-form-control>
                 </nz-form-item>
@@ -52,6 +31,7 @@
                             <ng-container *ngIf="control.dirty && control.hasError('required')">
                                 名称不可为空
                             </ng-container>
+                            <ng-container *ngIf="control.hasError('existing')">名称已存在</ng-container>
                         </ng-template>
                     </nz-form-control>
                 </nz-form-item>

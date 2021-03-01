@@ -85,15 +85,15 @@ export class RentItemService {
   }
 
   /**
-   * 判断编码是否存在
+   * 判断名称是否存在
    *
-   * @param code 编码
+   * @param name 名称
    */
-  checkCode(code: string): Observable<any> {
+  checkName(name: string): Observable<any> {
     const params = {
       'table': GlobalConstants.getInstance().RENT_ITEM,
       'criterias': [
-        {'field': 'code', 'value': code}
+        {'field': 'name', 'value': name}
       ]
     };
     return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/rent/isExist', params);

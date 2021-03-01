@@ -7,9 +7,9 @@
                         <nz-form-item class="form-item">
                             <nz-form-label>类别品名</nz-form-label>
                             <nz-form-control>
-                                <nz-select [(ngModel)]="params.categoryCode" [ngModelOptions]="{standalone: true}"
+                                <nz-select [(ngModel)]="params.categoryId" [ngModelOptions]="{standalone: true}"
                                            nzPlaceHolder="请选择" nzAllowClear>
-                                    <nz-option *ngFor="let opt of rentCategories" [nzValue]="opt.code"
+                                    <nz-option *ngFor="let opt of rentCategories" [nzValue]="opt.id"
                                                [nzLabel]="opt.name"></nz-option>
                                 </nz-select>
                             </nz-form-control>
@@ -67,7 +67,7 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let data of tableData">
-                    <td>{{rentCategoryMap[data.categoryCode]}}</td>
+                    <td>{{rentCategoryMap[data.categoryId]}}</td>
                     <td>{{data.name}}</td>
                     <td>
                         <span *ngIf="data.unit == global.UNIT_GEN">元/根</span>

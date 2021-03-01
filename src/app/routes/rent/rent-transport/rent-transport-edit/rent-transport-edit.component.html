@@ -87,8 +87,7 @@
                         <nz-select
                             [(ngModel)]="data.specId" [ngModelOptions]="{standalone: true}"
                             nzPlaceHolder="请选择" nzAllowClear>
-                            <nz-option *ngFor="let opt of rentCategoryMap[data.categoryId] ?
-                                            rentSpcMap[rentCategoryMap[data.categoryId][0].code] : []"
+                            <nz-option *ngFor="let opt of rentSpcMap[data.categoryId]"
                                        [nzValue]="opt.id"
                                        [nzLabel]="opt.name"></nz-option>
                         </nz-select>

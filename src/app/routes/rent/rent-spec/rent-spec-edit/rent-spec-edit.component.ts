@@ -9,6 +9,7 @@ import { RentItemService } from '../../rent-item/rent-item.service';
 import { RentSpecService } from '../rent-spec.service';
 import { ResponseResultModel } from '../../../../@core/net/response-result.model';
 import { RentSpecModel } from '../rent-spec.model';
+import { listGroupBy } from '../../../../@core/util/list-utils';
 
 @Component({
   selector: 'app-rent-spec-edit',
@@ -47,18 +48,13 @@ export class RentSpecEditComponent implements OnInit {
         const rentItemRes = results[0];
         const rentCategoryRes = results[1];
         this.rentItems = rentItemRes.result.list;
-        rentCategoryRes.result.list.forEach(v => {
-          if (!this.rentCategoryMap[v.itemCode]) {
-            this.rentCategoryMap[v.itemCode] = [];
-          }
-          this.rentCategoryMap[v.itemCode].push(v);
-        });
+        this.rentCategoryMap = listGroupBy(rentCategoryRes.result.list, 'itemId');
       });
     // 表单验证
     this.editForm = this.fb.group({
       id: [null],
-      itemCode: [null, Validators.required],
-      categoryCode: [null, Validators.required],
+      itemId: [null, Validators.required],
+      categoryId: [null, Validators.required],
       name: [null, Validators.required],
       unit: [null, Validators.required],
       quantity: [null, Validators.required],
@@ -73,10 +69,6 @@ export class RentSpecEditComponent implements OnInit {
     }
   }
 
-  itemCodeChange($event: string) {
-    this.editForm.get('categoryCode').setValue(null);
-  }
-
   /**
    * 新增表单初始化
    */
@@ -88,8 +80,8 @@ export class RentSpecEditComponent implements OnInit {
     // 表单重置
     this.editForm.reset({
       id: null,
-      itemCode: null,
-      categoryCode: null,
+      itemId: null,
+      categoryId: null,
       name: null,
       unit: this.global.UNIT_GE,
       quantity: null,
@@ -113,8 +105,8 @@ export class RentSpecEditComponent implements OnInit {
         // 表单重置
         this.editForm.reset({
           id: model.id,
-          itemCode: model.itemCode,
-          categoryCode: model.categoryCode,
+          itemId: model.itemId,
+          categoryId: model.categoryId,
           name: model.name,
           unit: model.unit,
           quantity: model.quantity,

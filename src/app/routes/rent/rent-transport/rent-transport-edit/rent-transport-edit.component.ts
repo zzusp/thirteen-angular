@@ -7,10 +7,9 @@ import { RentTransportService } from '../rent-transport.service';
 import { RentSpecService } from '../../rent-spec/rent-spec.service';
 import { RentCategoryService } from '../../rent-category/rent-category.service';
 import { ResponseResultModel } from '../../../../@core/net/response-result.model';
-import { RentSpecModel } from '../../rent-spec/rent-spec.model';
 import { RentCategoryModel } from '../../rent-category/rent-category.model';
 import { RentTransportModel } from '../rent-transport.model';
-import { listToJson } from '../../../../@core/util/list-utils';
+import { listGroupBy } from '../../../../@core/util/list-utils';
 
 import { Decimal } from 'decimal.js';
 import { DatePipe } from '@angular/common';
@@ -38,14 +37,8 @@ export class RentTransportEditComponent implements OnInit {
   transportSpecs: any[] = [];
   /** 类别品名下拉框数据 */
   rentCategories: RentCategoryModel[] = [];
-  /** 选中的类别品名code */
-  selectedCategory: string;
-  /** 所有类别品名数据，key为id */
-  rentCategoryMap: any = {};
-  /** 所有物品规格数据，key为类别品名编码 */
+  /** 所有物品规格数据，key为类别品名ID */
   rentSpcMap: any = {};
-  /** 选中的物品规格 */
-  selectedSpec: RentSpecModel;
   /** 日期格式 */
   dateFormat: string = 'yyyy-MM-dd';
 
@@ -66,8 +59,7 @@ export class RentTransportEditComponent implements OnInit {
         const rentCategoryRes = results[0];
         const rentSpecRes = results[1];
         this.rentCategories = rentCategoryRes.result.list;
-        this.rentCategoryMap = listToJson(this.rentCategories, 'id');
-        this.rentSpcMap = listToJson(rentSpecRes.result.list, 'categoryCode');
+        this.rentSpcMap = listGroupBy(rentSpecRes.result.list, 'categoryId');
       });
     // 表单验证
     this.editForm = this.fb.group({
@@ -193,12 +185,9 @@ export class RentTransportEditComponent implements OnInit {
    * @param specId 物品规格id
    */
   getRowQuantity(categoryId: string, specId: string): number {
-    if (this.rentCategoryMap.hasOwnProperty(categoryId)) {
-      const categoryCode = this.rentCategoryMap[categoryId][0].code;
-      if (this.rentSpcMap && this.rentSpcMap.hasOwnProperty(categoryCode)) {
-        const rentSpc = this.rentSpcMap[categoryCode].filter(v => v.id == specId);
-        return rentSpc && rentSpc[0] ? rentSpc[0].quantity : 0;
-      }
+    if (this.rentSpcMap && this.rentSpcMap.hasOwnProperty(categoryId)) {
+      const rentSpc = this.rentSpcMap[categoryId].filter(v => v.id == specId);
+      return rentSpc && rentSpc[0] ? rentSpc[0].quantity : 0;
     }
     return 0;
   }
@@ -224,6 +213,7 @@ export class RentTransportEditComponent implements OnInit {
    */
   addTransportSpec() {
     const column: any = {
+      contractId: this.contractId,
       categoryId: null,
       specId: null,
       num: 0,

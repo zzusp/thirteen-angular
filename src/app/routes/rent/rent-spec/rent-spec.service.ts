@@ -77,15 +77,15 @@ export class RentSpecService {
   }
 
   /**
-   * 判断编码是否存在
+   * 判断名称是否存在
    *
-   * @param code 编码
+   * @param name 名称
    */
-  checkCode(code: string): Observable<any> {
+  checkName(name: string): Observable<any> {
     const params = {
       'table': GlobalConstants.getInstance().RENT_SPEC,
       'criterias': [
-        {'field': 'code', 'value': code}
+        {'field': 'name', 'value': name}
       ]
     };
     return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/rent/isExist', params);
@@ -99,7 +99,14 @@ export class RentSpecService {
   deleteById(id: string): Observable<any> {
     const del = {
       table: GlobalConstants.getInstance().RENT_SPEC,
-      id: id
+      id: id,
+      lookups: [{
+        from: GlobalConstants.getInstance().RENT_TRANSPORT_SPEC,
+        localField: 'id',
+        foreignField: 'specId',
+        as: 'rentTransportSpecs',
+        unwind: false
+      }]
     };
     return this.http.post(GlobalConstants.getInstance().DM_SERVER + '/dm/deleteById', del);
   }

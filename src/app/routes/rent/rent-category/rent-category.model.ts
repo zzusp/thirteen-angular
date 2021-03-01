@@ -5,10 +5,8 @@ import { BaseModel } from '../../../@core/model/base.model';
  */
 export class RentCategoryModel extends BaseModel {
 
-  /** 物品种类编码 */
-  itemCode: string;
-  /** 类别品名编码 */
-  code: string;
+  /** 物品种类ID */
+  itemId: string;
   /** 物品名称 */
   name: string;
   /** 日租金 单位：元 */

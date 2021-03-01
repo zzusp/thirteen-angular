@@ -33,11 +33,6 @@ export class RentItemEditComponent implements OnInit {
     // 表单验证
     this.editForm = this.fb.group({
       id: [null],
-      code: [null, Validators.compose([
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(50)
-      ])],
       name: [null, Validators.required],
       remark: [null, Validators.maxLength(250)],
       version: [null]
@@ -58,19 +53,18 @@ export class RentItemEditComponent implements OnInit {
     this.request = (params): Observable<any> => {
       return this.rentItemService.insert(params);
     };
-    // 添加异步验证，验证code是否存在，错误标识 existing
-    this.editForm.get('code').setAsyncValidators(abstractValidate((code: string) => {
-      return this.rentItemService.checkCode(code);
+    // 添加异步验证，验证name是否存在，错误标识 existing
+    this.editForm.get('name').setAsyncValidators(abstractValidate((name: string) => {
+      return this.rentItemService.checkName(name);
     }));
     // 表单重置
     this.editForm.reset({
       id: null,
-      code: null,
       name: null,
       remark: null,
       version: null
     });
-    this.editForm.get('code').enable();
+    this.editForm.get('name').enable();
   }
 
   /**
@@ -85,16 +79,15 @@ export class RentItemEditComponent implements OnInit {
     this.rentItemService.findById(this.id)
       .subscribe((res: ResponseResultModel) => {
         const model: RentItemModel = res.result;
-        this.editForm.get('code').clearAsyncValidators();
+        this.editForm.get('name').clearAsyncValidators();
         // 表单重置
         this.editForm.reset({
           id: model.id,
-          code: model.code,
           name: model.name,
           remark: model.remark,
           version: model.version
         });
-        this.editForm.get('code').disable();
+        this.editForm.get('name').disable();
       });
   }
 

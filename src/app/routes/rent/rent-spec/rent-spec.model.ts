@@ -5,12 +5,10 @@ import { BaseModel } from '../../../@core/model/base.model';
  */
 export class RentSpecModel extends BaseModel {
 
-  /** 物品种类编码 */
-  itemCode: string;
-  /** 类别品名编码 */
-  categoryCode: string;
-  /** 物品规格编码 */
-  code: string;
+  /** 物品种类ID */
+  itemId: string;
+  /** 类别品名ID */
+  categoryId: string;
   /** 物品名称 */
   name: string;
   /** 计量单位 0：元/根；1：元/米；2：元/个；3：元/条 */

@@ -49,12 +49,7 @@ export class RentCategoryEditComponent implements OnInit {
     // 表单验证
     this.editForm = this.fb.group({
       id: [null],
-      itemCode: [null, Validators.required],
-      code: [null, Validators.compose([
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(50)
-      ])],
+      itemId: [null, Validators.required],
       name: [null, Validators.required],
       dailyRent: [null, Validators.required],
       unit: [null, Validators.required],
@@ -71,22 +66,21 @@ export class RentCategoryEditComponent implements OnInit {
     this.request = (params): Observable<any> => {
       return this.rentCategoryService.insert(params);
     };
-    // 添加异步验证，验证code是否存在，错误标识 existing
-    this.editForm.get('code').setAsyncValidators(abstractValidate((code: string) => {
-      return this.rentCategoryService.checkCode(code);
+    // 添加异步验证，验证name是否存在，错误标识 existing
+    this.editForm.get('name').setAsyncValidators(abstractValidate((name: string) => {
+      return this.rentCategoryService.checkName(name);
     }));
     // 表单重置
     this.editForm.reset({
       id: null,
-      itemCode: null,
-      code: null,
+      itemId: null,
       name: null,
       dailyRent: null,
       unit: this.global.UNIT_GE,
       remark: null,
       version: null
     });
-    this.editForm.get('code').enable();
+    this.editForm.get('name').enable();
   }
 
   /**
@@ -101,19 +95,18 @@ export class RentCategoryEditComponent implements OnInit {
     this.rentCategoryService.findById(this.id)
       .subscribe((res: ResponseResultModel) => {
         const model: RentCategoryModel = res.result;
-        this.editForm.get('code').clearAsyncValidators();
+        this.editForm.get('name').clearAsyncValidators();
         // 表单重置
         this.editForm.reset({
           id: model.id,
-          itemCode: model.itemCode,
-          code: model.code,
+          itemId: model.itemId,
           name: model.name,
           dailyRent: model.dailyRent,
           unit: model.unit,
           remark: model.remark,
           version: model.version
         });
-        this.editForm.get('code').disable();
+        this.editForm.get('name').disable();
       });
   }
 

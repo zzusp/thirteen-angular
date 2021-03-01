@@ -6,8 +6,6 @@ import { RentCategoryModel } from '../rent-category/rent-category.model';
  */
 export class RentItemModel extends BaseModel {
 
-  /** 物品编码 */
-  code: string;
   /** 物品名称 */
   name: string;
   /** 创建者 */

@@ -7,9 +7,9 @@
                         <nz-form-item class="form-item">
                             <nz-form-label>物品种类</nz-form-label>
                             <nz-form-control>
-                                <nz-select [(ngModel)]="params.itemCode" [ngModelOptions]="{standalone: true}"
+                                <nz-select [(ngModel)]="params.itemId" [ngModelOptions]="{standalone: true}"
                                            nzPlaceHolder="请选择" nzAllowClear>
-                                    <nz-option *ngFor="let opt of rentItems" [nzValue]="opt.code"
+                                    <nz-option *ngFor="let opt of rentItems" [nzValue]="opt.id"
                                                [nzLabel]="opt.name"></nz-option>
                                 </nz-select>
                             </nz-form-control>
@@ -67,7 +67,7 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let data of tableData">
-                    <td>{{rentItemMap[data.itemCode]}}</td>
+                    <td>{{rentItemMap[data.itemId]}}</td>
                     <td>{{data.name}}</td>
                     <td>{{data.dailyRent}}元</td>
                     <td>
