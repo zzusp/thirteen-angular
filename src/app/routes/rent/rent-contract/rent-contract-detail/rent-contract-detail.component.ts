@@ -35,7 +35,7 @@ export class RentContractDetailComponent implements OnInit {
   /** 入库单集合 */
   inTransports: RentTransportModel[];
   /** 已租天数 */
-  rentalDays: string;
+  rentalDays: number;
 
   constructor(private route: ActivatedRoute,
               private rentTransportService: RentTransportService,
@@ -63,11 +63,17 @@ export class RentContractDetailComponent implements OnInit {
         // 初始化日期管道对象
         const now = Date.now();
         const sign = Date.parse(this.rentContract.signDate);
-        this.rentalDays = new Decimal((now - sign) / (24 * 60 * 60 * 1000)).toFixed(2, Decimal.ROUND_FLOOR);
+        this.rentalDays = Number(new Decimal((now - sign) / (24 * 60 * 60 * 1000))
+          .toFixed(0, Decimal.ROUND_DOWN));
+        // 判断计算方式
+        if (this.rentContract.computeMode == this.global.COMPUTE_MODE_ALL) {
+          // 如果算头算尾那么已租天数加一天
+          this.rentalDays = this.rentalDays + 1;
+        }
         // 设置类别品名
         if (this.rentContract.rentContractCategories) {
           const categoryIds = this.rentContract.rentContractCategories.map(({categoryId}) => categoryId);
-          this.rentCategoryService.findAllByIds(categoryIds).subscribe((res: ResponseResultModel) => {
+          this.rentCategoryService.findByIds(categoryIds).subscribe((res: ResponseResultModel) => {
             this.rentContract.rentCategories = res.result.list;
           });
         }

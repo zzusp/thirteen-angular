@@ -59,6 +59,20 @@ export class RentSpecService {
   }
 
   /**
+   * 获取根据ID集合获取数据
+   *
+   * @param ids ID集合
+   */
+  findByIds(ids: string[]): Observable<any> {
+    const param = {
+      criterias: [
+        {field: 'id', operator: 'in', values: ids}
+      ]
+    };
+    return this.findAllByParam(param);
+  }
+
+  /**
    * 获取列表
    *
    * @param params

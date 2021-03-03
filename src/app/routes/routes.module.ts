@@ -41,6 +41,7 @@ import { RentBaseInfoEditComponent } from './rent/rent-base-info/rent-base-info-
 import { RentContractEditComponent } from './rent/rent-contract/rent-contract-edit/rent-contract-edit.component';
 import { RentContractDetailComponent } from './rent/rent-contract/rent-contract-detail/rent-contract-detail.component';
 import { RentTransportEditComponent } from './rent/rent-transport/rent-transport-edit/rent-transport-edit.component';
+import { RentContractBalanceComponent } from './rent/rent-contract/rent-contract-balance/rent-contract-balance.component';
 
 // 权限管理系统下所有需动态加载的子组件（弹出框等）
 const SYSTEM_MODEL_COMPONENT = [
@@ -91,6 +92,7 @@ const ROUTES_COMPONENT = [
   RentContractComponent,
   RentRenterComponent,
   RentContractDetailComponent,
+  RentContractBalanceComponent,
   ...SYSTEM_MODEL_COMPONENT,
   ...RENT_MODEL_COMPONENT
 ];

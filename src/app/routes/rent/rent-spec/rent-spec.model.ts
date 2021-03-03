@@ -1,4 +1,5 @@
 import { BaseModel } from '../../../@core/model/base.model';
+import { RentCategoryModel } from "../rent-category/rent-category.model";
 
 /**
  * 物品规格model
@@ -27,5 +28,13 @@ export class RentSpecModel extends BaseModel {
   remark: string;
   /** 版本号 */
   version: number;
+  /** 类别品名 */
+  category: RentCategoryModel;
+  /** 出库数量 */
+  outNum: number;
+  /** 入库数量 */
+  inNum: number;
+  /** 租金 */
+  rent: number;
 
 }

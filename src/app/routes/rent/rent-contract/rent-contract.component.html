@@ -5,7 +5,7 @@
                 <div nz-row [nzGutter]="32">
                     <div nz-col [nzMd]="8">
                         <nz-form-item class="form-item">
-                            <nz-form-label>用户单位</nz-form-label>
+                            <nz-form-label>承租单位</nz-form-label>
                             <nz-form-control>
                                 <nz-select [(ngModel)]="params.renterId" [ngModelOptions]="{standalone: true}"
                                            nzPlaceHolder="请选择" nzAllowClear>
@@ -53,10 +53,8 @@
                 <tr>
                     <th>承租单位名称</th>
                     <th nzShowSort [(nzSortOrder)]="sortMap.location" (nzSortChange)="sort('location', $event)">施工地</th>
-                    <th nzShowSort [(nzSortOrder)]="sortMap.location" (nzSortChange)="sort('contacts', $event)">业务员</th>
                     <th nzShowSort [(nzSortOrder)]="sortMap.location" (nzSortChange)="sort('signDate', $event)">签订日期
                     </th>
-                    <th>计算方式</th>
                     <th>状态</th>
                     <th nzShowSort [(nzSortOrder)]="sortMap.location" (nzSortChange)="sort('balanceDate', $event)">
                         结算日期
@@ -71,12 +69,7 @@
                 <tr *ngFor="let data of tableData">
                     <td>{{rentRenterMap[data.renterId]}}</td>
                     <td>{{data.location}}</td>
-                    <td>{{data.contacts}}</td>
                     <td>{{data.signDate}}</td>
-                    <td>
-                        <span *ngIf="data.computeMode == global.COMPUTE_MODE_ALL">算头又算尾</span>
-                        <span *ngIf="data.computeMode == global.COMPUTE_MODE_START">算头不算尾</span>
-                    </td>
                     <td>
                         <span *ngIf="data.contractStatus == global.CONTRACT_OPEN">
                             <nz-badge nzStatus="processing"></nz-badge>租赁中
@@ -91,6 +84,8 @@
                         <a *ngIf="perms.update" (click)="openModel(data.id, '修改合同信息')">修改</a>
                         <nz-divider *ngIf="perms.update && perms.delete" nzType="vertical"></nz-divider>
                         <a *ngIf="perms.detail" (click)="showDetail(data.id)">详情</a>
+                        <nz-divider *ngIf="perms.update && perms.delete" nzType="vertical"></nz-divider>
+                        <a *ngIf="perms.detail" (click)="showBalance(data.id)">结算</a>
                         <nz-divider *ngIf="perms.update && perms.delete" nzType="vertical"></nz-divider>
                         <a *ngIf="perms.delete"
                            nz-popconfirm

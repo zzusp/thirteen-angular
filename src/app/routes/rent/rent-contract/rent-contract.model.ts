@@ -48,5 +48,7 @@ export class RentContractModel extends BaseModel {
   rentCategories: RentCategoryModel[];
   /** 合同中的运输单集合 */
   rentTransports: RentTransportModel[];
+  /** 合同中的运输单与物品规格关联 */
+  rentTransportSpecs: any[];
 
 }

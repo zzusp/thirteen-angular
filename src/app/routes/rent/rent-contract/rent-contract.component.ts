@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
 import { GlobalConstants } from '../../../@core/constant/GlobalConstants';
 import { RentContractModel } from './rent-contract.model';
 import { RentContractService } from './rent-contract.service';
@@ -8,7 +8,7 @@ import { ResponseResultModel } from '../../../@core/net/response-result.model';
 import { PagerResultModel } from '../../../@core/net/pager-result.model';
 import { RentRenterModel } from '../rent-renter/rent-renter.model';
 import { RentRenterService } from '../rent-renter/rent-renter.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RentContractEditComponent } from './rent-contract-edit/rent-contract-edit.component';
 
 @Component({
@@ -59,6 +59,7 @@ export class RentContractComponent implements OnInit {
               private nzMessageService: NzMessageService,
               private modalService: NzModalService,
               private router: Router,
+              private injector: Injector,
               private rentRenterService: RentRenterService) {
   }
 
@@ -124,7 +125,7 @@ export class RentContractComponent implements OnInit {
    * 是否隐藏子页面
    */
   hiddenSubPage(): boolean {
-    return !this.router.isActive('/rent/rent-contract/detail', false);
+    return this.router.routerState.snapshot.url == '/rent/rent-contract';
   }
 
   /**
@@ -134,6 +135,15 @@ export class RentContractComponent implements OnInit {
    */
   showDetail(id: string) {
     this.router.navigate(['/rent/rent-contract/detail', id]);
+  }
+
+  /**
+   * 打开结算页面
+   *
+   * @param id 合同ID
+   */
+  showBalance(id: string) {
+    this.router.navigate(['/rent/rent-contract/balance', id]);
   }
 
   /**

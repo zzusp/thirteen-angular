@@ -25,6 +25,7 @@ import { RentContractComponent } from './rent/rent-contract/rent-contract.compon
 import { RentRenterComponent } from './rent/rent-renter/rent-renter.component';
 import { RentBaseInfoComponent } from './rent/rent-base-info/rent-base-info.component';
 import { RentContractDetailComponent } from './rent/rent-contract/rent-contract-detail/rent-contract-detail.component';
+import { RentContractBalanceComponent } from "./rent/rent-contract/rent-contract-balance/rent-contract-balance.component";
 
 const routes: Routes = [
   {
@@ -196,6 +197,13 @@ const rentRoutes: Routes = [
               breadcrumb: '合同详情'
             }
           },
+          {
+            path: 'balance/:id',
+            component: RentContractBalanceComponent,
+            data: {
+              breadcrumb: '合同结算'
+            }
+          }
         ]
       },
       {
