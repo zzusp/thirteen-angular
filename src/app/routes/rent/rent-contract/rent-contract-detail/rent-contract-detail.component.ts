@@ -3,7 +3,7 @@ import { GlobalConstants } from '../../../../@core/constant/GlobalConstants';
 import { Observable } from 'rxjs';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Location } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 import { RentContractModel } from '../rent-contract.model';
 import { ResponseResultModel } from '../../../../@core/net/response-result.model';
 import { RentContractService } from '../rent-contract.service';
@@ -36,6 +36,8 @@ export class RentContractDetailComponent implements OnInit {
   inTransports: RentTransportModel[];
   /** 已租天数 */
   rentalDays: number;
+  /** 日期格式 */
+  dateFormat: string = 'yyyy-MM-dd';
 
   constructor(private route: ActivatedRoute,
               private rentTransportService: RentTransportService,
@@ -60,11 +62,7 @@ export class RentContractDetailComponent implements OnInit {
     this.rentContractService.findCascadeById(this.routeParams.id)
       .subscribe((res: ResponseResultModel) => {
         this.rentContract = res.result;
-        // 初始化日期管道对象
-        const now = Date.now();
-        const sign = Date.parse(this.rentContract.signDate);
-        this.rentalDays = Number(new Decimal((now - sign) / (24 * 60 * 60 * 1000))
-          .toFixed(0, Decimal.ROUND_DOWN));
+        this.rentDays();
         // 判断计算方式
         if (this.rentContract.computeMode == this.global.COMPUTE_MODE_ALL) {
           // 如果算头算尾那么已租天数加一天
@@ -90,6 +88,22 @@ export class RentContractDetailComponent implements OnInit {
           });
         }
       });
+  }
+
+  /**
+   * 计算已租天数
+   */
+  rentDays(): void {
+    // 初始化日期管道对象
+    const datePipe = new DatePipe('en-US');
+    if (!this.rentContract.balanceDate) {
+      this.rentContract.balanceDate = datePipe.transform(Date.now(), this.dateFormat);
+    }
+    const sign = Date.parse(this.rentContract.signDate);
+    const balance = Date.parse(this.rentContract.balanceDate);
+    // 计算已租天数
+    this.rentalDays = Number(new Decimal((balance - sign) / (24 * 60 * 60 * 1000))
+      .toFixed(0, Decimal.ROUND_DOWN));
   }
 
   /**

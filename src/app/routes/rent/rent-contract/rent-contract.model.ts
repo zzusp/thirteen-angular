@@ -27,7 +27,7 @@ export class RentContractModel extends BaseModel {
   /** 实付金额 */
   amountPaid: number;
   /** 结算日期 */
-  balanceDate: number;
+  balanceDate: string;
   /** 创建者 */
   createBy: string;
   /** 创建时间 */

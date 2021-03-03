@@ -20,13 +20,25 @@
                 <nz-descriptions-item nzTitle="施工地">{{rentContract?.location}}</nz-descriptions-item>
                 <nz-descriptions-item nzTitle="业务员">{{rentContract?.contacts}}</nz-descriptions-item>
                 <nz-descriptions-item nzTitle="签订日期">{{rentContract?.signDate}}</nz-descriptions-item>
-                <nz-descriptions-item nzTitle="已租天数">{{rentalDays}}天</nz-descriptions-item>
+                <nz-descriptions-item nzTitle="结算日期">{{rentContract?.balanceDate}}</nz-descriptions-item>
+                <nz-descriptions-item nzTitle="租赁天数">{{rentalDays}}天</nz-descriptions-item>
                 <nz-descriptions-item nzTitle="计算方式">
                     <span *ngIf="rentContract?.computeMode == global.COMPUTE_MODE_ALL">算头又算尾</span>
                     <span *ngIf="rentContract?.computeMode == global.COMPUTE_MODE_START">算头不算尾</span>
                 </nz-descriptions-item>
+                <nz-descriptions-item nzTitle="合同状态">
+                    <span *ngIf="rentContract?.contractStatus == global.CONTRACT_OPEN">
+                        <nz-badge nzStatus="processing"></nz-badge>租赁中
+                    </span>
+                    <span *ngIf="rentContract?.contractStatus == global.CONTRACT_CLOSE">
+                        <nz-badge nzStatus="success"></nz-badge>已结算
+                    </span>
+                </nz-descriptions-item>
             </nz-descriptions>
             <nz-divider></nz-divider>
+            <p>
+                <span class="ant-descriptions-title">日租金</span>
+            </p>
             <nz-table
                 [nzSize]="'small'"
                 [nzShowPagination]="false"
